@@ -28,9 +28,6 @@
 [submodule "packages/units"]
 	path = packages/units
 	url = git@github.com:jostylr/ratmath-units.git
-[submodule "papers"]
-	path = papers
-	url = git@github.com:jostylr/ratmath-units.git
 [submodule "rix/repl"]
 	path = rix/repl
 	url = git@github.com:jostylr/rix-repl.git
