@@ -37,3 +37,6 @@
 [submodule "packages/web"]
 	path = packages/web
 	url = git@github.com:jostylr/ratmath-web.git
+[submodule "apps/webcalc"]
+	path = apps/webcalc
+	url = git@github.com:jostylr/ratmath-web.git
