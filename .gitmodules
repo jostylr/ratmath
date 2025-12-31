@@ -34,3 +34,6 @@
 [submodule "apps/webcalc"]
 	path = apps/webcalc
 	url = git@github.com:jostylr/ratmath-web.git
+[submodule "paper"]
+	path = paper
+	url = git@github.com:jostylr/Reals-as-Oracles.git
