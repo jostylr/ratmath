@@ -1,0 +1,9 @@
+{
+    "name": "ratmath-umbrella",
+    "private": true,
+    "workspaces": [
+        "packages/*",
+        "apps/*",
+        "rix/*"
+    ]
+}
