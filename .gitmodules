@@ -1,0 +1,39 @@
+[submodule "rix/web"]
+	path = rix/web
+	url = git@github.com:jostylr/rix-web.git
+[submodule "rix/eval"]
+	path = rix/eval
+	url = git@github.com:jostylr/rix-eval.git
+[submodule "packages/parser"]
+	path = packages/parser
+	url = git@github.com:jostylr/ratmath-parser.git
+[submodule "packages/core"]
+	path = packages/core
+	url = git@github.com:jostylr/ratmath-core.git
+[submodule "apps/forge"]
+	path = apps/forge
+	url = git@github.com:jostylr/ratforge.git
+[submodule "apps/cel"]
+	path = apps/cel
+	url = git@github.com:jostylr/ratcel.git
+[submodule "apps/calc"]
+	path = apps/calc
+	url = git@github.com:jostylr/ratcalc.git
+[submodule "rix/parser"]
+	path = rix/parser
+	url = git@github.com:jostylr/rix-parser.git
+[submodule "packages/oracles"]
+	path = packages/oracles
+	url = git@github.com:jostylr/ratmath-oracles.git
+[submodule "packages/units"]
+	path = packages/units
+	url = git@github.com:jostylr/ratmath-units.git
+[submodule "papers"]
+	path = papers
+	url = git@github.com:jostylr/ratmath-units.git
+[submodule "rix/repl"]
+	path = rix/repl
+	url = git@github.com:jostylr/rix-repl.git
+[submodule "packages/web"]
+	path = packages/web
+	url = git@github.com:jostylr/ratmath-web.git
