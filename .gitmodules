@@ -37,3 +37,9 @@
 [submodule "paper"]
 	path = paper
 	url = git@github.com:jostylr/Reals-as-Oracles.git
+[submodule "packages/reals"]
+	path = packages/reals
+	url = git@github.com:jostylr/ratmath-reals.git
+[submodule "packages/algebra"]
+	path = packages/algebra
+	url = git@github.com:jostylr/ratmath-algebra.git

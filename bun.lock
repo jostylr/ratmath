@@ -11,6 +11,7 @@
         "ratcalc": "index.js",
       },
       "dependencies": {
+        "@ratmath/algebra": "^0.2.0",
         "@ratmath/core": "^0.2.0",
         "@ratmath/parser": "^0.2.0",
       },
@@ -31,8 +32,21 @@
       "name": "ratweb",
       "version": "1.0.0",
       "dependencies": {
+        "@ratmath/algebra": "^0.2.0",
         "@ratmath/core": "^0.2.0",
         "@ratmath/parser": "^0.2.0",
+        "@ratmath/reals": "^0.1.0",
+      },
+    },
+    "packages/algebra": {
+      "name": "@ratmath/algebra",
+      "version": "0.2.0",
+      "dependencies": {
+        "@ratmath/core": "^0.2.0",
+        "@ratmath/parser": "^0.2.0",
+      },
+      "devDependencies": {
+        "bun-types": "latest",
       },
     },
     "packages/core": {
@@ -60,11 +74,22 @@
       "version": "0.2.0",
       "dependencies": {
         "@ratmath/core": "^0.2.0",
+        "@ratmath/reals": "^0.1.0",
+      },
+    },
+    "packages/reals": {
+      "name": "@ratmath/reals",
+      "version": "0.1.0",
+      "dependencies": {
+        "@ratmath/core": "^0.2.0",
+      },
+      "devDependencies": {
+        "bun-types": "latest",
       },
     },
     "packages/units": {
-      "name": "ratmath-units",
-      "version": "0.1.0",
+      "name": "@ratmath/units",
+      "version": "0.2.0",
     },
     "rix/parser": {
       "name": "rix-language-parser",
@@ -75,11 +100,17 @@
     },
   },
   "packages": {
+    "@ratmath/algebra": ["@ratmath/algebra@workspace:packages/algebra"],
+
     "@ratmath/core": ["@ratmath/core@workspace:packages/core"],
 
     "@ratmath/oracles": ["@ratmath/oracles@workspace:packages/oracles"],
 
     "@ratmath/parser": ["@ratmath/parser@workspace:packages/parser"],
+
+    "@ratmath/reals": ["@ratmath/reals@workspace:packages/reals"],
+
+    "@ratmath/units": ["@ratmath/units@workspace:packages/units"],
 
     "@types/bun": ["@types/bun@1.3.5", "", { "dependencies": { "bun-types": "1.3.5" } }, "sha512-RnygCqNrd3srIPEWBd5LFeUYG7plCoH2Yw9WaZGyNmdTEei+gWaHqydbaIRkIkcbXwhBT94q78QljxN0Sk838w=="],
 
@@ -94,8 +125,6 @@
     "ratcalc": ["ratcalc@workspace:apps/calc"],
 
     "ratforge": ["ratforge@workspace:apps/forge"],
-
-    "ratmath-units": ["ratmath-units@workspace:packages/units"],
 
     "ratweb": ["ratweb@workspace:apps/webcalc"],
 
