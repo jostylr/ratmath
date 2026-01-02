@@ -1,6 +1,10 @@
 {
     "name": "ratmath-umbrella",
     "private": true,
+    "scripts": {
+        "test": "bun test",
+        "calc": "bun run ./apps/calc/index.js"
+    },
     "workspaces": [
         "packages/*",
         "apps/*",
