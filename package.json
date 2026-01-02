@@ -3,7 +3,9 @@
     "private": true,
     "scripts": {
         "test": "bun test",
-        "calc": "bun run ./apps/calc/index.js"
+        "calc": "bun run ./apps/calc/index.js",
+        "build-webcalc": "bun run --cwd apps/webcalc build-all",
+        "serve-webcalc": "python3 -m http.server 3000 --directory apps/webcalc/docs"
     },
     "workspaces": [
         "packages/*",
