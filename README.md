@@ -4,4 +4,7 @@ This is an umbrella repo tracking various parts of the RatMath ecosystem. RatMat
 
 The various parts are: 
 
+## Documentation
 
+- [Language Guide](docs/LANGUAGE_GUIDE.md): Detailed guide on variables, functions, scoping, and strictness rules.
+- [JS Integration](docs/JS_INTEGRATION.md): How to integrate JS modules.
