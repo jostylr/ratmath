@@ -43,3 +43,27 @@
 [submodule "packages/algebra"]
 	path = packages/algebra
 	url = git@github.com:jostylr/ratmath-algebra.git
+[submodule "packages/stdlib"]
+	path = packages/stdlib
+	url = git@github.com:jostylr/ratmath-stdlib.git
+[submodule "packages/graphics-core"]
+	path = packages/graphics-core
+	url = git@github.com:jostylr/ratmath-graphics-core.git
+[submodule "packages/graphics-text"]
+	path = packages/graphics-text
+	url = git@github.com:jostylr/ratmath-graphics-text.git
+[submodule "packages/graphics-interactive"]
+	path = packages/graphics-interactive
+	url = git@github.com:jostylr/ratmath-graphics-interactive.git
+[submodule "packages/geometry"]
+	path = packages/geometry
+	url = git@github.com:jostylr/ratmath-geometry.git
+[submodule "packages/stats"]
+	path = packages/stats
+	url = git@github.com:jostylr/ratmath-statistics.git
+[submodule "packagers/calculus"]
+	path = packagers/calculus
+	url = git@github.com:jostylr/ratmath-calculus.git
+[submodule "packages/arith-funs"]
+	path = packages/arith-funs
+	url = git@github.com:jostylr/ratmath-arithmetic-functions.git
