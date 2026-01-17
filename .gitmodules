@@ -61,8 +61,8 @@
 [submodule "packages/stats"]
 	path = packages/stats
 	url = git@github.com:jostylr/ratmath-statistics.git
-[submodule "packagers/calculus"]
-	path = packagers/calculus
+[submodule "packages/calculus"]
+	path = packages/calculus
 	url = git@github.com:jostylr/ratmath-calculus.git
 [submodule "packages/arith-funs"]
 	path = packages/arith-funs

@@ -15,6 +15,8 @@
         "@ratmath/algebra": "^0.2.0",
         "@ratmath/core": "^0.2.0",
         "@ratmath/parser": "^0.2.0",
+        "@ratmath/reals": "^0.1.0",
+        "@ratmath/stdlib": "workspace:*",
       },
     },
     "apps/forge": {
@@ -37,6 +39,7 @@
         "@ratmath/core": "^0.2.0",
         "@ratmath/parser": "^0.2.0",
         "@ratmath/reals": "^0.1.0",
+        "@ratmath/stdlib": "workspace:*",
       },
     },
     "packages/algebra": {
@@ -88,6 +91,14 @@
         "bun-types": "latest",
       },
     },
+    "packages/stdlib": {
+      "name": "@ratmath/stdlib",
+      "version": "0.1.0",
+      "dependencies": {
+        "@ratmath/algebra": "workspace:*",
+        "@ratmath/core": "workspace:*",
+      },
+    },
     "packages/units": {
       "name": "@ratmath/units",
       "version": "0.2.0",
@@ -110,6 +121,8 @@
     "@ratmath/parser": ["@ratmath/parser@workspace:packages/parser"],
 
     "@ratmath/reals": ["@ratmath/reals@workspace:packages/reals"],
+
+    "@ratmath/stdlib": ["@ratmath/stdlib@workspace:packages/stdlib"],
 
     "@ratmath/units": ["@ratmath/units@workspace:packages/units"],
 
