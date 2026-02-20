@@ -336,11 +336,18 @@ describe("RiX-to-IR Script", () => {
         });
 
         test("comments are filtered out (NOP)", () => {
-            const output = rixToIR("# this is a comment\nx = 5;");
+            const output = rixToIR("## this is a comment\nx = 5;");
             const lines = output.split("\n").filter((l) => l.trim());
             // Comment should become NOP and be filtered
             expect(lines.length).toBe(1);
-            expect(lines[0]).toContain("ASSIGN");
+            expect(output).toContain('ASSIGN("x", LITERAL("5"))');
+        });
+
+        test("multi-line tag comments are filtered out", () => {
+            const output = rixToIR("##TAG## ignored ##TAG##\ny = 10;");
+            const lines = output.split("\n").filter((l) => l.trim());
+            expect(lines.length).toBe(1);
+            expect(output).toContain('ASSIGN("y", LITERAL("10"))');
         });
     });
 

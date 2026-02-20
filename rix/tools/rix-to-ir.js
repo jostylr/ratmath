@@ -88,8 +88,7 @@ function systemLookup(name) {
  * @returns {string} System function call text
  */
 export function rixToIR(source, options = {}) {
-    const tokens = tokenize(source);
-    const ast = parse(tokens, systemLookup);
+    const ast = parse(source, systemLookup);
     const irNodes = lower(ast);
 
     // Check for common syntax pitfalls and emit warnings to stderr
@@ -100,6 +99,7 @@ export function rixToIR(source, options = {}) {
     return irListToText(irNodes, {
         langPrefix: options.langPrefix || false,
         pretty: options.pretty || false,
+        source: source,
     });
 }
 
@@ -159,7 +159,7 @@ Common RiX syntax rules:
   - Use :-> for named function definitions: F(x) :-> x + 1
   - Use -> for lambdas: f = (x) -> x + 1
   - Semicolons OR newlines terminate statements
-  - Comments start with #
+  - Comments start with ##, or ##tag##...##tag## for multi-line
 
 Examples:
   bun rix/tools/rix-to-ir.js example-script.rix

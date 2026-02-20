@@ -1,145 +1,135 @@
 ##1## Example Script for RatMath / RiX  
 This script demonstrates current Calc functionality and proposed RiX syntax. ##1##
 
-# ----------------------------------------------------------------------------
-# 1. Variables and Assignments
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 1. Variables and Assignments
+## ----------------------------------------------------------------------------
 
-# [Calc] Current Syntax: strictly lowercase for variables
+## [Calc] Current Syntax: strictly lowercase for variables
 x = 10
 y = 12.5
 z = 1/3
 
-# [RiX] Proposed Syntax: := for assignment
-# x := 10  # Conflict: Calc uses = 
+## [RiX] Proposed Syntax: := for assignment
+## x := 10  ## Conflict: Calc uses = 
 
-# [Calc] Assignments are expressions and return the value
-# result = (a = 5)  # result is 5
+## [Calc] Assignments are expressions and return the value
+## result = (a = 5)  ## result is 5
 
-# ----------------------------------------------------------------------------
-# 2. Collections
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 2. Collections
+## ----------------------------------------------------------------------------
 
-# [Calc] Lists are fundamental
-my_list = [1, 2, 3, 4, 5]
+## [Calc] Lists are fundamental
+myList = [1, 2, 3, 4, 5]
 
-# [Calc] List Operations via stdlib
-len_list = LEN(my_list)      # 5
-first_el = FIRST(my_list)    # 1
-last_el  = LAST(my_list)     # 5
-el_at_1  = GETEL(my_list, 1) # 1 (1-based index)
+## [Calc] List Operations via stdlib
+lenList = LEN(myList)      ## 5
+firstEl = FIRST(myList)    ## 1
+lastEl  = LAST(myList)     ## 5
+elAt1  = GETEL(myList, 1) ## 1 (1-based index)
 
-# [RiX] Proposed Collections (not yet in Calc)
-# my_set = {| 1, 2, 3 |}
-# my_map = {= a=1, b=2 }
-# my_matrix = [[1, 2; 3, 4]]
+## [RiX] Proposed Collections (not yet in Calc)
+## mySet = {| 1, 2, 3 |}
+## myMap = {= a=1, b=2 }
+## myMatrix = [[1, 2; 3, 4]]
 
-# ----------------------------------------------------------------------------
-# 3. Functions
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 3. Functions
+## ----------------------------------------------------------------------------
 
-# [Calc] Function Definition: Strictly Uppercase start
-# Syntax: FuncName(args...) -> body
+## [Calc] Function Definition: Strictly Uppercase start
+## Syntax: FuncName(args...) -> body
 Square(x) -> x^2
 
-# [Calc] Multi-argument function
+## [Calc] Multi-argument function
 Avg(a, b) -> (a + b) / 2
 
-# [Calc] Using built-in functions in definitions
-# IF(condition, true_val, false_val)
+## [Calc] Using built-in functions in definitions
+## IF(condition, trueVal, falseVal)
 AbsVal(x) -> IF(x >= 0, x, -x)
 
-# [RiX] Proposed Syntax
-# Square(x) :-> x^2  # or Square := x -> x^2
+## [RiX] Proposed Syntax
+## Square(x) :-> x^2  ## or Square := x -> x^2
 
-# Usage
-sq_10 = Square(10)   # 100
-avg_val = Avg(10, 20) # 15
+## Usage
+sq10 = Square(10)   ## 100
+avgVal = Avg(10, 20) ## 15
 
-# ----------------------------------------------------------------------------
-# 4. Control Flow and Higher Order Functions
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 4. Control Flow and Higher Order Functions
+## ----------------------------------------------------------------------------
 
-# [Calc] Functional transformations using MAP, FILTER, REDUCE
+## [Calc] Functional transformations using MAP, FILTER, REDUCE
 
-# Generate a range
-# IRANGE(start, end) -> [start, start+1, ..., end]
+## Generate a range
+## IRANGE(start, end) -> [start, start+1, ..., end]
 nums = IRANGE(1, 10)
 
-# MAP: Apply function to all elements
-squares = MAP(nums, Square)  # [1, 4, 9, ..., 100]
+## MAP: Apply function to all elements
+squares = MAP(nums, Square)  ## [1, 4, 9, ..., 100]
 
-# FILTER: Keep elements matching predicate
+## FILTER: Keep elements matching predicate
 IsEven(x) -> EQ(MOD(x, 2), 0)
-evens = FILTER(nums, IsEven) # [2, 4, 6, 8, 10]
+evens = FILTER(nums, IsEven) ## [2, 4, 6, 8, 10]
 
-# REDUCE: Accumulate values
-# Sum(acc, val) -> acc + val
+## REDUCE: Accumulate values
+## Sum(acc, val) -> acc + val
 Sum(a, b) -> a + b
-total = REDUCE(nums, Sum, 0) # 55
+total = REDUCE(nums, Sum, 0) ## 55
 
-# [Calc] Explicit Loop / Sequence
-# MULTI evaluates expressions in order, returns last result
-# ASSIGN allows mutating variables in scope (careful!)
-complex_calc = MULTI(
+## [Calc] Explicit Loop / Sequence
+## MULTI evaluates expressions in order, returns last result
+## ASSIGN allows mutating variables in scope (careful!)
+complexCalc = MULTI(
     ASSIGN("temp", 0),
     ASSIGN("temp", temp + 5),
     temp * 2
-) # returns 10
+) ## returns 10
 
-# ----------------------------------------------------------------------------
-# 5. Units and Custom Bases
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 5. Units and Custom Bases
+## ----------------------------------------------------------------------------
 
-# [Calc] Units via 'units' package functions (if loaded)
-# LOAD units
-# conv = CONVERT(10, "m", "ft")
+## [Calc] Units via 'units' package functions (if loaded)
+## LOAD units
+## conv = CONVERT(10, "m", "ft")
 
-# [RiX] Proposed Syntax
-# dist := 10~[m]
-# conv := dist |> CONVERT("ft")
+## [RiX] Proposed Syntax
+## dist := 10~[m]
+## conv := dist |> CONVERT("ft")
 
-# [Calc] Custom Bases
-# Input specific base
-bin_val = 0b1010  # 10
-hex_val = 0xFF    # 255
+## [Calc] Custom Bases
+## Input specific base
+binVal = 0b1010  ## 10
+hexVal = 0xFF    ## 255
 
-# ----------------------------------------------------------------------------
-# 6. Strings
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 6. Strings
+## ----------------------------------------------------------------------------
 
-# [Calc] Strings are double-quoted
+## [Calc] Strings are double-quoted
 str = "Hello World"
-up = UPPER(str)       # "HELLO WORLD"
-sub = SUBSTR(str, 0, 5) # "Hello"
+up = UPPER(str)       ## "HELLO WORLD"
+sub = SUBSTR(str, 0, 5) ## "Hello"
 
-# ----------------------------------------------------------------------------
-# 7. Math & Science (stdlib)
-# ----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
+## 7. Math & Science (stdlib)
+## ----------------------------------------------------------------------------
 
-# Constants (from 'reals' package if loaded)
-# LOAD reals
-# pi_val = PI()
-# sin_val = Sin(PI()/2)
+## Constants (from 'reals' package if loaded)
+## LOAD reals
+## piVal = PI()
+## sinVal = Sin(PI()/2)
 
-# Polynomials (from 'arith-funs' package if loaded)
-# LOAD arith-funs
-# P = Poly({1, 2, 1}) # 1 + 2x + x^2
-# roots = PolyRatRoots(P)
+## Polynomials (from 'arith-funs' package if loaded)
+## LOAD arith-funs
+## P = Poly({1, 2, 1}) ## 1 + 2x + x^2
+## roots = PolyRatRoots(P)
 
-# ----------------------------------------------------------------------------
-# Highlighted Conflicts
-# ----------------------------------------------------------------------------
+a = 5
+b := 10
+c = a(b+2)
+d == 60
 
-# Conflict 1: Assignment Operator
-# Calc: x = 5
-# RiX:  x := 5
-
-# Conflict 2: Function Case Sensitivity
-# Calc: Func(x) (Must be Uppercase)
-# RiX:  func(x) (Standard identifiers)
-
-# Conflict 3: Equality Check
-# Calc: EQ(a, b) or sometimes a = b in boolean context?
-# RiX:  a ?= b (Explicit query operator)
 
