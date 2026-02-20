@@ -5,7 +5,8 @@
         "test": "bun test",
         "calc": "bun run ./apps/calc/index.js",
         "build-webcalc": "bun run --cwd apps/webcalc build-all",
-        "serve-webcalc": "python3 -m http.server 3000 --directory apps/webcalc/docs"
+        "serve-webcalc": "python3 -m http.server 3000 --directory apps/webcalc/docs",
+        "rix-to-ir": "bun run ./rix/tools/rix-to-ir.js"
     },
     "workspaces": [
         "packages/*",

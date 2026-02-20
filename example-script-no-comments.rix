@@ -1,0 +1,45 @@
+x = 10
+z = 1/3
+a := 7
+b := a + 3
+c = d = 5
+p = 5; q = 10; r = p + q
+sum = x + a
+product = x * a
+quotient = x / a
+squared = x ^ 2
+rem = 10 % 3
+intDiv = 10 // 3
+neg = -x
+myList = [1, 2, 3, 
+4, 5]
+myTuple = {: 5, 10, 15 }
+myMap = {= name="Alice", age=30 }
+myInterval = 1 : 10
+gt = x > a
+lt = x < a
+eq = x == 10
+neq = x != 5
+gte = x >= 10
+lte = x <= 10
+bothTrue = gt AND lte
+eitherTrue = lt OR eq
+absX = x > 0 ?? x ?: -x
+Square(x) -> x ^ 2
+Avg(a, b) -> (a + b) / 2
+AbsVal(x) :-> x >= 0 ?? x ?: -x
+Clamp(v, lo, hi) :-> {; 
+t = v < lo ?? lo ?: v; t > hi ?? hi ?: t 
+}
+sq10 = Square(10)
+avgVal = Avg(10, 20)
+double = (n) -> n * 2
+addOne = (n) -> n + 1
+addTwo = (aa, bb) -> aa + bb
+blockResult = {; bp = 10; bq = 20; bp + bq }
+grade = {? b >= 90 ? "A"; b >= 70 ? "B"; "C" }
+lazily = @{; x + 1 }
+str = "Hello World"
+directResult = @_ADD(3, 4)
+addRef = @_ADD
+nested = @_ADD(@_LITERAL("3"), @_LITERAL("4"))

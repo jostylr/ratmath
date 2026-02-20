@@ -100,13 +100,27 @@ This guide specifies the language used in `ratmath`'s calculator environment (`c
 ## 5. Functions and Lambdas
 
 ### Agreed Syntax
-- **Arrow Functions**: `(args) -> body`.
+- **Arrow Functions (lambdas)**: `(args) -> body`.
 - **Application**: `F(x)`.
 
+### Named Function Definitions
+Both `->` and `:->` are valid for named function definitions (mirroring `=` vs `:=` for assignment):
+
+```
+# Both of these are identical:
+Square(x) -> x ^ 2
+Square(x) :-> x ^ 2
+
+# Multi-argument:
+Avg(a, b) -> (a + b) / 2
+Avg(a, b) :-> (a + b) / 2
+```
+
+- `(x) -> body` (parenthesized params with no preceding name) = **lambda** (anonymous function)
+- `Name(x) -> body` or `Name(x) :-> body` = **named function definition** (FUNCDEF)
+- `f = (x) -> body` = **assign lambda to variable** (also valid)
+
 ### Divergences
-- **Definitions**:
-    - **Calc**: `Add(a, b) -> a + b`.
-    - **RiX**: `Add(a, b) :-> a + b` or `Add := (a,b) -> a+b`.
 - **Pattern Matching**:
     - **RiX**: `abs :=> [(x ? x >= 0) -> x, (x ? x < 0) -> -x]`.
     - **Calc**: Uses `IF` inside body: `Abs(x) -> IF(x >= 0, x, -x)`.
