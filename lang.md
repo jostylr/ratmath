@@ -22,15 +22,39 @@ This guide specifies the language used in `ratmath`'s calculator environment (`c
     - **@ Prefix**: Used internally or for disambiguation (e.g., `@MyFunc`).
 - **RiX**:
     - **Identifiers**: Unicode support. Case-sensitive first letter distinction is similar to Calc (System vs User scope).
-    - **System vs User**: Often distinguishes by case, but RiX parsers might be more flexible with "User" vs "System" identifiers in AST.
+    - **Naming Convention**: **camelCase** is strongly recommended (e.g., `myVar`, `calculateScale`).
+    - **Underscores**: In RiX, `_` is a **null operator** (same as `NULL()`). Therefore, `snake_case` is parsed as `snake _ case` (multiplication with a null in the middle) and will trigger warnings.
 
 > [!WARNING]
-> **Conflict**: `calc` enforcing strict lowercase for variables and uppercase for functions is a hard constraint in the current `VariableManager`. RiX might allow `myFunc`.
-> **Resolution**: Follow `VariableManager` rules for now: **Variables = lowercase, Functions = Uppercase**.
+> **Conflict**: `calc` enforcing strict lowercase for variables and uppercase for functions is a hard constraint in the current `VariableManager`. 
+> **Resolution**: For cross-compatibility, prefer **lowercase/camelCase** for variables and **Uppercase** for functions. Avoid `_` in RiX script identifiers.
 
 ---
 
-## 2. Assignments
+## 2. Comments
+
+### Agreed Syntax
+- None fully agreed.
+
+### Divergences & Conflicts
+- **Calc**:
+    - Uses `#` for line comments (e.g., `# This is a comment`).
+- **RiX**:
+    - **Line Comment**: Uses `##` (double hash) for line comments.
+    - **Multi-line Comment**: Uses `##tag##...##tag##` for block comments. Tags are case-insensitive and cannot contain whitespace.
+
+```rix
+## This is a line comment
+
+##MATH##
+This is a multi-line 
+block comment with a tag.
+##MATH##
+```
+
+---
+
+## 3. Assignments
 
 ### Agreed Syntax
 - None fully agreed for all contexts, but `=` is common.
@@ -107,11 +131,11 @@ This guide specifies the language used in `ratmath`'s calculator environment (`c
 Both `->` and `:->` are valid for named function definitions (mirroring `=` vs `:=` for assignment):
 
 ```
-# Both of these are identical:
+## Both of these are identical:
 Square(x) -> x ^ 2
 Square(x) :-> x ^ 2
 
-# Multi-argument:
+## Multi-argument:
 Avg(a, b) -> (a + b) / 2
 Avg(a, b) :-> (a + b) / 2
 ```
@@ -214,14 +238,4 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 - **Pattern Matching**: Function dispatch based on conditions.
 - **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
 
----
-
-## 9. Conflict Resolution Strategy
-
-1.  **Assignments**: `calc` uses `=`. `RiX` wants `:=`.
-    - *Plan*: Support both? Or migrate `calc` to allow `:=`.
-2.  **Equality**: `calc` uses `EQ()`. `RiX` wants `?=` or `=`.
-    - *Plan*: Ideally standard math `=` for equality check in boolean context, but `:=` for assignment avoids ambiguity. `calc` currently parses `a = b` as assignment.
-3.  **Functions**: `calc` requires Uppercase. `RiX` allows flexible.
-    - *Plan*: `calc`'s `VariableManager` logic is strict. Keep Uppercase for "Functions" (macros/lambdas) to distinguish from variables.
-
+--

@@ -7,6 +7,7 @@ RatMath provides a powerful calculator environment with support for arbitrary pr
 - **Numbers**: Integers (`123`), Decimals (`1.5`), Rationals (`1/3`).
 - **Bases**: Supports Binary (`0b10`), Octal (`0o10`), Hex (`0xA`), and arbitrary bases via `BASE <N>`.
 - **Assignment**: `a = 10`
+- **Comments**: `#` for line comments in Calc. RiX uses `##` for line comments and `##tag##...##tag##` for block comments.
 
 ## Variables & Scoping
 
