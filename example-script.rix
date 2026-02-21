@@ -130,6 +130,5 @@ sub = SUBSTR(str, 0, 5) ## "Hello"
 a = 5
 b := 10
 c = a(b+2)
-d == 60
-
-
+c == 60
+sq10
