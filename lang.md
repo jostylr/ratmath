@@ -186,7 +186,7 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 ### Logic
 - `EQ(a, b)`, `NEQ(a, b)`
 - `GT(a, b)`, `GX(a, b)`, `GTE(a, b)`, `LTE(a, b)`
-- `AND(args...)`, `OR(args...)`, `NOT(a)`
+- `AND(args...)` (alias `&&`), `OR(args...)` (alias `||`), `NOT(a)` (alias `!`)
 
 ### List Operations
 - `LEN(list)`
@@ -232,7 +232,9 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 
 ## 8. Proposed Features (RiX to Integrate)
 
-- **Syntax Sugar**: `:=` for assignment, `|>` for pipes.
+- **Syntax Sugar**: `:=` for assignment, `|>` for pipes, `&&`/`||` for logic, `!` for NOT.
+- **N-ary Operators**: `{+ a, b, ...}` and `{* a, b, ...}` brace sigils for N-ary addition/concatenation and multiplication.
+- **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
 - **Units**: First-class support (`~[m]`).
 - **Complex Numbers**: `~{i}` syntax.
 - **Pattern Matching**: Function dispatch based on conditions.
