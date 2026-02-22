@@ -23,11 +23,11 @@ This guide specifies the language used in `ratmath`'s calculator environment (`c
 - **RiX**:
     - **Identifiers**: Unicode support. Case-sensitive first letter distinction is similar to Calc (System vs User scope).
     - **Naming Convention**: **camelCase** is strongly recommended (e.g., `myVar`, `calculateScale`).
-    - **Underscores**: In RiX, `_` is a **null operator** (same as `NULL()`). Therefore, `snake_case` is parsed as `snake _ case` (multiplication with a null in the middle) and will trigger warnings.
+    - **Underscores**: `_` is a valid character in identifiers (e.g. `snake_case`, `_private`). However, a standalone `_` is the **null operator** (same as `NULL()`).
 
 > [!WARNING]
 > **Conflict**: `calc` enforcing strict lowercase for variables and uppercase for functions is a hard constraint in the current `VariableManager`. 
-> **Resolution**: For cross-compatibility, prefer **lowercase/camelCase** for variables and **Uppercase** for functions. Avoid `_` in RiX script identifiers.
+> **Resolution**: For cross-compatibility, prefer **lowercase/camelCase/snake_case** for variables and **Uppercase** for functions.
 
 ---
 

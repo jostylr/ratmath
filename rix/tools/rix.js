@@ -13,7 +13,8 @@ import { parseAndEvaluate } from "../eval/src/evaluator.js";
 import { Context } from "../eval/src/context.js";
 
 function formatResult(val) {
-    if (val === null || val === undefined) return "null";
+    if (val === null) return "_";
+    if (val === undefined) return "undefined";
 
     // Handle RiX internal object types
     if (typeof val === "object" && val !== null) {
@@ -71,7 +72,7 @@ async function main() {
         try {
             const source = readFileSync(inputFile, "utf-8");
             const result = parseAndEvaluate(source, { context });
-            if (result !== null && result !== undefined) {
+            if (result !== undefined) {
                 console.log(formatResult(result));
             }
         } catch (error) {
@@ -103,7 +104,7 @@ async function main() {
 
             try {
                 const result = parseAndEvaluate(trimmed, { context });
-                if (result !== null && result !== undefined) {
+                if (result !== undefined) {
                     console.log(formatResult(result));
                 }
             } catch (error) {
