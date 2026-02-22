@@ -179,9 +179,9 @@ Defined default bases are:
 - `q` for quaternary (Base 4)
 - `f` for Base 5
 - `s` for Base 7
-- `d` for Base 12 (clock)
+- `d` for Base 12 (duodecimal)
 - `x` for hexadecimal (Base 16)
-- `v` for Base 20 (should be A-I)
+- `v` for Base 20 (vigesimal)
 - `u` for Base 36 (url shorteners)
 - `m` for Base 60 (mesopotamia)
 - `y` for Base 64 (0-9A-Za-z@&)
