@@ -72,7 +72,8 @@ block comment with a tag.
 
 > [!IMPORTANT]
 > **Conflict**: `calc` uses `=` for assignment. `RiX` proposes `:=` to distinguish from equality checks (`=` or `==`).
-> **RiX Proposal**: `x := 3` (Assignment), `x = 3` (Equality Check or Equation).
+> **RiX Proposal**: `x := 3` or `x = 3` (Assignment), `x == 3` (Equality Check). `RiX` also supports combo operators `+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`, `**=`.
+> To explicitly assign to or retrieve from a variable *outside the innermost scope*, use the `@` prefix: `@x += 1` or `y = @x`. This prevents local scope shadowing within lambdas.
 > **Current Calc**: `x = 3` (Assignment), `EQ(x, 3)` (Equality).
 
 ---

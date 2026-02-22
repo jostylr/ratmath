@@ -37,6 +37,19 @@ function formatResult(val) {
             });
             return `{= ${entries.join(", ")} }`;
         }
+        if (val.type === "function" || val.type === "lambda") {
+            const params = val.params?.positional?.map(p => p.name).join(", ") || "";
+            if (val.type === "lambda") {
+                return `[Lambda: (${params})]`;
+            }
+            return `[Function: ${val.name || "Anonymous"}(${params})]`;
+        }
+        if (val.type === "pattern_function") {
+            return `[PatternFunction: ${val.name || "Anonymous"}]`;
+        }
+        if (val.type === "sysref") {
+            return `[SystemFunction: ${val.name}]`;
+        }
         if (val.type === "interval") return `${val.start || val.lo}:${val.end || val.hi}`;
     }
 
