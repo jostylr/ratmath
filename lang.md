@@ -92,7 +92,7 @@ block comment with a tag.
     - **RiX**: `1..3/4`.
 - **Intervals**:
     - **Calc**: `1:5` (Rational Interval).
-    - **RiX**: `2:5`.
+    - **RiX**: `2:5` (Interval). Also supports chained betweenness checks like `2:3:5`.
 - **Units**:
     - **Calc**: No native syntax, uses `units` package functions (e.g., `CONVERT(val, "m", "ft")`).
     - **RiX**: Postfix syntax proposed: `3.2~[m]` (scientific), `2~{i}` (mathematical).
@@ -231,14 +231,16 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 
 ---
 
-## 8. Proposed Features (RiX to Integrate)
+## 8. RiX Features
 
 - **Syntax Sugar**: `:=` for assignment, `|>` for pipes, `&&`/`||` for logic, `!` for NOT.
 - **N-ary Operators**: `{+ a, b, ...}` and `{* a, b, ...}` brace sigils for N-ary addition/concatenation and multiplication.
 - **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
+- **Betweenness**: Chained colon operator `a:b:c` for checking if `b` is between `a` and `c` (inclusive). This includes any n-ary betweenness checks as well as nested intervals and sets of numbers and intervals. 
+- **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
+
+## 9. Future Features
+
 - **Units**: First-class support (`~[m]`).
 - **Complex Numbers**: `~{i}` syntax.
 - **Pattern Matching**: Function dispatch based on conditions.
-- **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
-
---
