@@ -169,6 +169,21 @@ Mixed numbers are supported using a double period `..` to attach an integer to a
 - `1..3/4` parses exactly as $1 + 3/4 = 7/4$.
 - `-2..1/2` parses exactly as $-5/2$.
 
+### Intervals and Betweenness
+
+RiX treats intervals as first-class objects using the colon `:` operator. An interval represents the range of values between two endpoints.
+- `1:5` creates a **RationalInterval** from 1 to 5.
+- `5:2` creates an interval from 5 down to 2. RiX preserves the input order for display, but mathematically they cover the same range.
+
+#### Betweenness
+When three or more values are chained with colons, RiX automatically switches from interval creation to a **betweenness check**. It evaluates whether the values are in monotonic (ascending or descending) order.
+- `2:3:5` returns `1` (true) because 3 is between 2 and 5.
+- `2:6:5` returns `null` because 6 is not between 2 and 5.
+
+This n-ary betweenness works for arbitrary chain lengths (e.g., `1:2:3:4:5`) and even supports **nested containers**:
+- `2:(3:4):5` checks if the interval `3:4` is entirely contained within `2:5`.
+- `2:{|3, 4, 4.5|}:5` checks if every element in the set is between 2 and 5.
+
 ### Bases
 Input numbers are in base 10 unless they have a leading `0` followed by a letter. There are some bases that are named by default, such as `0b` for binary. Capital letters are available for user defined bases. 
 
