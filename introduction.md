@@ -170,7 +170,6 @@ Mixed numbers are supported using a double period `..` to attach an integer to a
 - `-2..1/2` parses exactly as $-5/2$.
 
 ### Bases
-### Bases
 Input numbers are in base 10 unless they have a leading `0` followed by a letter. There are some bases that are named by default, such as `0b` for binary. Capital letters are available for user defined bases. 
 
 Defined default bases are:
@@ -227,3 +226,43 @@ When validating equations or tests, you have special assertion operators:
 - `:<:` Asserts less than
 - `:>:` Asserts greater than
 - `:<=:` / `:>=:` Asserts boundaries.
+
+---
+
+## 11. Regex Literals
+
+RiX provides first-class support for Regular Expressions using the `{/pattern/flags?mode}` syntax. A regex literal evaluates to a function that you can then call with a string to perform matching.
+
+### Syntax and Modes
+The character following the trailing slash determines the evaluation **mode**:
+
+| Mode | Syntax | Returns |
+|------|--------|---------|
+| **ONE** | `{/pat/}` | The first Match object found, or `null`. |
+| **TEST** | `{/pat/?}` | `1` if a match exists, otherwise `null`. |
+| **ALL** | `{/pat/*}` | A sequence of all Match objects found. |
+| **ITER** | `{/pat/:}` | A stateful iterator function for sequential or indexed access. |
+
+### Match Objects
+When a regex matches, it returns a **Map** containing:
+- `text`: The full text of the match.
+- `span`: A tuple `{: start, end }` (1-based indices).
+- `groups`: A sequence of all capture groups.
+- `spans`: A sequence of tuples for each capture group's span.
+- `named`: A map of named capture groups.
+- `named spans`: A map of spans for named capture groups.
+- `input`: The original input string.
+
+### Examples
+```rix
+## Simple check
+IsEmail := {/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/?}
+IsEmail("test@example.com") ## Returns 1
+
+## Iterator usage
+Scanner := {/\d+/:}
+it := Scanner("12 apples, 45 oranges")
+it() ## Returns match object for "12"
+it() ## Returns match object for "45"
+it(1) ## Random access: returns "12" again
+```

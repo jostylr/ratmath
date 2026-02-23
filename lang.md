@@ -238,6 +238,7 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 - **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
 - **Betweenness**: Chained colon operator `a:b:c` for checking if `b` is between `a` and `c` (inclusive). This includes any n-ary betweenness checks as well as nested intervals and sets of numbers and intervals. 
 - **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
+- **Regex Literals**: First-class support with `{/pattern/flags?mode}` syntax. Supported modes include `ONE`, `TEST` (`?`), `ALL` (`*`), and `ITER` (`:`). 
 
 ## 9. Future Features
 
