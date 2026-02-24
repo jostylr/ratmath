@@ -99,11 +99,13 @@ adder(10, 20) ## Retrieves `ADD`, then calls it, returning 30
 
 ## 6. Pipe Operators `|>`
 
-RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place.
+RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
 
 - `val |> fn`: Pipe `val` as the first argument to `fn`.
 - `coll |>/ i:j`: Strict slice of a collection. Both `i` and `j` must be integers exactly within the bounds. Negative indices index from the end. Returns `null` if bounds are invalid.
 - `coll |>// i:j`: Clamped slice of a collection. Clamps out-of-bounds indices to the collection's boundaries. Returns an empty collection instead of `null`. Directed intervals reverse standard operations.
+- `coll |>/| sep`: Split (`PSPLIT`) the collection or string by a delimiter string, a `REGEX` or a predicate function. The function form starts a SEP with true and ends with false. Separators are not included. 
+- `coll |>#| nOrFn`: Chunk (`PCHUNK`) the collection into subarrays/substrings of an integer size `n` or split when a predicate boundary matches.
 - `coll |>> fn`: Map (`PMAP`) `fn` over each element in the collection.
 - `coll |>? pred`: Filter (`PFILTER`) the collection using the predicate `pred`.
 - `coll |>: fn`: Reduce (`PREDUCE`) the collection using `fn` signature `acc, val`.
