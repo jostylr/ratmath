@@ -233,7 +233,7 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 
 ## 8. RiX Features
 
-- **Syntax Sugar**: `:=` for assignment, `|>` for pipes, `&&`/`||` for logic, `!` for NOT.
+- **Syntax Sugar**: `:=` for assignment, `|>` and `|>/` / `|>//` for pipes and slicing, `&&`/`||` for logic, `!` for NOT.
 - **N-ary Operators**: `{+ a, b, ...}` and `{* a, b, ...}` brace sigils for N-ary addition/concatenation and multiplication.
 - **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
 - **Betweenness**: Chained colon operator `a:b:c` for checking if `b` is between `a` and `c` (inclusive). This includes any n-ary betweenness checks as well as nested intervals and sets of numbers and intervals. 

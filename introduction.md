@@ -101,14 +101,16 @@ adder(10, 20) ## Retrieves `ADD`, then calls it, returning 30
 
 RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place.
 
-- `val \|> fn`: Pipe `val` as the first argument to `fn`.
-- `coll \|>> fn`: Map (`PMAP`) `fn` over each element in the collection.
-- `coll \|>? pred`: Filter (`PFILTER`) the collection using the predicate `pred`.
-- `coll \|>: fn`: Reduce (`PREDUCE`) the collection using `fn` signature `acc, val`.
-- `coll \|:> val : fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
-- `coll \|><`: Reverse (`PREVERSE`) the collection.
-- `coll \|<> fn`: Sort (`PSORT`) the collection using the comparator `fn`.
-- `coll \|>&& pred`: Check if all elements pass the predicate. Returns `1` if they do, `null` otherwise.
+- `val |> fn`: Pipe `val` as the first argument to `fn`.
+- `coll |>/ i:j`: Strict slice of a collection. Both `i` and `j` must be integers exactly within the bounds. Negative indices index from the end. Returns `null` if bounds are invalid.
+- `coll |>// i:j`: Clamped slice of a collection. Clamps out-of-bounds indices to the collection's boundaries. Returns an empty collection instead of `null`. Directed intervals reverse standard operations.
+- `coll |>> fn`: Map (`PMAP`) `fn` over each element in the collection.
+- `coll |>? pred`: Filter (`PFILTER`) the collection using the predicate `pred`.
+- `coll |>: fn`: Reduce (`PREDUCE`) the collection using `fn` signature `acc, val`.
+- `coll |:> val : fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
+- `coll |><`: Reverse (`PREVERSE`) the collection.
+- `coll |<> fn`: Sort (`PSORT`) the collection using the comparator `fn`.
+- `coll |>&& pred`: Check if all elements pass the predicate. Returns `1` if they do, `null` otherwise.
 
 **Example Pipeline:**
 ```rix
