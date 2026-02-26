@@ -236,6 +236,7 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 - **Syntax Sugar**: `:=` for assignment, `|>` with `|>/`, `|>//`, `|>/|`, `|>#|` for pipes (slicing, splitting, chunking), `&&`/`||` for logic, `!` for NOT.
 - **N-ary Operators**: `{+ a, b, ...}` and `{* a, b, ...}` brace sigils for N-ary addition/concatenation and multiplication.
 - **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
+- **Partial Functions**: First-class support for partial application using placeholders `_1`, `_2`, etc. (e.g., `Double = @*(_1, 2)`). Supports argument reordering (`@-(_2, _1)`) and duplication (`@*(_1, _1)`).
 - **Betweenness**: Chained colon operator `a:b:c` for checking if `b` is between `a` and `c` (inclusive). This includes any n-ary betweenness checks as well as nested intervals and sets of numbers and intervals. 
 - **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
 - **Regex Literals**: First-class support with `{/pattern/flags?mode}` syntax. Supported modes include `ONE`, `TEST` (`?`), `ALL` (`*`), and `ITER` (`:`). 

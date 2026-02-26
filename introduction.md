@@ -95,6 +95,27 @@ adder := @+
 adder(10, 20) ## Retrieves `ADD`, then calls it, returning 30
 ```
 
+### Partial Application and Placeholders
+RiX supports powerful partial application using placeholders `_1`, `_2`, etc. When you call a function and use one or more of these placeholders instead of a value, it returns a **Partial Function**.
+
+```rix
+Double := @*(_1, 2)
+Double(5) ## Returns 10
+
+## Reordering arguments
+SwapSubtract := @-(_2, _1)
+SwapSubtract(10, 30) ## Returns 20 (30 - 10)
+
+## Duplicating arguments
+Square := @*(_1, _1)
+Square(4) ## Returns 16
+```
+
+Partial functions are especially useful in pipelines:
+```rix
+[1, 2, 3] |>> @+(_1, 10) ## [11, 12, 13]
+```
+
 ---
 
 ## 6. Pipe Operators `|>`

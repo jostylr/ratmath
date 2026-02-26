@@ -51,6 +51,13 @@ function formatResult(val) {
         if (val.type === "sysref") {
             return `[SystemFunction: ${val.name}]`;
         }
+        if (val.type === "partial") {
+            const arity = (val.template || []).reduce(
+                (max, t) => (t && t.type === "placeholder") ? Math.max(max, t.index) : max,
+                0
+            );
+            return `[Partial: ${arity}]`;
+        }
         if (val.type === "interval") return `${val.start || val.lo}:${val.end || val.hi}`;
     }
 
