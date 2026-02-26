@@ -58,15 +58,29 @@ Everything else—including `0`, `""` (empty string), and empty collections `[]`
 
 ---
 
-## 4. The Braces Syntax
+RiX heavily leverages braces `{...}` for creating various containers, collections, and execution blocks. 
 
-RiX heavily leverages braces `{...}` for creating various containers, collections, and execution blocks. The very first character or operator inside the opening brace dictates what type of container it is:
+### 4.1 Plain Braces: Execution Blocks
+Plain braces `{ ... }` are **always** interpreted as execution blocks. They execute statements sequentially and return the value of the final statement.
+
+```rix
+## Simple block
+{ 
+  x := 5; 
+  y := 10; 
+  x + y 
+} ## Returns 15
+```
+
+### 4.2 Sigilled Braces
+For other types of containers or specialized execution, a "sigil" is used immediately after the opening brace:
 
 | Syntax | Type | Example / Description |
 |--------|------|-------------|
-| `{; ... }` | **Block** | Sequential execution. Returns the value of the last statement. Example: `{; a := 1; b := 2; a + b }` |
-| `{? ... }` | **Case / Branch** | Conditional branching (if/elseif/else). Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop mapping to `{@ init; condition; body; update }`. |
+| `{; ... }` | **Explicit Block** | Alternative syntax for blocks. |
+| `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. |
+| `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }` |
 | `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
 | `{\| ... }` | **Set** | A collection of unique elements. Example: `{\| 1, 2, 3 }` |
 | `{: ... }` | **Tuple** | Fixed-length collection. Example: `{: x, y, z }` |
