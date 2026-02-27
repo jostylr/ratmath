@@ -11,6 +11,7 @@ import { readFileSync } from "fs";
 import { createInterface } from "readline";
 import { parseAndEvaluate } from "../eval/src/evaluator.js";
 import { Context } from "../eval/src/context.js";
+import { Rational, RationalInterval } from "@ratmath/core";
 
 function formatResult(val) {
     if (val === null) return "_";
@@ -61,6 +62,8 @@ function formatResult(val) {
         if (val.type === "interval") return `${val.start || val.lo}:${val.end || val.hi}`;
     }
 
+    if (val instanceof Rational) return val.toMixedString();
+    if (val instanceof RationalInterval) return val.toMixedString();
     return val.toString();
 }
 
