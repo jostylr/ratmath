@@ -5,7 +5,7 @@ RatMath provides a powerful calculator environment with support for arbitrary pr
 ## Basics
 
 - **Numbers**: Integers (`123`), Decimals (`1.5`), Rationals (`1/3`), Mixed numbers (`1..3/4`).
-- **Bases**: Supports Binary (`0b10`), Octal (`0o10`), Hex (`0xA`), and arbitrary bases via `0z[N]`.
+- **Bases**: Supports Binary (`0b10`), Octal (`0o10`), Hex (`0xA`), custom uppercase prefixes (`0A = "..."`), and arbitrary bases via `0z[N]`.
 - **Assignment**: `a = 10`
 - **Comments**: RiX uses `##` for line comments and `##tag##...##tag##` for block comments.
 
@@ -134,3 +134,15 @@ G(x?_val) -> x // Looks up _val at call time
 
 ## Modules
 Load modules using `LOAD <module>`.
+
+## Base I/O Operators
+
+- `value _> baseSpec`: format a number into a base string.
+- `string <_ baseSpec`: parse a base string into an exact numeric value.
+
+`baseSpec` can be a prefix token (for example `0b`, `0x`, `0A`), a digit string (`"01"`), a tuple (`{: 2, "01" }`), or an integer base (`2..64`).
+
+Examples:
+- `5 _> 0b` -> `"101"`
+- `"101" <_ 0b` -> `5`
+- `74 _> 0A` -> `"4A"` (after defining `0A`)

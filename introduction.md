@@ -263,6 +263,22 @@ Defined default bases are:
 
 `0z[23]13FASD3` indicates a custom base of 23 which goes from 0 to 9 and then A-M. Base 64 is as high as the default goes; above that one must define a custom set of symbols, presumably going into unicode territory.
 
+You can also define custom uppercase base prefixes directly:
+- `0A = "0123456789ABCDEF"`
+- `0B = {: 2, "01" }`
+
+Base conversion operators:
+- `n _> baseSpec` formats a number to a base string.
+- `str <_ baseSpec` parses a base string back into an exact number.
+
+Examples:
+- `74 _> 0A` gives `"4A"`.
+- `"4A.F" <_ 0A` gives `74 + 15/16`.
+
+Prefixed literals also support quoted digit streams:
+- `0A4A.F`
+- `0A"4A.F"`
+
 ---
 
 ## 9. Units (Scientific and Algebraic)
