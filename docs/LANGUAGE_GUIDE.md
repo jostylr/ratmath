@@ -4,10 +4,28 @@ RatMath provides a powerful calculator environment with support for arbitrary pr
 
 ## Basics
 
-- **Numbers**: Integers (`123`), Decimals (`1.5`), Rationals (`1/3`).
-- **Bases**: Supports Binary (`0b10`), Octal (`0o10`), Hex (`0xA`), and arbitrary bases via `BASE <N>`.
+- **Numbers**: Integers (`123`), Decimals (`1.5`), Rationals (`1/3`), Mixed numbers (`1..3/4`).
+- **Bases**: Supports Binary (`0b10`), Octal (`0o10`), Hex (`0xA`), and arbitrary bases via `0z[N]`.
 - **Assignment**: `a = 10`
-- **Comments**: `#` for line comments in Calc. RiX uses `##` for line comments and `##tag##...##tag##` for block comments.
+- **Comments**: RiX uses `##` for line comments and `##tag##...##tag##` for block comments.
+
+### Special Number Formats (RiX)
+
+All of these produce exact rational values with no floating point error.
+
+| Format | Example | Value | Description |
+|--------|---------|-------|-------------|
+| Repeating decimal | `0.#3` | 1/3 | `#` starts the repeating digit sequence |
+| Repeating decimal | `1.23#45` | 1.23̄4̄5̄… | non-repeating part then repeating part |
+| Radix shift | `1_^2` | 100 | multiply by 10² (shifts decimal right) |
+| Radix shift | `1_^-2` | 1/100 | multiply by 10⁻² (shifts decimal left) |
+| Implicit CF | `3.~7~15~1` | 355/113 | continued fraction [3; 7, 15, 1] |
+| Explicit CF | `~-1.~2` | −1/2 | `~` prefix allows a signed first coefficient |
+| Negate CF value | `-~1.~2` | −3/2 | unary minus applied to explicit-start CF |
+
+Note: `-1.~2` (minus directly touching an implicit-start CF) is a **syntax error** — use `~-1.~2` for a negative first coefficient or `-~1.~2` to negate the value.
+
+> **REPL output**: Rational results display as mixed numbers. `25/7` prints as `3..4/7`.
 
 ## Variables & Scoping
 

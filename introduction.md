@@ -192,16 +192,38 @@ The stop condition specifies both *when* to stop and *how* to evaluate:
 
 RiX is built on an exact rational arithmetic core, and as such it supports multiple expressive ways to input and represent numbers perfectly accurately without floating point failure.
 
-### Repeating Decimals
-You can represent repeating decimals exactly using the `#` character to denote the start of the repeating sequence:
+### Repeating Decimals (`#`)
+The `#` character separates the non-repeating fractional digits from the infinitely repeating digits:
 - `0.12#45` evaluates exactly to $0.12\overline{45}$.
-- `7#3` evaluates exactly to $7.\overline{3}$ (or `22/3`).
+- `0.#3` evaluates to $0.\overline{3} = 1/3$ (no non-repeating fractional part).
+- `1.#6` evaluates to $1.\overline{6} = 5/3$.
+- `7#3` evaluates exactly to $7.\overline{3}$ (= 22/3).
 
-### Continued Fractions
-RiX natively parses continued fraction representations. The syntax starts with the integer part, followed by `.~`, and then the sequence of denominators separated by `~`:
-- `3.~7~15~1~292` represents the continued fraction for $\pi$ (evaluated exactly as a rational constraint).
-- `0.~2~3~4` is an example of a continued fraction with a `0` integer part.
-- `5.~0` explicitly enforces a canonical continued fraction for exactly `5`.
+### Radix Shift (`_^`)
+`n_^k` multiplies `n` by `10^k`, shifting the decimal point without floating point error:
+- `1_^2` is exactly `100`.
+- `3.14_^2` is exactly `314`.
+- `1_^-2` is exactly `1/100`.
+
+### Continued Fractions (`.~`)
+
+RiX natively parses continued fraction representations as exact rationals.
+
+A continued fraction $[a_0; a_1, a_2, \ldots]$ is written as `a0.~a1~a2~...`. There are two forms:
+
+**Implicit-start** — integer part is unsigned (no leading sign or `~`):
+- `3.~7~15~1` evaluates exactly to `355/113`.
+- `1.~2` evaluates to `3/2`.
+
+**Explicit-start** — a leading `~` marks the coefficient, and the integer part may be negative:
+- `~1.~2` is the same as `1.~2` (= `3/2`).
+- `~-1.~2` has first coefficient −1: evaluates to `−1 + 1/2 = −1/2`.
+- `~-2.~1~2~2` evaluates to `−9/7`.
+
+To **negate** a continued fraction value, apply unary minus to an explicit-start CF:
+- `-~1.~2` = `−(1 + 1/2) = −3/2`.
+
+> **Note:** Writing `-1.~2` (minus directly attached to an implicit-start CF) is a **syntax error** because it is ambiguous — it could mean a negative first coefficient or a negated value. Use `~-1.~2` or `-~1.~2` as appropriate.
 
 ### Mixed Numbers
 Mixed numbers are supported using a double period `..` to attach an integer to a fraction seamlessly (with no internal spaces):
