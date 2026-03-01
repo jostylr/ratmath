@@ -219,12 +219,12 @@ describe("RiX-to-IR Script", () => {
     describe("Property Access", () => {
         test("dot access", () => {
             const output = rixToIR("obj.a;");
-            expect(output).toBe('DOT(RETRIEVE("obj"), "a")');
+            expect(output).toBe('META_GET(RETRIEVE("obj"), "a")');
         });
 
-        test("external access", () => {
-            const output = rixToIR("obj..b;");
-            expect(output).toBe('EXTGET(RETRIEVE("obj"), "b")');
+        test("external access (all meta)", () => {
+            const output = rixToIR("obj..;");
+            expect(output).toBe('META_ALL(RETRIEVE("obj"))');
         });
 
         test("keys", () => {
@@ -366,17 +366,12 @@ describe("RiX-to-IR Script", () => {
     describe("Assignments", () => {
         test("dot assignment", () => {
             const output = rixToIR("obj.a = 7;");
-            expect(output).toContain("DOT_ASSIGN");
-        });
-
-        test("external property assignment", () => {
-            const output = rixToIR("obj..b = 9;");
-            expect(output).toContain("EXTSET");
+            expect(output).toContain("META_SET");
         });
 
         test("index assignment", () => {
             const output = rixToIR("arr[i] = val;");
-            expect(output).toContain("INDEX_ASSIGN");
+            expect(output).toContain("INDEX_SET");
         });
     });
 });
