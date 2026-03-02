@@ -10,11 +10,11 @@ This guide introduces the core features and idiosyncrasies of RiX to get you com
 
 In RiX, the casing of the very first letter of an identifier carries semantic weight:
 
-- **Variables** should start with a lowercase letter (e.g., `x`, `myVar`). **CamelCase** is the recommended naming convention.
+- **Variables** should start with a lowercase letter (e.g., `x`, `myVar`, `my_var`). **camelCase** or **snake_case** are recommended.
 - **System Functions** (the built-in functions) are always fully **Uppercase** or start with an uppercase letter (e.g., `ADD`, `SIN`, `MAP`).
 
-> [!WARNING]
-> Do not use `snake_case` (like `my_var`). In RiX, the underscore `_` is a distinct operator that acts as a placeholder or returns `null`. Therefore, `my_var` is parsed identically to `my * _ * var` (multiplication with a null in the middle)!
+> [!NOTE]
+> Standalone `_` is the **null operator** (same as `NULL()`). However, `_` is allowed within identifiers as long as it's not the only character.
 
 ---
 
@@ -54,7 +54,7 @@ Increment() -> {;
 RiX simplifies boolean logic with a very consistent rule:
 **`null` is the only falsy value.** 
 
-Everything else—including `0`, `""` (empty string), and empty collections `[]`—is considered **truthy**. When a short-circuiting operator like `AND` (`&&`) fails to match, it simply returns `null`. This logic makes it very easy to chain conditional checks without needing strict boolean casting.
+Everything else—including `0`, `""` (empty string), and empty collections `[]`—is considered **truthy**. When a short-circuiting operator like `&&` (logical AND) fails to match, it simply returns `null`. This logic makes it very easy to chain conditional checks without needing strict boolean casting.
 
 ---
 
@@ -89,7 +89,7 @@ There are also N-ary operation braces for applying operations across arbitrary e
 - `{+ 1, 2, 3}` -> N-ary Addition (or string concatenation).
 - `{* 2, 3, 4}` -> N-ary Multiplication.
 - `{&& a, b, c}` -> N-ary Logical AND (short-circuits to `null` on falsy).
-- `{|| a, b, c}` -> N-ary Logical OR (short-circuits to the first truthy value or null if no truthy values are found).
+- `{|| a, b, c}` -> N-ary Logical OR (short-circuits to the first truthy value or null).
 
 ---
 
@@ -132,6 +132,22 @@ Partial functions are especially useful in pipelines:
 
 ---
 
+## 5.5 Symbolic Algebra
+
+RiX provides a concise symbolic algebra for sets, intervals, and collections:
+
+- `A \/ B`: Union (sets) or Hull (intervals).
+- `A /\ B`: Intersection (sets) or Overlap (intervals).
+- `A \ B`: Set difference (or key removal from maps).
+- `A <> B`: Symmetric difference.
+- `x ? S`: Membership test (returns `1` if `x` in `S`, else `null`).
+- `x !? S`: Non-membership test.
+- `A ?& B`: Intersects predicate.
+- `A ** B`: Cartesian product of sets.
+- `A ++ B`: Concatenation of ordered collections (arrays, tuples, strings, maps).
+
+---
+
 ## 6. Pipe Operators `|>`
 
 RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
@@ -147,7 +163,8 @@ RiX is highly optimized for functional programming and data transformation. The 
 - `coll |:> val : fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
 - `coll |><`: Reverse (`PREVERSE`) the collection.
 - `coll |<> fn`: Sort (`PSORT`) the collection using the comparator `fn`.
-- `coll |>&& pred`: Check if all elements pass the predicate. Returns `1` if they do, `null` otherwise.
+- `coll |>&& pred`: Check if all elements pass the predicate. Returns the last item if all pass, `null` otherwise.
+- `coll |>|| pred`: Check if any element passes the predicate. Returns the first passing item, `null` otherwise.
 
 **Example Pipeline:**
 ```rix

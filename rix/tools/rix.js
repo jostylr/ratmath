@@ -9,8 +9,15 @@
 
 import { readFileSync } from "fs";
 import { createInterface } from "readline";
-import { parseAndEvaluate } from "../eval/src/evaluator.js";
-import { Context } from "../eval/src/context.js";
+import {
+    tokenize,
+    parse,
+    lower,
+    evaluate,
+    Context,
+    createDefaultRegistry,
+    parseAndEvaluate
+} from "../eval/index.js";
 import { Rational, RationalInterval } from "@ratmath/core";
 
 function formatResult(val) {
@@ -67,21 +74,77 @@ function formatResult(val) {
     return val.toString();
 }
 
+function handleCommand(fullCmd, context, registry) {
+    const parts = fullCmd.slice(1).match(/([a-zA-Z]+)|\[([^\]]+)\]|\(([^)]+)\)/g) || [];
+    const cmd = parts[0];
+    const args = parts.slice(1).map(p => {
+        if (p.startsWith("[") && p.endsWith("]")) return p.slice(1, -1);
+        if (p.startsWith("(") && p.endsWith(")")) return p.slice(1, -1);
+        return p;
+    });
+
+    if (cmd === "help") {
+        console.log(`Available commands:
+  .help           Show this help message
+  .exit           Exit the REPL
+  .load:[pkg]     Load a package (e.g. .load[linalg])
+  .vars           Show defined variables
+  .fns            Show available system functions
+  .reset          Reset variables and context
+  .ast[expr]      Show AST of RiX expression
+  .tokens[expr]   Show tokens of RiX expression
+  
+  Multiline input: end a line with '\\' to continue to the next line.
+  Ctrl+C: Clear current input buffer or exit if empty.
+`);
+    } else if (cmd === "exit") {
+        console.log("Bye!");
+        process.exit(0);
+    } else if (cmd === "load") {
+        console.log(`Loading package ${args[0]}... (not fully implemented)`);
+    } else if (cmd === "vars") {
+        console.log("Variables:", context.getAllNames());
+    } else if (cmd === "fns") {
+        console.log("System Functions:", registry.getAllNames());
+    } else if (cmd === "reset") {
+        context.clear();
+        console.log("Environment reset.");
+    } else if (cmd === "ast") {
+        try {
+            const tks = tokenize(args[0] || "");
+            const ast = parse(tks);
+            console.dir(ast, { depth: null });
+        } catch (e) {
+            console.error("Parse Error:", e.message);
+        }
+    } else if (cmd === "tokens") {
+        try {
+            const tks = tokenize(args[0] || "");
+            console.dir(tks);
+        } catch (e) {
+            console.error("Tokenize Error:", e.message);
+        }
+    } else {
+        console.log("Unknown command:", cmd);
+    }
+}
+
 async function main() {
     const args = process.argv.slice(2);
     const context = new Context();
+    const registry = createDefaultRegistry();
 
     if (args.length > 0) {
         // Run file
         const inputFile = args[0];
         if (inputFile === "--help" || inputFile === "-h") {
-            console.log("Usage: bun rix/tools/rix.js [file.rix]");
+            console.log("Usage: bun rix [file.rix]");
             process.exit(0);
         }
 
         try {
             const source = readFileSync(inputFile, "utf-8");
-            const result = parseAndEvaluate(source, { context });
+            const result = parseAndEvaluate(source, { context, registry });
             if (result !== undefined) {
                 console.log(formatResult(result));
             }
@@ -91,35 +154,62 @@ async function main() {
         }
     } else {
         // REPL
-        console.log("RiX REPL (Type 'exit' or Ctrl+C to quit)");
+        console.log("RiX REPL (Type .help for commands)");
         const rl = createInterface({
             input: process.stdin,
             output: process.stdout,
             prompt: "rix> "
         });
 
+        let buffer = "";
+
+        rl.on("SIGINT", () => {
+            if (buffer.length > 0) {
+                buffer = "";
+                console.log("\n(cleared)");
+                rl.setPrompt("rix> ");
+                rl.prompt();
+            } else {
+                console.log("\nBye!");
+                process.exit(0);
+            }
+        });
+
         rl.prompt();
 
         rl.on("line", (line) => {
-            const trimmed = line.trim();
-            if (trimmed === "exit" || trimmed === "quit") {
-                rl.close();
+            if (buffer === "" && line.trim().startsWith(".")) {
+                handleCommand(line.trim(), context, registry);
+                rl.prompt();
                 return;
             }
 
-            if (!trimmed) {
+            if (line.endsWith("\\")) {
+                buffer += line.slice(0, -1) + "\n";
+                rl.setPrompt("... ");
+                rl.prompt();
+                return;
+            }
+
+            buffer += line;
+            if (buffer.trim() === "") {
+                buffer = "";
+                rl.setPrompt("rix> ");
                 rl.prompt();
                 return;
             }
 
             try {
-                const result = parseAndEvaluate(trimmed, { context });
+                const result = parseAndEvaluate(buffer, { context, registry });
                 if (result !== undefined) {
                     console.log(formatResult(result));
                 }
             } catch (error) {
                 console.error(`Error: ${error.message}`);
             }
+
+            buffer = "";
+            rl.setPrompt("rix> ");
             rl.prompt();
         });
 

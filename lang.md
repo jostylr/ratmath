@@ -72,7 +72,7 @@ block comment with a tag.
 
 > [!IMPORTANT]
 > **Conflict**: `calc` uses `=` for assignment. `RiX` proposes `:=` to distinguish from equality checks (`=` or `==`).
-> **RiX Proposal**: `x := 3` or `x = 3` (Assignment), `x == 3` (Equality Check). `RiX` also supports combo operators `+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`, `**=`.
+> **RiX Proposal**: `x := 3` or `x = 3` (Assignment), `x == 3` (Equality Check). `RiX` also supports combo operators `+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`.
 > To explicitly assign to or retrieve from a variable *outside the innermost scope*, use the `@` prefix: `@x += 1` or `y = @x`. This prevents local scope shadowing within lambdas.
 > **Current Calc**: `x = 3` (Assignment), `EQ(x, 3)` (Equality).
 
@@ -233,13 +233,15 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 
 ## 8. RiX Features
 
-- **Syntax Sugar**: `:=` for assignment, `|>` with `|>/`, `|>//`, `|>/|`, `|>#|` for pipes (slicing, splitting, chunking), `&&`/`||` for logic, `!` for NOT.
+- **Syntax Sugar**: `:=` for assignment, `|>` with `|>/`, `|>//`, `|>/|`, `|>#|` for pipes (slicing, splitting, chunking), `&&`/`||`/`!` for logic.
+- **Symbolic Algebra**: `\/` (Union/Hull), `/\` (Intersect), `\` (Diff), `<>` (SymDiff), `?` (Member), `!?` (NotMember), `?&` (Intersects), `**` (SetProd), `++` (Concat).
 - **N-ary Operators**: `{+ a, b, ...}` and `{* a, b, ...}` brace sigils for N-ary addition/concatenation and multiplication.
 - **System Function Aliases**: `@+` → `ADD`, `@*` → `MUL` to directly retrieve system functions.
 - **Partial Functions**: First-class support for partial application using placeholders `_1`, `_2`, etc. (e.g., `Double = @*(_1, 2)`). Supports argument reordering (`@-(_2, _1)`) and duplication (`@*(_1, _1)`).
 - **Betweenness**: Chained colon operator `a:b:c` for checking if `b` is between `a` and `c` (inclusive). This includes any n-ary betweenness checks as well as nested intervals and sets of numbers and intervals. 
 - **Generators**: Array generators (`[1 |+ 2 |^ 10]`).
-- **Regex Literals**: First-class support with `{/pattern/flags?mode}` syntax. Supported modes include `ONE`, `TEST` (`?`), `ALL` (`*`), and `ITER` (`:`). 
+- **Regex Literals**: First-class support with `{/pattern/flags?mode}` syntax. Supported modes include `ONE`, `TEST` (`?`), `ALL` (`*`), and `ITER` (`:`)
+- **REPL Dot-Commands**: Advanced tooling with `.vars`, `.fns`, `.load[pkg]`, `.Print(args)`, and robust Ctrl-C handling.
 
 ## 9. Future Features
 
