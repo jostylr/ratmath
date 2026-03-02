@@ -75,13 +75,62 @@ function formatResult(val) {
 }
 
 function handleCommand(fullCmd, context, registry) {
-    const parts = fullCmd.slice(1).match(/([a-zA-Z]+)|\[([^\]]+)\]|\(([^)]+)\)/g) || [];
-    const cmd = parts[0];
-    const args = parts.slice(1).map(p => {
-        if (p.startsWith("[") && p.endsWith("]")) return p.slice(1, -1);
-        if (p.startsWith("(") && p.endsWith(")")) return p.slice(1, -1);
-        return p;
-    });
+    const trimmed = fullCmd.trim();
+    if (!trimmed.startsWith(".")) return;
+
+    // Command name is the first word after the dot
+    const cmdMatch = trimmed.slice(1).match(/^[a-zA-Z]+/);
+    if (!cmdMatch) return;
+    const cmd = cmdMatch[0];
+    const rest = trimmed.slice(1 + cmd.length).trim();
+
+    // Balanced-delimiter parser for arguments (handles nested [] and quotes)
+    const args = [];
+    let current = rest;
+    while (current) {
+        if (current.startsWith("[") || current.startsWith("(")) {
+            const startChar = current[0];
+            const endChar = startChar === "[" ? "]" : ")";
+            let depth = 0;
+            let i = 0;
+            for (; i < current.length; i++) {
+                if (current[i] === startChar) depth++;
+                else if (current[i] === endChar) {
+                    depth--;
+                    if (depth === 0) break;
+                }
+            }
+            if (i < current.length) {
+                args.push(current.slice(1, i));
+                current = current.slice(i + 1).trim();
+            } else {
+                args.push(current.slice(1));
+                current = "";
+            }
+        } else if (current.startsWith('"') || current.startsWith("'")) {
+            const quote = current[0];
+            let i = 1;
+            for (; i < current.length; i++) {
+                if (current[i] === quote && current[i - 1] !== "\\") break;
+            }
+            if (i < current.length) {
+                args.push(current.slice(1, i));
+                current = current.slice(i + 1).trim();
+            } else {
+                args.push(current.slice(1));
+                current = "";
+            }
+        } else {
+            const spaceIndex = current.indexOf(" ");
+            if (spaceIndex === -1) {
+                args.push(current);
+                current = "";
+            } else {
+                args.push(current.slice(0, spaceIndex));
+                current = current.slice(spaceIndex + 1).trim();
+            }
+        }
+    }
 
     if (cmd === "help") {
         console.log(`Available commands:
