@@ -157,7 +157,11 @@ RiX provides a concise symbolic algebra for sets, intervals, and collections:
 
 ## 6. Pipe Operators `|>`
 
-RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
+RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. 
+
+**Mutability Note:** While pipe operators create new copies, arrays and maps are created as **mutable** by default (`mutable=1`). This allows you to perform in-place modification using indices (e.g., `arr[1] = val`). You can lock a collection by removing its mutable flag (`arr.mutable = _`).
+
+When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
 
 - `val |> fn`: Pipe `val` as the first argument to `fn`.
 - `coll |>/ i:j`: Strict slice of a collection. Both `i` and `j` must be integers exactly within the bounds. Negative indices index from the end. Returns `null` if bounds are invalid.
