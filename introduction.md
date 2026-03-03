@@ -90,6 +90,13 @@ There are also N-ary operation braces for applying operations across arbitrary e
 - `{* 2, 3, 4}` -> N-ary Multiplication.
 - `{&& a, b, c}` -> N-ary Logical AND (short-circuits to `null` on falsy).
 - `{|| a, b, c}` -> N-ary Logical OR (short-circuits to the first truthy value or null).
+- `{\/ A, B, C}` -> N-ary set union / interval hull.
+- `{/\ A, B, C}` -> N-ary set intersection / interval overlap.
+- `{++ A, B, C}` -> N-ary concatenation.
+- `{<< a, b, c}` -> N-ary minimum (ignores `null` arguments).
+- `{>> a, b, c}` -> N-ary maximum (ignores `null` arguments).
+- `<>` remains binary-only; no n-ary brace form.
+- In brace form, `<<`/`>>` mean min/max (not shift operators).
 
 ---
 
