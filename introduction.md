@@ -98,6 +98,23 @@ There are also N-ary operation braces for applying operations across arbitrary e
 - `<>` remains binary-only; no n-ary brace form.
 - In brace form, `<<`/`>>` mean min/max (not shift operators).
 
+### 4.3 Map Key Notes
+Map literals accept expression keys on the left side of `=`:
+
+```rix
+a = {= 1=2, "3"=4, (1+1)=9 }
+```
+
+Numeric and string forms of numeric keys are normalized to the same map key. These are equivalent for lookup/set:
+
+```rix
+a[1]
+a[:1]
+a["1"]
+```
+
+So after `a = {= 1=2 }`, all of `a[1]`, `a[:1]`, and `a["1"]` return `2`.
+
 ---
 
 ## 5. System Functions vs Syntax Sugar
