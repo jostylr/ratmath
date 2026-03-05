@@ -99,13 +99,24 @@ There are also N-ary operation braces for applying operations across arbitrary e
 - In brace form, `<<`/`>>` mean min/max (not shift operators).
 
 ### 4.3 Map Key Notes
-Map literals accept expression keys on the left side of `=`:
+Map keys are always stored as **strings**.
+
+Key resolution (`KEYOF`) rules:
+- String value -> same string key
+- Integer value -> canonical integer string (so `1` and `"1"` are the same key)
+- Any other value -> must have meta property `.key` (string or integer)
+
+Map literals support two key forms:
+- Identifier sugar: `{= a=5 }` (same as key `"a"`)
+- Parenthesized key expression: `{= (expr)=value }`
+
+Expression keys must be parenthesized:
 
 ```rix
-a = {= 1=2, "3"=4, (1+1)=9 }
+a = {= a=5, (1)=2, ("3")=4, (1+1)=9 }
 ```
 
-Numeric and string forms of numeric keys are normalized to the same map key. These are equivalent for lookup/set:
+These are equivalent for lookup/set:
 
 ```rix
 a[1]
@@ -113,7 +124,27 @@ a[:1]
 a["1"]
 ```
 
-So after `a = {= 1=2 }`, all of `a[1]`, `a[:1]`, and `a["1"]` return `2`.
+So after `a = {= (1)=2 }`, all of `a[1]`, `a[:1]`, and `a["1"]` return `2`.
+
+Map literals reject duplicate keys after key canonicalization:
+
+```rix
+{= a=1, ("a")=2 }      ## error: duplicate key "a"
+{= (1)=1, ("1")=2 }    ## error: duplicate key "1"
+```
+
+### 4.4 `.key` Identity
+Values can define `.key` to control how they behave as map keys:
+
+```rix
+v.key = "user:42"
+```
+
+Rules:
+- `.key` must be string or integer
+- First assignment sets identity
+- Reassigning the same canonical key is allowed (idempotent)
+- Reassigning a different key is an error
 
 ---
 
@@ -164,11 +195,21 @@ RiX provides a concise symbolic algebra for sets, intervals, and collections:
 - `A /\ B`: Intersection (sets) or Overlap (intervals).
 - `A \ B`: Set difference (or key removal from maps).
 - `A <> B`: Symmetric difference.
-- `x ? S`: Membership test (returns `1` if `x` in `S`, else `null`).
-- `x !? S`: Non-membership test.
+- `x ? S`: Membership test for sets/intervals; for maps, key existence test using `KEYOF(x)`.
+- `x !? S`: Non-membership test (for maps: key does not exist).
 - `A ?& B`: Intersects predicate.
 - `A ** B`: Cartesian product of sets.
 - `A ++ B`: Concatenation of ordered collections (arrays, tuples, strings, maps).
+
+### 5.6 Utility System Function
+`RAND_NAME(len=10, alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")` returns a random string.
+
+Examples:
+```rix
+RAND_NAME()
+RAND_NAME(5)
+RAND_NAME(12, "abc")
+```
 
 ---
 
