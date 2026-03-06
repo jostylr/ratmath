@@ -38,9 +38,24 @@ Cube := (n) -> n ^ 3
 ```
 
 ### Lexical Scoping and the `@` Prefix
-RiX uses lexical scoping. By default, when you assign to a variable inside a block or a function, it creates or updates a *local* variable in the innermost scope. 
+RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 
-If you want to explicitly modify or read a variable from an **outer scope**, you must prefix it with `@`. This prevents accidental shadowing of variables when inside a lambda or loop.
+When the *entire* body of a function or lambda is itself a block, loop, or system container, that outermost container shares the function's scope instead of creating an extra nested one. This lets parameter bindings work naturally:
+
+```rix
+Double := (x) -> {; 2 * x }
+```
+
+Nested blocks inside that body are still isolated:
+
+```rix
+Adjust := (x) -> {;
+    x += 1
+    {; 2 * @x }   ## nested block must use @x
+}
+```
+
+If you want to explicitly modify or read a variable from an **outer scope**, you must prefix it with `@`. This prevents accidental shadowing of variables when inside a lambda, block, or loop.
 
 ```rix
 counter := 0
@@ -50,6 +65,14 @@ Increment() -> {;
 }
 ```
 *Note: Combo assignment operators (`+=`, `*=`, `/=`, etc.) work natively and automatically desugar to the appropriate underlying operation.*
+
+```rix
+x := 5
+{;
+    x         ## Error: x is outside the block scope
+    @x + 1    ## OK
+}
+```
 
 ---
 
