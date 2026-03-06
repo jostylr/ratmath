@@ -263,7 +263,7 @@ describe("RiX-to-IR Script", () => {
     describe("System Functions (@_)", () => {
         test("@_ADD call", () => {
             const output = rixToIR("@_ADD(a, b);");
-            expect(output).toBe('ADD(RETRIEVE("a"), RETRIEVE("b"))');
+            expect(output).toBe('SYS_CALL("ADD", RETRIEVE("a"), RETRIEVE("b"))');
         });
 
         test("@_ASSIGN", () => {

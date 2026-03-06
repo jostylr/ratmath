@@ -11,10 +11,14 @@ This guide introduces the core features and idiosyncrasies of RiX to get you com
 In RiX, the casing of the very first letter of an identifier carries semantic weight:
 
 - **Variables** should start with a lowercase letter (e.g., `x`, `myVar`, `my_var`). **camelCase** or **snake_case** are recommended.
-- **System Functions** (the built-in functions) are always fully **Uppercase** or start with an uppercase letter (e.g., `ADD`, `SIN`, `MAP`).
+- **User-defined functions** start with an uppercase letter (e.g., `Square`, `MyFn`).
+- **System capabilities** (built-in functions like `ADD`, `RAND_NAME`, `SIN`) are **not** accessible as bare identifiers. They must be called via the **system object** using the dot prefix: `.ADD(3, 4)`, `.SIN(x)`, `.RAND_NAME()`.
 
 > [!NOTE]
 > Standalone `_` is the **null operator** (same as `NULL()`). However, `_` is allowed within identifiers as long as it's not the only character.
+
+> [!NOTE]
+> Case normalization: only the first letter's case is significant. Beyond the first letter, identifiers are case-insensitive — so `myVar`, `myvar`, and `myVAR` all refer to the same variable. Similarly, `Square` and `SQUARE` are the same user function.
 
 ---
 
@@ -101,7 +105,7 @@ There are also N-ary operation braces for applying operations across arbitrary e
 ### 4.3 Map Key Notes
 Map keys are always stored as **strings**.
 
-Key resolution (`KEYOF`) rules:
+Key resolution (`.KEYOF`) rules:
 - String value -> same string key
 - Integer value -> canonical integer string (so `1` and `"1"` are the same key)
 - Any other value -> must have meta property `.key` (string or integer)
@@ -150,19 +154,72 @@ Rules:
 
 ## 5. System Functions vs Syntax Sugar
 
-Essentially everything in RiX is "syntax sugar" that is immediately translated into fundamental **System Functions** after parsing. 
-- Writing `3 + 4` actually evaluates `ADD(3, 4)`.
-- Writing `x := 5` evaluates `ASSIGN(x, 5)`.
+Essentially everything in RiX is "syntax sugar" that is immediately translated into fundamental **System Functions** after parsing.
+- Writing `3 + 4` evaluates the internal `ADD` function.
+- Writing `x := 5` evaluates the internal `ASSIGN` function.
 
-One can use a named system function using `@_ADD(3, 4)` or `@_ASSIGN(x, 5)`.
+These internal dispatch functions are not exposed as bare identifiers. Instead, all system capabilities are accessed through the **system object**.
 
-### Aliasing System Functions
-If you ever want to retrieve the underlying system function itself (for example, to pass it as a callback to a map or reduce function), you can retrieve it by prefixing its operator with `@`:
+### The System Object (`.`)
+
+The bare `.` refers to the **system capability object** — a frozen, sandboxable collection of all built-in functions. You can call any system function by prefixing it with a dot:
 
 ```rix
-adder := @+
-adder(10, 20) ## Retrieves `ADD`, then calls it, returning 30
+.ADD(3, 4)       ## 7
+.SIN(.PI())      ## ~0
+.RAND_NAME(8)    ## e.g. "xKqTmPaR"
+.AND(1, _)       ## null (false)
 ```
+
+The system object can be inspected, copied, and restricted:
+
+```rix
+sys := .            ## copy of the system object
+sys2 := . \ {|"PRINT"|}   ## withhold a capability (not yet in syntax; use .Withhold())
+```
+
+> [!NOTE]
+> The system object is **frozen by default** — you cannot add or change capabilities on it directly. Use `.Withhold("NAME")` or `.With("NAME", fn)` to create a restricted or extended copy for passing to loaded scripts.
+
+### Calling System Functions via `@_` Syntax
+
+You can also invoke a system capability using the `@_Name()` form, which is an exact equivalent to `.Name()`:
+
+```rix
+@_ADD(3, 4)    ## same as .ADD(3, 4) → 7
+@_ASSIGN(x, 5) ## same as .ASSIGN(x, 5) → sets x
+```
+
+### Aliasing Operator Functions
+
+If you want to retrieve an operator's underlying function (e.g., to pass to a pipe or partial application), prefix its symbol with `@`. This returns a reference to the system capability for that operator:
+
+```rix
+adder := @+       ## reference to .ADD
+adder(10, 20)     ## 30
+
+## Equivalent forms:
+ref := .ADD       ## also a reference to .ADD
+ref(10, 20)       ## 30
+```
+
+The mapping from operator symbol to system name:
+
+| Operator | System Capability |
+|----------|------------------|
+| `@+`     | `.ADD`           |
+| `@-`     | `.SUB`           |
+| `@*`     | `.MUL`           |
+| `@/`     | `.DIV`           |
+| `@//`    | `.INTDIV`        |
+| `@%`     | `.MOD`           |
+| `@^`     | `.POW`           |
+| `@==`    | `.EQ`            |
+| `@<`     | `.LT`            |
+| `@>`     | `.GT`            |
+| `@&&`    | `.AND`           |
+| `@\|\|`  | `.OR`            |
+| `@!`     | `.NOT`           |
 
 ### Partial Application and Placeholders
 RiX supports powerful partial application using placeholders `_1`, `_2`, etc. When you call a function and use one or more of these placeholders instead of a value, it returns a **Partial Function**.
@@ -195,20 +252,20 @@ RiX provides a concise symbolic algebra for sets, intervals, and collections:
 - `A /\ B`: Intersection (sets) or Overlap (intervals).
 - `A \ B`: Set difference (or key removal from maps).
 - `A <> B`: Symmetric difference.
-- `x ? S`: Membership test for sets/intervals; for maps, key existence test using `KEYOF(x)`.
+- `x ? S`: Membership test for sets/intervals; for maps, key existence test using `.KEYOF(x)`.
 - `x !? S`: Non-membership test (for maps: key does not exist).
 - `A ?& B`: Intersects predicate.
 - `A ** B`: Cartesian product of sets.
 - `A ++ B`: Concatenation of ordered collections (arrays, tuples, strings, maps).
 
 ### 5.6 Utility System Function
-`RAND_NAME(len=10, alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")` returns a random string.
+`.RAND_NAME(len=10, alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")` returns a random string. Like all system capabilities, it is called via the dot prefix.
 
 Examples:
 ```rix
-RAND_NAME()
-RAND_NAME(5)
-RAND_NAME(12, "abc")
+.RAND_NAME()
+.RAND_NAME(5)
+.RAND_NAME(12, "abc")
 ```
 
 ---

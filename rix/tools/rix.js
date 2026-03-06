@@ -16,6 +16,7 @@ import {
     evaluate,
     Context,
     createDefaultRegistry,
+    createDefaultSystemContext,
     parseAndEvaluate
 } from "../eval/index.js";
 import { Rational, RationalInterval } from "@ratmath/core";
@@ -56,6 +57,11 @@ function formatResult(val) {
         if (val.type === "pattern_function") {
             return `[PatternFunction: ${val.name || "Anonymous"}]`;
         }
+        if (val.type === "system_context") {
+            const names = val.context.getAllNames();
+            const frozenMark = val.context.frozen ? " frozen" : " mutable";
+            return `[SystemContext${frozenMark}: ${names.slice(0, 5).join(", ")}${names.length > 5 ? ", ..." : ""}]`;
+        }
         if (val.type === "sysref") {
             return `[SystemFunction: ${val.name}]`;
         }
@@ -74,7 +80,10 @@ function formatResult(val) {
     return val.toString();
 }
 
-function handleCommand(fullCmd, context, registry) {
+// Known REPL meta-commands (lowercase, intercepted before the evaluator)
+const REPL_COMMANDS = new Set(["help", "exit", "load", "vars", "fns", "reset", "ast", "tokens"]);
+
+function handleCommand(fullCmd, context, systemContext) {
     const trimmed = fullCmd.trim();
     if (!trimmed.startsWith(".")) return;
 
@@ -154,7 +163,7 @@ function handleCommand(fullCmd, context, registry) {
     } else if (cmd === "vars") {
         console.log("Variables:", context.getAllNames());
     } else if (cmd === "fns") {
-        console.log("System Functions:", registry.getAllNames());
+        console.log("System Functions:", systemContext.getAllNames());
     } else if (cmd === "reset") {
         context.clear();
         console.log("Environment reset.");
@@ -182,6 +191,7 @@ async function main() {
     const args = process.argv.slice(2);
     const context = new Context();
     const registry = createDefaultRegistry();
+    const systemContext = createDefaultSystemContext();
 
     if (args.length > 0) {
         // Run file
@@ -193,7 +203,7 @@ async function main() {
 
         try {
             const source = readFileSync(inputFile, "utf-8");
-            const result = parseAndEvaluate(source, { context, registry });
+            const result = parseAndEvaluate(source, { context, registry, systemContext });
             if (result !== undefined) {
                 console.log(formatResult(result));
             }
@@ -228,9 +238,13 @@ async function main() {
 
         rl.on("line", (line) => {
             if (buffer === "" && line.trim().startsWith(".")) {
-                handleCommand(line.trim(), context, registry);
-                rl.prompt();
-                return;
+                const m = line.trim().slice(1).match(/^([a-z]+)/);
+                if (m && REPL_COMMANDS.has(m[1])) {
+                    handleCommand(line.trim(), context, systemContext);
+                    rl.prompt();
+                    return;
+                }
+                // Otherwise fall through — treat as RiX expression (e.g. .RandName())
             }
 
             if (line.endsWith("\\")) {
@@ -249,7 +263,7 @@ async function main() {
             }
 
             try {
-                const result = parseAndEvaluate(buffer, { context, registry });
+                const result = parseAndEvaluate(buffer, { context, registry, systemContext });
                 if (result !== undefined) {
                     console.log(formatResult(result));
                 }
