@@ -40,6 +40,8 @@ Cube := (n) -> n ^ 3
 ### Lexical Scoping and the `@` Prefix
 RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 
+Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
+
 When the *entire* body of a function or lambda is itself a block, loop, or system container, that outermost container shares the function's scope instead of creating an extra nested one. This lets parameter bindings work naturally:
 
 ```rix
@@ -74,6 +76,59 @@ x := 5
 }
 ```
 
+#### Block Import Headers
+Scoped execution blocks can optionally start with an import header. This is only valid at the top of an explicit scoped block: plain `{ ... }`, `{; ... }`, `{@ ... }`, and `{$ ... }`.
+
+```rix
+{;
+    < a~x, b=y, z=, r >
+    ...block body...
+}
+```
+
+The left side introduces a new local name for the block. The right side names the source in the enclosing scope chain.
+
+- `name` and `name~` mean copy `name` from the outer scope into a new local `name`
+- `local~outer` copies the current outer value of `outer` into a new local `local`
+- `name=` aliases local `name` to the outer binding `name`
+- `local=outer` aliases local `local` to the outer binding `outer`
+
+Copy imports stay local:
+
+```rix
+x = 10
+{;
+    < x >
+    x = x + 1
+}
+## outer x is still 10
+```
+
+Alias imports write through:
+
+```rix
+y = 20
+{;
+    < y=>
+    y = y + 1
+}
+## outer y is now 21
+```
+
+`@name` still bypasses the local import and reaches outward directly:
+
+```rix
+x = 5
+{;
+    < x >
+    x = x + 1
+    @x = @x + 100
+}
+## local x is 6, outer x is 105
+```
+
+Import headers are declarative, not sequential. In `< a~x, b~a >`, the source for `b~a` is the enclosing `a`, not the newly introduced local `a`. Reusing the same local target twice in one header is an error.
+
 ---
 
 ## 3. Truthiness: Everything is Truthy except `null`
@@ -104,10 +159,10 @@ For other types of containers or specialized execution, a "sigil" is used immedi
 
 | Syntax | Type | Example / Description |
 |--------|------|-------------|
-| `{; ... }` | **Explicit Block** | Alternative syntax for blocks. |
+| `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
 | `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. |
-| `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }` |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Supports an optional top-of-block import header `< ... >`. |
+| `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
 | `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
 | `{\| ... }` | **Set** | A collection of unique elements. Example: `{\| 1, 2, 3 }` |
 | `{: ... }` | **Tuple** | Fixed-length collection. Example: `{: x, y, z }` |
