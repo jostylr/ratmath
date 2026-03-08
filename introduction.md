@@ -364,7 +364,7 @@ When piping strings, RiX natively treats them as sequences of **Unicode Code Poi
 - `coll |>> fn`: Map (`PMAP`) `fn` over each element in the collection.
 - `coll |>? pred`: Filter (`PFILTER`) the collection using the predicate `pred`.
 - `coll |>: fn`: Reduce (`PREDUCE`) the collection using `fn` signature `acc, val`.
-- `coll |:> val : fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
+- `coll |:> val >: fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
 - `coll |><`: Reverse (`PREVERSE`) the collection.
 - `coll |<> fn`: Sort (`PSORT`) the collection using the comparator `fn`.
 - `coll |>&& pred`: Check if all elements pass the predicate. Returns the last item if all pass, `null` otherwise.
