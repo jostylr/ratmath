@@ -1,287 +1,156 @@
-# RatMath Package Authoring Guide
+# RatMath/RiX — Agent Guide
 
-This document describes how to create packages for RatMath that can be loaded via the `LOAD` command.
+This document orients AI agents to the project structure and active work areas.
 
-## Package Structure
+---
 
-A typical package has this structure:
+## Active Development: RiX (`rix/`)
+
+**RiX (Rational Interval Expression Language)** is the primary focus of current development. All parser and evaluator changes belong here, not in the legacy packages.
+
+### RiX Directory Structure
 
 ```
-packages/mypackage/
-├── src/
-│   ├── index.js           # Main exports
-│   └── ratmath-module.js  # VariableManager-compatible module
-├── help/
-│   ├── mypackage.txt      # Main help file
-│   └── topic.txt          # Additional help topics
-└── package.json
+rix/
+├── parser/        ← PRIMARY: Parser & Tokenizer (active, well-tested)
+│   ├── src/
+│   │   ├── tokenizer.js     — Maximal-munch tokenizer
+│   │   ├── parser.js        — Pratt parser, produces AST
+│   │   └── system-loader.js — System identifier/keyword config
+│   ├── index.js             — Exports: tokenize, parse
+│   ├── tests/               — 500+ tests (bun test)
+│   ├── docs/                — Feature documentation
+│   └── design/              — Language spec and design decisions
+│
+├── eval/          ← ACTIVE: Evaluator (Phase 3 in progress)
+│   ├── src/
+│   │   ├── ir.js            — IR format (~50 node constructors)
+│   │   ├── lower.js         — AST → IR lowering pass (complete)
+│   │   └── evaluator.js     — IR evaluator (Phase 3 target)
+│   └── tests/               — 75+ lowering tests
+│
+├── web/           — Browser interface for RiX
+└── tools/         — Utility tooling
 ```
 
-## Module Export Format (ratmath-module.js)
+use current working directory/tmp to store any temporary files. Do not use system /tmp. 
 
-The key file for VariableManager integration is `ratmath-module.js`. It must export:
+### RiX Development Status
 
-### Functions
+| Phase | Component | Status |
+|-------|-----------|--------|
+| 1 | Parser & Tokenizer | ✅ Complete (501+ tests) |
+| 2 | AST → IR Lowering | ✅ Complete (75 tests) |
+| 3 | IR Evaluator | 🔧 In progress |
+
+**Phase 3 work targets:** `rix/eval/src/evaluator.js` and `rix/eval/src/registry.js`
+
+### RiX Key Conventions
+
+- **ES modules:** `import`/`export` throughout
+- **Test runner:** Bun (`bun test`)
+- **Lowercase identifiers** = user scope; **Uppercase** = system/function scope
+- **`:=`** for assignment, **`==`** for equality
+- **`@_NAME`** prefix for system function calls in source code
+- Brace sigils: `{=` map, `{?` case, `{;` block, `{|` set, `{:` tuple, `{@` loop, `{!` mutation
+
+---
+
+## Legacy / Support Packages (`packages/`)
+
+These support the **old calc/webcalc system** (VariableManager-based). Do **not** make parser or evaluator changes here — use RiX instead.
+
+| Package | Purpose |
+|---------|---------|
+| `packages/core/` | Core math types: `Integer`, `Rational`, `RationalInterval` |
+| `packages/algebra/` | `VariableManager` — expression parser + evaluator (old system) |
+| `packages/parser/` | Old expression parser (superseded by `rix/parser/`) |
+| `packages/stdlib/` | Standard library for old calc |
+| `packages/arith-funs/` | Arithmetic/number theory functions |
+| `packages/reals/` | Transcendental/real number oracles |
+| `packages/oracles/` | Oracle-based real number computation |
+| `packages/units/` | Physical units support |
+| `packages/calculus/`, `packages/stats/`, etc. | Domain math packages |
+
+### Writing Packages for the Old Calc System
+
+If you must add functionality to the old `calc`/`webcalc` apps, packages use `ratmath-module.js` with this shape:
 
 ```javascript
+// packages/mypkg/src/ratmath-module.js
 export const functions = {
-    "FunctionName": {
+    "MyFunc": {
         type: 'js',
-        handler: function (arg1, arg2, optionalArg) {
-            // 'this' is the VariableManager instance
-            // Access env vars: this.variables.get("_precision")
-            return result;
-        },
-        params: ["arg1", "arg2", "optionalArg?"],  // ? = optional
-        doc: "Description of the function"
+        handler: function (arg) { /* 'this' = VariableManager */ return result; },
+        params: ["arg"],
+        doc: "Description"
     }
 };
+export const variables = { "MY_CONST": someValue };
 ```
 
-### Variables (optional)
+Return types: `new Integer(BigInt(n))`, `new Rational(num, denom)`, `new RationalInterval(lo, hi)`, `{ type: 'string', value: str }`, `{ type: 'sequence', values: [...] }`.
 
-```javascript
-export const variables = {
-    "CONSTANT_NAME": someValue
-};
-```
+Register in `packages/algebra/src/package-registry.js` and help in `packages/algebra/src/help-registry.js`.
 
-## Function Definition Rules
+---
 
-### Naming
-- **Uppercase start** = Function/List (callable): `Sin`, `MyFunc`, `EXP`
-- **lowercase start** = Variable (value): `x`, `myVar`
-- Both `Sin` and `SIN` should work - provide aliases if needed
+## Apps (`apps/`)
 
-### Parameters
-- Required: `"argName"`
-- Optional: `"argName?"` (append `?`)
+| App | Description | Backend |
+|-----|-------------|---------|
+| `apps/calc/` | CLI calculator | Old VariableManager |
+| `apps/webcalc/` | Web calculator | Old VariableManager |
+| `apps/forge/` | Document/worksheet environment | Mixed |
+| `apps/cel/` | Spreadsheet-like env | — |
 
-### Unlimited Arguments (Variadic Functions)
+---
 
-For functions that need unlimited arguments, use `this._currentCallScope.get("@@")`:
+## Where to Make Changes
 
-```javascript
-"Concat": {
-    type: 'js',
-    handler: function (first) {
-        // Get all arguments via @@ sequence
-        const allArgs = this._currentCallScope?.get("@@");
-        if (!allArgs || allArgs.type !== 'sequence') {
-            return first;
-        }
-        
-        // Process all arguments
-        let result = "";
-        for (const arg of allArgs.values) {
-            result += extractString(arg);
-        }
-        return { type: 'string', value: result };
-    },
-    params: ['first'],  // Only first is required for param checking
-    doc: 'Concatenate unlimited strings'
-}
-```
+| Task | Location |
+|------|---------|
+| Parser bug or new syntax | `rix/parser/src/parser.js` or `tokenizer.js` |
+| New AST node type | `rix/parser/src/parser.js` + update `rix/eval/src/lower.js` |
+| Evaluator / runtime | `rix/eval/src/evaluator.js` |
+| IR format | `rix/eval/src/ir.js` |
+| New math types | `packages/core/` |
+| Old calc built-in function | `packages/stdlib/` or relevant package |
+| Old calc package | `packages/algebra/src/package-registry.js` |
 
-The `@@` sequence contains all evaluated arguments passed to the function. This allows truly variadic behavior without artificial limits.
-
-### Return Types
-
-| Type | Format | Example |
-|------|--------|---------|
-| Integer | `new Integer(BigInt(n))` | `new Integer(5n)` |
-| Rational | `new Rational(num, denom)` | `new Rational(3n, 4n)` |
-| Interval | `new RationalInterval(low, high)` | `new RationalInterval(r1, r2)` |
-| String | `{ type: 'string', value: str }` | `{ type: 'string', value: 'hello' }` |
-| Sequence | `{ type: 'sequence', values: [...] }` | `{ type: 'sequence', values: [v1, v2] }` |
-
-### Accessing Environment
-
-```javascript
-handler: function (x) {
-    // Access _precision environment variable
-    const prec = this.variables.get("_precision");
-    
-    // Access scope chain (for advanced use)
-    const chain = this._currentScopeChain;
-    
-    return result;
-}
-```
-
-## Help Files
-
-Place `.txt` files in `packages/mypackage/help/`:
-
-### Main help file (mypackage.txt)
-```
-MyPackage - Brief Description
-
-FUNCTIONS:
-  Func1(x)        - Does something
-  Func2(a, b)     - Does something else
-
-EXAMPLES:
-  Func1(5)        → result
-```
-
-### Additional topics (topic.txt)
-For `HELP topic` or `HELP mypackage-topic`:
-```
-Topic Name - Detailed Information
-
-DETAILS:
-  ...
-```
-
-### Registering Help Topics
-
-Add to `packages/algebra/src/help-registry.js`:
-
-```javascript
-const StaticHelp = {
-    // ...existing topics...
-    
-    mytopic: `Help text here...`,
-};
-```
-
-And update `getHelpTopicsText()` to list the new topic.
-
-## Package Registry
-
-Register in `packages/algebra/src/package-registry.js`:
-
-```javascript
-export const PackageRegistry = {
-    // ...existing packages...
-    
-    mypackage: {
-        name: "MyPackage",
-        description: "Brief description",
-        path: "@ratmath/mypackage/src/ratmath-module.js",
-        dependencies: [],  // other package keys
-        help: `Detailed help text...`
-    }
-};
-```
-
-## Complete Example
-
-### packages/example/src/ratmath-module.js
-
-```javascript
-import { Integer, Rational, RationalInterval } from "@ratmath/core";
-
-export const functions = {
-    "Double": {
-        type: 'js',
-        handler: function (x) {
-            if (x instanceof Integer) {
-                return new Integer(x.value * 2n);
-            }
-            if (x instanceof Rational) {
-                return new Rational(x.numerator * 2n, x.denominator);
-            }
-            if (x instanceof RationalInterval) {
-                return x.multiply(new Rational(2n, 1n));
-            }
-            throw new Error("Double expects a number");
-        },
-        params: ["x"],
-        doc: "Doubles the input value"
-    },
-    
-    "DOUBLE": {  // Uppercase alias
-        type: 'js',
-        handler: function (x) {
-            return functions.Double.handler.call(this, x);
-        },
-        params: ["x"],
-        doc: "Alias for Double"
-    },
-    
-    "Greet": {
-        type: 'js',
-        handler: function (name) {
-            const n = extractString(name);
-            return { type: 'string', value: `Hello, ${n}!` };
-        },
-        params: ["name"],
-        doc: "Returns a greeting string"
-    }
-};
-
-export const variables = {
-    // Optional: export constants
-};
-
-function extractString(val) {
-    if (val?.type === 'string') return val.value;
-    if (typeof val === 'string') {
-        return val.replace(/^"|"$/g, '');
-    }
-    return val?.toString() ?? '';
-}
-```
-
-### packages/example/help/example.txt
-
-```
-Example Package
-
-FUNCTIONS:
-  Double(x)       - Doubles a number
-  DOUBLE(x)       - Alias for Double
-  Greet(name)     - Returns greeting string
-
-EXAMPLES:
-  Double(5)       → 10
-  Greet("World")  → "Hello, World!"
-```
-
-## Loading Packages
-
-Users load packages with:
-```
-LOAD example
-LOAD @@Example
-```
-
-After loading, functions are available:
-```
-Double(5)       → 10
-```
+---
 
 ## Testing
 
-Create tests in `packages/mypackage/tests/`:
-
-```javascript
-import { describe, test, expect } from "bun:test";
-import { VariableManager } from "@ratmath/algebra";
-import * as MyModule from "../src/ratmath-module.js";
-
-test("Double function", () => {
-    const vm = new VariableManager();
-    vm.loadModule("Example", MyModule);
-    
-    const result = vm.processInput("Double(5)");
-    expect(result.type).toBe("expression");
-    expect(result.result.toString()).toBe("10");
-});
-```
-
-Run tests:
 ```bash
-bun test packages/mypackage/tests/
+# RiX parser tests (run from rix/parser/)
+bun test
+
+# RiX eval tests (run from rix/eval/)
+bun test
+
+# Full monorepo (from root)
+bun test
 ```
 
-## Best Practices
+All changes to `rix/` must keep existing tests green. Add tests for new functionality.
 
-1. **Provide aliases** - Both `Exp` and `EXP` should work
-2. **Handle all numeric types** - Integer, Rational, RationalInterval
-3. **Use `this` for context** - Access env vars via `this.variables`
-4. **Document thoroughly** - Help files and function `doc` strings
-5. **Test comprehensively** - Unit tests for all functions
-6. **Handle errors gracefully** - Throw descriptive Error messages
+---
+
+## Language Quick Reference
+
+See `lang.md` for full Calc vs RiX syntax comparison. Key RiX syntax:
+
+```rix
+x = 3                        # assignment
+f = x -> x^2 + 1              # function definition
+y := 1..3/4                   # mixed number
+z := 2:5                      # interval
+x > 0 ?? x ?: -x              # ternary
+[1 |+ 2 |^ 10]                # array generator
+{= a=3}                        # map
+```
+
+Brace sigil is a common design for enclosing stuff. Code blocks use {; } and { }, loops are {@ }, {? } are conditionals, {= } are maps, {| } are sets, {: } are tuples. Spaces after the sigils are required unless a bracketed name which requires a space after. Currently arrays are just [].
+
+See `rix/parser/design/` for complete language specification.
