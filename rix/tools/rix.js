@@ -17,11 +17,14 @@ import {
     Context,
     createDefaultRegistry,
     createDefaultSystemContext,
-    parseAndEvaluate
+    parseAndEvaluate,
+    HOLE,
+    isHole
 } from "../eval/index.js";
 import { Rational, RationalInterval } from "@ratmath/core";
 
 function formatResult(val) {
+    if (isHole(val)) return "undefined";
     if (val === null) return "_";
     if (val === undefined) return "undefined";
 
@@ -268,7 +271,27 @@ async function main() {
                     console.log(formatResult(result));
                 }
             } catch (error) {
-                console.error(`Error: ${error.message}`);
+                // Special case: bare unbound user identifier at the REPL shows "undefined"
+                if (error.message.startsWith("Undefined variable:")) {
+                    try {
+                        const toks = tokenize(buffer.trim()).filter(
+                            t => t.type !== "End" && !(t.type === "String" && t.kind === "comment")
+                        );
+                        const isBareUserIdent = toks.length === 1 &&
+                            toks[0].type === "Identifier" && toks[0].kind === "User";
+                        if (isBareUserIdent) {
+                            console.log("undefined");
+                        } else {
+                            console.error(`Error: ${error.message}`);
+                        }
+                    } catch (tokError) {
+                        // If tokenization fails here (unlikely since it passed before evaluation,
+                        // but possible if we're here for other reasons), just show the original error
+                        console.error(`Error: ${error.message}`);
+                    }
+                } else {
+                    console.error(`Error: ${error.message}`);
+                }
             }
 
             buffer = "";
