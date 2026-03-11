@@ -145,6 +145,35 @@ Avg(a, b) :-> (a + b) / 2
 - `Name(x) -> body` or `Name(x) :-> body` = **named function definition** (FUNCDEF)
 - `f = (x) -> body` = **assign lambda to variable** (also valid)
 
+### Self Reference
+
+Inside a function body, bare `$` refers to the currently executing callable.
+
+```rix
+CountDown := n -> n > 0 ?? $(n - 1) ?: 0
+Fact := (n, acc ?| 1) -> n > 1 ?? $(n - 1, acc * n) ?: acc
+Named := x -> $.label
+Named.label = 42
+```
+
+- `$(args...)` self-calls the current callable object.
+- `$.prop` and `$..` use the normal meta/property rules on that callable.
+- `$` is invalid outside a function body.
+
+### Tail Self Call Optimization
+
+RiX only optimizes direct tail self calls of the form `$(...)`.
+
+```rix
+Good := n -> n > 0 ?? $(n - 1) ?: 0
+GoodFact := (n, acc ?| 1) -> n > 1 ?? $(n - 1, acc * n) ?: acc
+BadFact := n -> n > 1 ?? n * $(n - 1) ?: 1
+```
+
+- `Good` and `GoodFact` are optimized because the self call result is returned directly.
+- `BadFact` is not optimized because work remains after the self call returns.
+- RiX does not do general tail-call optimization or mutual tail recursion.
+
 ### Divergences
 - **Pattern Matching**:
     - **RiX**: `abs :=> [(x ? x >= 0) -> x, (x ? x < 0) -> -x]`.
