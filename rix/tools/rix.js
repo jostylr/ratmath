@@ -18,70 +18,8 @@ import {
     createDefaultRegistry,
     createDefaultSystemContext,
     parseAndEvaluate,
-    HOLE,
-    isHole
 } from "../eval/index.js";
-import { Rational, RationalInterval } from "@ratmath/core";
-
-function formatResult(val) {
-    if (isHole(val)) return "undefined";
-    if (val === null) return "_";
-    if (val === undefined) return "undefined";
-
-    // Handle RiX internal object types
-    if (typeof val === "object" && val !== null) {
-        if (val.type === "string") return val.value;
-        if (val.type === "sequence") {
-            const open = val.kind === "set" ? "{| " : val.kind === "tuple" ? "( " : "[";
-            const close = val.kind === "set" ? " |}" : val.kind === "tuple" ? " )" : "]";
-            const items = val.values || val.elements || [];
-            return open + items.map(formatResult).join(", ") + close;
-        }
-        if (val.type === "set" || val.type === "tuple") {
-            const open = val.type === "set" ? "{| " : "( ";
-            const close = val.type === "set" ? " |}" : " )";
-            return open + val.values.map(formatResult).join(", ") + close;
-        }
-        if (val.type === "map") {
-            const entries = [];
-            const mapObj = val.entries || val.elements || new Map();
-            mapObj.forEach((v, k) => {
-                entries.push(`${k}=${formatResult(v)}`);
-            });
-            return `{= ${entries.join(", ")} }`;
-        }
-        if (val.type === "function" || val.type === "lambda") {
-            const params = val.params?.positional?.map(p => p.name).join(", ") || "";
-            if (val.type === "lambda") {
-                return `[Lambda: (${params})]`;
-            }
-            return `[Function: ${val.name || "Anonymous"}(${params})]`;
-        }
-        if (val.type === "pattern_function") {
-            return `[PatternFunction: ${val.name || "Anonymous"}]`;
-        }
-        if (val.type === "system_context") {
-            const names = val.context.getAllNames();
-            const frozenMark = val.context.frozen ? " frozen" : " mutable";
-            return `[SystemContext${frozenMark}: ${names.slice(0, 5).join(", ")}${names.length > 5 ? ", ..." : ""}]`;
-        }
-        if (val.type === "sysref") {
-            return `[SystemFunction: ${val.name}]`;
-        }
-        if (val.type === "partial") {
-            const arity = (val.template || []).reduce(
-                (max, t) => (t && t.type === "placeholder") ? Math.max(max, t.index) : max,
-                0
-            );
-            return `[Partial: ${arity}]`;
-        }
-        if (val.type === "interval") return `${val.start || val.lo}:${val.end || val.hi}`;
-    }
-
-    if (val instanceof Rational) return val.toMixedString();
-    if (val instanceof RationalInterval) return val.toMixedString();
-    return val.toString();
-}
+import { formatValue as formatResult } from "../eval/src/format.js";
 
 // Known REPL meta-commands (lowercase, intercepted before the evaluator)
 const REPL_COMMANDS = new Set(["help", "exit", "load", "vars", "fns", "reset", "ast", "tokens"]);
