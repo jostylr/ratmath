@@ -42,6 +42,8 @@ RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system bl
 
 Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
 
+Break blocks (`{! ... }`) and case blocks (`{? ... }`) are a special case. Inside a break block, plain reads can see the **immediate surrounding scope** without `@`, but writes still stay local unless you explicitly use `@name = ...` or `@name += ...` to mutate that surrounding scope.
+
 When the *entire* body of a function or lambda is itself a block, loop, or system container, that outermost container shares the function's scope instead of creating an extra nested one. This lets parameter bindings work naturally:
 
 ```rix
@@ -161,7 +163,8 @@ For other types of containers or specialized execution, a "sigil" is used immedi
 |--------|------|-------------|
 | `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
 | `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Supports an optional top-of-block import header `< ... >`. |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
+| `{! ... }` | **Break Block** | Terminates the nearest matching block/case/loop and returns a value. Examples: `{! 5 }`, `{!; 5 }`, `{!@ "done" }`, `{!?name! "big" }`. |
 | `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
 | `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
 | `{\| ... }` | **Set** | A collection of unique elements. Example: `{\| 1, 2, 3 }` |
@@ -179,6 +182,39 @@ There are also N-ary operation braces for applying operations across arbitrary e
 - `{>> a, b, c}` -> N-ary maximum (ignores `null` arguments).
 - `<>` remains binary-only; no n-ary brace form.
 - In brace form, `<<`/`>>` mean min/max (not shift operators).
+
+### 4.3 Loop Headers
+
+Loops use a default max of `10000` iterations unless the host runtime changes `defaultLoopMax`.
+
+- `{@ ... }` and `{@name@ ... }` use the default max.
+- `{@:100@ ... }` and `{@name:100@ ... }` set an explicit finite cap.
+- `{@::@ ... }` and `{@name::@ ... }` disable max checking.
+
+The max check happens **after the loop condition passes and before the next body execution**. A loop with max `100` can therefore complete 100 iterations; it throws only when iteration 101 would start.
+
+### 4.4 Break Blocks
+
+Break blocks terminate the nearest matching **plain block**, **explicit block**, **case block**, or **loop**, and the break value becomes that construct's final result.
+
+```rix
+{;
+    x := 1
+    {! 5}
+    99
+}
+## returns 5
+```
+
+Targeting forms:
+
+- `{! expr }` — nearest breakable construct of any supported kind
+- `{!; expr }` — nearest block (`{ ... }` or `{; ... }`)
+- `{!@ expr }` — nearest loop
+- `{!? expr }` — nearest case block
+- `{!name! expr }`, `{!;name! expr }`, `{!@name! expr }`, `{!?name! expr }` — named targeting
+
+Named explicit blocks use the existing sigil-name syntax, for example `{;outer; ... }`.
 
 ### 4.3 Map Key Notes
 Map keys are always stored as **strings**.
