@@ -1,13 +1,14 @@
 # Introduction to RiX
 
-Welcome to RiX! RiX is the expressive scripting language designed for the RatMath arithmetic environment. Its syntax is built to be concise, functional, and deeply oriented around mathematical investigation. 
+Welcome to RiX! RiX is the expressive scripting language designed for the RatMath arithmetic environment. Its syntax is built to be concise, functional, and deeply oriented around mathematical investigation.
 
 This guide introduces the core features and idiosyncrasies of RiX to get you comfortable with the language quickly.
 
 ---
 
-## 1. Identifiers: Capital vs Lowercase
+## Basics & Syntax
 
+### Identifiers: Capital vs Lowercase
 In RiX, the casing of the very first letter of an identifier carries semantic weight:
 
 - **Variables** should start with a lowercase letter (e.g., `x`, `myVar`, `my_var`). **camelCase** or **snake_case** are recommended.
@@ -20,11 +21,9 @@ In RiX, the casing of the very first letter of an identifier carries semantic we
 > [!NOTE]
 > Case normalization: only the first letter's case is significant. Beyond the first letter, identifiers are case-insensitive — so `myVar`, `myvar`, and `myVAR` all refer to the same variable. Similarly, `Square` and `SQUARE` are the same user function.
 
----
 
-## 2. Setting Up Variables and Scopes
-
-### Assignment
+### Setting Up Variables and Scopes
+#### Assignment
 Assignment is straightforward, using `:=` or `=`.
 ```rix
 x := 5
@@ -37,7 +36,7 @@ Square(n) -> n ^ 2
 Cube := (n) -> n ^ 3
 ```
 
-### Lexical Scoping and the `@` Prefix
+#### Lexical Scoping and the `@` Prefix
 RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 
 Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
@@ -131,92 +130,121 @@ x = 5
 
 Import headers are declarative, not sequential. In `< a~x, b~a >`, the source for `b~a` is the enclosing `a`, not the newly introduced local `a`. Reusing the same local target twice in one header is an error.
 
----
 
-## 3. Truthiness: Everything is Truthy except `null`
-
+## Null, Holes, Truthiness
 RiX simplifies boolean logic with a very consistent rule:
 **`null` is the only falsy value.** 
+** holes are the undefined and not consider true or false**
 
 Everything else—including `0`, `""` (empty string), and empty collections `[]`—is considered **truthy**. When a short-circuiting operator like `&&` (logical AND) fails to match, it simply returns `null`. This logic makes it very easy to chain conditional checks without needing strict boolean casting.
 
+
+### Holes and Undefined
+
+RiX has an explicit **hole** value distinct from `null`. Holes arise from two sources:
+1. **Omitted syntax** — explicit gaps in array or function-call argument lists.
+2. **Unbound identifiers at the REPL** — typing a bare name that has not been assigned displays `undefined` instead of an error.
+
+### null vs hole
+
+| | `null` (`_`) | hole |
+|---|---|---|
+| Literal syntax | `_` | `[1,,3][2]`, `F(,7)` |
+| Assignable? | yes | no |
+| Falsy? | yes | — |
+| Standard ops | accepted | **error** |
+| `?|` coalescing | left side kept | right side used |
+
+### Array hole syntax
+
+Consecutive or trailing commas produce holes:
+
+```rix
+[1,,3]      ## sequence with hole at position 2
+[,1]        ## hole then 1
+[1,]        ## 1 then hole
+[,]         ## two holes
+[,,]        ## three holes
+[1,,3][2]   ## → hole
+```
+
+### Hole-coalescing operator `?|`
+
+`left ?| right` — returns `left` if it is not a hole, otherwise evaluates and returns `right`.
+
+```rix
+a := [1,,3]
+a[2] ?| 9      ## → 9  (position 2 is a hole)
+a[1] ?| 9      ## → 1  (position 1 is not a hole)
+a[2] ?| a[3]   ## → 3  (chains naturally: left-associative)
+```
+
+`?|` is lazy — the right side is not evaluated when the left side is not a hole.
+
+### Omitted call arguments
+
+Pass a hole explicitly by omitting a positional argument:
+
+```rix
+F(,7)      ## first arg is a hole
+F(1,,3)    ## second arg is a hole
+F(,)       ## both args are holes
+```
+
+### Parameter defaults with `?|`
+
+Parameters can declare a **hole default** using `?|`. The default is used when the caller explicitly passes a hole or when the argument is omitted entirely:
+
+```rix
+F := (x ?| 2, a) -> a ^ x
+F(, 7)     ## → 49   (hole for x → x defaults to 2, 7^2)
+F(3, 7)    ## → 343  (explicit 3, 7^3)
+F(0, 7)    ## → 1    (explicit 0, 7^0; holeDefault not triggered)
+```
+
+### Holes in pipes
+
+Holes in sequences are passed through to callbacks. Use `?|` inside the callback to handle them:
+
+```rix
+[1,,3] |>> (x -> (x ?| 0) + 1)   ## → [2, 1, 4]
+```
+
+Standard reduction/arithmetic pipes will **throw** if they encounter a hole:
+
+```rix
+[1,,3] |>: @+[2]   ## error: Cannot use undefined/hole value in computation
+```
+
+### REPL unbound identifiers
+
+In the interactive REPL, entering a bare unbound identifier displays `undefined` (rather than raising an error). Expressions that *use* an unbound identifier still throw:
+
+```
+rix> x
+undefined
+rix> x + 1
+Error: Undefined variable: x
+```
+
+
 ---
 
-RiX heavily leverages braces `{...}` for creating various containers, collections, and execution blocks. 
+## Collections & Data Types
 
-### 4.1 Plain Braces: Execution Blocks
-Plain braces `{ ... }` are **always** interpreted as execution blocks. They execute statements sequentially and return the value of the final statement.
+RiX has four primary collection kinds:
 
-```rix
-## Simple block
-{ 
-  x := 5; 
-  y := 10; 
-  x + y 
-} ## Returns 15
-```
+| Kind | Literal syntax | Description |
+|------|----------------|-------------|
+| Sequence (array) | `[1, 2, 3]` | Ordered, 1-based indexed |
+| String | `"hello"` | Unicode code-point sequence |
+| Tuple | `{: a, b, c }` | Fixed-arity positional group |
+| Map | `{= a=1, b=2 }` | Key-value, canonicalized string keys |
 
-### 4.2 Sigilled Braces
-For other types of containers or specialized execution, a "sigil" is used immediately after the opening brace:
+Arrays and maps are **mutable by default** (`mutable=1`). Other collections are immutable.
 
-| Syntax | Type | Example / Description |
-|--------|------|-------------|
-| `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
-| `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
-| `{! ... }` | **Break Block** | Terminates the nearest matching block/case/loop and returns a value. Examples: `{! 5 }`, `{!; 5 }`, `{!@ "done" }`, `{!?name! "big" }`. |
-| `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
-| `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
-| `{\| ... }` | **Set** | A collection of unique elements. Example: `{\| 1, 2, 3 }` |
-| `{: ... }` | **Tuple** | Fixed-length collection. Example: `{: x, y, z }` |
-
-There are also N-ary operation braces for applying operations across arbitrary elements:
-- `{+ 1, 2, 3}` -> N-ary Addition (or string concatenation).
-- `{* 2, 3, 4}` -> N-ary Multiplication.
-- `{&& a, b, c}` -> N-ary Logical AND (short-circuits to `null` on falsy).
-- `{|| a, b, c}` -> N-ary Logical OR (short-circuits to the first truthy value or null).
-- `{\/ A, B, C}` -> N-ary set union / interval hull.
-- `{/\ A, B, C}` -> N-ary set intersection / interval overlap.
-- `{++ A, B, C}` -> N-ary concatenation.
-- `{<< a, b, c}` -> N-ary minimum (ignores `null` arguments).
-- `{>> a, b, c}` -> N-ary maximum (ignores `null` arguments).
-- `<>` remains binary-only; no n-ary brace form.
-- In brace form, `<<`/`>>` mean min/max (not shift operators).
-
-### 4.3 Loop Headers
-
-Loops use a default max of `10000` iterations unless the host runtime changes `defaultLoopMax`.
-
-- `{@ ... }` and `{@name@ ... }` use the default max.
-- `{@:100@ ... }` and `{@name:100@ ... }` set an explicit finite cap.
-- `{@::@ ... }` and `{@name::@ ... }` disable max checking.
-
-The max check happens **after the loop condition passes and before the next body execution**. A loop with max `100` can therefore complete 100 iterations; it throws only when iteration 101 would start.
-
-### 4.4 Break Blocks
-
-Break blocks terminate the nearest matching **plain block**, **explicit block**, **case block**, or **loop**, and the break value becomes that construct's final result.
-
-```rix
-{;
-    x := 1
-    {! 5}
-    99
-}
-## returns 5
-```
-
-Targeting forms:
-
-- `{! expr }` — nearest breakable construct of any supported kind
-- `{!; expr }` — nearest block (`{ ... }` or `{; ... }`)
-- `{!@ expr }` — nearest loop
-- `{!? expr }` — nearest case block
-- `{!name! expr }`, `{!;name! expr }`, `{!@name! expr }`, `{!?name! expr }` — named targeting
-
-Named explicit blocks use the existing sigil-name syntax, for example `{;outer; ... }`.
-
-### 4.3 Map Key Notes
+Map keys are canonicalized via `KEYOF`: integers become their decimal string, strings stay as-is, and arbitrary values may supply a `.key` meta property.
+###  Map Key Notes
 Map keys are always stored as **strings**.
 
 Key resolution (`.KEYOF`) rules:
@@ -251,7 +279,7 @@ Map literals reject duplicate keys after key canonicalization:
 {= (1)=1, ("1")=2 }    ## error: duplicate key "1"
 ```
 
-### 4.4 `.key` Identity
+### `.key` Identity
 Values can define `.key` to control how they behave as map keys:
 
 ```rix
@@ -264,10 +292,140 @@ Rules:
 - Reassigning the same canonical key is allowed (idempotent)
 - Reassigning a different key is an error
 
+
+### Map Keys
+
+Map keys are canonicalized strings:
+- Plain identifiers in literals (`a=1`) use the identifier name as key
+- Parenthesized expressions (`(1)=2`) use `KEYOF` to canonicalize: integers become `"1"`, `"2"`, etc.
+- Strings use their value
+
+```rix
+m = {= a=5, (1)=10, ("x")=20 }
+m["a"]   ## 5
+m[1]     ## 10   (integer 1 → key "1")
+m["x"]   ## 20
+```
+
+When a map callback receives a key locator `k`, it is a RiX string value consistent with `KEYOF` and `INDEX_GET`.
+
+### Sort
+
+Sort makes sense for arrays but not maps or sets. There is no canonical ordered version for them. 
+
+### Examples — tensors
+
+Tensor literals use an explicit shape header and row-major order:
+
+```rix
+m := {:2x3: 1, 2, 3; 4, 5, 6 }
+m[2, 3]            ## 6
+m[1, ::]           ## tensor view of the first row
+m^^                ## transpose view, shape {: 3, 2 }
+```
+
+Tensor traversal pipes use the index tuple as the locator:
+
+```rix
+{:2x3:} |>> (v, idx) -> idx[1] * 10 + idx[2]
+## {:2x3: 11, 12, 13; 21, 22, 23 }
+```
+
+This is the preferred fill idiom. Assignment loops are usually unnecessary because tuple pipes already unpack index tuples:
+
+```rix
+{:2x3x7:} |>> (v, idx) -> (idx |> SomeFormula)
+```
+
+
+### Tensor Notes
+
+- Tensor indices are 1-based; negative indices count from the end; index `0` is invalid.
+- Bracket slices are strict, closed, and directed. `::` is sugar for the full forward slice.
+- Tensor `|>>` returns a new dense tensor with the same shape.
+- Tensor `|>?` returns a sequence of `{: value, indexTuple }` pairs.
+
 ---
 
-## 5. System Functions vs Syntax Sugar
+## Execution Blocks & Sigils
+RiX heavily leverages braces `{...}` for creating various containers, collections, and execution blocks. 
 
+### Plain Braces: Execution Blocks
+Plain braces `{ ... }` are **always** interpreted as execution blocks. They execute statements sequentially and return the value of the final statement.
+
+```rix
+## Simple block
+{ 
+  x := 5; 
+  y := 10; 
+  x + y 
+} ## Returns 15
+```
+
+### Sigilled Braces
+For other types of containers or specialized execution, a "sigil" is used immediately after the opening brace:
+
+| Syntax | Type | Example / Description |
+|--------|------|-------------|
+| `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
+| `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
+| `{! ... }` | **Break Block** | Terminates the nearest matching block/case/loop and returns a value. Examples: `{! 5 }`, `{!; 5 }`, `{!@ "done" }`, `{!?name! "big" }`. |
+| `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
+| `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
+| `{\| ... }` | **Set** | A collection of unique elements. Example: `{\| 1, 2, 3 }` |
+| `{: ... }` | **Tuple** | Fixed-length collection. Example: `{: x, y, z }` |
+
+There are also N-ary operation braces for applying operations across arbitrary elements:
+- `{+ 1, 2, 3}` -> N-ary Addition (or string concatenation).
+- `{* 2, 3, 4}` -> N-ary Multiplication.
+- `{&& a, b, c}` -> N-ary Logical AND (short-circuits to `null` on falsy).
+- `{|| a, b, c}` -> N-ary Logical OR (short-circuits to the first truthy value or null).
+- `{\/ A, B, C}` -> N-ary set union / interval hull.
+- `{/\ A, B, C}` -> N-ary set intersection / interval overlap.
+- `{++ A, B, C}` -> N-ary concatenation.
+- `{<< a, b, c}` -> N-ary minimum (ignores `null` arguments).
+- `{>> a, b, c}` -> N-ary maximum (ignores `null` arguments).
+- `<>` remains binary-only; no n-ary brace form.
+- In brace form, `<<`/`>>` mean min/max (not shift operators).
+
+###  Loop Headers
+
+Loops use a default max of `10000` iterations unless the host runtime changes `defaultLoopMax`.
+
+- `{@ ... }` and `{@name@ ... }` use the default max.
+- `{@:100@ ... }` and `{@name:100@ ... }` set an explicit finite cap.
+- `{@::@ ... }` and `{@name::@ ... }` disable max checking.
+
+The max check happens **after the loop condition passes and before the next body execution**. A loop with max `100` can therefore complete 100 iterations; it throws only when iteration 101 would start.
+
+### Break Blocks
+
+Break blocks terminate the nearest matching **plain block**, **explicit block**, **case block**, or **loop**, and the break value becomes that construct's final result.
+
+```rix
+{;
+    x := 1
+    {! 5}
+    99
+}
+## returns 5
+```
+
+Targeting forms:
+
+- `{! expr }` — nearest breakable construct of any supported kind
+- `{!; expr }` — nearest block (`{ ... }` or `{; ... }`)
+- `{!@ expr }` — nearest loop
+- `{!? expr }` — nearest case block
+- `{!name! expr }`, `{!;name! expr }`, `{!@name! expr }`, `{!?name! expr }` — named targeting
+
+Named explicit blocks use the existing sigil-name syntax, for example `{;outer; ... }`.
+
+
+---
+
+## System Functions & Calls
 Essentially everything in RiX is "syntax sugar" that is immediately translated into fundamental **System Functions** after parsing.
 - Writing `3 + 4` evaluates the internal `ADD` function.
 - Writing `x := 5` evaluates the internal `ASSIGN` function.
@@ -356,35 +514,69 @@ Partial functions are especially useful in pipelines:
 [1, 2, 3] |>> @+(_1, 10) ## [11, 12, 13]
 ```
 
----
 
-## 5.5 Symbolic Algebra
+### Arity-Capped Callable Views
 
-RiX provides a concise symbolic algebra for sets, intervals, and collections:
+The syntax `fn[n]` produces a **callable wrapper** that forwards only the first `n` arguments to `fn` and silently discards any extras.
 
-- `A \/ B`: Union (sets) or Hull (intervals).
-- `A /\ B`: Intersection (sets) or Overlap (intervals).
-- `A \ B`: Set difference (or key removal from maps).
-- `A <> B`: Symmetric difference.
-- `x ? S`: Membership test for sets/intervals; for maps, key existence test using `.KEYOF(x)`.
-- `x !? S`: Non-membership test (for maps: key does not exist).
-- `A ?& B`: Intersects predicate.
-- `A ** B`: Cartesian product of sets.
-- `A ++ B`: Concatenation of ordered collections (arrays, tuples, strings, maps).
-
-### 5.6 Utility System Function
-`.RAND_NAME(len=10, alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")` returns a random string. Like all system capabilities, it is called via the dot prefix.
-
-Examples:
 ```rix
-.RAND_NAME()
-.RAND_NAME(5)
-.RAND_NAME(12, "abc")
+fn[n]
 ```
 
+This is useful when a pipe callback supplies extra context arguments (locator, source) that a bare system function would misinterpret.
+
+**This is not partial application.** It does not bind arguments, reorder them, or select arbitrary positions — it simply truncates the incoming argument list to the first `n`.
+
+### Examples
+
+```rix
+## Reduce with bare @+ — without arity cap, @+ would receive (acc, val, locator, src)
+## and MUL would try to use the sequence object in arithmetic.
+[1, 2, 3] |>: @+[2]        ## 6   (only acc and val forwarded to @+)
+[1, 2, 3] |:> 0 >: @+[2]   ## 6
+
+## Map and filter with a user function
+double := (x) -> x * 2
+[1, 2, 3] |>> double[1]     ## [2, 4, 6]   (locator dropped)
+
+isEven := (x) -> x % 2 == 0
+[1, 2, 3, 4] |>? isEven[1]  ## [2, 4]
+
+## Works on maps too
+{= a=2, b=3 } |>> double[1]   ## {= a=4, b=6 }
+
+## General call context (not pipe-specific)
+G := @+[2]
+G(10, 20, 99, 99)   ## 30  (only 10 and 20 forwarded)
+
+## Zero-arity cap
+C := () -> 42
+C[0](1, 2, 3)       ## 42  (no args forwarded)
+
+## Nested caps — outer cap wins
+@+[3][2](1, 2, 3, 4)   ## 3  (at most 2 args reach @+)
+```
+
+### Relationship to placeholders
+
+| Approach | Syntax | Purpose |
+|---|---|---|
+| Arity cap | `fn[n]` | Forward only first `n` args |
+| Placeholder | `@+(_1, _2)` | Explicit selection / reordering |
+
+Use `fn[n]` when you want "first N args only"; use placeholders when you need anything more specific.
+
+### Rules
+
+- `n` must be a non-negative integer literal. Negative or non-integer values error.
+- If fewer than `n` arguments are supplied at call time, all are forwarded (no padding).
+- Works on any callable value: lambdas, named functions (uppercase), system references, partials, or already-capped callables.
+- Does not affect ordinary collection indexing — `collection[i]` continues to index as before.
+
+
 ---
 
-## 6. Pipe Operators `|>`
+##  Pipe Operators `|>`
 
 RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. 
 
@@ -392,32 +584,169 @@ RiX is highly optimized for functional programming and data transformation. The 
 
 When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
 
-- `val |> fn`: Pipe `val` as the first argument to `fn`.
-- `coll |>/ i:j`: Strict slice of a collection. Both `i` and `j` must be integers exactly within the bounds. Negative indices index from the end. Returns `null` if bounds are invalid.
-- `coll |>// i:j`: Clamped slice of a collection. Clamps out-of-bounds indices to the collection's boundaries. Returns an empty collection instead of `null`. Directed intervals reverse standard operations.
-- `coll |>/| sep`: Split (`PSPLIT`) the collection or string by a delimiter string, a `REGEX` or a predicate function. The function form starts a SEP with true and ends with false. Separators are not included. 
-- `coll |>#| nOrFn`: Chunk (`PCHUNK`) the collection into subarrays/substrings of an integer size `n` or split when a predicate boundary matches.
-- `coll |>> fn`: Map (`PMAP`) `fn` over each element in the collection.
-- `coll |>? pred`: Filter (`PFILTER`) the collection using the predicate `pred`.
-- `coll |>: fn`: Reduce (`PREDUCE`) the collection using `fn` signature `acc, val`.
-- `coll |:> val >: fn`: Reduce (`PREDUCE`) the collection using `fn` with initial value `val`.
-- `coll |><`: Reverse (`PREVERSE`) the collection.
-- `coll |<> fn`: Sort (`PSORT`) the collection using the comparator `fn`.
-- `coll |>&& pred`: Check if all elements pass the predicate. Returns the last item if all pass, `null` otherwise.
-- `coll |>|| pred`: Check if any element passes the predicate. Returns the first passing item, `null` otherwise.
 
-**Example Pipeline:**
+Pipes pass values through transformations. All collection-pipe operators return **new** collections and never mutate the source.
+
+### Plain pipe
+
 ```rix
-[1, 2, 3, 4, 5] 
-  |>? (x) -> x % 2 == 0   ## Keeps even numbers: [2, 4]
-  |>> (x) -> x ^ 2        ## Squares them: [4, 16]
-  |>: @+                  ## Sums them: 20
+val |> fn        ## pipe val as first arg to fn
+val ||> fn(_1)   ## explicit placeholder form
+```
+
+### Collection traversal pipes
+
+The following pipes traverse elements of a collection and invoke a callback on each. They support sequences, strings, and (for the traversal/fold operators) maps.
+
+```rix
+coll |>> fn      ## PMAP:    map fn over elements
+coll |>? pred    ## PFILTER: keep elements where pred passes
+coll |>&& pred   ## PALL:    every element passes (short-circuits)
+coll |>|| pred   ## PANY:    any element passes (short-circuits)
+coll |>: fn      ## PREDUCE: fold, first element/value as init
+coll |:> init >: fn   ## PREDUCE: fold with explicit initial value
+coll |>/| sep    ## PSPLIT:  split by delimiter, regex, or predicate
+coll |>#| n      ## PCHUNK:  chunk by size or predicate boundary
+coll |>< fn      ## Not a pipe; |>< is PREVERSE (reverse)
+coll |<> fn      ## PSORT:   sort with comparator
+```
+
+### Callback contract
+
+For **traversal pipes** (`|>>`, `|>?`, `|>&&`, `|>||`, predicate form of `|>/|`, predicate form of `|>#|`):
+
+```
+callback(val, locator, src)
+```
+
+For **reduce** (`|>:` and `|:> init >: fn`):
+
+```
+callback(acc, val, locator, src)
+```
+
+For **sort** (`|<>`), the comparator receives only:
+
+```
+comparator(a, b)
+```
+
+**Locator** is the native indexing/key form for the source collection kind:
+- **Sequences and strings**: 1-based integer position (position 1 is the first element)
+- **Maps**: the canonical map key as a RiX string
+- **Tensors**: a 1-based index tuple
+
+Callbacks that declare fewer parameters simply ignore the extra arguments.
+
+### Examples — sequences
+
+```rix
+## Map with value only (backward-compatible)
+[1, 2, 3] |>> (x) -> x * x         ## [1, 4, 9]
+
+## Map with value + locator
+[10, 20, 30] |>> (v, k) -> k        ## [1, 2, 3]  (1-based positions)
+
+## Map using all three args (value, locator, source)
+[10, 20, 30] |>> (v, k, s) -> {: v, k, .LEN(s) }
+## [{: 10, 1, 3 }, {: 20, 2, 3 }, {: 30, 3, 3 }]
+
+## Filter by locator (keep even-indexed elements)
+[10, 20, 30, 40] |>? (v, k) -> k % 2 == 0    ## [20, 40]
+
+## Reduce summing locators (1+2+3)
+[10, 20, 30] |:> 0 >: (acc, v, k) -> acc + k  ## 6
+
+## Reduce — implicit init (first element is accumulator)
+[1, 2, 3, 4] |>: (acc, v) -> acc + v           ## 10
+```
+
+### Examples — strings
+
+Strings are traversed as Unicode code points. The locator is the 1-based code-point position.
+
+```rix
+"abc" |>> (ch, k) -> k        ## [1, 2, 3]  (code-point positions)
+"😀a😃" |>> (ch) -> ch        ## "😀a😃"  (identity map returns string)
+"aAbBc" |>? (ch) -> ch != "A" ## "aBbc"  (filter on char value)
+```
+
+### Examples — maps
+
+Maps support `|>>`, `|>?`, `|>&&`, `|>||`, `|>:`, and `|:> init >: fn`. Maps are **unordered** — no iteration-order guarantee is exposed to users.
+
+For map traversal, callbacks receive `(value, key, sourceMap)`. The key is the canonical map key string.
+
+`|>>` on a map **preserves original keys and transforms only values**. For structural reshaping, use reduce.
+
+```rix
+m = {= a=2, b=3 }
+
+## Map values (preserve keys)
+m |>> (v, k) -> v * 10          ## {= a=20, b=30 }
+
+## Map — callback can use the key
+m |>> (v, k) -> k ++ "=" ++ v   ## {= a="a=2", b="b=3" }
+
+## Filter by value
+{= a=2, b=7, c=1 } |>? (v, k) -> v > 1    ## {= a=2, b=7 }
+
+## Filter by key
+{= a=2, b=7, c=1 } |>? (v, k) -> k == "b" ## {= b=7 }
+
+## All values positive?
+{= a=2, b=7 } |>&& (v) -> v > 0   ## 7  (last value; null if any fail)
+
+## Any value > 5?
+{= a=2, b=7 } |>|| (v) -> v > 5   ## 7  (first passing value)
+
+## Explicit-init reduce over values
+{= a=2, b=7 } |:> 0 >: (acc, v) -> acc + v  ## 9
+
+## Implicit-init reduce (first value encountered is accumulator; order unspecified)
+{= a=2, b=7 } |>: (acc, v) -> acc + v       ## 9  (result, order unspecified)
+```
+
+Maps do **not** support `|>/|` (split), `|>#|` (chunk), or `|<>` (sort).
+
+RiX has two distinct reduce forms with intentionally different semantics:
+
+| Form | Syntax | Init source |
+|------|--------|-------------|
+| Implicit init | `coll \|>: fn` | First element/value of `coll` |
+| Explicit init | `coll \|:> init >: fn` | `init` expression |
+
+Both forms pass `(acc, val, locator, src)` to the callback.
+
+### Backward compatibility with partial functions
+
+Existing partial callbacks continue to work. When a partial is invoked via a traversal pipe, it receives only as many arguments as needed to satisfy its placeholders. Extra locator/src arguments are not forwarded to partials to avoid unintended behavior with N-ary system functions.
+
+```rix
+## These all work as before
+[1, 2, 3] |>> @*(_1, 10)           ## [10, 20, 30]
+[1, 2, 3] |>: @+(_1, _2)           ## 6
+[1, 2, 3] |>? @>(_1, 0)            ## [1, 2, 3]
+```
+
+To access the locator or source in a partial, use explicit placeholder positions:
+
+```rix
+## _1 = val, _2 = locator, _3 = src
+[10, 20, 30] |>> @+(_1, _2)   ## [11, 22, 33]  (value + 1-based position)
+```
+
+
+
+The sort comparator receives `(a, b)` only — no locator or source. Sort does not support maps.
+
+```rix
+[3, 1, 2] |<> (a, b) -> a - b   ## [1, 2, 3]  ascending
 ```
 
 ---
 
-## 7. Sequences, Generators, and Laziness
-
+### Sequences, Generators, and Laziness
 RiX features incredibly dense and powerful list-generation syntax using the pipe `|` inside brackets `[...]`. You generate sequences by specifying an initial state, a generation rule (such as adding or multiplying), and a stop condition.
 
 **Common Generation Rules:**
@@ -443,10 +772,10 @@ The stop condition specifies both *when* to stop and *how* to evaluate:
     - `|^ 1000`: Lazily bounds the generator to 1000 elements max.
     - `|^ (x) -> x > 1000`: Lazily stops when the predicate hits.
 
+
 ---
 
-## 8. Number Systems and Notation
-
+## Number Systems and Notation
 RiX is built on an exact rational arithmetic core, and as such it supports multiple expressive ways to input and represent numbers perfectly accurately without floating point failure.
 
 ### Repeating Decimals (`#`)
@@ -536,50 +865,87 @@ Prefixed literals also support quoted digit streams:
 - `0A4A.F`
 - `0A"4A.F"`
 
----
-
-## 9. Units (Scientific and Algebraic)
-
-> [!WARNING]
-> Units syntax is reserved in the tokenizer but the underlying evaluation and conversion systems have **yet to be fully implemented**.
-
-RiX is designed to treat both scientific and mathematical units as first-class citizens, preventing physical dimensional errors and keeping algebraic markers exact.
-
-Units are attached to numbers using a tilde `~` separator:
-- **Scientific Units** use brackets `~[...]`. Example: `9.8~[m/s^2]` or `3.2~[kg]`.
-- **Algebraic / Math Units** use braces `~{...}`. Example: `2~{i}` (imaginary unit) or `1~{sqrt2}`.
-
-Double tildes `~~` are reserved as a conversion operator, for example, to convert a value to a different unit type.
 
 ---
 
-## 10. Other Notable Features
+## Set and Collection Algebra
+RiX provides a concise symbolic algebra for sets, intervals, and collections:
 
-### Division Variants
-Because RiX operates internally on rich math types, division is highly granular:
-- `/` performs rational (fractional) division.
-- `//` performs integer (floor) division.
-- `/%` performs division returning the remainder.
-- `/~` performs rounded division.
-- `/^` performs ceiling division.
+- `A \/ B`: Union (sets) or Hull (intervals).
+- `A /\ B`: Intersection (sets) or Overlap (intervals).
+- `A \ B`: Set difference (or key removal from maps).
+- `A <> B`: Symmetric difference.
+- `x ? S`: Membership test for sets/intervals; for maps, key existence test using `.KEYOF(x)`.
+- `x !? S`: Non-membership test (for maps: key does not exist).
+- `A ?& B`: Intersects predicate.
+- `A ** B`: Cartesian product of sets.
+- `A ++ B`: Concatenation of ordered collections (arrays, tuples, strings, maps).
 
-### Ternary Operators
-RiX replaces the traditional `C` style ternary (`cond ? true : false`) with its own null-coalscing style syntax using `??` and `?:`.
+## Symbolic System Specs
+
+RiX now uses `{# ... }` for symbolic system specs.
+
 ```rix
-result := (score > 50) ?? "Pass" ?: "Fail"
+S = {#x,y,z:p#
+  p = x^2 * y + z
+}
 ```
 
-### Assertions
-When validating equations or tests, you have special assertion operators:
-- `:=:` Asserts equality (or acts as a solver check)
-- `:<:` Asserts less than
-- `:>:` Asserts greater than
-- `:<=:` / `:>=:` Asserts boundaries.
+This form does not execute its body as a runtime block. Instead it returns a first-class symbolic spec object with:
+
+- `kind = "systemSpec"`
+- `inputs`
+- `outputs`
+- `statements`
+
+Header forms:
+
+```rix
+{# ... }
+{#x,y,z# ... }
+{#:p,q# ... }
+{#x,y,z:p,q# ... }
+```
+
+Rules for the header:
+
+- Names before `:` are declared inputs.
+- Names after `:` are declared outputs.
+- Header names must be bare identifiers.
+- Duplicate input names, duplicate output names, and input/output overlap are rejected.
+
+Rules for the body in the current implementation:
+
+- Only symbolic assignment statements are supported: `name = expr`
+- The left-hand side must be a bare identifier.
+- `=` inside `{# ... }` means symbolic definition inside the spec, not runtime assignment and not solver equality.
+- If outputs are declared, each declared output must be assigned exactly once.
+- If outputs are omitted, outputs are inferred from top-level assignment targets in encounter order.
+
+Expression trees are stored structurally, not as precomputed values and not as reparsed source strings. Outer references such as `@name` are preserved symbolically for later consumers to interpret.
+
+Current host-side helpers used in tests:
+
+```rix
+P = {#x,y,z:p# p = x^2 * y + z } |> Poly
+Dx = Deriv({#x,y,z:p# p = x^2 * y + z }, "x")
+```
+
+`Poly` and `Deriv` currently support a restricted polynomial subset:
+
+- constants
+- identifiers
+- `+`
+- `-`
+- `*`
+- `^` with a nonnegative integer literal exponent
+
+Relation and constraint forms such as `:=:`, `:<:`, and `:>:` remain separate and are reserved for later relational/solver work.
+
 
 ---
 
-## 11. Regex Literals
-
+## Regex Literals
 RiX provides first-class support for Regular Expressions using the `{/pattern/flags?mode}` syntax. A regex literal evaluates to a function that you can then call with a string to perform matching.
 
 ### Syntax and Modes
@@ -615,3 +981,56 @@ it() ## Returns match object for "12"
 it() ## Returns match object for "45"
 it(1) ## Random access: returns "12" again
 ```
+
+---
+
+## 10. Units (Scientific and Algebraic)
+
+> [!WARNING]
+> Units syntax is reserved in the tokenizer but the underlying evaluation and conversion systems have **yet to be fully implemented**.
+
+RiX is designed to treat both scientific and mathematical units as first-class citizens, preventing physical dimensional errors and keeping algebraic markers exact.
+
+Units are attached to numbers using a tilde `~` separator:
+- **Scientific Units** use brackets `~[...]`. Example: `9.8~[m/s^2]` or `3.2~[kg]`.
+- **Algebraic / Math Units** use braces `~{...}`. Example: `2~{i}` (imaginary unit) or `1~{sqrt2}`.
+
+Double tildes `~~` are reserved as a conversion operator, for example, to convert a value to a different unit type.
+
+---
+
+---
+
+## 11. Other Notable Features
+### Division Variants
+Because RiX operates internally on rich math types, division is highly granular:
+- `/` performs rational (fractional) division.
+- `//` performs integer (floor) division.
+- `/%` performs division returning the remainder.
+- `/~` performs rounded division.
+- `/^` performs ceiling division.
+
+### Ternary Operators
+RiX replaces the traditional `C` style ternary (`cond ? true : false`) with its own null-coalscing style syntax using `??` and `?:`.
+```rix
+result := (score > 50) ?? "Pass" ?: "Fail"
+```
+
+### Assertions
+When validating equations or tests, you have special assertion operators:
+- `:=:` Asserts equality (or acts as a solver check)
+- `:<:` Asserts less than
+- `:>:` Asserts greater than
+- `:<=:` / `:>=:` Asserts boundaries.
+
+
+### Utility System Function
+`.RAND_NAME(len=10, alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")` returns a random string. Like all system capabilities, it is called via the dot prefix.
+
+Examples:
+```rix
+.RAND_NAME()
+.RAND_NAME(5)
+.RAND_NAME(12, "abc")
+```
+
