@@ -1,0 +1,6 @@
+< x >;
+
+r := x * x;
+d := 2 * x;
+
+< result=r, deriv=d >

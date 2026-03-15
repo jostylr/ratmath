@@ -1,0 +1,27 @@
+## Run from the repo root with:
+##   bun rix demo.rix
+
+x := 5;
+
+simple = <"demo_const">;
+arith = <"demo_arith" /-All,+Arith/ >;
+poly = <"demo_poly" x ; square=result, deriv=deriv>;
+
+first = <"demo_counter" ; live1=live, copy1=copy>;
+second = <"demo_counter" ; live2=live, copy2=copy>;
+
+live1 += 3;
+
+< all ~ {=
+    simple=simple,
+    arith=arith,
+    square=square,
+    deriv=deriv,
+    bundleSquare=poly[:result],
+    live1=live1,
+    copy1=copy1,
+    bundleLive=first[:live],
+    bundleCopy=first[:copy],
+    live2=live2,
+    copy2=copy2
+}, x>

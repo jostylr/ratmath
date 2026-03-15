@@ -169,6 +169,41 @@ x = 5
 
 Import headers are declarative, not sequential. In `< a~x, b~a >`, the source for `b~a` is the enclosing `a`, not the newly introduced local `a`. Reusing the same local target twice in one header is an error.
 
+#### Script Imports
+RiX can run another `.rix` file with an angle-call expression:
+
+```rix
+<"math/square">
+<"math/square" x>
+<"worker" state=data>
+<"poly" x ; p=result, d=deriv>
+<"net/fetch" /-All,+Core,+Net/ >
+```
+
+The path is resolved relative to the current script (or the current execution base directory at the top level), and `.rix` is added automatically.
+
+- `<"path">` runs the target script.
+- Inputs after the path bind caller cells or copied values into a fresh script scope.
+- `; outputs` copies or aliases named exports back into the caller scope.
+- Every run is fresh. Re-running the same script creates a new execution state each time.
+- Imported scripts run with a restricted system capability set. Nested imports are allowed by default unless the `Imports` capability is removed.
+
+If the imported script ends with an explicit export declaration, the script call returns an export bundle instead of the last expression value.
+
+Script:
+
+```rix
+< x >
+r := x * x
+< result=r >
+```
+
+Caller:
+
+```rix
+y = <"square" x ; z=result>
+```
+
 
 ## Null, Holes, Truthiness
 RiX simplifies boolean logic with a very consistent rule:
@@ -1072,4 +1107,3 @@ Examples:
 .RAND_NAME(5)
 .RAND_NAME(12, "abc")
 ```
-
