@@ -128,6 +128,62 @@ SumAll(...arr, 4)   ## -> 10
 extended = [0, ...arr, 4]  ## -> [0, 1, 2, 3, 4]
 ```
 
+#### Implicit Multiplication and Function Application
+
+RiX lets you write mathematical expressions the way you would on paper. When two expressions appear next to each other with no operator between them, RiX interprets the adjacency based on what's on the left.
+
+**Implicit multiplication** — lowercase variables and numbers multiply when adjacent:
+
+```rix
+a := 7
+b := 9
+3a             ## -> 21        (same as 3 * a)
+a b            ## -> 63        (same as a * b)
+5 10           ## -> 50        (same as 5 * 10)
+3(7 + 1)       ## -> 24        (same as 3 * (7 + 1))
+(a + 1)(b - 1) ## -> 64        (same as (a + 1) * (b - 1))
+3x^2           ## -> 3 * (x^2) — exponentiation binds tighter
+```
+
+Note that `ab` is a single identifier, not `a * b`. Only separate tokens produce multiplication.
+
+**Implicit callable application** — an uppercase function name followed by an adjacent expression calls that function, consuming the **maximal multiplicative chunk** to its right as the argument:
+
+```rix
+F(n) -> n + 10
+G(n) -> 2 * n
+H(n) -> n - 1
+
+F 3            ## -> 13        F(3)
+F 3x           ## -> F(3*x)    with x=4: F(12) = 22
+F 3x^2         ## -> F(3*x^2)  with x=4: F(48) = 58
+F 3x + 7       ## -> F(3*x) + 7   chunk stops at +
+F (3x + 7)     ## -> F(3*x + 7)   parens extend past the chunk
+```
+
+Application binds tighter than implicit multiplication, so a number before a callable multiplies the call result:
+
+```rix
+3 F 7          ## -> 51        3 * F(7) = 3 * 17
+2 G 3 + 1      ## -> 13        2 * G(3) + 1 = 2*6 + 1
+```
+
+Callables chain right-to-left through adjacent callables:
+
+```rix
+F G 7          ## -> 24        F(G(7)) = F(14)
+3 F G 7        ## -> 72        3 * F(G(7)) = 3 * 24
+F G x          ## -> F(G(x))   with x=4: F(8) = 18
+3 F G 7 H 9    ## -> 366       3 * F(G(7 * H(9)))
+               ##              H(9)=8, 7*8=56, G(56)=112, F(112)=122, 3*122=366
+```
+
+A few things that do **not** happen:
+- `3 F` with no argument does not auto-call `F` — it means `3 * F`, which is an error if `F` is a bare function.
+- `F` alone retrieves the function value; it does not call it.
+- `F + 1` does not call `F` — only adjacency triggers application, not operators.
+- Explicit call syntax `F(args)` always works and is unchanged.
+
 #### Lexical Scoping and the `@` Prefix
 RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 
