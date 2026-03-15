@@ -53,6 +53,7 @@ use current working directory/tmp to store any temporary files. Do not use syste
 - **`:=`** for assignment, **`==`** for equality
 - **`@_NAME`** prefix for system function calls in source code
 - Brace sigils: `{=` map, `{?` case, `{;` block, `{|` set, `{:` tuple, `{@` loop, `{!` mutation
+- When adding a new RiX system function/capability, assign it to an appropriate capability group in the runtime config so script sandboxing remains coherent
 
 ---
 
