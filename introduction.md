@@ -43,7 +43,7 @@ y := x       ## y gets its own copy
 x += 1       ## x is 6, y is still 5
 ```
 
-**`~=` — In-Place Value Replacement.** Replaces the value inside the existing cell. This preserves cell identity, so aliases still track the change. Ordinary meta (`.key`, `.mutable`) is preserved; ephemeral meta (`._spec`) is replaced wholesale from the right-hand side; sticky meta (`.__units`) is preserved unless the right-hand side supplies the same key.
+**`~=` — In-Place Value Replacement.** Replaces the value inside the existing cell. This preserves cell identity, so aliases still track the change. Ordinary meta (`.key`, `.lock`) is preserved; ephemeral meta (`._mutable`, `._spec`) is replaced wholesale from the right-hand side; sticky meta (`.__units`) is preserved unless the right-hand side supplies the same key.
 
 ```rix
 t := [0]
@@ -65,6 +65,45 @@ x := 5
 y = x
 x += 1       ## desugars to x ~= x + 1
 ## both x and y are 6
+```
+
+#### Cell Protections and Value Mutability
+
+RiX distinguishes two separate concepts:
+
+1. **Cell-level protection** (ordinary meta — survives `~=`, governs whole-value *replacement*):
+   - `.lock` — blocks `~=`, `~~=`, and combo operators; allows `=` rebind, `:=` copy, and in-place index mutation.
+   - `.frozen` — blocks `~=`/`~~=` *and* ordinary meta edits; allows `=` rebind and in-place index mutation.
+   - `.immutable` — like `.frozen` but permanent; cannot be unset.
+
+2. **Value-level mutability** (ephemeral meta — replaced wholesale under `~=`, governs in-place *structural mutation*):
+   - `._mutable` — when truthy, composite values (arrays, maps, tensors) allow index assignment (`arr[i] = v`). Arrays, maps, and tensors default to `._mutable = 1`.
+
+These are intentionally independent: a locked cell may still hold a mutable array whose elements can be changed; and a `~=` to a non-mutable rhs drops the `._mutable` flag from the lhs.
+
+```rix
+x := [1, 2, 3]
+x.lock = 1       ## lock the cell
+
+x ~= [4, 5, 6]  ## ERROR: cell is locked
+x[1] = 9        ## OK: ._mutable governs index mutation, not .lock
+```
+
+```rix
+a := [1, 2]
+a._mutable = _   ## remove value mutability
+
+b := [3, 4]      ## b is mutable (._mutable = 1 by default)
+a ~= b           ## a now has b's value AND b's ._mutable
+a[1] = 9         ## now OK — ._mutable was adopted from b
+```
+
+Use `.DeepMutable(value, flag)` to recursively set or clear `._mutable` throughout a nested structure. Pass `_` (null) to remove mutability, or any non-null value (e.g. `1`) to restore it:
+
+```rix
+nested := [[1, 2], [3, 4]]
+.DeepMutable(nested, _)   ## all inner arrays lose ._mutable
+.DeepMutable(nested, 1)   ## all inner arrays regain ._mutable
 ```
 
 To define a function, you use the `->` operator. You can either use a named function definition or assign an anonymous lambda to a variable:
@@ -315,7 +354,7 @@ RiX has four primary collection kinds:
 | Tuple | `{: a, b, c }` | Fixed-arity positional group |
 | Map | `{= a=1, b=2 }` | Key-value, canonicalized string keys |
 
-Arrays and maps are **mutable by default** (`mutable=1`). Other collections are immutable.
+Arrays, maps, and tensors are **structurally mutable by default** (`._mutable=1`). Other collections are not. This allows in-place index assignment (`arr[1] = 9`). See the cell protection section below for details.
 
 Map keys are canonicalized via `KEYOF`: integers become their decimal string, strings stay as-is, and arbitrary values may supply a `.key` meta property.
 ###  Map Key Notes
@@ -654,7 +693,7 @@ Use `fn[n]` when you want "first N args only"; use placeholders when you need an
 
 RiX is highly optimized for functional programming and data transformation. The pipe operators allow you to cleanly string operations together. It's crucial to note that **pipe operators always return new collections**; they never mutate the original in-place. 
 
-**Mutability Note:** While pipe operators create new copies, arrays and maps are created as **mutable** by default (`mutable=1`). This allows you to perform in-place modification using indices (e.g., `arr[1] = val`). You can lock a collection by removing its mutable flag (`arr.mutable = _`).
+**Mutability Note:** While pipe operators create new copies, arrays and maps are created as **structurally mutable** by default (`._mutable=1`). This allows you to perform in-place modification using indices (e.g., `arr[1] = val`). You can disable structural mutation by removing the value mutability flag (`arr._mutable = _`). Cell-level protections (`.lock`, `.frozen`, `.immutable`) govern whole-value replacement, not index assignment.
 
 When piping strings, RiX natively treats them as sequences of **Unicode Code Points**, safely keeping emojis and surrogate pairs intact across all slice, map, and filter operations.
 
