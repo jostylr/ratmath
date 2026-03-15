@@ -23,11 +23,48 @@ In RiX, the casing of the very first letter of an identifier carries semantic we
 
 
 ### Setting Up Variables and Scopes
-#### Assignment
-Assignment is straightforward, using `:=` or `=`.
+#### Assignment and the Cell Model
+
+A variable in RiX names a **cell** — a mutable container holding a value and meta properties. Different assignment operators control whether you share, copy, or update a cell.
+
+**`=` — Alias / Rebind.** Makes the left-hand side point to the same cell as the right-hand side. If the right side is a variable, both names share the same cell; if it is an expression, a fresh cell is created for the result.
+
 ```rix
 x := 5
-y = 10
+y = x        ## y and x share the same cell
+x += 1       ## both x and y see 6
+```
+
+**`:=` — Fresh Copy.** Creates a new, independent cell with a shallow copy of the value and all meta properties.
+
+```rix
+x := 5
+y := x       ## y gets its own copy
+x += 1       ## x is 6, y is still 5
+```
+
+**`~=` — In-Place Value Replacement.** Replaces the value inside the existing cell. This preserves cell identity, so aliases still track the change. Ordinary meta (`.key`, `.mutable`) is preserved; ephemeral meta (`._spec`) is replaced wholesale from the right-hand side; sticky meta (`.__units`) is preserved unless the right-hand side supplies the same key.
+
+```rix
+t := [0]
+t.key = "temperature"
+t.__units = "C"
+t._spec = "sensor formula"
+t ~= 21
+## t.key stays "temperature"
+## t.__units stays "C"
+## t._spec is cleared (rhs had none)
+```
+
+**`::=` and `~~=`** are deep-copy variants of `:=` and `~=`, respectively. They recursively copy nested collections instead of sharing inner references.
+
+**Combo operators** (`+=`, `-=`, `*=`, `/=`, `^=`, etc.) use `~=` semantics — they update the value in place, so aliases see the change and meta is preserved:
+
+```rix
+x := 5
+y = x
+x += 1       ## desugars to x ~= x + 1
+## both x and y are 6
 ```
 
 To define a function, you use the `->` operator. You can either use a named function definition or assign an anonymous lambda to a variable:
@@ -105,16 +142,18 @@ x = 10
 ## outer x is still 10
 ```
 
-Alias imports write through:
+Alias imports write through when you use `~=` or combo operators (which preserve cell identity):
 
 ```rix
-y = 20
+y := 20
 {;
     < y=>
-    y = y + 1
+    y += 1       ## combo ops use ~= semantics — writes through the alias
 }
 ## outer y is now 21
 ```
+
+Note: using plain `=` inside an aliased import rebinds the local name and breaks the alias.  Use `~=` or combo operators like `+=` to write through.
 
 `@name` still bypasses the local import and reaches outward directly:
 

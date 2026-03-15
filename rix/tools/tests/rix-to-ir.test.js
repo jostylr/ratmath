@@ -40,9 +40,9 @@ describe("RiX-to-IR Script", () => {
             expect(output).toBe('ASSIGN("x", LITERAL("5"))');
         });
 
-        test(":= assignment (same as =)", () => {
+        test(":= produces ASSIGN_COPY", () => {
             const output = rixToIR("x := 5;");
-            expect(output).toBe('ASSIGN("x", LITERAL("5"))');
+            expect(output).toBe('ASSIGN_COPY("x", LITERAL("5"))');
         });
     });
 
