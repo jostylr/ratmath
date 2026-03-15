@@ -112,6 +112,22 @@ Square(n) -> n ^ 2
 Cube := (n) -> n ^ 3
 ```
 
+#### Rest Parameters and Spread Syntax
+RiX supports the spread operator (`...`) to gather leftover parameters into an array (rest parameters) or expand collections into arguments (spread arguments).
+
+```rix
+## Rest Parameters
+SumAll := (...args) -> (args |>: @+[2] )
+SumAll(1, 2, 3)     ## -> 6
+
+## Spread Arguments
+arr = [1, 2, 3]
+SumAll(...arr, 4)   ## -> 10
+
+## Array Spread
+extended = [0, ...arr, 4]  ## -> [0, 1, 2, 3, 4]
+```
+
 #### Lexical Scoping and the `@` Prefix
 RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 

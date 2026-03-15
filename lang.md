@@ -145,6 +145,16 @@ Avg(a, b) :-> (a + b) / 2
 - `Name(x) -> body` or `Name(x) :-> body` = **named function definition** (FUNCDEF)
 - `f = (x) -> body` = **assign lambda to variable** (also valid)
 
+### Rest Parameters and Spread Arguments
+
+RiX supports spread syntax (`...`) for gathering and expanding values.
+
+- **Rest Parameters**: In function definitions, `...name` gathers trailing arguments into an array.
+  - `(x, y, ...args) -> body`
+- **Spread Arguments**: In function calls and array literals, `...val` expands an iterable (array, tuple, set, etc.) into discrete elements.
+  - `F(...arr)`
+  - `extended_arr = [1, 2, ...arr, 5]`
+
 ### Self Reference
 
 Inside a function body, bare `$` refers to the currently executing callable.
