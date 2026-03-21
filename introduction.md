@@ -58,13 +58,41 @@ t ~= 21
 
 **`::=` and `~~=`** are deep-copy variants of `:=` and `~=`, respectively. They recursively copy nested collections instead of sharing inner references.
 
-**Combo operators** (`+=`, `-=`, `*=`, `/=`, `^=`, etc.) use `~=` semantics — they update the value in place, so aliases see the change and meta is preserved:
+**Combo operators** (`+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`, `++=`, `\/=`, `/\=`, `\=`, `**=`, `/^=`, `/~=`) use `~=` semantics — they update the value in place, so aliases see the change and meta is preserved:
 
 ```rix
 x := 5
 y = x
 x += 1       ## desugars to x ~= x + 1
 ## both x and y are 6
+```
+
+The same pattern applies to collection-style operators:
+
+```rix
+xs := [1, 2]
+ys = xs
+xs ++= [3]
+## ys now sees [1, 2, 3]
+
+s := {| 1, 2 |}
+s \/= {| 2, 3 |}
+## s is now {| 1, 2, 3 |}
+
+t := {| 1, 2, 3 |}
+t /\= {| 2, 3, 4 |}
+## t is now {| 2, 3 |}
+
+u := {| 1, 2, 3 |}
+u \= {| 2 |}
+## u is now {| 1, 3 |}
+```
+
+Formally, combo updates follow the same cell-preserving model for both local and outer writes:
+
+```rix
+x op= y   =>   x ~= x op y
+@x op= y  =>   @x ~= @x op y
 ```
 
 #### Cell Protections and Value Mutability
@@ -189,7 +217,7 @@ RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system bl
 
 Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
 
-Break blocks (`{! ... }`) and case blocks (`{? ... }`) are a special case. Inside a break block, plain reads can see the **immediate surrounding scope** without `@`, but writes still stay local unless you explicitly use `@name = ...` or `@name += ...` to mutate that surrounding scope.
+Break blocks (`{! ... }`) and case blocks (`{? ... }`) are a special case. Inside a break block, plain reads can see the **immediate surrounding scope** without `@`, but writes still stay local unless you explicitly use `@name = ...` or `@name += ...` / `@name ++= ...` / `@name \/= ...` to mutate that surrounding scope.
 
 When the *entire* body of a function or lambda is itself a block, loop, or system container, that outermost container shares the function's scope instead of creating an extra nested one. This lets parameter bindings work naturally:
 
