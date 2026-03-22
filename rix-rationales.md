@@ -43,3 +43,43 @@ This is preferable to rebinding because collection-oriented combo operators are 
 The documentation previously contained an inconsistency: most of the assignment model described combo operators as cell-preserving updates, but one note described them as if they lowered through plain `ASSIGN`.
 
 The intended model is the cell-preserving one. Combo assignments lower through `ASSIGN_UPDATE` or `OUTER_UPDATE`, not plain `ASSIGN`. This rationale entry records that correction so future docs and implementation changes stay aligned.
+
+## Receiver-First Methods
+
+### Why method syntax exists at all
+
+RiX methods are not a class system. They are syntax sugar over callable values that already fit the language's function-first runtime:
+
+```rix
+obj.Method(a, b)
+obj.Method!(a, b)
+```
+
+The runtime resolves a callable, then invokes it as:
+
+```rix
+fn(obj, a, b)
+```
+
+That keeps the dispatch model consistent with the rest of RiX while giving scripts a more readable receiver-first surface when operating on collections and structured values.
+
+### Why `!` marks mutation
+
+Mutation should be visible at the call site. A trailing `!` makes that explicit without adding a separate method system or hidden mutability rules:
+
+- `Method` means "produce a new value"
+- `Method!` means "mutate the receiver"
+
+This avoids implicit side effects and lets readers distinguish copy-producing and in-place operations immediately.
+
+### Why method lookup is constrained
+
+Method lookup only checks direct meta and a single `_proto` map. There is no prototype chaining in v1.
+
+That restriction is deliberate:
+
+- lookup order stays predictable
+- direct non-callable values block fallback cleanly
+- property access and method calls remain distinct operations
+
+In particular, `obj.Method` is just meta-property access, while only `obj.Method(...)` triggers method resolution. That separation prevents a hidden second meaning for ordinary property reads.

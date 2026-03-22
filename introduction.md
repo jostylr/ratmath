@@ -140,6 +140,34 @@ Square(n) -> n ^ 2
 Cube := (n) -> n ^ 3
 ```
 
+#### Receiver-First Methods
+
+RiX also supports receiver-first method syntax as sugar over ordinary callable values:
+
+```rix
+arr.Push(5)
+arr.Push!(5)
+```
+
+- `obj.Method(args)` calls a non-mutating method and should return a new value.
+- `obj.Method!(args)` calls the mutating variant and should modify `obj` in place.
+- The receiver is always the first argument to the resolved callable.
+- Only the call form performs method lookup. `x = arr.Push` is still just direct meta-property access.
+
+For example:
+
+```rix
+a := [1, 2]
+b := a.Push(5)
+## a is still [1, 2]
+## b is [1, 2, 5]
+
+a.Push!(5)
+## a is now [1, 2, 5]
+```
+
+Mutating `!` methods require a mutable receiver. RiX uses the existing meta model for that check, so a value without `._mutable` or one marked `.frozen` / `.immutable` will reject the mutation attempt.
+
 #### Rest Parameters and Spread Syntax
 RiX supports the spread operator (`...`) to gather leftover parameters into an array (rest parameters) or expand collections into arguments (spread arguments).
 
