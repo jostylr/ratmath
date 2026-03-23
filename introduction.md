@@ -168,6 +168,8 @@ a.Push!(5)
 
 Mutating `!` methods require a mutable receiver. RiX uses the existing meta model for that check, so a value without `._mutable` or one marked `.frozen` / `.immutable` will reject the mutation attempt.
 
+The full built-in method surface is listed in [rix/eval/methods-guide.md](./rix/eval/methods-guide.md).
+
 #### Rest Parameters and Spread Syntax
 RiX supports the spread operator (`...`) to gather leftover parameters into an array (rest parameters) or expand collections into arguments (spread arguments).
 
