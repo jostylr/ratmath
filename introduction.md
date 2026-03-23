@@ -480,9 +480,31 @@ RiX has four primary collection kinds:
 | Kind | Literal syntax | Description |
 |------|----------------|-------------|
 | Sequence (array) | `[1, 2, 3]` | Ordered, 1-based indexed |
-| String | `"hello"` | Unicode code-point sequence |
+| String | `"hello"` or `:hello` | Unicode code-point sequence |
 | Tuple | `{: a, b, c }` | Fixed-arity positional group |
 | Map | `{= a=1, b=2 }` | Key-value, canonicalized string keys |
+
+### Colon-Strings
+
+A colon followed by an identifier or number in a position where a value is expected (not after another value) produces a string literal:
+
+```rix
+:hello          ## same as "hello"
+:World          ## same as "World" (case preserved)
+:some_key       ## same as "some_key"
+:123            ## same as "123"
+```
+
+This is convenient for map key access and anywhere a short string is needed:
+
+```rix
+m := {= name = 5 }
+m[:name]        ## 5 — same as m["name"]
+x := :hello     ## x is "hello"
+[:a, :b, :c]    ## same as ["a", "b", "c"]
+```
+
+Note: `:` after a value is still the interval operator. `a:b` and `a :b` both produce intervals, not strings.
 
 Arrays, maps, and tensors are **structurally mutable by default** (`._mutable=1`). Other collections are not. This allows in-place index assignment (`arr[1] = 9`). See the cell protection section below for details.
 
