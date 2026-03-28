@@ -1323,3 +1323,89 @@ Examples:
 .RAND_NAME(5)
 .RAND_NAME(12, "abc")
 ```
+
+## Diagnostics, Testing, and Debugging
+
+RiX includes a built-in diagnostics subsystem accessed through system capabilities. All diagnostic operations produce structured RiX map values with a consistent `kind` field, making them inspectable and composable.
+
+### Warnings and Info
+
+`.Warn` and `.Info` emit diagnostic events and return the event object:
+
+```rix
+.Warn("large interval", {= width = 1000 })
+.Info("processing", 2, {= step = "parse" })
+```
+
+`.Info` accepts an optional level (default 1) and optional data map.
+
+### Errors and Stops
+
+`.Error` emits an error event and aborts evaluation:
+
+```rix
+.Error("invalid input", {= value = x })
+```
+
+`.Stop` conditionally aborts. If the condition is null, it does nothing and returns null. If non-null, it aborts:
+
+```rix
+value := F(n);
+.Stop("negative result", value < 0, {= value = value })
+```
+
+### Debug
+
+`.Debug` is AST-aware: it captures the expression structure before evaluating, records both the source representation and the final value, then returns the value so it composes inline:
+
+```rix
+x := .Debug("sum check", a + b)
+```
+
+### Trace
+
+`.Trace` wraps a callable invocation with execution tracing up to a specified depth, optionally tracking named variables:
+
+```rix
+.Trace("fib run", 3, ["n", "acc"], () -> Fib(10))
+```
+
+It returns the callable's result and records function entry/exit events.
+
+### Testing
+
+`.Test` runs test groups with two modes:
+
+**Sequential shared-state mode** runs setup once and executes tests in order. Each test sees mutations from prior tests. A null result or runtime error stops remaining tests:
+
+```rix
+.Test("arithmetic", {; x := 10 }, [
+    x + 1 == 11,
+    {; x ~= x * 2; x == 20 },
+    x > 15
+])
+```
+
+**Isolated mode** reruns setup freshly for each labeled test. All tests are attempted regardless of individual failures:
+
+```rix
+.Test("operations", {; x := 5 }, {=
+    add = x + 1 == 6,
+    mul = x * 2 == 10,
+    sub = x - 3 == 2
+})
+```
+
+Both modes return a rich result map with `kind`, `label`, `mode`, `passed`, `results`, and `summary` fields. Test results are registered in the diagnostics registry for CLI consumption.
+
+### CLI Test Runner
+
+Run test files from the command line:
+
+```sh
+bun rix/tools/rix.js test              # discover all *.test.rix files
+bun rix/tools/rix.js test parser       # filter by substring match
+bun rix/tools/rix.js test math core    # multiple filters (OR)
+```
+
+The runner discovers `*.test.rix` files recursively, runs each in a fresh context, and prints per-file and per-test-group summaries. Exit code is 0 if all pass, nonzero otherwise.

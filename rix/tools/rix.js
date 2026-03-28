@@ -8,6 +8,8 @@
  */
 
 import { readFileSync } from "fs";
+import { readdirSync, statSync } from "fs";
+import path from "path";
 import { createInterface } from "readline";
 import {
     tokenize,
@@ -18,8 +20,11 @@ import {
     createDefaultRegistry,
     createDefaultSystemContext,
     parseAndEvaluate,
+    getDiagnostics,
+    isRixAbort,
 } from "../eval/index.js";
 import { formatValue as formatResult } from "../eval/src/format.js";
+import { installSymbolicBindings } from "../eval/src/functions/symbolic.js";
 
 // Known REPL meta-commands (lowercase, intercepted before the evaluator)
 const REPL_COMMANDS = new Set(["help", "exit", "load", "vars", "fns", "reset", "ast", "tokens"]);
@@ -128,17 +133,229 @@ function handleCommand(fullCmd, context, systemContext) {
     }
 }
 
+// --- Test Runner ---
+
+function discoverTestFiles(baseDir, filters) {
+    const results = [];
+    function walk(dir) {
+        let entries;
+        try { entries = readdirSync(dir, { withFileTypes: true }); }
+        catch { return; }
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                if (entry.name === "node_modules" || entry.name === ".git") continue;
+                walk(fullPath);
+            } else if (entry.name.endsWith(".test.rix")) {
+                results.push(fullPath);
+            }
+        }
+    }
+    walk(baseDir);
+
+    if (filters.length === 0) return results;
+
+    return results.filter(filePath => {
+        const normalized = filePath.toLowerCase();
+        return filters.some(f => normalized.includes(f.toLowerCase()));
+    });
+}
+
+function runTestFile(filePath) {
+    const context = new Context();
+    installSymbolicBindings(context);
+    const registry = createDefaultRegistry();
+    const systemContext = createDefaultSystemContext();
+
+    context.setEnv("__current_file__", filePath);
+
+    const source = readFileSync(filePath, "utf-8");
+    const tokens = tokenize(source);
+    const ast = parse(tokens);
+    const irNodes = lower(ast);
+
+    for (const irNode of irNodes) {
+        evaluate(irNode, context, registry, systemContext);
+    }
+
+    return getDiagnostics(context);
+}
+
+function formatTestSummary(label, summary) {
+    const total = Number(summary.entries?.get("total")?.value ?? 0);
+    const passed = Number(summary.entries?.get("passed")?.value ?? 0);
+    const failed = Number(summary.entries?.get("failed")?.value ?? 0);
+    const errored = Number(summary.entries?.get("errored")?.value ?? 0);
+    const skipped = Number(summary.entries?.get("skipped")?.value ?? 0);
+    const parts = [`${passed}/${total} passed`];
+    if (failed > 0) parts.push(`${failed} failed`);
+    if (errored > 0) parts.push(`${errored} errored`);
+    if (skipped > 0) parts.push(`${skipped} skipped`);
+    return `  ${label}: ${parts.join(", ")}`;
+}
+
+function entryPassed(entry) {
+    return entry?.entries?.get("passed") !== null && entry?.entries?.get("passed") !== undefined;
+}
+
+function entryError(entry) {
+    return entry?.entries?.get("error")?.value ?? null;
+}
+
+function printFailureDetails(result) {
+    const mode = result.entries?.get("mode")?.value;
+    const resultsVal = result.entries?.get("results");
+
+    if (mode === "isolated" && resultsVal?.entries) {
+        // Map of key → entry
+        for (const [key, entry] of resultsVal.entries) {
+            if (!entryPassed(entry)) {
+                const err = entryError(entry);
+                if (err) {
+                    console.log(`    ${key}: ERROR: ${err}`);
+                } else {
+                    console.log(`    ${key}: FAIL (returned null)`);
+                }
+            }
+        }
+    } else if (mode === "sequential" && resultsVal?.values) {
+        // Array of entries
+        for (const entry of resultsVal.values) {
+            if (!entryPassed(entry)) {
+                const idx = entry?.entries?.get("index")?.value ?? "?";
+                const skipped = entry?.entries?.get("skipped") !== null && entry?.entries?.get("skipped") !== undefined;
+                const err = entryError(entry);
+                if (skipped) {
+                    console.log(`    [${idx}]: skipped`);
+                } else if (err) {
+                    console.log(`    [${idx}]: ERROR: ${err}`);
+                } else {
+                    console.log(`    [${idx}]: FAIL (returned null)`);
+                }
+            }
+        }
+    }
+}
+
+async function runTests(filters) {
+    const baseDir = process.cwd();
+    const testFiles = discoverTestFiles(baseDir, filters);
+
+    if (testFiles.length === 0) {
+        console.log("No test files found.");
+        process.exit(1);
+    }
+
+    console.log(`Discovered ${testFiles.length} test file(s)\n`);
+
+    let totalFiles = 0;
+    let passedFiles = 0;
+    let failedFiles = 0;
+
+    for (const filePath of testFiles) {
+        const relPath = path.relative(baseDir, filePath);
+        totalFiles++;
+
+        let diag;
+        let fileError = null;
+        try {
+            diag = runTestFile(filePath);
+        } catch (err) {
+            if (isRixAbort(err)) {
+                diag = null;
+                fileError = err.event?.entries?.get("label")?.value ?? err.message;
+            } else {
+                diag = null;
+                fileError = err.message;
+            }
+        }
+
+        if (fileError) {
+            console.log(`FAIL ${relPath}`);
+            console.log(`  Runtime error: ${fileError}`);
+            failedFiles++;
+            continue;
+        }
+
+        const fileResults = diag.getFileResults(filePath);
+        let filePassed = true;
+
+        if (fileResults.size === 0) {
+            console.log(`PASS ${relPath} (no tests)`);
+            passedFiles++;
+            continue;
+        }
+
+        for (const [label, result] of fileResults) {
+            const passedEntry = result.entries?.get("passed");
+            if (passedEntry === null) {
+                filePassed = false;
+            }
+        }
+
+        if (filePassed) {
+            console.log(`PASS ${relPath}`);
+            passedFiles++;
+        } else {
+            console.log(`FAIL ${relPath}`);
+            failedFiles++;
+        }
+
+        // Print per-test summaries with failure details
+        for (const [label, result] of fileResults) {
+            const summary = result.entries?.get("summary");
+            const passedEntry = result.entries?.get("passed");
+            const mode = result.entries?.get("mode")?.value ?? "?";
+            const prefix = passedEntry === null ? "  FAIL" : "  PASS";
+            if (summary) {
+                console.log(formatTestSummary(`${prefix} [${mode}] "${label}"`, summary));
+            } else {
+                console.log(`${prefix} [${mode}] "${label}"`);
+            }
+            // Show per-test failure details
+            if (passedEntry === null) {
+                printFailureDetails(result);
+            }
+        }
+
+        // Print diagnostic event counts
+        const warns = diag.getEventsByKind("warn").length;
+        const infos = diag.getEventsByKind("info").length;
+        const debugs = diag.getEventsByKind("debug").length;
+        const traces = diag.getEventsByKind("trace").length;
+        const counts = [];
+        if (warns > 0) counts.push(`${warns} warn`);
+        if (infos > 0) counts.push(`${infos} info`);
+        if (debugs > 0) counts.push(`${debugs} debug`);
+        if (traces > 0) counts.push(`${traces} trace`);
+        if (counts.length > 0) {
+            console.log(`  Diagnostics: ${counts.join(", ")}`);
+        }
+    }
+
+    console.log(`\n--- Summary ---`);
+    console.log(`${totalFiles} file(s): ${passedFiles} passed, ${failedFiles} failed`);
+
+    process.exit(failedFiles > 0 ? 1 : 0);
+}
+
 async function main() {
     const args = process.argv.slice(2);
     const context = new Context();
     const registry = createDefaultRegistry();
     const systemContext = createDefaultSystemContext();
 
+    if (args.length > 0 && args[0] === "test") {
+        // Test runner mode
+        const filters = args.slice(1);
+        return runTests(filters);
+    }
+
     if (args.length > 0) {
         // Run file
         const inputFile = args[0];
         if (inputFile === "--help" || inputFile === "-h") {
-            console.log("Usage: bun rix [file.rix]");
+            console.log("Usage: bun rix [file.rix] | bun rix test [filters...]");
             process.exit(0);
         }
 
@@ -149,7 +366,13 @@ async function main() {
                 console.log(formatResult(result));
             }
         } catch (error) {
-            console.error(`Error: ${error.message}`);
+            if (isRixAbort(error)) {
+                const label = error.event?.entries?.get("label")?.value ?? error.message;
+                const kind = error.event?.entries?.get("kind")?.value ?? "error";
+                console.error(`${kind.toUpperCase()}: ${label}`);
+            } else {
+                console.error(`Error: ${error.message}`);
+            }
             process.exit(1);
         }
     } else {

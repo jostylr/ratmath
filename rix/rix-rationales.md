@@ -147,3 +147,51 @@ That restriction is deliberate:
 - property access and method calls remain distinct operations
 
 In particular, `obj.Method` is just meta-property access, while only `obj.Method(...)` triggers method resolution. That separation prevents a hidden second meaning for ordinary property reads.
+
+## Diagnostics as Structured Maps (2026-03-28)
+
+### Why diagnostics are structured maps rather than plain strings
+
+Every diagnostic event (`.Warn`, `.Info`, `.Error`, `.Stop`, `.Test`, `.Debug`, `.Trace`) produces a RiX map value with a uniform shape (`kind`, `label`, `file`, `time`, `data`). This choice serves several purposes:
+
+1. **Machine-consumable.** CLI tools, REPL extensions, and future editor integrations can query event fields structurally instead of parsing formatted output strings.
+2. **Composable.** Because events are first-class RiX values, scripts can inspect, filter, and aggregate diagnostic results using the same pipe and collection operations used for any other data.
+3. **Extensible.** Adding new fields (e.g., stack traces, severity levels) does not break existing consumers — they simply ignore unknown keys.
+4. **Consistent.** A single event shape for all diagnostic kinds means one rendering pipeline handles everything.
+
+### Why null is the pass/fail discriminator for tests
+
+RiX has exactly one falsy value: null (`_`). Every non-null value is truthy. Using null-as-failure for `.Test` aligns with this existing truthiness model:
+
+- Any expression that evaluates to a non-null value passes.
+- Null signals absence, failure, or "nothing here" — exactly the right semantics for a failed test.
+- No need for a separate assertion library: `x == expected` returns non-null on match, null on mismatch.
+
+### Why array `.Test` mode shares state while map `.Test` mode reruns setup
+
+The two modes serve fundamentally different testing patterns:
+
+**Sequential (array) mode** models a scenario: "set up initial conditions, then walk through a series of dependent steps." Each test may mutate shared state, and later tests verify the cumulative effect. Stopping on first failure is natural because subsequent steps depend on earlier ones.
+
+**Isolated (map) mode** models independent properties: "given the same starting conditions, verify N separate facts." Each test gets a fresh setup so one failure cannot contaminate others. All tests run because they are logically independent.
+
+This maps to common testing practice: integration/scenario tests are naturally sequential, while unit/property tests are naturally isolated.
+
+### Why `.Debug` is AST-aware rather than just value logging
+
+A plain `print(expr)` loses the expression structure — you see the result but not what produced it. `.Debug` preserves access to the IR/AST tree before evaluation, so the debug output can show both the source-level expression and its evaluated result. This is especially valuable for:
+
+- Debugging complex composed expressions where the final value is surprising
+- Educational/REPL contexts where seeing the evaluation structure aids understanding
+- Future step-through debugging where subexpression evaluation order matters
+
+Making `.Debug` lazy (receiving unevaluated IR nodes) is the cleanest way to achieve this within the existing interpreter architecture.
+
+### Why `.Trace` is thunk/callable-based
+
+`.Trace` wraps execution of a callable rather than instrumenting an entire scope or file. This design:
+
+1. **Establishes trace context before execution.** The trace environment is set up before the callable runs, so all function entry/exit events within the traced scope are captured from the start.
+2. **Scopes the blast radius.** Only the wrapped callable (and its callees up to the specified depth) is traced, not all evaluation globally.
+3. **Composes naturally.** `.Trace("label", depth, vars, () -> expr)` works as an expression that returns `expr`'s value, so tracing can be added and removed without restructuring code.
+4. **Avoids hidden global state.** The trace context lives in the runtime environment and is restored after the callable returns, rather than being a process-wide flag.
