@@ -195,3 +195,30 @@ Making `.Debug` lazy (receiving unevaluated IR nodes) is the cleanest way to ach
 2. **Scopes the blast radius.** Only the wrapped callable (and its callees up to the specified depth) is traced, not all evaluation globally.
 3. **Composes naturally.** `.Trace("label", depth, vars, () -> expr)` works as an expression that returns `expr`'s value, so tracing can be added and removed without restructuring code.
 4. **Avoids hidden global state.** The trace context lives in the runtime environment and is restored after the callable returns, rather than being a process-wide flag.
+
+## Why .TestError and .TestStop Are Separate from .Test (2026-03-28)
+
+### Why not add abort-testing as an option on .Test(...)
+
+`.Test(...)` is built around the idea of normal completion: a test passes when evaluation returns a non-null value. Adding an "expected error" flag would require `.Test(...)` to handle two fundamentally different success criteria — normal returns and specific abnormal completions — in the same dispatch path. That conflation would make the pass/fail logic harder to read and reason about.
+
+`.TestError(...)` and `.TestStop(...)` invert the success criterion entirely: they pass on abnormal completion of a specific kind, and fail on normal completion. This is a semantic reversal, not just a parameter variation. Keeping them separate preserves the invariant that each test form has exactly one, unambiguous definition of "pass."
+
+### Why setup aborting always fails the test
+
+The setup block is not part of what is being tested — it exists to establish preconditions. If setup itself aborts, the provenance of the abort is ambiguous: the test cannot distinguish "the code under test misbehaved" from "the preconditions were never established." Rather than silently misattribute an abort, both `.TestError(...)` and `.TestStop(...)` treat any setup abort as an unconditional failure, with the setup outcome recorded separately in the result object.
+
+### Why .TestError includes both explicit .Error(...) and runtime errors
+
+Both kinds of failure signal "this code path should not complete normally":
+
+- An explicit `.Error("msg")` is a deliberate structured abort emitted by code that detects an illegal condition.
+- A runtime error (division by zero, undefined variable, type mismatch) is an unintended failure detected by the interpreter.
+
+From a testing perspective, both are valid "should fail here" cases. Distinguishing them at the test-expectation level would require callers to predict exactly how a failure manifests, which is often brittle. `.TestError(...)` accepts either, and the result's `expr.outcome` field records which kind actually occurred, so callers can inspect the distinction if needed.
+
+### Why .TestStop is kept separate from .TestError
+
+`.Stop(...)` signals a different semantic category than an error. It represents a deliberate, conditional halt — "preconditions not met, stop here" — rather than a defect. Code that guards against invalid input may be entirely correct behavior, not a failure to be caught. A test that expects a stop is asserting "this guard fires under these conditions," which is meaningfully different from "this code path crashes."
+
+Combining stop and error expectations into a single `.TestAbort(...)` would lose the signal about which kind of abnormal completion is intended. `.TestStop(...)` makes the assertion explicit: this code is expected to stop, not error.

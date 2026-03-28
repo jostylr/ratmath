@@ -203,10 +203,31 @@ function entryError(entry) {
 }
 
 function printFailureDetails(result) {
+    const testKind = result.entries?.get("testKind")?.value;
     const mode = result.entries?.get("mode")?.value;
     const resultsVal = result.entries?.get("results");
 
-    if (mode === "isolated" && resultsVal?.entries) {
+    if (testKind === "error" || testKind === "stop") {
+        // Abort test — show structured failure reason
+        const summary = result.entries?.get("summary");
+        const setupPassedVal = summary?.entries?.get("setupPassed");
+        const exprOutcome = summary?.entries?.get("exprOutcome")?.value ?? "?";
+        const expected = summary?.entries?.get("expected")?.value ?? testKind;
+
+        if (setupPassedVal === null) {
+            const setupOutcome = result.entries?.get("setup")?.entries?.get("outcome")?.value ?? "?";
+            const setupError = result.entries?.get("setup")?.entries?.get("error")?.value;
+            if (setupError) {
+                console.log(`    setup aborted: ${setupOutcome} — ${setupError}`);
+            } else {
+                console.log(`    setup aborted: ${setupOutcome}`);
+            }
+        } else if (exprOutcome === "returned") {
+            console.log(`    expression returned normally (expected ${expected} abort)`);
+        } else {
+            console.log(`    expected ${expected}, got ${exprOutcome}`);
+        }
+    } else if (mode === "isolated" && resultsVal?.entries) {
         // Map of key → entry
         for (const [key, entry] of resultsVal.entries) {
             if (!entryPassed(entry)) {
@@ -348,9 +369,12 @@ async function runTests(filters) {
         for (const [label, result] of fileResults) {
             const summary = result.entries?.get("summary");
             const passedEntry = result.entries?.get("passed");
-            const mode = result.entries?.get("mode")?.value ?? "?";
+            const testKind = result.entries?.get("testKind")?.value;
+            const mode = testKind
+                ? (testKind === "error" ? "TestError" : "TestStop")
+                : (result.entries?.get("mode")?.value ?? "?");
             const prefix = passedEntry === null ? "  FAIL" : "  PASS";
-            if (summary) {
+            if (summary && !testKind) {
                 console.log(formatTestSummary(`${prefix} [${mode}] "${label}"`, summary));
             } else {
                 console.log(`${prefix} [${mode}] "${label}"`);

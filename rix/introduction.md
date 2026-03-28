@@ -1398,6 +1398,47 @@ It returns the callable's result and records function entry/exit events.
 
 Both modes return a rich result map with `kind`, `label`, `mode`, `passed`, `results`, and `summary` fields. Test results are registered in the diagnostics registry for CLI consumption.
 
+### Testing for Expected Aborts: `.TestError` and `.TestStop`
+
+Ordinary `.Test(...)` checks whether evaluation completes normally and yields a non-null value. Sometimes the behavior you want to verify is that a computation *fails* in a specific way. That is what `.TestError` and `.TestStop` are for.
+
+**`.TestError(label, setup, expr)`** passes when `expr` aborts with an error:
+
+```rix
+.TestError("division by zero", {;
+    x := 10;
+    y := 0
+}, x / y)
+
+.TestError("explicit error", {;
+    x := 5
+}, .Error("bad input", {= x = x }))
+```
+
+It passes if `expr` aborts via `.Error(...)` or any runtime error, and fails if `expr` returns normally (even `_`), or if `expr` aborts via `.Stop(...)`.
+
+**`.TestStop(label, setup, expr)`** passes when `expr` aborts via `.Stop(...)`:
+
+```rix
+.TestStop("negative guard", {;
+    x := -3
+}, .Stop("negative", x < 0, {= x = x }))
+```
+
+It passes only for stop-kind aborts, and fails if `expr` returns normally, errors, or produces a runtime error.
+
+In both forms the setup block runs first and must complete normally. If setup itself aborts, the test fails regardless of what `expr` would have done — the point is to isolate the expected abort to the target expression.
+
+**How these differ from `.Test`:**
+
+| Form | Passes when |
+|------|-------------|
+| `.Test(...)` | expression returns non-null |
+| `.TestError(...)` | expression aborts with `.Error()` or runtime error |
+| `.TestStop(...)` | expression aborts via `.Stop()` |
+
+All three register structured results in the diagnostics registry and are reported in the CLI test runner.
+
 ### CLI Test Runner
 
 Run test files from the command line:
