@@ -237,6 +237,49 @@ function printFailureDetails(result) {
     }
 }
 
+function printTraceEvent(entryObj) {
+    const entries = entryObj?.entries;
+    if (!entries) return;
+    
+    const event = entries.get("event")?.value;
+    const depthVal = entries.get("depth");
+    const depth = depthVal ? Number(depthVal.value) : 0;
+    const indent = "  ".repeat(depth);
+    
+    if (event === "enter") {
+        const fn = entries.get("fn")?.value || "<lambda>";
+        const argsSeq = entries.get("args");
+        const argsStr = argsSeq?.values ? argsSeq.values.map(formatResult).join(", ") : "";
+        console.log(`${indent}Entered ${fn}(${argsStr})`);
+    } else if (event === "exit") {
+        const fn = entries.get("fn")?.value || "<lambda>";
+        const val = entries.get("value");
+        console.log(`${indent}Exited ${fn} returning ${formatResult(val)}`);
+    } else if (event === "write") {
+        const v = entries.get("var")?.value || "?";
+        const oldVal = entries.get("old");
+        const newVal = entries.get("new");
+        const oldStr = oldVal !== null && oldVal !== undefined ? formatResult(oldVal) : "undefined";
+        console.log(`${indent}  ${v} = ${formatResult(newVal)} (was ${oldStr})`);
+    }
+}
+
+function printTrace(traceEvent) {
+    const data = traceEvent?.entries?.get("data");
+    const label = traceEvent?.entries?.get("label")?.value || "unlabeled";
+    if (!data || !data.entries) return;
+    
+    console.log(`\n--- Trace [${label}] ---`);
+    const calls = data.entries.get("calls");
+    if (calls && calls.values) {
+        for (const call of calls.values) {
+            printTraceEvent(call);
+        }
+    }
+    const finalVal = data.entries.get("final");
+    console.log(`--- End Trace [${label}] (Returned: ${formatResult(finalVal)}) ---\n`);
+}
+
 async function runTests(filters) {
     const baseDir = process.cwd();
     const testFiles = discoverTestFiles(baseDir, filters);
@@ -322,7 +365,8 @@ async function runTests(filters) {
         const warns = diag.getEventsByKind("warn").length;
         const infos = diag.getEventsByKind("info").length;
         const debugs = diag.getEventsByKind("debug").length;
-        const traces = diag.getEventsByKind("trace").length;
+        const tracesList = diag.getEventsByKind("trace");
+        const traces = tracesList.length;
         const counts = [];
         if (warns > 0) counts.push(`${warns} warn`);
         if (infos > 0) counts.push(`${infos} info`);
@@ -330,6 +374,9 @@ async function runTests(filters) {
         if (traces > 0) counts.push(`${traces} trace`);
         if (counts.length > 0) {
             console.log(`  Diagnostics: ${counts.join(", ")}`);
+        }
+        for (const t of tracesList) {
+            printTrace(t);
         }
     }
 
@@ -362,6 +409,13 @@ async function main() {
         try {
             const source = readFileSync(inputFile, "utf-8");
             const result = parseAndEvaluate(source, { context, registry, systemContext });
+            
+            const diag = getDiagnostics(context);
+            const tracesList = diag.getEventsByKind("trace");
+            for (const t of tracesList) {
+                printTrace(t);
+            }
+            
             if (result !== undefined) {
                 console.log(formatResult(result));
             }
@@ -428,6 +482,14 @@ async function main() {
 
             try {
                 const result = parseAndEvaluate(buffer, { context, registry, systemContext });
+                
+                const diag = getDiagnostics(context);
+                const tracesList = diag.getEventsByKind("trace");
+                for (const t of tracesList) {
+                    printTrace(t);
+                }
+                diag.events = diag.events.filter(e => e.entries?.get("kind")?.value !== "trace");
+
                 if (result !== undefined) {
                     console.log(formatResult(result));
                 }
