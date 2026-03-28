@@ -134,6 +134,26 @@ nested := [[1, 2], [3, 4]]
 .DeepMutable(nested, 1)   ## all inner arrays regain ._mutable
 ```
 
+#### Equality vs Identity
+
+RiX distinguishes **value equality** from **cell identity**:
+
+- `==` compares values: do these cells hold equal values?
+- `===` tests identity: do these names refer to the **same cell**?
+
+```rix
+x := 5
+y = x       ## y aliases x — same cell
+z := x      ## z is an independent copy
+
+x == y      ## 1 (same value)
+x === y     ## 1 (same cell)
+x == z      ## 1 (same value)
+x === z     ## null (different cells, even though equal values)
+```
+
+This distinction matters for tracking mutations: two names sharing a cell will always agree, but two independent copies will not.
+
 To define a function, you use the `->` operator. You can either use a named function definition or assign an anonymous lambda to a variable:
 ```rix
 Square(n) -> n ^ 2
@@ -434,16 +454,20 @@ F(1,,3)    ## second arg is a hole
 F(,)       ## both args are holes
 ```
 
-### Parameter defaults with `?|`
+### Parameter defaults with `?=`
 
-Parameters can declare a **hole default** using `?|`. The default is used when the caller explicitly passes a hole or when the argument is omitted entirely:
+Parameters declare a **hole default** using `?=`. The default is used when the caller explicitly passes a hole or when the argument is omitted entirely. It does **not** trigger on `null`, `0`, empty string, or any other non-hole value.
 
 ```rix
-F := (x ?| 2, a) -> a ^ x
+F := (x ?= 2, a) -> a ^ x
 F(, 7)     ## → 49   (hole for x → x defaults to 2, 7^2)
 F(3, 7)    ## → 343  (explicit 3, 7^3)
 F(0, 7)    ## → 1    (explicit 0, 7^0; holeDefault not triggered)
 ```
+
+`F(_, 7)` would fail because `_` (null) is not a hole — null is a regular value.
+
+`?=` is **only** valid in parameter/binding position. It is not a comparison operator. Use `==` for equality comparison.
 
 ### Holes in pipes
 
@@ -752,6 +776,7 @@ The mapping from operator symbol to system name:
 | `@%`     | `.MOD`           |
 | `@^`     | `.POW`           |
 | `@==`    | `.EQ`            |
+| `@===`   | `.SAME_CELL`     |
 | `@<`     | `.LT`            |
 | `@>`     | `.GT`            |
 | `@&&`    | `.AND`           |

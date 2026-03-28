@@ -155,3 +155,7 @@ x > 0 ?? x ?: -x              # ternary
 Brace sigil is a common design for enclosing stuff. Code blocks use {; } and { }, loops are {@ }, {? } are conditionals, {= } are maps, {| } are sets, {: } are tuples. Spaces after the sigils are required unless a bracketed name which requires a space after. Currently arrays are just [].
 
 See `rix/parser/design/` for complete language specification.
+
+See `rix/introduction.md` for a user-facing language introduction (moved from the top-level `introduction.md`).
+
+See `rix/rix-rationales.md` for design rationale log explaining past language decisions (moved from the top-level `rix-rationales.md`).

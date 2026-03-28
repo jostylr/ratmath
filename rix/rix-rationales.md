@@ -44,6 +44,70 @@ The documentation previously contained an inconsistency: most of the assignment 
 
 The intended model is the cell-preserving one. Combo assignments lower through `ASSIGN_UPDATE` or `OUTER_UPDATE`, not plain `ASSIGN`. This rationale entry records that correction so future docs and implementation changes stay aligned.
 
+## Comparison Operators and Identity (2026-03-28)
+
+### Removing `?=`, `?<`, `?>`, `?<=`, `?>=` comparison aliases
+
+RiX previously allowed `?=` as an alias for `==`, and `?<`/`?>`/`?<=`/`?>=` as aliases for the standard comparison operators. These have been removed:
+
+1. **Redundancy.** The standard operators `==`, `<`, `>`, `<=`, `>=` are well-understood and sufficient.
+2. **Freeing `?=` for parameter defaults.** With `?=` no longer a comparison operator, it can serve a clearer role as the parameter-default syntax.
+3. **Cleaner operator surface.** Fewer operators means less to learn and fewer ambiguities for readers.
+
+### Adding `===` for cell identity
+
+RiX has a strong cell/value distinction:
+- `=` creates an alias (shared cell)
+- `:=` creates a fresh copy (independent cell)
+- `~=` mutates a cell in place
+
+Users need a way to test whether two names refer to the **same cell** vs. merely holding equal values. `===` fills this role:
+
+- `x == y` — value equality: do the cells hold equal values?
+- `x === y` — identity: are `x` and `y` the same cell?
+
+This maps naturally to common programming intuition where `===` means "strict/identity" equality. In RiX, identity means same-cell, which is the most meaningful strict comparison in a cell-based language.
+
+```rix
+x := 5
+y = x       ## alias — same cell
+z := x      ## copy — different cell
+
+x === y     ## 1 (same cell)
+x === z     ## null (different cells)
+x == z      ## 1 (same value)
+```
+
+## Hole Defaults: `?=` in Parameter Position (2026-03-28)
+
+### Why `?=` instead of `?|`
+
+Previously, parameter defaults used `?|` syntax: `(x ?| 2) -> ...`. This has been changed to `?=`:
+
+1. **`?=` reads as "default assignment"** — it visually suggests "assign this default when no argument is supplied." The `=` component signals binding/assignment, and the `?` signals conditionality.
+
+2. **`?|` remains expression-level only.** `?|` is the hole-coalescing operator in expressions: `a ?| b` returns `a` if non-hole, else evaluates `b`. Keeping it purely as an expression operator avoids overloading its meaning.
+
+3. **Context-sensitive syntax.** `?=` is only valid in parameter/binding positions. Using it as a general expression (e.g., `5 ?= 3`) throws an error.
+
+### Trigger semantics
+
+`?=` defaults trigger on:
+- **Omitted argument** — caller passes fewer args than parameters
+- **Explicit hole** — caller passes `,` (hole) in that position
+
+`?=` defaults do **not** trigger on `null` (`_`), `0`, empty string, empty collections, or any other non-hole value.
+
+### `:=` Remains Fresh-Copy Assignment
+
+`:=` always creates a new cell with a shallow copy of the right-hand value. It is not used for defaults, conditions, or any other purpose:
+
+- `=` — alias/rebind
+- `:=` — fresh copy
+- `~=` — in-place update
+- `?=` — parameter default (binding context only)
+- `?|` — hole coalescing (expression context only)
+
 ## Receiver-First Methods
 
 ### Why method syntax exists at all
