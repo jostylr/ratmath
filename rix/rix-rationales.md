@@ -196,6 +196,33 @@ Making `.Debug` lazy (receiving unevaluated IR nodes) is the cleanest way to ach
 3. **Composes naturally.** `.Trace("label", depth, vars, () -> expr)` works as an expression that returns `expr`'s value, so tracing can be added and removed without restructuring code.
 4. **Avoids hidden global state.** The trace context lives in the runtime environment and is restored after the callable returns, rather than being a process-wide flag.
 
+## Code Blocks Share Scope in Construct Positions (2026-03-28)
+
+### The problem: double scoping
+
+Scope-creating constructs like loops create a single isolated scope for all their sub-parts. When a loop has four parts — `{@ init; cond; body; update }` — all four share one scope, so a variable created in init is visible in the other three.
+
+But if a user wraps one of those parts in a code block for multi-statement grouping — `{@ {; x = 1; y = 10 }; x < 4; x + y; x += 1 }` — the code block would normally create its own isolated scope. The variable `x` would be trapped inside the init block and invisible to the condition, body, and update. This double-scoping defeats the purpose of using a block for grouping.
+
+### The principle: blocks in lazy construct positions are grouping, not isolation
+
+When a code block appears as a sub-part of a scope-creating construct, it shares the construct's scope rather than creating an additional isolation boundary. The block acts as multi-statement grouping, not as a scope fence.
+
+This applies generally to any lazy construct that manages its own scope and evaluates sub-parts within it:
+
+- **Loop sub-parts**: init, condition, body, and update blocks all share the loop scope.
+- **`.Test` expressions**: setup blocks and test blocks share the test scope (this was the original use case that motivated `withSharedBody`).
+
+### Nested isolation via double braces
+
+If a user genuinely wants an isolated block inside a construct position, they nest braces: `{ { x = 1 } }`. The outer block shares the construct's scope (it's in a construct position), but the inner block creates its own isolated scope as usual. Note that an extra space may be needed to avoid parser ambiguity with other brace forms.
+
+### Implementation
+
+The mechanism uses `context.withSharedBody(node, callback)`, which signals to the next BLOCK/LOOP/SYSTEM evaluation that it should reuse the current scope instead of pushing a new one. This is a one-shot override — only the immediately evaluated scope-creating node is affected; any nested blocks within it still create their own scopes.
+
+The `evaluateShared(node, context, evaluate)` helper in `control.js` wraps this pattern for easy reuse by any construct that needs it.
+
 ## Why .TestError and .TestStop Are Separate from .Test (2026-03-28)
 
 ### Why not add abort-testing as an option on .Test(...)

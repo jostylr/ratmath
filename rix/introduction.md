@@ -284,6 +284,22 @@ Adjust := (x) -> {;
 }
 ```
 
+More generally, when a code block appears as a sub-part of any scope-creating construct, it shares that construct's scope. This is especially useful in loops where one part needs multiple statements:
+
+```rix
+## The init block shares the loop's scope — x is visible everywhere:
+{@ {; x = 0; y = 10 }; x < 3; x + y; x += 1 }   ## => 12
+
+## Equivalent to writing it without a block:
+{@ x = 0; x < 3; x; x += 1 }                      ## => 2
+```
+
+To create an isolated block inside a construct position, use nested braces — the outer block shares scope, the inner one isolates:
+
+```rix
+{@ { { x = 1 } }; x < 4; x; x += 1 }   ## Error: x is not in loop scope
+```
+
 If you want to explicitly modify or read a variable from an **outer scope**, you must prefix it with `@`. This prevents accidental shadowing of variables when inside a lambda, block, or loop.
 
 ```rix
