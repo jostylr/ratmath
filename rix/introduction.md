@@ -154,6 +154,29 @@ x === z     ## null (different cells, even though equal values)
 
 This distinction matters for tracking mutations: two names sharing a cell will always agree, but two independent copies will not.
 
+#### Constructor Capture Uses the Same Cell Model
+
+RiX constructors use assignment-style capture rules instead of a separate "containers just keep values somehow" model. Every inserted entry uses one capture mode:
+
+- `==` — alias capture
+- `:=` — fresh shallow copy
+- `~=` — fresh refreshing shallow copy
+- `::=` — fresh deep copy
+- `~~=` — fresh refreshing deep copy
+
+The effective mode comes from an entry override when the constructor kind supports one, otherwise from the constructor header, otherwise from the runtime default constructor capture mode. The current default is deep copy.
+
+```rix
+m = {::= a = x, b == y, c ~= z}
+a = {.. 1, 2, 3}
+b = {:=.. x, y}
+t = {::=: a, b, c}
+u = {==| item1, item2 |}
+grid = {::=:2x2: a, b; c, d}
+```
+
+This is deliberate: RiX is a cell-based language, so container construction follows the same alias/copy/update reasoning as the rest of the language rather than introducing ad hoc JS-style value/reference rules.
+
 To define a function, you use the `->` operator. You can either use a named function definition or assign an anonymous lambda to a variable:
 ```rix
 Square(n) -> n ^ 2
@@ -554,6 +577,7 @@ RiX has four primary collection kinds:
 | Kind | Literal syntax | Description |
 |------|----------------|-------------|
 | Sequence (array) | `[1, 2, 3]` | Ordered, 1-based indexed |
+| Sequence (advanced brace form) | `{.. 1, 2, 3}` | Ordered, 1-based indexed with explicit constructor capture header |
 | String | `"hello"` or `:hello` | Unicode code-point sequence |
 | Tuple | `{: a, b, c }` | Fixed-arity positional group |
 | Map | `{= a=1, b=2 }` | Key-value, canonicalized string keys |

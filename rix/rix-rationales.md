@@ -2,6 +2,30 @@
 
 This document is a growing design-rationale log for RiX. It records why particular language choices were made so future extensions can follow the same model instead of re-deciding the same questions ad hoc.
 
+## Constructor Capture Uses Assignment Semantics (2026-03-29)
+
+RiX is a cell-based language. Container construction therefore should not invent a separate "live value but not cell" capture model.
+
+The rule is now: inserting into a constructor uses the same conceptual modes as assignment:
+
+- `==` — alias capture
+- `:=` — fresh shallow copy
+- `~=` — fresh refreshing shallow copy
+- `::=` — fresh deep copy
+- `~~=` — fresh refreshing deep copy
+
+This applies uniformly to maps, arrays, tuples, sets, and tensors. Constructors may set a default capture mode in their header, and maps may override capture mode per entry.
+
+The important semantic choice is that constructor `~=` / `~~=` behave like assigning to an undefined target cell with `~=` / `~~=`. That means:
+
+- the result is fresh storage, not a true alias
+- ordinary identity-style meta is not copied like aliasing
+- ephemeral (`_...`) and sticky (`__...`) meta follow the existing update-transfer rules
+
+The runtime default constructor mode is deep copy. That is the safest default because it avoids accidental sharing in newly-built collections while still letting users opt into aliasing or shallower capture explicitly.
+
+This design keeps identity, copying, mutation, and meta propagation on one model. A user who understands assignment semantics can reason about constructors without learning a second set of "container-only" exceptions.
+
 ## Combo Assignment Expansion
 
 ### Why these operators
