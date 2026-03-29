@@ -249,3 +249,22 @@ From a testing perspective, both are valid "should fail here" cases. Distinguish
 `.Stop(...)` signals a different semantic category than an error. It represents a deliberate, conditional halt — "preconditions not met, stop here" — rather than a defect. Code that guards against invalid input may be entirely correct behavior, not a failure to be caught. A test that expects a stop is asserting "this guard fires under these conditions," which is meaningfully different from "this code path crashes."
 
 Combining stop and error expectations into a single `.TestAbort(...)` would lose the signal about which kind of abnormal completion is intended. `.TestStop(...)` makes the assertion explicit: this code is expected to stop, not error.
+
+## Dynamic Evaluation and Scope Sharing (2026-03-29)
+
+### The logic behind `@@` caller-scope execution 
+
+When evaluating a deferred AST block (`@@@{; x = 9 }`) or a parsed string of code (`@@"x = 9"`), RiX executes the statements in the **current lexical scope** instead of pushing a new, isolated block boundary.
+
+This directly aligns dynamic evaluation (`@@` or `.Eval(_)` without bindings) with the expectations of inline code. To a developer reading a script, evaluating `"x = 9"` should logically behave exactly as if the script contained the characters `x = 9` in that position. 
+
+If `@@` unconditionally pushed an isolated execution subscope, any mutations or variable declarations would be immediately trapped and discarded once the evaluation finished, rendering dynamic computation largely useless for extending the surrounding environment.
+
+### Using `withSharedBody` as the unwrap mechanism
+
+To achieve this, the underlying implementation of `.Eval` utilizes the `withSharedBody` mechanism. If `.Eval` is called in inherit mode with no local bindings:
+1. It avoids pushing a new `context`.
+2. It passes the AST statements (the inner body of the `DEFER` node or the fully parsed string nodes) directly to `evaluate()`.
+3. If the evaluated node structure wraps the statements in a `BLOCK` (which is true for `@{; ... }`), it invokes `withSharedBody`—instructing that specific `BLOCK` to bypass its normal tendency to isolate, and instead natively share the caller's environment.
+
+When developers *want* transient evaluation scopes (e.g., executing a sandbox with temporary variables), they explicitly provide a bindings map to `.Eval(...)`. In that scenario, `.Eval` acts as a true scope-creating construct—it pushes a new temporary context frame, and the inner evaluated block then safely shares *that* temporary construct scope, rather than polluting the caller.

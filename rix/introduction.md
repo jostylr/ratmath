@@ -326,26 +326,30 @@ Sometimes you want to create a block of code but execute it later rather than im
 f := @{; 1 + 2 }   ## f now holds an AST node, not the number 3
 ```
 
-To evaluate a deferred node at runtime, use the `@@` prefix operator (which is syntax sugar for the `.Eval(ast)` capability):
+To evaluate a deferred node at runtime, use the `@@` prefix operator (which is syntax sugar for the `.Eval(ast)` capability). You can also use `@@` directly on a string to dynamically parse and evaluate it:
 
 ```rix
 @@f                ## Evaluates the deferred block, yielding 3
+@@"1 + 2"          ## Evaluates the string of code, yielding 3
 ```
 
-By default, deferred blocks evaluated with `@@` execute in the **current lexical scope** just as if they had been written inline. This allows them to read and write variables in the surrounding environment:
+By default, deferred ASTs and strings evaluated with `@@` execute in the **current lexical scope** just as if they had been written inline. This means any assignments happen directly in your current scope instead of disappearing into a transient subscope:
 
 ```rix
 x := 10
-f := @{; x + 5 }
-@@f                ## 15
+f := @{; x = 99 }
+@@f                ## Evaluates x = 99
+x                  ## 99 (the caller scope was directly mutated)
+
+@@"y := x + 1"     ## Dynamically evaluates a string
+y                  ## 100
 ```
 
-If you need to evaluate a block with specific local bindings, or in a completely isolated scope, use the `.` system capability `.Eval(ast, bindings, mode)`:
+If you need to evaluate a block with specific local bindings, or in a completely isolated scope, you can explicitly use the `.` system capability `.Eval(ast_or_string, bindings, mode)`:
 
 ```rix
-x := 10
 f := @{; x + y }
-.Eval(f, {= y=5 })           ## 15 (inherits x, injects y=5)
+.Eval(f, {= y=5 })           ## 104 (inherits x=99, injects y=5)
 .Eval(f, _, :fresh)          ## Evaluates in an entirely fresh scope (x is undefined)
 ```
 
