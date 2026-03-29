@@ -303,6 +303,36 @@ x := 5
 }
 ```
 
+#### Deferred Execution and `@@`
+Sometimes you want to create a block of code but execute it later rather than immediately. You can prefix any block or syntax container with `@` to create a **deferred AST node**. 
+
+```rix
+f := @{; 1 + 2 }   ## f now holds an AST node, not the number 3
+```
+
+To evaluate a deferred node at runtime, use the `@@` prefix operator (which is syntax sugar for the `.Eval(ast)` capability):
+
+```rix
+@@f                ## Evaluates the deferred block, yielding 3
+```
+
+By default, deferred blocks evaluated with `@@` execute in the **current lexical scope** just as if they had been written inline. This allows them to read and write variables in the surrounding environment:
+
+```rix
+x := 10
+f := @{; x + 5 }
+@@f                ## 15
+```
+
+If you need to evaluate a block with specific local bindings, or in a completely isolated scope, use the `.` system capability `.Eval(ast, bindings, mode)`:
+
+```rix
+x := 10
+f := @{; x + y }
+.Eval(f, {= y=5 })           ## 15 (inherits x, injects y=5)
+.Eval(f, _, :fresh)          ## Evaluates in an entirely fresh scope (x is undefined)
+```
+
 #### Block Import Headers
 Scoped execution blocks can optionally start with an import header. This is only valid at the top of an explicit scoped block: plain `{ ... }`, `{; ... }`, `{@ ... }`, and `{$ ... }`.
 
