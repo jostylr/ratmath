@@ -21,6 +21,33 @@ Semantic proto is layered into type and traits so semantic behavior can override
 
 This gives RiX a coherent model for "what this value currently is" versus "what this cell means", while keeping update semantics predictable for aliasing, replacement, and inspection.
 
+## Destructuring Reuses Ordinary Assignment Semantics (2026-03-30)
+
+Destructuring in RiX should not be a separate assignment world. It reads the actual stored entry reality from a structured value and then binds outward using ordinary assignment semantics.
+
+That choice keeps destructuring aligned with RiX's cell/value/meta model:
+
+- `=` still means alias/rebind semantics
+- `:=` still means fresh shallow copy
+- `~=` and `~~=` still mean update semantics, including sticky semantic reapplication
+- per-entry overrides are just local uses of the same assignment modes
+
+This matters because RiX already has meaningful distinctions between aliasing, copying, updates, and sticky semantics. A destructuring feature that invented a parallel model would immediately become a source of contradictions.
+
+Map renaming is therefore explicit:
+
+```rix
+{= b[:a] } = m
+```
+
+The source-key role and target-variable role are different jobs. `b[:a]` makes that visible, while also scaling cleanly to:
+
+- `a = pattern`
+- `[:a] = pattern`
+- `b[:a] = pattern`
+
+That explicitness avoids ambiguous readings and leaves room for later variant-prep reuse without changing the mental model.
+
 ## Constructor Capture Uses Assignment Semantics (2026-03-29)
 
 RiX is a cell-based language. Container construction therefore should not invent a separate "live value but not cell" capture model.

@@ -95,6 +95,78 @@ x op= y   =>   x ~= x op y
 @x op= y  =>   @x ~= @x op y
 ```
 
+#### Left-Hand Destructuring
+
+RiX destructuring is not a separate assignment system. It:
+
+1. evaluates the right-hand side once
+2. reads the actual stored entries from the source structure
+3. binds each extracted piece outward using the ordinary assignment mode from the outer operator, unless that entry overrides it
+
+That means the outer assignment operator supplies the default binding mode for the whole pattern:
+
+```rix
+[a, b] = arr
+[a, b] := arr
+[a, b] ~= arr
+{= a, b[:x] } ::= m
+```
+
+Supported left-hand patterns are arrays, tuples, maps, and tensors:
+
+```rix
+[a, b, ...rest] = [1, 2, 3, 4]
+{: a, b, ...rest } = {: 1, 2, 3, 4 }
+{= a, b[:x], pair[:pt] = [u, v], [:meta] = {: p, q}, ...rest } = m
+{:2x2: [a, b], [c, d]} = {:2x2: 1, 2; 3, 4}
+```
+
+Map entries use explicit source-key syntax so the target role is unambiguous:
+
+- `a` means source key `a`, target variable `a`
+- `b[:a]` means source key `a`, target variable `b`
+- `a = pattern` means bind the whole selected value to `a` and also destructure it
+- `[:a] = pattern` means destructure key `a` without also binding the whole value
+- `b[:a] = pattern` means bind the whole selected value to `b` and also destructure it
+
+Simple missing positions or keys bind a hole:
+
+```rix
+[a, b] = [1]              ## b gets hole
+{= a, b } = {= a = 5 }    ## b gets hole
+```
+
+Missing nested required structure is an error:
+
+```rix
+[a, [b, c]] = [1]         ## error
+{= a = [x, y] } = {= }    ## error
+```
+
+Extra source contents are ignored unless captured by a final `...rest`.
+
+Per-entry binding overrides reuse the ordinary assignment model:
+
+```rix
+[==a, :=b, ~=c]
+{: a, :=b }
+{= ==a, ~=b[:x] }
+```
+
+Target-side semantic wrapping also works inside destructuring:
+
+```rix
+[{^ /::rational/ x}] = [2]
+{= p[:pt] = {^ /:= #point ::Point :cartesian/ q} } = m
+```
+
+Inside a destructuring target header:
+
+- `#name` sets a sticky target name
+- `::Type` requires conversion/canonicalization to that type or errors
+- `:trait` is required on the extracted source value; it is not "blindly added"
+- a capture mode inside the header acts as that entry's binding-mode override
+
 #### Cell Protections and Value Mutability
 
 RiX distinguishes two separate concepts:
