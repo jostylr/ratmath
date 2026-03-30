@@ -167,6 +167,39 @@ Inside a destructuring target header:
 - `:trait` is required on the extracted source value; it is not "blindly added"
 - a capture mode inside the header acts as that entry's binding-mode override
 
+#### Indexed Destructuring
+
+Destructuring entries may also select from the current source object with ordinary indexing or slicing before binding:
+
+```rix
+{.. a[1:3], b[2:4], c[3] } = [10, 20, 30, 40, 50]
+{.. d[-1:1] = [e, f, ...g] } = [1, 2, 3, 4]
+{: a[1:2], b[3] } = {: 5, 6, 7, 8 }
+{.. row2[2, 1:3], block[1:2, 1:2] } = tensor
+```
+
+Interpretation rule: the indexing applies to the source object being destructured, not to the target.
+
+So `a[1:3]` inside a destructuring pattern means:
+
+1. compute `source[1:3]`
+2. bind that extracted result to `a`
+
+Each indexed entry extracts independently from the same source object. Overlapping and repeated extractions are allowed:
+
+```rix
+{.. a[1:3], b[2:4], c[3], d[3] } = arr
+```
+
+Indexed nested destructuring is also allowed:
+
+```rix
+{.. picked[2:4] = [x, y, ...z] } = arr
+{.. [2:4] = [x, y, ...z] } = arr
+```
+
+This uses the same indexing rules RiX already uses for arrays, tuples, maps, and tensors. Tensor indexed destructuring uses the ordinary tensor selector rules directly; it does not introduce a separate tensor-only destructuring model.
+
 #### Cell Protections and Value Mutability
 
 RiX distinguishes two separate concepts:

@@ -48,6 +48,31 @@ The source-key role and target-variable role are different jobs. `b[:a]` makes t
 
 That explicitness avoids ambiguous readings and leaves room for later variant-prep reuse without changing the mental model.
 
+## Indexed Destructuring Reuses Ordinary Indexing (2026-03-30)
+
+RiX destructuring is evolving into a selector language as well as a structural pattern language.
+
+Indexed destructuring lets one source object provide multiple independently selected subobjects:
+
+```rix
+{.. a[1:3], b[2:4], c[3] } = arr
+```
+
+The important design choice is that this does not invent a new extraction mechanism. It reuses ordinary indexing and slicing semantics:
+
+- array selectors use ordinary array/sequence indexing rules
+- tuple selectors use tuple indexing and tuple-preserving slices
+- map selectors use ordinary key lookup syntax
+- tensor selectors use ordinary tensor selector rules
+
+Each indexed entry extracts from the same original source object. There is no hidden source consumption or partitioning step. That means overlapping slices are allowed and unsurprising:
+
+```rix
+{.. a[1:3], b[2:4], c[3], d[3] } = arr
+```
+
+This keeps destructuring aligned with the rest of the language and avoids a second, destructuring-only notion of "selection".
+
 ## Constructor Capture Uses Assignment Semantics (2026-03-29)
 
 RiX is a cell-based language. Container construction therefore should not invent a separate "live value but not cell" capture model.
