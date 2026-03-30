@@ -154,7 +154,25 @@ x === z     ## null (different cells, even though equal values)
 
 This distinction matters for tracking mutations: two names sharing a cell will always agree, but two independent copies will not.
 
-#### Constructor Capture Uses the Same Cell Model
+#### Headered Outfitting, Sticky Semantics, And Constructor Capture
+
+RiX uses a shared `/ ... /` header syntax for value outfitting and for constructor defaults:
+
+```rix
+{^ 7}
+{^ /#len ::Length :meters/ 7}
+{= /:= #pt ::Point :cartesian/ x = 3, y = 4}
+{.. /::=/ a, ==b, ~=c}
+{: /#pair/ a, b}
+{:2x2: /#M ::Matrix :square/ 1, 2; 3, 4}
+```
+
+Headers can declare:
+
+- a default capture mode
+- a sticky semantic name via `#name`
+- a sticky semantic type via `::TypeName`
+- sticky traits via `:trait`
 
 RiX constructors use assignment-style capture rules instead of a separate "containers just keep values somehow" model. Every inserted entry uses one capture mode:
 
@@ -167,15 +185,24 @@ RiX constructors use assignment-style capture rules instead of a separate "conta
 The effective mode comes from an entry override when the constructor kind supports one, otherwise from the constructor header, otherwise from the runtime default constructor capture mode. The current default is deep copy.
 
 ```rix
-m = {::= a = x, b == y, c ~= z}
+m = {= /::=/ a = x, b == y, c ~= z}
 a = {.. 1, 2, 3}
-b = {:=.. x, y}
-t = {::=: a, b, c}
-u = {==| item1, item2 |}
-grid = {::=:2x2: a, b; c, d}
+b = {.. /:=/ x, y}
+t = {: /::=/ a, b, c}
+u = {| /==/ item1, item2 |}
+grid = {:2x2: /::=/ a, b; c, d}
 ```
 
 This is deliberate: RiX is a cell-based language, so container construction follows the same alias/copy/update reasoning as the rest of the language rather than introducing ad hoc JS-style value/reference rules.
+
+Semantic metadata is split deliberately:
+
+- ephemeral runtime facts: `._type`, `._proto`
+- sticky semantic interpretation: `.__name`, `.__type`, `.__traits`, `.__proto`
+
+On `~=` / `~~=` updates, sticky semantic metadata survives unless explicitly replaced. If a value has a sticky semantic type, the new raw rhs is processed through that type again so the cell remains in the same semantic regime. Traits are sticky augmentations in this version; they do not transform values. Automatic trait checking is optional, with `:verify` enabling per-value validation on updates.
+
+Semantic `.__proto` is layered so trait methods override type methods, and semantic methods override builtin/runtime `_proto` methods. If a semantic type changes while traits are preserved, RiX allows it but emits a warning.
 
 To define a function, you use the `->` operator. You can either use a named function definition or assign an anonymous lambda to a variable:
 ```rix

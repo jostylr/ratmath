@@ -2,6 +2,25 @@
 
 This document is a growing design-rationale log for RiX. It records why particular language choices were made so future extensions can follow the same model instead of re-deciding the same questions ad hoc.
 
+## Sticky Semantic Metadata vs Ephemeral Runtime Facts (2026-03-29)
+
+RiX distinguishes between runtime facts and semantic interpretation. Runtime/fundamental type and builtin proto are ephemeral and track the current concrete value. Decorated semantic type, traits, name, and semantic proto are sticky and survive updates unless explicitly replaced.
+
+That split is now represented directly in metadata:
+
+- ephemeral runtime facts: `._type`, `._proto`
+- sticky semantic interpretation: `.__name`, `.__type`, `.__traits`, `.__proto`
+
+On value replacement, sticky semantic type is reapplied to the new raw value so the cell remains in the same semantic regime. Traits primarily augment and optionally verify; they do not transform values in this version.
+
+Semantic proto is layered into type and traits so semantic behavior can override builtin behavior while remaining inspectable and partially rebuildable:
+
+1. trait layer
+2. type layer
+3. builtin/runtime `_proto`
+
+This gives RiX a coherent model for "what this value currently is" versus "what this cell means", while keeping update semantics predictable for aliasing, replacement, and inspection.
+
 ## Constructor Capture Uses Assignment Semantics (2026-03-29)
 
 RiX is a cell-based language. Container construction therefore should not invent a separate "live value but not cell" capture model.
