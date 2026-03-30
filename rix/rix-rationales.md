@@ -2,6 +2,42 @@
 
 This document is a growing design-rationale log for RiX. It records why particular language choices were made so future extensions can follow the same model instead of re-deciding the same questions ad hoc.
 
+## Semantic Inquiry and Explicit Conversion Operators (2026-03-30)
+
+RiX needs a lightweight semantic inquiry form and both soft and strict explicit conversion forms.
+
+Semantic membership should consult both runtime and semantic layers:
+
+- ephemeral `._type`
+- sticky `.__type`
+- sticky `.__traits`
+
+That makes semantic inquiry reflect the actual metadata model already present in RiX instead of inventing a separate hidden classification system. There is intentionally no trait inheritance or group expansion in this first version. If a value should count as belonging to a semantic category such as `:rational`, that fact should already be recorded by construction or conversion.
+
+Soft conversion fits RiX's null-propagation style:
+
+```rix
+x ~: :rational
+```
+
+It returns the converted value on success and `_` on failure, with optional warnings controlled by runtime configuration.
+
+Strict conversion remains available for contexts that should abort immediately:
+
+```rix
+x ~!: :rational
+```
+
+It uses the same conversion machinery but throws instead of returning `_`.
+
+Both conversion operators deliberately reuse the same type-conversion/canonicalization path as header-based semantic outfitting:
+
+```rix
+{^ /::rational/ x}
+```
+
+That keeps copy behavior, metadata propagation, and semantic canonicalization on one system rather than creating separate expression-level and header-level conversion models.
+
 ## Sticky Semantic Metadata vs Ephemeral Runtime Facts (2026-03-29)
 
 RiX distinguishes between runtime facts and semantic interpretation. Runtime/fundamental type and builtin proto are ephemeral and track the current concrete value. Decorated semantic type, traits, name, and semantic proto are sticky and survive updates unless explicitly replaced.

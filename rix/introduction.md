@@ -200,6 +200,37 @@ Indexed nested destructuring is also allowed:
 
 This uses the same indexing rules RiX already uses for arrays, tuples, maps, and tensors. Tensor indexed destructuring uses the ordinary tensor selector rules directly; it does not introduce a separate tensor-only destructuring model.
 
+### Semantic Inquiry and Explicit Conversion
+
+RiX distinguishes between runtime facts and sticky semantic decoration, so it also provides direct expression operators for asking about and requesting semantic types:
+
+```rix
+x ? :rational
+x ~: :rational
+x ~!: :rational
+```
+
+`x ? :name` checks semantic membership using exactly these sources:
+
+- `x.__type`
+- `x._type`
+- membership of `:name` inside `x.__traits`
+
+There is no hidden inheritance or group expansion in this operator. If you want something to count as `:rational`, that should already be recorded in one of those places by construction or conversion.
+
+`~:` and `~!:` are explicit type conversions, not trait conversions. They reuse the same copy/meta/type-canonicalization path as `{^ /::type/ expr }`, so they return a converted value with the same outfitting behavior rather than mutating the original variable in place.
+
+- `x ~: :type` returns the converted value or `_`
+- `x ~!: :type` returns the converted value or throws
+
+Soft-conversion warnings can be enabled with:
+
+```js
+warnings: {
+  conversion: true
+}
+```
+
 #### Cell Protections and Value Mutability
 
 RiX distinguishes two separate concepts:
