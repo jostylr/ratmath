@@ -2,6 +2,34 @@
 
 This document is a growing design-rationale log for RiX. It records why particular language choices were made so future extensions can follow the same model instead of re-deciding the same questions ad hoc.
 
+## Function Prep Phase (`?-` / `?!-`) (2026-04-01)
+
+RiX functions now support an explicit prep stage:
+
+```rix
+(x, y) ?- [ ... ] -> body
+F(x, y) ?!- [ ... ] -> body
+```
+
+This makes a function call a three-stage process:
+
+1. parameter binding
+2. prep execution
+3. body execution
+
+The prep phase exists to centralize work that logically belongs between binding and the real body:
+
+- validation
+- conversion
+- destructuring
+- local setup bindings
+
+The soft form `?-` matches RiX's null-propagation style: if a prep entry returns `_` or throws, the function call returns `_`.
+
+The strict form `?!-` keeps the same prep structure but throws instead of collapsing failure to `_`.
+
+Prep is intentionally permissive for now. RiX does not yet try to prove purity, block mutation, or separate benign internal state changes from externally visible mutation. The design intent is still "setup before body", but enforcement is deferred until the runtime has a sharper mutation model.
+
 ## Semantic Inquiry and Explicit Conversion Operators (2026-03-30)
 
 RiX needs a lightweight semantic inquiry form and both soft and strict explicit conversion forms.

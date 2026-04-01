@@ -218,6 +218,25 @@ x ~!: :rational
 
 There is no hidden inheritance or group expansion in this operator. If you want something to count as `:rational`, that should already be recorded in one of those places by construction or conversion.
 
+### Function Prep Phase
+
+Functions can include a preparation phase between parameter binding and body execution:
+
+```rix
+SumPos = (x, y) ?- [
+  xr = x ~: :rational,
+  yr = y ~: :rational,
+  total = xr + yr,
+  total > 0
+] -> total
+```
+
+Prep entries run left-to-right in the function's local scope. They may perform checks, conversions, destructuring, and local setup, and any bindings they create are visible to later prep entries and to the body.
+
+`?-` is the soft form: if any prep entry returns `_` or throws, the call returns `_`.
+
+`?!-` is the strict form: the same failures throw instead of collapsing to `_`.
+
 `~:` and `~!:` are explicit type conversions, not trait conversions. They reuse the same copy/meta/type-canonicalization path as `{^ /::type/ expr }`, so they return a converted value with the same outfitting behavior rather than mutating the original variable in place.
 
 - `x ~: :type` returns the converted value or `_`
