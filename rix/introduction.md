@@ -200,6 +200,15 @@ Indexed nested destructuring is also allowed:
 
 This uses the same indexing rules RiX already uses for arrays, tuples, maps, and tensors. Tensor indexed destructuring uses the ordinary tensor selector rules directly; it does not introduce a separate tensor-only destructuring model.
 
+For sequence-like values, bracket slices are interval-based, inclusive, and direction-aware:
+
+```rix
+a := [10, 20, 30, 40, 50]
+a[2:4]      ## [20, 30, 40]
+a[4:2]      ## [40, 30, 20]
+a[-2:-1]    ## [40, 50]
+```
+
 ### Semantic Inquiry and Explicit Conversion
 
 RiX distinguishes between runtime facts and sticky semantic decoration, so it also provides direct expression operators for asking about and requesting semantic types:
@@ -436,6 +445,16 @@ b := a.Push(5)
 a.Push!(5)
 ## a is now [1, 2, 5]
 ```
+
+Array methods follow the same mutating/non-mutating pairing. A few common ones:
+
+```rix
+[1, 2, 3, 4].Slice(2, 4)      ## [2, 3]     (method Slice is end-exclusive)
+[10, 20, 30].SWAP(1, 3)       ## [30, 20, 10]
+[1, 2, 3, 4, 5, 6, 7].MOVE(4:6, 2)   ## [1, 4, 5, 6, 2, 3, 7]
+```
+
+`MOVE(indexOrInterval, targetIndex)` removes the selected item(s) first, then inserts them into the shortened array. Positive target indices insert before that position; negative target indices insert after the addressed slot counting from the end.
 
 Mutating `!` methods require a mutable receiver. RiX uses the existing meta model for that check, so a value without `._mutable` or one marked `.frozen` / `.immutable` will reject the mutation attempt.
 
