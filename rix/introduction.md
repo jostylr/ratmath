@@ -250,6 +250,52 @@ warnings: {
 }
 ```
 
+### Multifunctions
+
+RiX also supports ordered multi-variant dispatch by treating an array of functions as a callable multifunction:
+
+```rix
+F = [
+  (x) ?- [x > 0] /Positive/ -> x,
+  (x) /Fallback/ -> -x
+]
+
+F(5)          ## 5
+F(-5)         ## 5
+F[:Positive](5)
+```
+
+Key rules:
+
+- If an uppercase name is assigned an array, RiX marks that array as a multifunction automatically.
+- Variants are tried in array order.
+- Prep success selects the variant permanently for that call.
+- Prep failure means "try the next variant".
+- Once a variant is selected, its body result is final, even when it returns `_`.
+- If no variant matches, the whole call returns `_`.
+
+Variant-building syntax:
+
+```rix
+F(x) => x + 1        ## append
+F(x) ^=> x * 10      ## prepend
+F(x) /Exact/ => x
+F(x) ?- [x > 0] /Pos/ => x
+```
+
+Named variants store their name in `variant.__name`, and direct dispatch is available through ordinary key-style indexing:
+
+```rix
+F[:Exact](7)
+```
+
+Inside a variant:
+
+- `$` is the current variant
+- `$$` is the parent multifunction
+
+A no-prep variant that appears before later variants always matches if reached, so RiX can emit a configurable warning for that situation.
+
 #### Cell Protections and Value Mutability
 
 RiX distinguishes two separate concepts:

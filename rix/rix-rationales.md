@@ -2,6 +2,37 @@
 
 This document is a growing design-rationale log for RiX. It records why particular language choices were made so future extensions can follow the same model instead of re-deciding the same questions ad hoc.
 
+## Multifunctions (2026-04-01)
+
+RiX multifunctions are ordered arrays of callable variants with dispatch driven by prep success.
+
+```rix
+F = [
+  (x) ?- [x > 0] /Positive/ -> x,
+  (x) /Fallback/ -> -x
+]
+```
+
+This design deliberately avoids a hidden pattern-matching engine. Multifunctions provide a lightweight, ordered dispatch mechanism based on prep success. Unlike traditional pattern matching systems, RiX uses explicit prep logic and deterministic ordering rather than implicit matching rules. This keeps dispatch simple, predictable, and fully programmable, while still enabling expressive multi-variant behavior.
+
+The key semantic choice is that prep decides selection, not body output:
+
+1. bind parameters
+2. run prep
+3. on prep success, commit to that variant
+4. run the body and return its value as final
+
+That means `_` from the body does not fall through. Fallthrough is only a prep-level concept.
+
+The array representation matters too. Keeping multifunctions as ordinary arrays preserves explicit ordering and lets users reorder variants with normal array operations. RiX adds just enough structure on top of that array:
+
+- `._type = :multifunction` marks the array callable
+- `variant.__name` stores optional names
+- direct dispatch uses ordinary key-style indexing (`F[:Name](...)`)
+- `$` and `$$` expose the current variant and parent multifunction explicitly
+
+The no-prep warning follows from the same philosophy. A prep-less variant in the middle of the list is not forbidden, but it is almost certainly a mistake because later variants become unreachable if execution reaches it. Warning instead of rejection keeps the model flexible while still surfacing a strong signal.
+
 ## Function Prep Phase (`?-` / `?!-`) (2026-04-01)
 
 RiX functions now support an explicit prep stage:
