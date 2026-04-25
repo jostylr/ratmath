@@ -467,4 +467,6 @@ Traits are materialized into `.__traits` so inquiry remains simple: `x ? :trait`
 
 Types drive construction, conversion, export/import, normalization, proto construction, and operator participation. System operators can be represented as multifunction-style dispatch tables with native fallback variants, so new semantic types can participate incrementally without breaking existing behavior.
 
+The built-in numeric semantic types stay exact and foundational: Integer, Rational, and RationalInterval. Real-number strategies such as oracle reals belong in user-land RiX startup code, because RiX should allow multiple competing real implementations to coexist, be loaded explicitly, and be compared experimentally without making one representation part of the core language.
+
 This preserves the cell/meta model while giving rich types a single central conversion and protocol path.
