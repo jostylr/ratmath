@@ -458,3 +458,13 @@ To achieve this, the underlying implementation of `.Eval` utilizes the `withShar
 3. If the evaluated node structure wraps the statements in a `BLOCK` (which is true for `@{; ... }`), it invokes `withSharedBody`—instructing that specific `BLOCK` to bypass its normal tendency to isolate, and instead natively share the caller's environment.
 
 When developers *want* transient evaluation scopes (e.g., executing a sandbox with temporary variables), they explicitly provide a bindings map to `.Eval(...)`. In that scenario, `.Eval` acts as a true scope-creating construct—it pushes a new temporary context frame, and the inner evaluated block then safely shares *that* temporary construct scope, rather than polluting the caller.
+
+## Types and Traits as Protocol Bundles (2026-04-25)
+
+RiX treats types and traits as semantic protocol bundles, not just labels. Runtime `._type` and `._proto` describe the current concrete value. Sticky `.__type`, `.__traits`, and `.__proto` describe semantic interpretation and survive updates.
+
+Traits are materialized into `.__traits` so inquiry remains simple: `x ? :trait` checks actual attached traits rather than dynamically walking implication graphs. Type application resolves implied traits up front and layers trait proto methods in application order.
+
+Types drive construction, conversion, export/import, normalization, proto construction, and operator participation. System operators can be represented as multifunction-style dispatch tables with native fallback variants, so new semantic types can participate incrementally without breaking existing behavior.
+
+This preserves the cell/meta model while giving rich types a single central conversion and protocol path.

@@ -56,6 +56,16 @@ t ~= 21
 ## t._spec is cleared (rhs had none)
 ```
 
+Sticky semantic metadata also powers RiX's type and trait system. A semantic header such as `{^ /::Rational :ordered/ 7}` applies a registered type and traits to the value. Runtime facts live in `._type` and `._proto`; semantic interpretation lives in `.__type`, `.__traits`, and `.__proto`.
+
+```rix
+r = 7 ~: :Rational
+r ? :number       ## true because :Rational implies numeric traits
+r.Num()           ## type-proto method
+```
+
+Use `x ~: :Type` for soft conversion, `x ~!: :Type` for strict conversion, and `.TypeExport(x)` / `.TypeImport(m)` for registered type export/import.
+
 **`::=` and `~~=`** are deep-copy variants of `:=` and `~=`, respectively. They recursively copy nested collections instead of sharing inner references.
 
 **Combo operators** (`+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`, `++=`, `\/=`, `/\=`, `\=`, `**=`, `/^=`, `/~=`) use `~=` semantics — they update the value in place, so aliases see the change and meta is preserved:
