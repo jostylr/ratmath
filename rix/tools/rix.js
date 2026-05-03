@@ -3,14 +3,16 @@
  * RiX Runner & REPL
  * 
  * Usage:
- *   bun rix/tools/rix.js <input.rix>    # Run a script
- *   bun rix/tools/rix.js                 # Start REPL
+ *   bun rix/tools/rix.js <input.rix>      # Run a script
+ *   bun rix/tools/rix.js --with-floats    # Start REPL with Float example loaded
+ *   bun rix/tools/rix.js                  # Start REPL
  */
 
 import { readFileSync } from "fs";
 import { readdirSync, statSync } from "fs";
 import path from "path";
 import { createInterface } from "readline";
+import { fileURLToPath } from "url";
 import {
     tokenize,
     parse,
@@ -25,11 +27,26 @@ import {
 } from "../eval/index.js";
 import { formatValue as formatResult } from "../eval/src/format.js";
 import { installSymbolicBindings } from "../eval/src/functions/symbolic.js";
+import { loadFloatExampleStartup } from "../examples/floats/floats-loader.js";
 
 // Known REPL meta-commands (lowercase, intercepted before the evaluator)
 const REPL_COMMANDS = new Set(["help", "exit", "load", "vars", "fns", "reset", "ast", "tokens"]);
 
-function handleCommand(fullCmd, context, systemContext) {
+const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
+const FLOATS_EXAMPLE_DIR = path.resolve(TOOL_DIR, "../examples/floats");
+
+function loadExamplePackage(name, context, registry) {
+    const normalized = String(name ?? "").trim().toLowerCase();
+    if (normalized === "floats" || normalized === "float") {
+        loadFloatExampleStartup(registry);
+        context.setEnv("jsImportBaseDir", FLOATS_EXAMPLE_DIR);
+        console.log("Loaded floats example.");
+        return true;
+    }
+    return false;
+}
+
+function handleCommand(fullCmd, context, registry, systemContext) {
     const trimmed = fullCmd.trim();
     if (!trimmed.startsWith(".")) return;
 
@@ -91,7 +108,7 @@ function handleCommand(fullCmd, context, systemContext) {
         console.log(`Available commands:
   .help           Show this help message
   .exit           Exit the REPL
-  .load:[pkg]     Load a package (e.g. .load[linalg])
+  .load[pkg]      Load a package (e.g. .load[floats])
   .vars           Show defined variables
   .fns            Show available system functions
   .reset          Reset variables and context
@@ -105,7 +122,9 @@ function handleCommand(fullCmd, context, systemContext) {
         console.log("Bye!");
         process.exit(0);
     } else if (cmd === "load") {
-        console.log(`Loading package ${args[0]}... (not fully implemented)`);
+        if (!loadExamplePackage(args[0], context, registry)) {
+            console.log(`Unknown package: ${args[0] ?? ""}`);
+        }
     } else if (cmd === "vars") {
         console.log("Variables:", context.getAllNames());
     } else if (cmd === "fns") {
@@ -411,10 +430,16 @@ async function runTests(filters) {
 }
 
 async function main() {
-    const args = process.argv.slice(2);
+    const rawArgs = process.argv.slice(2);
+    const withFloats = rawArgs.includes("--with-floats");
+    const args = rawArgs.filter(arg => arg !== "--with-floats");
     const context = new Context();
     const registry = createDefaultRegistry();
     const systemContext = createDefaultSystemContext();
+
+    if (withFloats) {
+        loadExamplePackage("floats", context, registry);
+    }
 
     if (args.length > 0 && args[0] === "test") {
         // Test runner mode
@@ -426,7 +451,7 @@ async function main() {
         // Run file
         const inputFile = args[0];
         if (inputFile === "--help" || inputFile === "-h") {
-            console.log("Usage: bun rix [file.rix] | bun rix test [filters...]");
+            console.log("Usage: bun rix [--with-floats] [file.rix] | bun rix test [filters...]");
             process.exit(0);
         }
 
@@ -482,7 +507,7 @@ async function main() {
             if (buffer === "" && line.trim().startsWith(".")) {
                 const m = line.trim().slice(1).match(/^([a-z]+)/);
                 if (m && REPL_COMMANDS.has(m[1])) {
-                    handleCommand(line.trim(), context, systemContext);
+                    handleCommand(line.trim(), context, registry, systemContext);
                     rl.prompt();
                     return;
                 }
