@@ -229,7 +229,7 @@ x ~: :rational
 x ~!: :rational
 ```
 
-The core registry includes exact built-in numeric types such as `:Integer`, `:Rational`, and `:RationalInterval`. Real-number implementations, including oracle-style reals, are intended to be RiX startup extensions rather than core JavaScript types, so several implementations can coexist in user land.
+The core registry includes exact built-in numeric types such as `:Integer`, `:Rational`, and `:RationalInterval`. Real-number implementations, including oracle-style reals and JavaScript-backed floats, are intended to be RiX startup extensions rather than core JavaScript types, so several implementations can coexist in user land.
 
 `x ? :name` checks semantic membership using exactly these sources:
 

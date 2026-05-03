@@ -67,3 +67,6 @@
 [submodule "packages/arith-funs"]
 	path = packages/arith-funs
 	url = git@github.com:jostylr/ratmath-arithmetic-functions.git
+[submodule "rix/examples"]
+	path = rix/examples
+	url = git@github.com:jostylr/rix-examples.git
