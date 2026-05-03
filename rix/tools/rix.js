@@ -60,7 +60,7 @@ function loadRixPackage(nameOrPath, context, registry, systemContext) {
     const startupPath = resolvePackageStartup(nameOrPath);
     if (!startupPath) return false;
     const previous = new Map();
-    for (const key of ["__current_file__", "scriptBaseDir", "jsImportBaseDir"]) {
+    for (const key of ["__current_file__", "scriptBaseDir", "jsImportBaseDir", "__system_context__", "allowCapabilityRegister"]) {
         previous.set(key, {
             has: context.env?.has(key) === true,
             value: context.getEnv(key, undefined),
@@ -68,6 +68,8 @@ function loadRixPackage(nameOrPath, context, registry, systemContext) {
     }
     const startupDir = path.dirname(startupPath);
     context.setEnv("__registry__", registry);
+    context.setEnv("__system_context__", systemContext);
+    context.setEnv("allowCapabilityRegister", true);
     context.setEnv("__current_file__", startupPath);
     context.setEnv("scriptBaseDir", startupDir);
     context.setEnv("jsImportBaseDir", startupDir);
