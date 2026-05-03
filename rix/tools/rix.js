@@ -8,7 +8,7 @@
  *   bun rix/tools/rix.js                  # Start REPL
  */
 
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { readdirSync, statSync } from "fs";
 import path from "path";
 import { createInterface } from "readline";
@@ -27,23 +27,60 @@ import {
 } from "../eval/index.js";
 import { formatValue as formatResult } from "../eval/src/format.js";
 import { installSymbolicBindings } from "../eval/src/functions/symbolic.js";
-import { loadFloatExampleStartup } from "../examples/floats/floats-loader.js";
 
 // Known REPL meta-commands (lowercase, intercepted before the evaluator)
 const REPL_COMMANDS = new Set(["help", "exit", "load", "vars", "fns", "reset", "ast", "tokens"]);
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
-const FLOATS_EXAMPLE_DIR = path.resolve(TOOL_DIR, "../examples/floats");
+const EXAMPLES_DIR = path.resolve(TOOL_DIR, "../examples");
 
-function loadExamplePackage(name, context, registry) {
-    const normalized = String(name ?? "").trim().toLowerCase();
-    if (normalized === "floats" || normalized === "float") {
-        loadFloatExampleStartup(registry);
-        context.setEnv("jsImportBaseDir", FLOATS_EXAMPLE_DIR);
-        console.log("Loaded floats example.");
-        return true;
+function resolvePackageStartup(nameOrPath) {
+    const spec = String(nameOrPath ?? "").trim();
+    if (!spec) return null;
+    const pathLike = spec.includes("/") || spec.includes("\\") || spec.startsWith(".");
+    const candidates = pathLike
+        ? [
+            path.isAbsolute(spec) ? spec : path.resolve(process.cwd(), spec),
+            path.resolve(process.cwd(), spec, "startup.rix"),
+            path.resolve(process.cwd(), spec, `${path.basename(spec)}.rix`),
+            path.resolve(process.cwd(), spec, `${path.basename(spec)}.js.rix`),
+        ]
+        : [
+            path.resolve(EXAMPLES_DIR, spec, "startup.rix"),
+            path.resolve(EXAMPLES_DIR, spec, `${spec}.rix`),
+            path.resolve(EXAMPLES_DIR, spec, `${spec}.js.rix`),
+            path.resolve(process.cwd(), "rix-packages", spec, "startup.rix"),
+            path.resolve(process.cwd(), "rix-packages", spec, `${spec}.rix`),
+            path.resolve(process.cwd(), "rix-packages", spec, `${spec}.js.rix`),
+        ];
+    return candidates.find((candidate) => existsSync(candidate) && statSync(candidate).isFile()) ?? null;
+}
+
+function loadRixPackage(nameOrPath, context, registry, systemContext) {
+    const startupPath = resolvePackageStartup(nameOrPath);
+    if (!startupPath) return false;
+    const previous = new Map();
+    for (const key of ["__current_file__", "scriptBaseDir", "jsImportBaseDir"]) {
+        previous.set(key, {
+            has: context.env?.has(key) === true,
+            value: context.getEnv(key, undefined),
+        });
     }
-    return false;
+    const startupDir = path.dirname(startupPath);
+    context.setEnv("__registry__", registry);
+    context.setEnv("__current_file__", startupPath);
+    context.setEnv("scriptBaseDir", startupDir);
+    context.setEnv("jsImportBaseDir", startupDir);
+    try {
+        parseAndEvaluate(readFileSync(startupPath, "utf-8"), { context, registry, systemContext });
+    } finally {
+        for (const [key, entry] of previous) {
+            if (entry.has) context.setEnv(key, entry.value);
+            else context.env?.delete(key);
+        }
+    }
+    console.log(`Loaded ${nameOrPath}.`);
+    return true;
 }
 
 function handleCommand(fullCmd, context, registry, systemContext) {
@@ -122,7 +159,7 @@ function handleCommand(fullCmd, context, registry, systemContext) {
         console.log("Bye!");
         process.exit(0);
     } else if (cmd === "load") {
-        if (!loadExamplePackage(args[0], context, registry)) {
+        if (!loadRixPackage(args[0], context, registry, systemContext)) {
             console.log(`Unknown package: ${args[0] ?? ""}`);
         }
     } else if (cmd === "vars") {
@@ -438,7 +475,7 @@ async function main() {
     const systemContext = createDefaultSystemContext();
 
     if (withFloats) {
-        loadExamplePackage("floats", context, registry);
+        loadRixPackage("floats", context, registry, systemContext);
     }
 
     if (args.length > 0 && args[0] === "test") {
@@ -466,7 +503,10 @@ async function main() {
             }
             
             if (result !== undefined) {
-                console.log(formatResult(result));
+                console.log(formatResult(result, {
+                    context,
+                    evaluate: (node) => evaluate(node, context, registry, systemContext),
+                }));
             }
         } catch (error) {
             if (isRixAbort(error)) {
@@ -540,7 +580,10 @@ async function main() {
                 diag.events = diag.events.filter(e => e.entries?.get("kind")?.value !== "trace");
 
                 if (result !== undefined) {
-                    console.log(formatResult(result));
+                    console.log(formatResult(result, {
+                        context,
+                        evaluate: (node) => evaluate(node, context, registry, systemContext),
+                    }));
                 }
             } catch (error) {
                 // Special case: bare unbound user identifier at the REPL shows "undefined"
