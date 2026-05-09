@@ -576,6 +576,13 @@ More generally, when a code block appears as a sub-part of any scope-creating co
 {@ x = 0; x < 3; x; x += 1 }                      ## => 2
 ```
 
+Inside temporal brace containers such as loops and explicit blocks, a comma can sequence multiple expressions inside one semicolon-delimited slot. It evaluates left-to-right in the current scope and returns the final expression, without creating a new block scope:
+
+```rix
+{@ i = 1, j = 3; i < j; i + j; i += 1 }            ## => 5
+{; x = 1, x += 2, x + 4 }                          ## => 7
+```
+
 To create an isolated block inside a construct position, use nested braces — the outer block shares scope, the inner one isolates:
 
 ```rix
@@ -1022,6 +1029,8 @@ Loops use a default max of `10000` iterations unless the host runtime changes `d
 The max check happens **after the loop condition passes and before the next body execution**. A loop with max `100` can therefore complete 100 iterations; it throws only when iteration 101 would start.
 
 The three-part form omits the separate update slot. Use it when the body is the full iteration step, such as `{@ i = 0; i < 4; {; @total += i; i += 1 } }`, or for update-only loops such as `{@ i = 0; i < 4; i += 1 }`. The underlying lazy system capability accepts the same shape: `@_LOOP(init, condition, body)`.
+
+Within each loop slot, comma expressions are evaluated left-to-right and stay in that slot. For example, `{@ i = 1, j = 3; i < j; i + j; i += 1 }` has four loop slots: init `i = 1, j = 3`, condition `i < j`, body `i + j`, and update `i += 1`. Commas in arrays, tuples, maps, and function calls remain element or argument separators.
 
 ### Break Blocks
 
