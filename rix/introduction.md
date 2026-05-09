@@ -991,7 +991,7 @@ For other types of containers or specialized execution, a "sigil" is used immedi
 |--------|------|-------------|
 | `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
 | `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`, or the three-part form `{@ init; condition; body }` when the body performs its own update. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
 | `{! ... }` | **Break Block** | Terminates the nearest matching block/case/loop and returns a value. Examples: `{! 5 }`, `{!; 5 }`, `{!@ "done" }`, `{!?name! "big" }`. |
 | `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
 | `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
@@ -1020,6 +1020,8 @@ Loops use a default max of `10000` iterations unless the host runtime changes `d
 - `{@::@ ... }` and `{@name::@ ... }` disable max checking.
 
 The max check happens **after the loop condition passes and before the next body execution**. A loop with max `100` can therefore complete 100 iterations; it throws only when iteration 101 would start.
+
+The three-part form omits the separate update slot. Use it when the body is the full iteration step, such as `{@ i = 0; i < 4; {; @total += i; i += 1 } }`, or for update-only loops such as `{@ i = 0; i < 4; i += 1 }`. The underlying lazy system capability accepts the same shape: `@_LOOP(init, condition, body)`.
 
 ### Break Blocks
 
