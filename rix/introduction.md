@@ -547,7 +547,7 @@ A few things that do **not** happen:
 #### Lexical Scoping and the `@` Prefix
 RiX uses lexical scoping. Function bodies, explicit blocks, loops, and system blocks create a new local scope. Inside one of those scopes, plain names resolve only within the current local scope unless you explicitly use `@` to reach outward.
 
-Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
+Direct function calls are the one exception: `F(...)` searches outward for a callable binding, so an outer function can be called from inside a scoped block without importing it first. For imported scripts, that search stops at the script module boundary: exported functions can call private module helpers without `@`, but a missing helper will not fall through to the importing caller's scope. Bare retrieval is still lexical, so `G = F` inside a block is local-only and requires `G = @F` if `F` lives outside the block.
 
 Break blocks (`{! ... }`) and case blocks (`{? ... }`) are a special case. Inside a break block, plain reads can see the **immediate surrounding scope** without `@`, but writes still stay local unless you explicitly use `@name = ...` or `@name += ...` / `@name ++= ...` / `@name \/= ...` to mutate that surrounding scope.
 
