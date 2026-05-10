@@ -998,7 +998,7 @@ For other types of containers or specialized execution, a "sigil" is used immedi
 |--------|------|-------------|
 | `{; ... }` | **Explicit Block** | Alternative syntax for blocks. Supports an optional top-of-block import header `< ... >`. |
 | `{? ... }` | **Case / Branch** | Conditional branching. Example: `{? x > 0 ? "pos"; x < 0 ? "neg"; "zero" }` |
-| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`, or the three-part form `{@ init; condition; body }` when the body performs its own update. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
+| `{@ ... }` | **Loop** | C-style loop: `{@ init; condition; body; update }`, the three-part form `{@ init; condition; body }` when the body performs its own update, or the five-part form `{@ init; condition; body; update; after }` where `after` runs on normal completion and supplies the loop result. Loop headers may also carry an optional name and/or max-iteration cap such as `{@name@ ... }`, `{@:100@ ... }`, `{@name:100@ ... }`, `{@::@ ... }`, or `{@name::@ ... }`. Supports an optional top-of-block import header `< ... >`. |
 | `{! ... }` | **Break Block** | Terminates the nearest matching block/case/loop and returns a value. Examples: `{! 5 }`, `{!; 5 }`, `{!@ "done" }`, `{!?name! "big" }`. |
 | `{$ ... }` | **System** | Mathematical system of equations/assertions. Example: `{$ x :=: 3; y :>: 10 }`. Supports an optional top-of-block import header `< ... >`. |
 | `{= ... }` | **Map** | Dictionary / key-value mappings. Example: `{= name="RiX", version=1 }` |
@@ -1030,7 +1030,17 @@ The max check happens **after the loop condition passes and before the next body
 
 The three-part form omits the separate update slot. Use it when the body is the full iteration step, such as `{@ i = 0; i < 4; {; @total += i; i += 1 } }`, or for update-only loops such as `{@ i = 0; i < 4; i += 1 }`. The underlying lazy system capability accepts the same shape: `@_LOOP(init, condition, body)`.
 
-Within each loop slot, comma expressions are evaluated left-to-right and stay in that slot. For example, `{@ i = 1, j = 3; i < j; i + j; i += 1 }` has four loop slots: init `i = 1, j = 3`, condition `i < j`, body `i + j`, and update `i += 1`. Commas in arrays, tuples, maps, and function calls remain element or argument separators.
+The five-part form adds an `after` slot: `{@ init; condition; body; update; after }`. The `after` slot runs once after the condition becomes false, shares the loop scope, and its value becomes the loop result. This is useful for returning accumulated loop-local state:
+
+```rix
+{@ i = 0, total = 0; i < 4; total += i; i += 1; total }  ## => 6
+```
+
+`BREAK` exits the loop immediately and skips the `after` slot, so the break value remains the loop result.
+
+Blank loop slots are preserved as no-op holes. For example, `{@ i = 0; i < 5; ; i += 1; i^2 }` has a blank body slot, still has five loop slots, and returns `25`.
+
+Within each loop slot, comma expressions are evaluated left-to-right and stay in that slot. For example, `{@ i = 1, j = 3; i < j; i + j; i += 1; i }` has five loop slots: init `i = 1, j = 3`, condition `i < j`, body `i + j`, update `i += 1`, and after `i`. Commas in arrays, tuples, maps, and function calls remain element or argument separators.
 
 ### Break Blocks
 

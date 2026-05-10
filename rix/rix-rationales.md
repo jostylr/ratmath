@@ -390,9 +390,9 @@ Making `.Debug` lazy (receiving unevaluated IR nodes) is the cleanest way to ach
 
 ### The problem: double scoping
 
-Scope-creating constructs like loops create a single isolated scope for all their sub-parts. When a loop has four parts — `{@ init; cond; body; update }` — all four share one scope, so a variable created in init is visible in the other three.
+Scope-creating constructs like loops create a single isolated scope for all their sub-parts. When a loop has five parts — `{@ init; cond; body; update; after }` — all five share one scope, so a variable created in init is visible in the other four.
 
-But if a user wraps one of those parts in a code block for multi-statement grouping — `{@ {; x = 1; y = 10 }; x < 4; x + y; x += 1 }` — the code block would normally create its own isolated scope. The variable `x` would be trapped inside the init block and invisible to the condition, body, and update. This double-scoping defeats the purpose of using a block for grouping.
+But if a user wraps one of those parts in a code block for multi-statement grouping — `{@ {; x = 1; y = 10 }; x < 4; x + y; x += 1; x }` — the code block would normally create its own isolated scope. The variable `x` would be trapped inside the init block and invisible to the condition, body, update, and after slots. This double-scoping defeats the purpose of using a block for grouping.
 
 ### The principle: blocks in lazy construct positions are grouping, not isolation
 
@@ -400,7 +400,7 @@ When a code block appears as a sub-part of a scope-creating construct, it shares
 
 This applies generally to any lazy construct that manages its own scope and evaluates sub-parts within it:
 
-- **Loop sub-parts**: init, condition, body, and update blocks all share the loop scope.
+- **Loop sub-parts**: init, condition, body, update, and after blocks all share the loop scope.
 - **`.Test` expressions**: setup blocks and test blocks share the test scope (this was the original use case that motivated `withSharedBody`).
 
 ### Nested isolation via double braces
