@@ -1390,29 +1390,29 @@ The sort comparator receives `(a, b)` only — no locator or source. Sort does n
 
 ---
 
-### Sequences, Generators, and Laziness
-RiX features incredibly dense and powerful list-generation syntax using the pipe `|` inside brackets `[...]`. You generate sequences by specifying an initial state, a generation rule (such as adding or multiplying), and a stop condition.
+### Sequences and Generator Syntax
+RiX has compact list-generation syntax using the pipe `|` inside brackets `[...]`. The parser accepts several generator forms, but the current evaluator only has partial eager support for simple arithmetic/geometric array generation. Lazy generators and function-driven generator forms are still design/runtime work.
 
 **Common Generation Rules:**
-- `\|+n`: Add `n` to the previous element (arithmetic progression).
-- `\|*n`: Multiply the previous element by `n` (geometric progression).
-- `\|:f`: Generate by index, mapping function `f(index)`.
-- `\|>f`: Recursively pipe the previous values into function `f`.
+- `\|+n`: Add `n` to the previous element (partial eager evaluator support).
+- `\|*n`: Multiply the previous element by `n` (partial eager evaluator support).
+- `\|:f`: Generate by index, mapping function `f(index)` (parser/design syntax; evaluator incomplete).
+- `\|>f`: Recursively pipe previous values into function `f` (parser/design syntax; evaluator incomplete).
 
-**Example Generators:**
+**Example Generator Syntax:**
 ```rix
 [2, |+2, |; 5]           ## Eager Arithmetic: [2, 4, 6, 8, 10]
 [1, |*3, |; 4]           ## Eager Geometric: [1, 3, 9, 27]
-[|: (i) -> i^2, |; 5]    ## Eager Mapping (Index squares): [0, 1, 4, 9, 16]
-[1, 1, |>(a,b) -> a+b, |; 7]  ## Eager Recursive: Fibonacci sequence!
+[|: (i) -> i^2, |; 5]    ## Parser/design syntax; evaluator incomplete
+[1, 1, |>(a,b) -> a+b, |; 7]  ## Parser/design syntax; evaluator incomplete
 ```
 
-### target Stopping vs Laziness
-The stop condition specifies both *when* to stop and *how* to evaluate:
-- **Eager (`|;`)**: Computes all values immediately.
+### Target Stopping and Laziness Status
+The stop condition specifies both *when* to stop and, in the full design, *how* to evaluate:
+- **Eager (`|;`)**: Computes values immediately. Simple count/limit forms have partial evaluator support.
     - `|; 5`: Make exactly `5` elements.
-    - `|; (x) -> x > 10`: Make items until an item strictly exceeds 10.
-- **Lazy (`|^`)**: Returns a lazy iterator/generator instead of an array! The values will only be computed when functionally requested.
+    - `|; 10`: Make items until generated values exceed a simple limit.
+- **Lazy (`|^`)**: Parser/design syntax only for now. It does not yet return a runtime lazy iterator/generator.
     - `|^ 1000`: Lazily bounds the generator to 1000 elements max.
     - `|^ (x) -> x > 1000`: Lazily stops when the predicate hits.
 
@@ -1681,6 +1681,11 @@ Examples:
 ## Diagnostics, Testing, and Debugging
 
 RiX includes a built-in diagnostics subsystem accessed through system capabilities. All diagnostic operations produce structured RiX map values with a consistent `kind` field, making them inspectable and composable.
+
+Runtime errors include source line/column locations when RiX is evaluated from
+source text through the standard evaluator or script-import paths. Direct
+low-level IR evaluation only has locations if the host attaches source metadata
+to the IR.
 
 ### Warnings and Info
 
