@@ -12,25 +12,16 @@ This document orients AI agents to the project structure and active work areas.
 
 ```
 rix/
-├── parser/        ← PRIMARY: Parser & Tokenizer (active, well-tested)
-│   ├── src/
-│   │   ├── tokenizer.js     — Maximal-munch tokenizer
-│   │   ├── parser.js        — Pratt parser, produces AST
-│   │   └── system-loader.js — System identifier/keyword config
-│   ├── index.js             — Exports: tokenize, parse
-│   ├── tests/               — 500+ tests (bun test)
-│   ├── docs/                — Feature documentation
-│   └── design/              — Language spec and design decisions
-│
-├── eval/          ← ACTIVE: Evaluator (Phase 3 in progress)
-│   ├── src/
-│   │   ├── ir.js            — IR format (~50 node constructors)
-│   │   ├── lower.js         — AST → IR lowering pass (complete)
-│   │   └── evaluator.js     — IR evaluator (Phase 3 target)
-│   └── tests/               — 75+ lowering tests
-│
-├── web/           — Browser interface for RiX
-└── tools/         — Utility tooling
+├── src/
+│   ├── parser/     — Tokenizer, Pratt parser, and system-loader configuration
+│   ├── eval/       — IR, AST lowering, evaluator dispatch, and built-ins
+│   └── runtime/    — Contexts, cells, types, tensors, methods, and diagnostics
+├── bin/            — `rix` REPL/runner and `rix-to-ir` CLI
+├── tests/          — Parser, evaluator, and CLI tests
+├── docs/           — Language docs, specs, and design records
+└── examples/       — Runnable RiX and JavaScript examples
+
+rix-web/            — Separate browser interface repository
 ```
 
 use current working directory/tmp to store any temporary files. Do not use system /tmp. 
@@ -39,11 +30,11 @@ use current working directory/tmp to store any temporary files. Do not use syste
 
 | Phase | Component | Status |
 |-------|-----------|--------|
-| 1 | Parser & Tokenizer | ✅ Complete (501+ tests) |
-| 2 | AST → IR Lowering | ✅ Complete (75 tests) |
+| 1 | Parser & Tokenizer | ✅ Complete |
+| 2 | AST → IR Lowering | ✅ Complete |
 | 3 | IR Evaluator | 🔧 In progress |
 
-**Phase 3 work targets:** `rix/eval/src/evaluator.js` and `rix/eval/src/registry.js`
+**Phase 3 work targets:** `rix/src/eval/evaluator.js` and `rix/src/eval/registry.js`
 
 ### RiX Key Conventions
 
@@ -111,10 +102,10 @@ Register in `packages/algebra/src/package-registry.js` and help in `packages/alg
 
 | Task | Location |
 |------|---------|
-| Parser bug or new syntax | `rix/parser/src/parser.js` or `tokenizer.js` |
-| New AST node type | `rix/parser/src/parser.js` + update `rix/eval/src/lower.js` |
-| Evaluator / runtime | `rix/eval/src/evaluator.js` |
-| IR format | `rix/eval/src/ir.js` |
+| Parser bug or new syntax | `rix/src/parser/parser.js` or `tokenizer.js` |
+| New AST node type | `rix/src/parser/parser.js` + update `rix/src/eval/lower.js` |
+| Evaluator / runtime | `rix/src/eval/evaluator.js` or `rix/src/runtime/` |
+| IR format | `rix/src/eval/ir.js` |
 | New math types | `packages/core/` |
 | Old calc built-in function | `packages/stdlib/` or relevant package |
 | Old calc package | `packages/algebra/src/package-registry.js` |
@@ -124,10 +115,7 @@ Register in `packages/algebra/src/package-registry.js` and help in `packages/alg
 ## Testing
 
 ```bash
-# RiX parser tests (run from rix/parser/)
-bun test
-
-# RiX eval tests (run from rix/eval/)
+# RiX tests (run from rix/)
 bun test
 
 # Full monorepo (from root)
