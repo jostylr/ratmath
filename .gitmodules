@@ -64,3 +64,6 @@
 [submodule "rix"]
 	path = rix
 	url = git@github.com:jostylr/rix.git
+[submodule "rix-nb"]
+	path = rix-nb
+	url = git@github.com:jostylr/rix-nb.git
