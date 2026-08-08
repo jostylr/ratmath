@@ -13,7 +13,7 @@ This document orients AI agents to the project structure and active work areas.
 ```
 rix/
 ├── src/
-│   ├── parser/     — Tokenizer, Pratt parser, and system-loader configuration
+│   ├── parser/     — Tokenizer, Pratt parser, and static custom-operator declarations
 │   ├── eval/       — IR, AST lowering, evaluator dispatch, and built-ins
 │   └── runtime/    — Contexts, cells, types, tensors, methods, and diagnostics
 ├── bin/            — `rix` REPL/runner and `rix-to-ir` CLI

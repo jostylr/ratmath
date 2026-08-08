@@ -12,7 +12,6 @@ This document analyzes all existing parsers, languages, and evaluation systems i
 
 - **Tokenizer** (`tokenizer.js`, 565 lines): Maximal-munch tokenization for 11+ number formats, Unicode identifiers, 50+ symbols, N-delimiter strings/comments.
 - **Parser** (`parser.js`, 2407 lines): Full Pratt parser with 13 precedence levels. Produces 20+ AST node types: `Number`, `UserIdentifier`, `SystemIdentifier`, `BinaryOperation`, `FunctionCall`, `FunctionLambda`, `FunctionDefinition`, `PatternMatchingFunction`, `Pipe`, `Map`, `Filter`, `Reduce`, `GeneratorChain`, `Array`, `Matrix`, `Tensor`, `TernaryOperation`, `DotAccess`, `WithMetadata`, `IntervalStepping`, etc.
-- **System Loader** (`system-loader.js`, 780 lines): Three-tier keyword registry (core → tinkerer → user). Registers AND/OR/NOT as operators, SIN/COS/etc as functions, PI/E as constants.
 
 **What it lacks:** Zero evaluation capability. `rix/eval/` is an empty stub.
 
@@ -410,7 +409,6 @@ Any
 |---------|----------|-------|
 | Tokenizer | `rix/parser/src/tokenizer.js` | Primary tokenizer for everything |
 | Pratt Parser | `rix/parser/src/parser.js` | Primary parser, needs updates per §2 |
-| System Loader | `rix/parser/src/system-loader.js` | Merge with calc's package system |
 | Operator precedence table | parser.js SYMBOL_TABLE | Authoritative operator set |
 | All AST node types | parser.js | Foundation for lowering |
 | Generator/pipe syntax | parser.js | Already parsed, need evaluator |
@@ -534,8 +532,7 @@ rix/
 ├── parser/
 │   └── src/
 │       ├── tokenizer.js          # THE tokenizer (updated)
-│       ├── parser.js             # THE parser (updated)
-│       └── system-loader.js      # Keyword/operator registry
+│       └── parser.js             # THE parser (updated)
 ├── eval/
 │   └── src/
 │       ├── lower.js              # AST → IR lowering pass
