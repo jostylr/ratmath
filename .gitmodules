@@ -19,9 +19,6 @@
 [submodule "packages/oracles"]
 	path = packages/oracles
 	url = git@github.com:jostylr/ratmath-oracles.git
-[submodule "packages/units"]
-	path = packages/units
-	url = git@github.com:jostylr/ratmath-units.git
 [submodule "apps/webcalc"]
 	path = apps/webcalc
 	url = git@github.com:jostylr/ratmath-web.git
