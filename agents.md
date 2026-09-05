@@ -112,6 +112,38 @@ Register in `packages/algebra/src/package-registry.js` and help in `packages/alg
 
 ---
 
+## RiX diagnostic guards and early returns
+
+Prefer `?_>` and `??>` to long nested conditional chains whose branches only
+reject inputs or report unresolved work. Use function prep to separate
+validation/setup from the successful algorithm:
+
+```rix
+CoursePower(x,n) ?!- [
+    n ? :Integer ?_> {= status=:unsupported,reason=:integerRequired },
+    n >= 0 ?_> {= status=:unsupported,reason=:negativeExponent },
+    n <= 8 ?_> {= status=:unsupported,reason=:degreeBudgetExceeded }
+] -> x^n;
+```
+
+- `check ?_> result` returns on decided negative/null `_`; `check ??> result`
+  returns on undecided `?`. Chain both when uncertainty must not proceed.
+- These return from the current function call, including from prep or nested
+  blocks, not from a block alone. Outside an active function call they error.
+- They bind below assignments and compound logical checks. Prep bindings can
+  be used in the diagnostic and body; payloads are lazy.
+- An explicit return is final even if its result is `_` or `?`; it never asks
+  multifunction dispatch to try another variant. Keep unannotated soft guards
+  for genuine algorithm/input-family selection.
+- Prefer strict `?!-` prep with handled expected rejections when unexpected
+  errors should surface. A selected diagnostic payload's errors propagate.
+- Zero is truthy in RiX. Write comparisons for numeric validity. An unhandled
+  `?` in a standalone body guard does not automatically exit the function.
+- Keep ordinary conditionals/cases for genuine alternate computations, not
+  every condition indiscriminately. Preserve diagnostic reasons in refactors.
+
+Reference and executable examples: `rix/documentation/eval/function-returns.md`.
+
 ## Testing
 
 ```bash
