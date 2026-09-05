@@ -1,8 +1,18 @@
 {
     "name": "ratmath-umbrella",
     "private": true,
+    "packageManager": "bun@1.4.0",
+    "engines": {
+        "bun": ">=1.4.0"
+    },
     "scripts": {
-        "test": "bun test",
+        "test": "bun run test:suite",
+        "test:short": "bun ./scripts/run-workspace-tests.js short",
+        "test:ten": "bun ./scripts/run-workspace-tests.js ten",
+        "test:suite": "bun ./scripts/run-workspace-tests.js suite",
+        "test:plugin": "bun ./scripts/run-workspace-tests.js plugin",
+        "prep": "bun ./scripts/workspace-prep.js",
+        "prep:check": "bun ./scripts/workspace-prep.js --check",
         "calc": "bun run ./apps/calc/index.js",
         "build-webcalc": "bun run --cwd apps/webcalc build-all",
         "serve-webcalc": "python3 -m http.server 3000 --directory apps/webcalc/docs",

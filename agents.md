@@ -115,11 +115,21 @@ Register in `packages/algebra/src/package-registry.js` and help in `packages/alg
 ## Testing
 
 ```bash
-# RiX tests (run from rix/)
-bun test
+# Fast cross-repository feedback (normally under two minutes)
+bun run test:short
 
-# Full monorepo (from root)
+# Medium RiX-heavy verification (normally five to ten minutes)
+bun run test:ten
+
+# Complete cross-repository verification
 bun test
+# or: bun run test:suite
+
+# Focus one RiX plugin and its implemented tutorial
+bun run test:plugin plot
+
+# Inspect/prepare pinned submodules and dependencies
+bun run prep
 ```
 
 All changes to `rix/` must keep existing tests green. Add tests for new functionality.
