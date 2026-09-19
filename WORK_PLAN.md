@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
-M4 Scene3D adapters, T3 rational spectral/finite-support work, R4 robustness/performance and M6 course CAS/calculus are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
+H2 Notebook authoring, T3 rational spectral/finite-support work, R4 robustness/performance and M6 course CAS/calculus are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -488,17 +488,28 @@ cells. A pre-existing narrow script-capability filtering issue is recorded in
 
 **Depends:** M1–M3 as used. **Where:** Geometry, Plot, Scene3D, ND, complexViz.
 
-- [ ] Add Scene3D trajectory/tube/event adapters and general linked selection
+- [x] Add Scene3D trajectory/tube/event adapters and general linked selection
   over existing panels, snapshots and stable semantic IDs.
-- [ ] Add bounded implicit-surface subdivision and uncertainty masks, explicit
+- [x] Add bounded implicit-surface subdivision and uncertainty masks, explicit
   volume/slice records and budgeted mesh detail; unresolved cells remain visible.
-- [ ] Extend ND implicit regions and linked affine projections/slices, then
+- [x] Extend ND implicit regions and linked affine projections/slices, then
   complexViz `(Re z, Im z, Re f, Im f)` slices and linked input/output views.
-- [ ] Add certified unit-quaternion transform/interpolation adapters over the
+- [x] Add certified unit-quaternion transform/interpolation adapters over the
   existing transform schema; reject arbitrary nonunit rotations explicitly.
 
 **Done:** exact/certified/approximate provenance survives projection, interaction,
 SVG/Canvas/WebGL snapshots and O6 export; all sampling has finite budgets.
+
+**Completed:** replayable 1–8D implicit covers with whole pending boxes, affine
+sections/projections, conservative volume/slice meshes, ODE trajectory/tube/event
+adapters, bounded four-coordinate complex samples and rational unit-quaternion
+transforms/interpolation. Linked panels preserve IDs and source evidence across
+SVG/Canvas/WebGL/TikZ/GIF and document persistence. No implicit surface topology,
+ODE re-proof or certified pixels are claimed. Antipodal interpolation remains an
+explicit diagnostic. Broad affected regression: **76 tests / 729 assertions**;
+final root rerun **17 / 387**, four executed tutorial cells. Actual SVG→PNG and
+TikZ→one-page PDF rendered and visually reviewed. Evidence and manifests:
+`tmp/m4-verification.md`, `tmp/m4-root-review.log`, `tmp/m4-exports/`.
 
 ### M5 — Integer and bounded nonlinear optimization
 
@@ -654,7 +665,9 @@ related regressions **63 / 335**; seven runnable documentation cells and tutoria
 checks pass. Root review added forged-derived-origin rejection for seven operation
 families. Evidence: `tmp/t2-source-manifest.json`, `tmp/t2-final-graph-tests.log`,
 `tmp/t2-replay-tests.log`. Existing deep container/provenance copy costs remain an
-R4 profiling case; queue copying was removed.
+R4 profiling case; queue copying was removed. Follow-up RiX `3387139` restores
+source links in dependency order and rejects changed Polynomial sources across
+equivalent representations: **16 graph tests / 105 assertions**.
 
 ### T3 — Rational spectral and finite-support extensions
 
