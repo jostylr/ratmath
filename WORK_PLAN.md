@@ -841,7 +841,7 @@ speedup. Evidence: `tmp/r3-source-manifest.json`, `tmp/r3-final-streams.log`,
 
 **Depends:** profiling baseline from R1/M3/O4; current public contracts.
 
-- [ ] Add parser/tokenizer fuzz/property tests, malformed-number/Unicode/source
+- [x] Add parser/tokenizer fuzz/property tests, malformed-number/Unicode/source
   span regression fixtures, large-input limits and editor recovery diagnostics.
 - [ ] Add Float typed-array tensor adapters and sparse finite linear methods
   where supported; preserve evidence and exact/approximate boundaries.
@@ -855,6 +855,19 @@ speedup. Evidence: `tmp/r3-source-manifest.json`, `tmp/r3-final-streams.log`,
 **Done:** representative benchmarks record before/after costs, caches invalidate
 correctly, and exact/evidence semantics are unchanged. New GPU/Wasm/native
 providers, huge raster pipelines and distributed execution remain D10.
+
+**Parser/runtime slice completed 2026-09-19:** RiX `2ff81bc`. Correct literal
+source spans and astral Unicode identifiers; bounded token/node/depth/source
+limits; editor recovery with bounded diagnostics and linear delimiter indexing.
+Per-child snapshot memoization retains alias identity while isolating siblings.
+Trusted pure worker definitions are reused with fresh grants/captures/budgets;
+worker completion now follows cleanup to prevent losing the next queued request.
+Measured exact ODE async time 11.05s→2.98s, shared snapshot allocation
+17.8MB→0.60MB, warm 16-task worker batch 4.85s→8ms. Checksums/steps unchanged;
+owner execution is still fastest for tiny tasks. Short suite 1720/20991 assertions,
+parser/lint/nav 670/17240, isolation/tensor graph 52/197. Rendering and Float
+adapter slices remain outstanding. Evidence: `tmp/r4-source-manifest.json`,
+`tmp/r4-short-final.log`, versioned `rix/benchmarks/runtime-performance-baseline.json`.
 
 ## C — RiXCel
 
