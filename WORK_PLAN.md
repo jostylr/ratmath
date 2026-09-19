@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, H1, M1**.
-O7 publication and M2 consumers are active; M8 is the next independent slice. Continue unchecked tasks in
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, H1, M1, M8**.
+O7 publication, M2 consumers and R1 concurrency are active. Continue unchecked tasks in
  dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -528,15 +528,26 @@ spec; cryptographic canonicalization and external evidence stores remain D7/D8.
 
 **Depends:** existing propositional logic and evidence checker.
 
-- [ ] Implement a separate classical propositional sequent rule set and bounded
+- [x] Implement a separate classical propositional sequent rule set and bounded
   replayable tree renderer, with an explicit rule ID per step and work limits.
-- [ ] Compare examples to existing natural deduction/tableaux without relabeling
+- [x] Compare examples to existing natural deduction/tableaux without relabeling
   those proof records. Add explicit adapters for existing algebra/interval
   propositions only where a checker can establish the exact claim.
 
 **Done:** invalid rules are rejected, exhaustion is distinct from invalidity,
 and proof trees export through ordinary document/graphic renderers.
 Finite first-order language design remains D4.
+
+**Completed 2026-09-19:** a separate classical multi-succedent calculus covers
+all existing propositional connectives, with explicit rule IDs, complete retained
+premise trees, checked countermodels and unresolved work. Replay rejects edits
+to rules, premises, status, work and witnesses. Independent truth evaluation
+covers both sides of every rule; combined Logic regression: 21 passed / 637
+assertions, followed by 5 completion tests / 426 assertions including document
+round trips and script grants. Both tutorial checks (four new executable cells)
+and editor policy checks pass. Exact rational/interval proposition adapters
+refuse approximate or uncertain premises. HTML/SVG/TeX/source exports ran and
+pdfTeX output was visually inspected. First-order logic remains D4.
 
 ## T — Finite linear and tensor algebra
 
