@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M7, M8, T1, N1, N2, R1, R2**.
-M4 Scene3D adapters, T2 identity imports, R3 streams/observability and M5 optimization are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, N1, N2, R1, R2**.
+M4 Scene3D adapters, T2 identity imports, R3 streams/observability and M6 course CAS/calculus are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -504,16 +504,28 @@ SVG/Canvas/WebGL snapshots and O6 export; all sampling has finite budgets.
 
 **Depends:** M1/M2; existing exact LP and symbolic constraint normalization.
 
-- [ ] Implement exact branch-and-bound integer/mixed-integer LP, deterministic
+- [x] Implement exact branch-and-bound integer/mixed-integer LP, deterministic
   branching, incumbent/lower-bound/gap records, unprocessed nodes and resumption.
-- [ ] Add exact convex quadratic cases with checked convexity/KKT conditions;
+- [x] Add exact convex quadratic cases with checked convexity/KKT conditions;
   constrained nonlinear requests use bounded Numerics box services with explicit
   derivative assumptions and honest local/global/unknown distinctions.
-- [ ] Extend existing Solve constraint/objective dispatch, preserving strict
+- [x] Extend existing Solve constraint/objective dispatch, preserving strict
   inequalities and exact domains; do not rebuild implemented affine dispatch.
 
 **Done:** optimal, infeasible, unbounded and exhausted examples have independently
 checked evidence and preserve partial results. External solvers remain D8.
+
+**Completed:** RiX `ebc0a92`. MILP retains deterministic queues, exact bounds,
+incumbents, integral rays and checked resumption. Convex QP checks every principal
+minor and exact KKT residuals; nonconvex or exhausted work stays unsupported or
+unknown. Certified range subdivision preserves strict inequalities, full pending
+boxes and unattained infima; no derivative assumptions are invented. Solve reuses
+its affine compiler and exposes a separate strict nonlinear box entry point.
+Fixed existing artificial-row cleanup parsing and an LP ray checker that tested
+only one step. Plugin/tutorial batch: **40 tests / 201 assertions**; final focused
+batch: **13 tests / 45 assertions**, including exhaustive integer-grid comparison,
+KKT residuals, tampered evidence, domain holes and bounded failure. Evidence:
+`tmp/m5-plugin.log`, `tmp/m5-final-focused.log`.
 
 ### M6 — Finish the bounded course CAS/calculus ladder
 
