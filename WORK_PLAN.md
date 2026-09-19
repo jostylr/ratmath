@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, T2, N1, N2, R1, R2**.
-M4 Scene3D adapters, T3 rational spectral/finite-support work, R3 streams/observability and M6 course CAS/calculus are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
+M4 Scene3D adapters, T3 rational spectral/finite-support work, R4 robustness/performance and M6 course CAS/calculus are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -786,17 +786,30 @@ JavaScript remains non-terminable; worker tasks have bounded termination grace.
 
 **Depends:** R1/R2 as applicable.
 
-- [ ] Segment stateful stream barriers so later safe elementwise regions regain
+- [x] Segment stateful stream barriers so later safe elementwise regions regain
   bounded concurrency. Add ChunkBy/Merge/Timeout/Debounce/Throttle/Latest with
   explicit ordering, clock, close and overflow behavior in a design record.
-- [ ] Add timer/reactive/UI adapters and permission-aware HTTP/file/WebSocket
+- [x] Add timer/reactive/UI adapters and permission-aware HTTP/file/WebSocket
   adapters over existing host contracts; test against local fixtures only.
   Database connectors remain D8.
-- [ ] Expose queue/running counts, executor, task paths, cancellation reasons and
+- [x] Expose queue/running counts, executor, task paths, cancellation reasons and
   ordered output in trace tooling; add reproducible I/O/pipeline/CPU benchmarks.
 
 **Done:** bounded deterministic fake-clock/fixture tests, no ambient network
 access or new permissions on existing scripts, and cleanup on every terminal.
+
+**Completed:** ordered concurrent segments around stateful barriers; ChunkBy,
+Merge, Timeout, Debounce, Throttle and Latest; bounded timer/reactive/UI and
+explicitly granted local-file/HTTP/WebSocket adapters; queue, cancellation and
+worker trace metadata. Transports remain opt-in host services and imports cannot
+grant their own access. RiX short **1710 tests / 5228 assertions**; final stream
+suite **48 / 225**; real local-file/symlink and loopback HTTP/WebSocket fixtures
+**2 / 9**; executable docs, navigation, method coverage, editor policy and browser
+bundle pass. Benchmark preserves identical exact checksums: four-way I/O was
+about 6.9ms versus 24.8ms serial; tiny CPU work remains dominated by worker startup
+(2.1ms owner versus 682ms with four workers). This is measured, not a promised
+speedup. Evidence: `tmp/r3-source-manifest.json`, `tmp/r3-final-streams.log`,
+`tmp/r3-short.log`, `tmp/r3-benchmark.json`.
 
 ### R4 — Bounded performance and robustness pass
 
