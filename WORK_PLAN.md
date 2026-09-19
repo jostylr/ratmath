@@ -242,17 +242,23 @@ consistent references, captions, evidence and documented layout fallbacks.
 
 **Depends:** O3; existing Scene3D snapshot/timeline schemas.
 
-- [ ] Accept versioned Scene3D snapshots in TikZ and normalize animation frames
+- [x] Accept versioned Scene3D snapshots in TikZ and normalize animation frames
   through the existing Graphics path. Preserve projection/evidence metadata.
-- [ ] Simplify exact coordinate source without changing values; add deterministic
+- [x] Simplify exact coordinate source without changing values; add deterministic
   SVG definition/path optimization that preserves IDs, styles and diagnostics.
-- [ ] Preserve GIF captions, frame descriptions, timing, and source/evidence as
+- [x] Preserve GIF captions, frame descriptions, timing, and source/evidence as
   deterministic JSON/text sidecars, including a static frame/contact-sheet path.
-- [ ] Add export fixtures for lit 3D scenes, retained trajectory frames and a
+- [x] Add export fixtures for lit 3D scenes, retained trajectory frames and a
   mathematical derivation; exercise available TeX/raster/GIF tools.
 
 **Done:** static formats and animation fallback share the same retained source,
 with useful metadata even when an encoder is unavailable.
+
+**Completed 2026-09-19:** bounded Scene3D/TikZ and animation normalization,
+exact coordinate simplification, conservative SVG optimization, GIF evidence/caption
+sidecars and encoder-independent contact sheets. Final export fixtures: 10 passed,
+including actual installed TeX/raster/GIF tools and optimized-raster equivalence.
+Host asset packaging remains the shared O3 integration.
 
 ### O7 — Publication workflows across CLI and Notebook
 
