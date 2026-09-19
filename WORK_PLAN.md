@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M7, M8, T1, N1, N2, R1**.
-M4 Scene3D adapters, T2 identity imports, R2 Notebook/workers and M5 optimization are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M7, M8, T1, N1, N2, R1, R2**.
+M4 Scene3D adapters, T2 identity imports, R3 streams/observability and M5 optimization are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -735,17 +735,28 @@ event-loop runtime guarantees; Notebook lifecycle/CPU worker integration is R2.
 
 **Depends:** R1; existing host execution workers.
 
-- [ ] Make the shared Notebook engine await async evaluation and dispose/drain
+- [x] Make the shared Notebook engine await async evaluation and dispose/drain
   owned scopes on reset/close/rerun; keep cell ordering and reactive observation.
-- [ ] Define a versioned task-worker protocol for supported IR, captured inert
+- [x] Define a versioned task-worker protocol for supported IR, captured inert
   values, random state, diagnostics, cancellation and results. Reject or retain
   unsupported/nonserializable capabilities on the owner executor.
-- [ ] Add a bounded pure-task worker pool, message-boundary checkpoints,
+- [x] Add a bounded pure-task worker pool, message-boundary checkpoints,
   termination grace periods and owner-routed reactive literal/batch commits.
 
 **Done:** worker/event-loop semantic equivalence tests pass; cancellation does
 not publish stale cell results or leak workers/streams; this is not a rewrite
 of the existing editor worker protocol.
+
+**Completed 2026-09-19:** RiX `743f9ff`, Notebook `4e31fdd`. Shared async
+Notebook execution retains cell ordering and disposes descendant resources on
+rerun/reset/close. A separate bounded pure-task worker protocol/pool transfers
+inert exact captures, grants, seeded random state and source/task diagnostics;
+customized values and unsupported capabilities stay on the owner. Admission
+rechecks queued owner budgets, and late cancelled work cannot publish results.
+Final focused acceptance: 27 tests / 203 assertions; RiX short 1,686 / 5,110;
+Notebook short 19 / 70 and original engine 16 / 63. Both builds and actual
+compiled browser worker/cancellation/close checks pass. Uncooperative owner
+JavaScript remains non-terminable; worker tasks have bounded termination grace.
 
 ### R3 — Streams and observability
 
