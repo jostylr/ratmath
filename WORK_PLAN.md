@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M8, T1, N1, N2, R1**.
-M4 Scene3D adapters, T2 identity imports, R2 Notebook/workers and M7 interchange are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M7, M8, T1, N1, N2, R1**.
+M4 Scene3D adapters, T2 identity imports, R2 Notebook/workers and M5 optimization are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -538,15 +538,15 @@ unsupported-rule cases have replayable transformations and no hidden assumptions
 
 **Depends:** existing mathematical JSON, O1 for document integration.
 
-- [ ] Implement single-document tagged JSON relations and CSV/JSONL round trips
+- [x] Implement single-document tagged JSON relations and CSV/JSONL round trips
   through the current exact scalar envelope, preserving schema and missing cells.
-- [ ] Complete standalone frozen-real snapshot import/export with strict bounds,
+- [x] Complete standalone frozen-real snapshot import/export with strict bounds,
   opaque-subject identity and unverified-evidence handling. Adopt deterministic
   writer ordering, embedded evidence and exact checker/provider-version matching.
-- [ ] Define an explicit recipe registry over existing stable semantic IDs;
+- [x] Define an explicit recipe registry over existing stable semantic IDs;
   imports remain inert and unavailable recipes remain useful snapshots. Only
   explicit refine requests may use already-installed permitted providers.
-- [ ] Begin with existing named constants and arithmetic/root/exp/log/trig
+- [x] Begin with existing named constants and arithmetic/root/exp/log/trig
   expressions with explicit branches. Unsupported recipes remain opaque; use
   the existing general graph container rather than add mandatory file syntax.
 
@@ -554,6 +554,19 @@ unsupported-rule cases have replayable transformations and no hidden assumptions
 run code on load, or invent checked identity. Malformed and oversized inputs fail.
 These are implementation defaults for the technical choices in the refinable-real
 spec; cryptographic canonicalization and external evidence stores remain D7/D8.
+
+**Completed 2026-09-19:** RiX `865a505`. Complete exact relation JSON,
+schema-bearing CSV/JSONL, frozen real cells and standalone real envelopes
+retain schema, missing cells, orientation and opaque identities. Loading remains
+inert and locally unverified. Explicit refinement uses already-loaded permitted
+Numerics capabilities with exact provider/algorithm/checker versions, bounded
+semantic graphs, replay, nested enclosures and retained failure diagnostics.
+Named pi/e, arithmetic, square roots, exp/log/trig and branch/domain rejection
+are covered. Verification: mathematical/interchange checks 27 / 120 assertions,
+data regressions and interchange 24 / 107, document persistence 23 / 123, native
+CLI export six assertions, two executable guide cells and actual static HTML/
+exact-source exports. Restored the format source accidentally removed during
+A2 site generation; broader recipe families remain inert and later scope.
 
 ### M8 — Bounded propositional sequent presentation
 
