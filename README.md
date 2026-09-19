@@ -6,6 +6,8 @@ The various parts are:
 
 ## Documentation
 
+- [Consolidated execution plan](WORK_PLAN.md): ordered implementation tasks, completion checks, and deferred decisions.
+
 - [Language Guide](docs/LANGUAGE_GUIDE.md): Detailed guide on variables, functions, scoping, and strictness rules.
 - [JS Integration](docs/JS_INTEGRATION.md): How to integrate JS modules.
 
