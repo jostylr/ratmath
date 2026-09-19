@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
-H2 Notebook authoring, T3 rational spectral/finite-support work, R4 robustness/performance and M6 course CAS/calculus are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
+H2 Notebook authoring, T3 rational spectral/finite-support work, R4 robustness/performance and C1 structural sheet editing are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -543,19 +543,32 @@ KKT residuals, tampered evidence, domain holes and bounded failure. Evidence:
 **Depends:** existing public expression/rule contracts; no new global assumption
 semantics from D3 are required.
 
-- [ ] Complete mixed trig powers, a small explicit set of radical substitutions
+- [x] Complete mixed trig powers, a small explicit set of radical substitutions
   (quadratic square-root forms), and parity/interval-symmetry definite integrals.
-- [ ] Add bounded replayable sign/power/root/trig simplification, absolute-value
+- [x] Add bounded replayable sign/power/root/trig simplification, absolute-value
   domain graphs, and hole-preserving rational cancellation only under explicit
   existing premises. Represent piecewise domains without new global assumptions.
-- [ ] Connect exact integration to certified quadrature and explicitly
+- [x] Connect exact integration to certified quadrature and explicitly
   approximate fallback, preserving domain checks and work/evidence.
-- [ ] Add inert differential/boundary/integral-equation specifications and
+- [x] Add inert differential/boundary/integral-equation specifications and
   declared derivative providers/bounds for opaque functions; solver execution
   remains in Numerics/Solve/ODE. Do not imply a general integral-equation solver.
 
 **Done:** standard secondary/undergraduate examples plus invalid-domain and
 unsupported-rule cases have replayable transformations and no hidden assumptions.
+
+**Completed 2026-09-19:** RiX `0c3b567`. Mixed trig powers (total degree ≤8),
+quadratic radicals with open-domain obligations, exact symmetry/primitive endpoint
+results, certified interval Riemann quadrature and explicit approximate midpoint
+fallback. Bounded local-premise rewrites retain cancellation holes; replay rejects
+changed obligations/evidence. Equation and derivative declarations are inert,
+unverified records; registration is explicit and does not certify caller bounds.
+Five schemas and eight runnable guide cells added. Validation: CAS plugin suite
+59/484 assertions, Calculus/range regressions 35 tests, focused opaque declaration
+check 1/8 assertions, tutorial parser checks 2/5 assertions, all eight guide cells.
+Numerical derivative comparisons independently check radical/trig primitives.
+Evidence: `tmp/m6-plugin-final.log`, `tmp/m6-regressions-final2.log` (one display
+expectation corrected and rerun in `tmp/m6-equations-final.log`), `tmp/m6-docs.log`.
 
 ### M7 — Tagged relations and safe real interchange
 
