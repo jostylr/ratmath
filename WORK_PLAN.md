@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, N2, R1**.
-M3 ODE, T1 tensors, R2 Notebook/workers and N1 numeral systems are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, T1, N2, R1**.
+M3 ODE, T2 identity imports, R2 Notebook/workers and N1 numeral systems are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -574,16 +574,24 @@ pdfTeX output was visually inspected. First-order logic remains D4.
 
 **Depends:** existing Frame/slot model. **Where:** Linalg, runtime methods.
 
-- [ ] Complete slot permutation, canonical/noncanonical dual Frames, view versus
+- [x] Complete slot permutation, canonical/noncanonical dual Frames, view versus
   component-slice rules, equality across representations, and bounded bang
   transformation provenance. Preserve existing pairing/products/contractions.
-- [ ] Add explicit Rational metrics, raising/lowering, symmetry/antisymmetry,
+- [x] Add explicit Rational metrics, raising/lowering, symmetry/antisymmetry,
   traces and tensor powers through methods (no new header syntax).
-- [ ] Verify coordinate invariance, incompatible-slot diagnostics and exact
+- [x] Verify coordinate invariance, incompatible-slot diagnostics and exact
   metric/domain checks; Euclidean identification is never implicit.
 
 **Done:** transformations, duality and contractions commute where specified;
 operations needing an absent metric diagnose it explicitly.
+
+**Completed 2026-09-19:** RiX `8e5de26`. Dual Frames, invariant views and
+permutations, bounded transformation history, explicit Rational metrics,
+raising/lowering, symmetry projections, traces and tensor powers are implemented.
+Shaped flatten/reshape now gather logical view cells. Exact coordinate-invariance,
+dual-pairing, domain, invalid-input and growth-bound checks: 85 tests / 353
+assertions, plus five executable documentation cells and tutorial checks.
+Non-Rational norm/angle results retain explicit unsupported-extension diagnostics.
 
 ### T2 — Linear identity imports and domain realizations
 
