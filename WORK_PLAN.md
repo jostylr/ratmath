@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, T1, N2, R1**.
-M3 ODE, T2 identity imports, R2 Notebook/workers and N1 numeral systems are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, T1, N1, N2, R1**.
+M3 ODE, T2 identity imports, R2 Notebook/workers and M7 interchange are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -630,19 +630,31 @@ and no multivariate Polynomial or algebraic extension is introduced.
 
 **Depends:** existing Radix/parser registry; H1 for shared view patterns.
 
-- [ ] Define constructors for ordinary, multi-token, balanced and negative-base
+- [x] Define constructors for ordinary, multi-token, balanced and negative-base
   positional systems. Core owns digit/place arithmetic; RiX owns parser labels.
-- [ ] Require unambiguous token alphabets initially; reject collisions rather
+- [x] Require unambiguous token alphabets initially; reject collisions rather
   than choosing hidden longest-match behavior. Preserve exact rational parsing,
   normalization, carries, repeating expansions and bounded work diagnostics.
-- [ ] Support the existing exact-number grammar where meaningful and reject
+- [x] Support the existing exact-number grammar where meaningful and reject
   unsupported combinations explicitly. Emit canonical `.Name` labeled backticks;
   locale profiles are reversible adapters, never changes to mathematical values.
-- [ ] Build the Web playground showing place weights, digit values, carry steps,
+- [x] Build the Web playground showing place weights, digit values, carry steps,
   signed behavior and exact parse/format round trips; reuse portable examples.
 
 **Done:** all four system families have round-trip/property tests, bounded repeat
 handling and accessible static snapshots. No new interval/fraction syntax (D1).
+
+**Completed 2026-09-19:** Core `97f2c33`, RiX `3a0eb08`, Web `ecd3800`.
+All four versioned families share bounded exact digit arithmetic, canonical
+labels, carry/remainder evidence and reversible locale profiles. Core full suite:
+553 passed / 75,699 assertions; final locale-boundary regression: seven tests /
+42,634 assertions. RiX/Radix/tutorial checks: 16 passed / 75 assertions, four
+executable guide cells and actual HTML/exact-source exports. Web build and
+three model/schema checks pass; real Chromium verifies all four families,
+keyboard operation, static no-JavaScript output, downloads, invalid input and
+narrow 200% layouts. Build verification also fixed an existing Stern–Brocot
+example using unsupported Rectangle radius options (RiX `1ea87d2`, eight tests).
+Generated site files will be consolidated in Q1.
 
 ### N2 — Fraction-path evidence and continued-fraction adapters
 
