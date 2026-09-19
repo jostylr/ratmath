@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, N1, N2, R1, R2**.
-M4 Scene3D adapters, T2 identity imports, R3 streams/observability and M6 course CAS/calculus are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M5, M7, M8, T1, T2, N1, N2, R1, R2**.
+M4 Scene3D adapters, T3 rational spectral/finite-support work, R3 streams/observability and M6 course CAS/calculus are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -634,15 +634,27 @@ Non-Rational norm/angle results retain explicit unsupported-extension diagnostic
 
 **Depends:** T1 where relevant; O1 integration is optional.
 
-- [ ] Add validated round-trip graph import for existing identity-record writers,
+- [x] Add validated round-trip graph import for existing identity-record writers,
   preserving within-document sharing but assigning fresh runtime identities.
-- [ ] Reject dangling Frames, conflicting space dimensions/domains and invalid
+- [x] Reject dangling Frames, conflicting space dimensions/domains and invalid
   lineage. Complete source-linked realization views and reconstruction tests.
-- [ ] Keep PolynomialSpace in Linalg with its existing public spelling;
+- [x] Keep PolynomialSpace in Linalg with its existing public spelling;
   specify the Rational scalar-field/finite coordinate-storage protocol.
 
 **Done:** serialized spaces, Frames, tensors, maps and bounded polynomial views
 round-trip without closures, forged identity or source-domain loss.
+
+**Completed:** fresh opaque identities, bounded identity-graph import/export,
+Rational scalar-field and coordinate-storage schemas, frozen Polynomial snapshots
+and source-linked realizations. Imports check references, dimensions, bases,
+metrics, equivalence, acyclic lineage and exact replay of tagged derivations;
+untagged links remain explicitly ancestry data. Replay budgets reject oversized
+operations before execution. Final graph suite: **15 tests / 102 assertions**;
+related regressions **63 / 335**; seven runnable documentation cells and tutorial
+checks pass. Root review added forged-derived-origin rejection for seven operation
+families. Evidence: `tmp/t2-source-manifest.json`, `tmp/t2-final-graph-tests.log`,
+`tmp/t2-replay-tests.log`. Existing deep container/provenance copy costs remain an
+R4 profiling case; queue copying was removed.
 
 ### T3 — Rational spectral and finite-support extensions
 
