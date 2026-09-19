@@ -16,22 +16,11 @@ excluded, including their dependent algebraic-extension projects. No files in
 ## Execution handoff — resumed after quota reset
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
-The prior stop saved all work. O3 is completed; H1, M1 and publication
-workflows are active in the swarm. The primary agent is implementing O5.
-
-Completed: **A1, A2, O1, O2, O3, O4, O6**. Other active tasks remain unchecked.
-The following incomplete work is saved in explicit WIP commits, not certified
-as finished. The umbrella pins intentionally include these resumable snapshots:
-
-| Task | Saved commits | What remains before completion |
-|---|---|---|
-| H1 | RiX `6fbb16f`, Web `5ba2f89` (shared host hook in `b69eaae`) | Dashboard pin/group/history, exact number-line/provenance helpers and public fraction bridge implemented; finish limit/inertness tests, browser integration, docs and static/keyboard/reinsertion acceptance. Existing 10 Web checks passed during development; this is not final acceptance. |
-| M1 | RiX `1837d04` | Validated linear/Newton box APIs, deterministic subdivision/resumption and Ball adapters implemented; finish independent replay, tampering, coverage, boundary/singular and exhaustion tests, check permissions/docs/tutorials. No completed certification claim is made by this WIP status. |
-
-On resume, finish these three slices first, commit each completed task, refresh
-catalogs/docs, then continue the dependency queue. Keep the excluded later tasks
-excluded. All source changes were committed; `rix-ed/` remains the unrelated,
-pre-existing untracked directory. Local evidence/artifacts remain under `tmp/`.
+The three saved WIP tasks (O3, H1, M1) are now complete and verified.
+Completed: **A1, A2, O1, O2, O3, O4, O6, H1, M1**.
+O5/O7 publication and M2 consumers are active. Continue unchecked tasks in
+ dependency order. Keep the later register excluded. Local evidence is under
+`tmp/`; `rix-ed/` remains unrelated and untouched.
 
 ## Execution rules and settled defaults
 
@@ -340,18 +329,26 @@ Notebook, including missing-tool diagnostics and portable bundled assets.
 
 **Depends:** O4; reuse existing mathematics.
 
-- [ ] Add dashboard pinning/grouping and bounded history charts as presentation
+- [x] Add dashboard pinning/grouping and bounded history charts as presentation
   state; preserve exact graph values and enforce history limits.
-- [ ] Generalize rational/interval number-line Graphics and arithmetic
+- [x] Generalize rational/interval number-line Graphics and arithmetic
   provenance beyond the top-level expression, recording widening, undefined
   regions, and evidence without capturing unlimited evaluation histories.
-- [ ] Link mediants, Farey neighbors, Stern–Brocot paths, continued-fraction
+- [x] Link mediants, Farey neighbors, Stern–Brocot paths, continued-fraction
   convergents and exact errors through public RiX services. Reuse existing
   Stern–Brocot pages rather than replacing them.
 
 **Where:** Web, reusable RiX Graphic/provenance helpers.
 **Done:** all views support exact inspection, reinsertion, static SVG/text,
 and keyboard navigation with bounded history/work.
+
+**Completed 2026-09-19:** bounded exact number-line/provenance and fraction
+bridges, dashboard pin/group persistence and 64-observation history. RiX checks:
+7 passed / 240 assertions; Web short: 60 passed / 3,498 assertions; final host
+checks: 8 passed. Actual Chromium covered save/reload, SVG/HTML/text exports,
+keyboard reinsertion/focus, undefined gating, reversed 10^-400 intervals,
+200% narrow layout and the 16,384-bit fallback. Inspection never executes calls
+or assignments. Source commits are recorded in repository history.
 
 ### H2 — Notebook authoring and host parity
 
@@ -389,16 +386,25 @@ cannot misleadingly run. This excludes curriculum production in RiX-Ed.
 
 **Depends:** A1. **Where:** Numerics, Linalg/Ball adapters, result schemas.
 
-- [ ] Add interval-linear solves and multidimensional interval-Newton contraction
+- [x] Add interval-linear solves and multidimensional interval-Newton contraction
   beside existing Krawczyk. Retain preconditioners, singular/ill-conditioned
   diagnostics and replayable containment evidence.
-- [ ] Implement deterministic bounded subdivision with exact variable ordering,
+- [x] Implement deterministic bounded subdivision with exact variable ordering,
   excluded/unique/unresolved boxes, work accounting and resumable records.
-- [ ] Add Ball polynomial/derivative-bound and validated-linear adapters over
+- [x] Add Ball polynomial/derivative-bound and validated-linear adapters over
   the same service; never promote heuristic midpoint solves to certification.
 
 **Done:** known-root, no-root, singular, boundary-root and budget-exhaustion
 fixtures retain all unprocessed regions; independent checks replay claims.
+
+**Completed 2026-09-19:** RiX `97c2217` completes validated interval-linear
+and Newton-box solves, deterministic subdivision/resumption and Ball adapters.
+Regression: 42 passed / 556 assertions, both plugin tutorials and all five new
+executable cells passed. Independent arithmetic replay, coverage, tampering,
+singular/boundary roots and exhaustion checks pass. Budgets cap dimensions,
+iterations, boxes, depth, rational-component digits and aggregate evidence text;
+arithmetic exhaustion retains unresolved regions. Unique boxes are not a
+claim of distinct root count; no midpoint heuristic is called certified.
 
 ### M2 — Solve and implicit geometry consumers
 
