@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8**.
-M2 consumers, T1 tensors, N2 fraction evidence and R1 concurrency are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, N2**.
+M3 ODE, T1 tensors and R1 concurrency are active; N1 numeral systems are next.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -640,13 +640,24 @@ handling and accessible static snapshots. No new interval/fraction syntax (D1).
 
 **Depends:** H1; existing Fraction/continuedFraction services.
 
-- [ ] Add portable fraction parentage/path/derivation records for mediants,
+- [x] Add portable fraction parentage/path/derivation records for mediants,
   Stern–Brocot/Farey paths and convergents, with exact replay checks.
-- [ ] Connect those records to public symbolic values and exact convergent-error
+- [x] Connect those records to public symbolic values and exact convergent-error
   bounds, without a general correlation-proof or theorem-prover claim.
 
 **Done:** educational views and static documents reuse the same verified records
 rather than reimplementing arithmetic in the browser.
+
+**Completed 2026-09-19:** RiX `732f95f`, Web `bc6003b`. Bounded mediant,
+parentage, signed Stern–Brocot/Farey and continuant records preserve written
+pairs, exact errors, partial status and full replay. Finite CF sources are exact;
+lazy coefficient snapshots disclose their positive-tail assumption and never
+claim checked source identity. Symbolic adapters and static views share records
+with the Web inspector. Regression: 38 passed / 329 assertions; final expanded
+view/persistence checks: 5 / 103; Web: 4 / 25; three executable guide cells pass.
+Actual HTML/Markdown/LaTeX/PDF plus exact sidecar exported; both PDF pages were
+visually checked. Fixed a pre-existing reversed-interval test expectation after
+reproducing the original behavior using the committed plugin sources.
 
 ## R — Runtime, workers, and performance
 
