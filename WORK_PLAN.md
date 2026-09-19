@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, T1, N1, N2, R1**.
-M3 ODE, T2 identity imports, R2 Notebook/workers and M7 interchange are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M8, T1, N1, N2, R1**.
+M4 Scene3D adapters, T2 identity imports, R2 Notebook/workers and M7 interchange are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -456,21 +456,33 @@ name-based rational Calculus graphs; persisted plot evidence replays exactly.
 
 **Depends:** A1; M1 for boundary shooting.
 
-- [ ] Profile the documented slow async higher-order vector construction against
+- [x] Profile the documented slow async higher-order vector construction against
   its synchronous equivalent; eliminate redundant evaluator/derivative work
   without changing scheduling/evidence. Record timings and work counts; use
   deterministic work-count regressions rather than brittle timing thresholds.
-- [ ] Add explicit higher-order-to-first-order reduction and recognized exact
+- [x] Add explicit higher-order-to-first-order reduction and recognized exact
   scalar solutions for constant and affine linear equations, with verification.
-- [ ] Add one embedded RK provider (Dormand–Prince 5(4)) with bounded rejection
+- [x] Add one embedded RK provider (Dormand–Prince 5(4)) with bounded rejection
   and disclosed local-error estimates; keep it distinct from validated flow.
-- [ ] Extend interval Taylor dependency control to bounded polynomial/affine
+- [x] Extend interval Taylor dependency control to bounded polynomial/affine
   remainder models, comparing containment and exhaustion to current methods.
-- [ ] Add boundary-value records and bounded shooting using vector IVPs and M1;
+- [x] Add boundary-value records and bounded shooting using vector IVPs and M1;
   collocation is not required for this release. Preserve unresolved branches.
 
 **Done:** forward/backward, event, stiff-looking failure, interval initial-state,
 partial trajectory and async/sync parity fixtures pass; no false global bounds.
+
+**Completed 2026-09-19:** deterministic derivative preparation cuts checked
+partials from 22 to 18 and evaluator steps from 51,453 to 50,508 (sync),
+51,778 to 50,815 (async). Timings are recorded, not asserted; async construction
+still takes about 11 seconds versus 0.06 seconds sync and remains an R4 target.
+Higher-order reduction, checked scalar affine solutions, DP5(4), bounded
+Bernstein/affine time ranges and certified shooting now ship. Shooting is
+explicitly limited to globally terminating polynomial Lie-series terminal maps;
+other families retain the whole unresolved parameter box. Validation: 29 tests /
+331 assertions, 12 backward regressions / 100 assertions, six executable guide
+cells. A pre-existing narrow script-capability filtering issue is recorded in
+`tmp/m3-sandbox-repro.md` for Q1.
 
 ### M4 — Trajectory and certified Scene3D adapters
 
