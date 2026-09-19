@@ -144,21 +144,28 @@ historical or link to a live task; cross-host migration tests pass.
 
 **Depends:** A1; reuse existing mathematical JSON and control-panel snapshots.
 
-- [ ] Define versioned encodings for every public block, inline, media, Table,
+- [x] Define versioned encodings for every public block, inline, media, Table,
   Grid, Sheet snapshot, Graphic, Figure, Slide/Slides, and control snapshot.
   Preserve exact values, interval orientation, formal fractions, references,
   labels, evidence, and asset metadata; reject live handles/callables.
-- [ ] Use bounded document-local identity tables. Implement document-import
+- [x] Use bounded document-local identity tables. Implement document-import
   modes `warn-and-skip`, `strict-error`, and `preserve-opaque`; skipped content
   leaves a visible diagnostic/placeholder. Do not weaken the strict Core
   mathematical graph decoder or treat a missing required value as valid.
-- [ ] Add migrations, malformed/cyclic/dangling reference tests, size/depth
+- [x] Add migrations, malformed/cyclic/dangling reference tests, size/depth
   limits, and byte-deterministic writes. Include optional T2 identity adapters
   only after their round-trip contract exists.
 
 **Where:** RiX output/runtime, schemas, document plugin, Core adapters as needed.
 **Done:** a mixed report round-trips without losing exactness or executing code;
 unknown records obey the selected mode in CLI, Web, and Notebook.
+
+**Completed 2026-09-19:** RiX `189b583`, Web `213a68e`, Notebook `b919844`.
+Versioned inert output graphs, exact values and identity sharing, explicit snapshots,
+legacy panel migration, bounded validation and all three unknown-tag modes ship.
+Runtime/plugin checks: 19 passed; full document plugin profile: 65 passed; Web/Notebook
+imports: 2 passed. Both documentation examples and the browser-target build pass.
+Optional Frame/tensor identity adapters remain T2.
 
 ### O2 — One numeric presentation policy
 
