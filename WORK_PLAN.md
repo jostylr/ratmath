@@ -124,19 +124,27 @@ regression: corrected a stale test and covered both interval orientations.
 
 ### A2 — Finish source-of-truth and migration cleanup
 
-- [ ] Reconcile residual Shaped/Matrix naming in parser ASTs, methods,
+- [x] Reconcile residual Shaped/Matrix naming in parser ASTs, methods,
   diagnostics, examples, formatters, editor completions, and host consumers.
   Keep mathematical Tensor names where they are actually mathematical tensors.
-- [ ] Verify constructor/header/source-span coverage, explicit Matrix conversion
+- [x] Verify constructor/header/source-span coverage, explicit Matrix conversion
   diagnostics, and existing Generate/Map/Reshape/Permute APIs. Implement only
   missing specified behavior; optional new repetition syntax goes to D2.
-- [ ] Update async, shaped, plugin, host, and output trackers as each slice lands;
+- [x] Update async, shaped, plugin, host, and output trackers as each slice lands;
   generate reference/catalog pages using existing scripts. Do not hand-edit
   generated HTML or catalogs as substitute implementations.
 
 **Where:** RiX documentation/tooling, Web tutorials, Notebook guides.
 **Done:** current guides and generated reference agree; old plans are clearly
 historical or link to a live task; cross-host migration tests pass.
+
+**Completed 2026-09-19:** RiX source `a632dc7`, Web source `6d5853f`, Notebook
+source `c1ebf3a`, followed by regenerated reference/catalog/tutorial pages. Matrix
+formatting and rank validation, Shaped diagnostics/permutation, complete source
+spans, compact editor headers and permission-aware completions are aligned.
+Expanded migration suite: 738 passed; final focused suite: 143 passed; Notebook:
+16 passed. Final docs build: 148 executable blocks passed, 71 HTML pages and
+2,364 local references validated. Notebook help synchronization succeeded.
 
 ## O — Documents, images, SVG, LaTeX, PDF, and publication
 
