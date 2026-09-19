@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, N2**.
-M3 ODE, T1 tensors and R1 concurrency are active; N1 numeral systems are next.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8, N2, R1**.
+M3 ODE, T1 tensors, R2 Notebook/workers and N1 numeral systems are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -665,17 +665,26 @@ reproducing the original behavior using the committed plugin sources.
 
 **Depends:** A1. **Where:** async runtime/evaluator, capability registry.
 
-- [ ] Carry complete structural task paths through admission, output, cleanup,
+- [x] Carry complete structural task paths through admission, output, cleanup,
   errors and traces; add host maximums and detached task/queue limits.
-- [ ] Classify capability effects, cancellation and concurrency safety; default
+- [x] Classify capability effects, cancellation and concurrency safety; default
   unknown/effectful capabilities to the owner serial lane. Propagate abort to
   capable adapters without claiming rollback of completed effects.
-- [ ] Add async recurrence callbacks without promises in synchronous caches,
+- [x] Add async recurrence callbacks without promises in synchronous caches,
   and deterministic stress tests for suspension, simultaneous breaks, low
   limits, cancellation storms, hot queues and shutdown.
 
 **Done:** async/sync parity where defined, bounded queues, exact-once cleanup,
 and source/task-linked diagnostics across CLI/Web/Notebook entry points.
+
+**Completed 2026-09-19:** RiX `64c8917`. Bounded scheduling/detached work,
+queues, caches, output, traces and secondary failures; conservative capability
+serialization; full structural provenance; async recurrence callbacks; and
+cancellation/shutdown hardening ship. Focused async regression: 174 passed / 610
+assertions; RiX short: 1,686 / 5,110; Notebook short: 19 passed. Final targeted
+acceptance after all edits: 84 / 364. Web short: 59 passed; its sole failure is
+a generated publication schema awaiting Q1 synchronization. These are shared
+event-loop runtime guarantees; Notebook lifecycle/CPU worker integration is R2.
 
 ### R2 — Notebook async and scheduler worker execution
 
