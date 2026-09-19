@@ -205,18 +205,26 @@ network dependencies; every unsupported medium has a readable fallback.
 
 **Depends:** A1; O2 for formatted labels. **Where:** RiX output tools, Web, Notebook.
 
-- [ ] Consume existing SVG coordinate-lowering metadata to expose rounding,
+- [x] Consume existing SVG coordinate-lowering metadata to expose rounding,
   clipping/collisions, exact originals, precision, and outward-enclosure policy.
   Carry the same disclosures into Canvas and exported snapshots.
-- [ ] Generalize the interval explorer's text/table alternative, stable labels,
+- [x] Generalize the interval explorer's text/table alternative, stable labels,
   focus and selection restoration, and restrained live announcements.
-- [ ] Add deterministic transform property tests and representative visual
+- [x] Add deterministic transform property tests and representative visual
   fixtures for huge/narrow/reversed values, dense labels and rounding collisions.
-- [ ] Exercise keyboard-only operation, reduced motion, high zoom, responsive
+- [x] Exercise keyboard-only operation, reduced motion, high zoom, responsive
   layout, and reactive rerender selection in Web and Notebook.
 
 **Done:** each supported interactive graphic has an equivalent inspectable
 static/text result; approximation and uncertainty are not hidden in pixels.
+
+**Completed 2026-09-19:** shared metadata-derived coordinate tables and SVG
+descriptions, Canvas interval snapshots, stable focus/disclosure/selection and
+letterbox-correct pointer transforms. Affected output suite: 131 passed; final
+interaction properties: 44 passed / 1,700 assertions; Web: 3 passed; Notebook: 5
+passed. Actual Chromium keyboard, 64× zoom, reduced-motion and 360px/200% layout
+checks passed. Manual screen-reader user studies are not claimed. O2 supplies
+optional formatted labels while exact originals remain inspectable.
 
 ### O5 — Portable publication plan and richer layout
 
