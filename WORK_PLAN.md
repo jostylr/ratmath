@@ -17,9 +17,9 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, H1, M1, M8**.
-O7 publication, M2 consumers and R1 concurrency are active. Continue unchecked tasks in
- dependency order. Keep the later register excluded. Local evidence is under
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M8**.
+M2 consumers, T1 tensors, N2 fraction evidence and R1 concurrency are active.
+Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
 ## Execution rules and settled defaults
@@ -317,22 +317,32 @@ Host asset packaging remains the shared O3 integration.
 
 **Depends:** O3–O6. **Where:** CLI host, Notebook project/export services.
 
-- [ ] Add named export profiles to project/notebook manifests and a bounded
+- [x] Add named export profiles to project/notebook manifests and a bounded
   batch build over documents, inputs and target matrices. Stable filenames,
   deterministic manifests and per-document diagnostics are required.
-- [ ] Add watch/rebuild with dependency invalidation, debouncing, cancellation
+- [x] Add watch/rebuild with dependency invalidation, debouncing, cancellation
   of superseded builds, atomic output replacement and recoverable failures.
-- [ ] Extend existing live HTML publication through retained interaction
+- [x] Extend existing live HTML publication through retained interaction
   descriptors, bounded animation lowering and incremental SVG updates; preserve
   stable IDs, selection and the same no-JavaScript result. Reuse current controls,
   selection, viewport and linked-panel protocols.
-- [ ] Provide an end-to-end publication showcase and host capability table:
+- [x] Provide an end-to-end publication showcase and host capability table:
   source generation versus binary compilation, native versus browser, installed
   versus unavailable tools. Add offline/CSP-safe packaging using current assets;
   do not introduce remote CDNs or claim integrity for unverified dependencies.
 
 **Done:** a reproducible local report/deck build and rebuild works from CLI and
 Notebook, including missing-tool diagnostics and portable bundled assets.
+
+**Completed 2026-09-19:** RiX `6f1102c`, Notebook `7427b45`. Named profiles,
+bounded matrices, dependency-aware rebuilds, cancelled stale workers, recoverable
+atomic replacements, portable live HTML and incremental SVG ship. CLI/output/live
+suite: 23 passed / 146 assertions; final root recheck: 10 / 61. Notebook suite:
+26 / 117; focused final recheck: 10 / 54. Three Notebook builds and real Chromium
+CLI/Notebook offline, no-JavaScript, slider and startup-failure checks passed.
+Showcase builds produced four review and two live variants. Browser named profiles
+retain static output with a diagnostic; Notebook cell cancellation remains
+cooperative pending R2. Binary tool availability/fallbacks are explicit.
 
 ## H — Web and Notebook experience
 
@@ -543,7 +553,7 @@ all existing propositional connectives, with explicit rule IDs, complete retaine
 premise trees, checked countermodels and unresolved work. Replay rejects edits
 to rules, premises, status, work and witnesses. Independent truth evaluation
 covers both sides of every rule; combined Logic regression: 21 passed / 637
-assertions, followed by 5 completion tests / 426 assertions including document
+assertions, followed by 5 completion tests / 428 assertions including document
 round trips and script grants. Both tutorial checks (four new executable cells)
 and editor policy checks pass. Exact rational/interval proposition adapters
 refuse approximate or uncertain premises. HTML/SVG/TeX/source exports ran and
