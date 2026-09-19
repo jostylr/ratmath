@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O6, H1, M1**.
-O5/O7 publication and M2 consumers are active. Continue unchecked tasks in
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, H1, M1**.
+O7 publication and M2 consumers are active; M8 is the next independent slice. Continue unchecked tasks in
  dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -264,21 +264,32 @@ optional formatted labels while exact originals remain inspectable.
 
 **Depends:** O1–O3. **Where:** document plugin and all document renderers.
 
-- [ ] Define a versioned publication plan over the existing output tree:
+- [x] Define a versioned publication plan over the existing output tree:
   page/slide size, theme, bounded columns, float hints, long tables, indexes,
   headers/footers, bibliography and required asset capabilities.
-- [ ] Adopt existing plain/compact themes and deterministic target fallbacks.
+- [x] Adopt existing plain/compact themes and deterministic target fallbacks.
   Treat layout as presentation; do not duplicate mathematical content trees.
-- [ ] Add LaTeX article/Beamer lowering, repeated long-table headers, indexes
+- [x] Add LaTeX article/Beamer lowering, repeated long-table headers, indexes
   and multicolumn layout; negotiate packages and SVG/TikZ/PNG assets explicitly.
-- [ ] Add Quarto RevealJS/book/site source generation, cross-document labels,
+- [x] Add Quarto RevealJS/book/site source generation, cross-document labels,
   and stable assets by reusing Notebook's existing deck/project work.
-- [ ] Feed PDF profiles from the same plan. Report unsupported accessibility,
+- [x] Feed PDF profiles from the same plan. Report unsupported accessibility,
   fonts/color policies, and layout losses; do not claim PDF/A or tagged-PDF
   conformance without a selected toolchain and verifier (D7).
 
 **Done:** one report and one deck export through HTML, QMD, TeX, and PDF with
 consistent references, captions, evidence and documented layout fallbacks.
+
+**Completed 2026-09-19:** versioned presentation plans, article/Beamer layouts,
+long tables, bounded columns, running regions, indexes and Quarto books/sites/decks.
+One report/deck retains exact content across HTML/QMD/TeX/PDF and source sidecars.
+Combined output regression: 45 passed / 336 assertions; final native regression:
+12 passed / 92 assertions, followed by 5 final checks / 57 assertions. Actual
+pdfTeX compiled a 150-row table with repeated headers on every page; Quarto built
+a linked book and RevealJS deck. Article/deck PDF previews were visually inspected.
+Fixed first-page running regions and bounded compiler reruns for resolved page
+references. Both executable guide cells pass. PDF conformance remains explicitly
+unverified. Notebook shares the validated project builder (`0364861`).
 
 ### O6 — Finish static scene and animation export
 
