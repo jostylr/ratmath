@@ -104,17 +104,23 @@ not for the initial document schema.
 
 ### A1 — Restore the known output test baseline
 
-- [ ] Inspect interval orientation guarantees in Core, SVG metadata, and
+- [x] Inspect interval orientation guarantees in Core, SVG metadata, and
   presentation tests. Fix the stale SVG assertion if those contracts agree;
   otherwise fix the smallest actual regression. Cover both interval orders.
-- [ ] Run the focused five-file output suite; require zero failures. Record
+- [x] Run the focused five-file output suite; require zero failures. Record
   which external compilation/rasterization checks actually ran.
-- [ ] Run existing non-education test profiles and classify pre-existing
+- [x] Run existing non-education test profiles and classify pre-existing
   failures before broad changes. Fix deterministic in-scope regressions in
   separate commits; do not hide failures with skips or weaker assertions.
 
 **Where:** `rix/tests/eval/renderers.test.js`, SVG lowering, Core interval tests.
 **Done:** orientation is preserved end to end and the baseline report is current.
+
+**Completed 2026-09-19:** RiX commit `1eb0c40`. Focused output suite: 94 passed;
+legacy: 1,568 passed / 1 existing skip / 134 existing TODOs; RiX short: 1,669
+passed; Web short: 52 passed; Notebook short: 18 passed. Actual pdfTeX, Poppler,
+librsvg, ImageMagick and Quarto export checks ran successfully. No production
+regression: corrected a stale test and covered both interval orientations.
 
 ### A2 — Finish source-of-truth and migration cleanup
 
