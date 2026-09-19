@@ -13,19 +13,18 @@ RiX-Ed and multivariate polynomial/Groebner/elimination work are explicitly
 excluded, including their dependent algebraic-extension projects. No files in
 `rix-ed/` are part of this planning change.
 
-## Execution handoff — stopped at the user's quota request
+## Execution handoff — resumed after quota reset
 
-**Stopped 2026-09-19.** The user requested: “Wrap up this task, commit, and stop.”
-All swarm agents were interrupted. No background task should continue. Resume
-only after a new user instruction.
+**Resumed 2026-09-19** by explicit user instruction after the quota reset.
+The prior stop saved all work. O3 is completed; H1, M1 and publication
+workflows are active in the swarm. The primary agent is implementing O5.
 
-Completed: **A1, A2, O1, O2, O4, O6**. Other active tasks remain unchecked.
+Completed: **A1, A2, O1, O2, O3, O4, O6**. Other active tasks remain unchecked.
 The following incomplete work is saved in explicit WIP commits, not certified
 as finished. The umbrella pins intentionally include these resumable snapshots:
 
 | Task | Saved commits | What remains before completion |
 |---|---|---|
-| O3 | RiX `a4c8746`, Web `b69eaae`, Notebook `a349709`, Cel `1873451` | Audit bounded resolver/bundle validation and grants; finish host/moved-offline tests and publication integration, documentation and source diagnostics. The affected output regression run ended **84 passed / 1 failed**: `portable assets retain media metadata and provide safe HTML or text fallbacks` in `rix/tests/eval/output.test.js`. Investigate intended fallback changes rather than weakening the assertion. Log: `tmp/repo-audit/o2-regression.log`. |
 | H1 | RiX `6fbb16f`, Web `5ba2f89` (shared host hook in `b69eaae`) | Dashboard pin/group/history, exact number-line/provenance helpers and public fraction bridge implemented; finish limit/inertness tests, browser integration, docs and static/keyboard/reinsertion acceptance. Existing 10 Web checks passed during development; this is not final acceptance. |
 | M1 | RiX `1837d04` | Validated linear/Newton box APIs, deterministic subdivision/resumption and Ball adapters implemented; finish independent replay, tampering, coverage, boundary/singular and exhaustion tests, check permissions/docs/tutorials. No completed certification claim is made by this WIP status. |
 
@@ -223,20 +222,29 @@ executable documentation examples pass. Generated reference refresh remains Q1.
 
 **Depends:** O1. **Where:** RiX host adapters, Web, Notebook, RiXCel.
 
-- [ ] Implement a shared manifest resolver for package-relative and local
+- [x] Implement a shared manifest resolver for package-relative and local
   content-addressed assets, with MIME/dimension/size checks and deterministic
   names. Hash asset bytes for deduplication; this does not define canonical
   mathematical-document signing.
-- [ ] Resolve only within existing host grants. External URLs remain inert
+- [x] Resolve only within existing host grants. External URLs remain inert
   links until a host explicitly authorizes fetching. Reject traversal and
   missing/unsupported assets with source-linked diagnostics.
-- [ ] Complete image dimensions, lazy loading, captions, audio/video controls,
+- [x] Complete image dimensions, lazy loading, captions, audio/video controls,
   transcript/reference fallback, and keyboard-accessible media names.
-- [ ] Package assets with exports and round-trip a generated raster, external
+- [x] Package assets with exports and round-trip a generated raster, external
   local image, audio transcript, and video reference across hosts.
 
 **Done:** a moved/offline export has no accidental absolute paths or hidden
 network dependencies; every unsupported medium has a readable fallback.
+
+**Completed 2026-09-19:** RiX `b9e1b2a`, Web `03a2cfa`, Notebook `445c9f5`,
+Cel `0a07d97` complete the saved bundle implementation. Bounded content-addressed
+assets, explicit grants, inert external links and accessible media fallback ship.
+Focused checks: 21 passed / 208 assertions; six moved-offline host fixtures
+include actual PNG rasterization. Output regression: 73 passed; host regression:
+25 passed. All four affected browser/native builds passed. Notebook packages
+assets in exports; Web/Cel expose programmatic bundle boundaries. Generated schema
+copies remain the integration refresh.
 
 ### O4 — Shared graphic diagnostics and accessibility
 
