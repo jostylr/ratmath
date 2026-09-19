@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3**.
-H2 Notebook authoring, T3 rational spectral/finite-support work, R4 robustness/performance and C1 structural sheet editing are active.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1**.
+C1 is now complete. H2 Notebook authoring, T3 rational spectral/finite-support work and the remaining R4 slices have saved work or remain pending; C2 workbook coordination is the next Cel task.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -875,14 +875,32 @@ adapter slices remain outstanding. Evidence: `tmp/r4-source-manifest.json`,
 
 **Depends:** existing tokenizer-aware reference rewriting.
 
-- [ ] Add row/column insertion as atomic shape-changing history events with
+- [x] Add row/column insertion as atomic shape-changing history events with
   reference updates, dynamic-reference diagnostics, stable IDs and undo/redo.
-- [ ] Add real browser editing/persistence tests for formula entry, copy/fill,
+- [x] Add real browser editing/persistence tests for formula entry, copy/fill,
   insertion, sparse navigation, errors, restart, open/save and undo/redo.
 
 **Where:** `apps/cel/`, RiX FormulaSheet/runtime.
 **Done:** save/reopen and undo/redo reproduce exact shape/formulas/values without
 corrupting references or materializing the entire logical grid.
+
+**Completed 2026-09-19:** RiX `d9287f4`, Cel `3118b31`. Version-3 sparse
+structural history migrates v0–2, validates initial/current shapes and preserves
+cell IDs (including untouched implicit cells) through rank-N insertion and
+undo/redo. Tokenizer rewrites keep literal grid/near targets; dynamic references,
+aliased sheet access and unresolved drafts reject structural changes atomically.
+The worker builds a private candidate before replacing the visible sheet.
+History remains usable after save/open/restart. Fixed quoted/commented source
+replay, parse-error diagnostics for untouched cells, Shift-click selection for
+fill, and viewport capacity after switching to a larger sheet. Added a schema,
+format/architecture/checklist documentation and a runnable example.
+Validation: 60 tests/370 assertions across sheet/runtime/interchange/editor suites;
+additional worker atomic-failure check (suite 5/34); one executable documentation
+cell; real Chromium acceptance for exact editing, both insertion axes, fill/copy,
+draft correction, save/reopen/restart, persistent undo/redo and a 10000×10000 sparse
+sheet rendered in at most 480 cells. Evidence: `tmp/c1-final-tests.log`,
+`tmp/c1-atomic-final.log`, `tmp/c1-docs.log`, `tmp/c1-browser.log`,
+`tmp/c1-browser/verified.png`. Generated release bundles remain in Q1.
 
 ### C2 — Workbook namespaces and cross-graph dependencies
 
