@@ -17,7 +17,7 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M8**.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M8**.
 M2 consumers, T1 tensors, N2 fraction evidence and R1 concurrency are active.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
@@ -431,17 +431,26 @@ claim of distinct root count; no midpoint heuristic is called certified.
 
 **Depends:** M1. **Where:** Solve, Geometry, Plot.
 
-- [ ] Consume numerical boxes without requiring multivariate Polynomial objects.
+- [x] Consume numerical boxes without requiring multivariate Polynomial objects.
   Keep root finding, feasibility and optimization distinct.
-- [ ] Trace bounded implicit curves/intersections using certified boxes and
+- [x] Trace bounded implicit curves/intersections using certified boxes and
   refinement callbacks; report singular/tangent/unknown topology explicitly.
-- [ ] Render excluded/unique/unresolved regions with exact metadata; add local
+- [x] Render excluded/unique/unresolved regions with exact metadata; add local
   implicit-function refinement only where its hypotheses are checked.
-- [ ] Add draggable parameterized constructions using retained events; failed
+- [x] Add draggable parameterized constructions using retained events; failed
   constraints preserve the last certified result with repair diagnostics.
 
 **Done:** scalar and multidimensional examples, including a singular system,
 produce honest partial graphics and tutorials without an algebraic eliminator.
+
+**Completed 2026-09-19:** RiX `403c05b`. Checked root/feasibility summaries,
+2D implicit charts, exact region plots, bounded refinement and retained parameter
+handles ship. Full-input covers retain every unresolved cell; certified cover
+evidence does not claim global topology. Aggregate replay/evidence bounds are
+enforced. Final consumers/persistence checks: 20 passed / 178 assertions; broader
+regression: 76 / 829. Five tutorial cells and actual SVG/HTML/PNG outputs passed.
+Inert persistence now retains interval sets, formal fraction intervals and
+name-based rational Calculus graphs; persisted plot evidence replays exactly.
 
 ### M3 — ODE construction performance and solver increments
 
