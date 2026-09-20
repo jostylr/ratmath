@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1, C2**.
-H2, C1 and C2 are complete. H3, T3, remaining R4 slices, C3/C4 and Q1 remain; T3 has saved work. C3/C4 are the remaining Cel tasks.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2**.
+T3, H2, C1 and C2 are complete. H3, remaining R4 slices, C3/C4 and Q1 remain. C3/C4 are the remaining Cel tasks.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -703,18 +703,44 @@ equivalent representations: **16 graph tests / 105 assertions**.
 
 **Depends:** T1/T2; existing univariate Polynomial services.
 
-- [ ] Implement characteristic/minimal polynomials and Rational eigenspaces,
+- [x] Implement characteristic/minimal polynomials and Rational eigenspaces,
   verifying annihilation and eigenvector residuals exactly. Rational canonical
   forms may use univariate Q[x]; unsupported extension-field Jordan forms must
   remain explicit diagnostics and later work.
-- [ ] Add finite-support sparse coordinates, countable monomial Frames for finite
+- [x] Add finite-support sparse coordinates, countable monomial Frames for finite
   polynomials, bounded-degree inclusion/projection, support-growth limits, and
   sparse tensor products using the coordinate-storage protocol.
-- [ ] Add replayable finite decomposition/coordinate evidence over existing
+- [x] Add replayable finite decomposition/coordinate evidence over existing
   checkers. Infinite convergent expansions/topology remain D9.
 
 **Done:** finite support stays finite and canonical, dense/sparse results agree,
 and no multivariate Polynomial or algebraic extension is introduced.
+
+**Completed 2026-09-20:** exact characteristic/minimal Polynomials and Rational
+eigenspaces replay annihilation and kernel evidence. Bounded root searches retain
+proved roots and distinguish incomplete searches from absence of Rational roots.
+Dimension/shape limits precede matrix copying and frame conversion. Canonical
+forms and extension-field Jordan bases remain explicit unsupported diagnostics.
+
+Canonical finite-support Rational storage now supports dense/sparse arithmetic,
+matrix actions, Frame changes, pairing, metric operations, symmetry, permutation,
+contraction and tensor products, with support/work/index/materialization limits.
+Countable monomial Frames represent finite univariate polynomials; `Bounded`,
+`Include` and `Project` expose finite subspace maps and exact remainder evidence.
+Closed sparse and projection records have replay verifiers and three versioned
+schemas. Identity graph v1 remains finite/dense and rejects countable identities;
+sparse coordinate records do not claim to transport space/tensor identity.
+
+Verification: Linalg regression suite **83 passed / 527 assertions**; final T3
+tests **18 passed / 138 assertions**, all **12** runnable
+Linalg documentation cells passed, and CLI HTML/Markdown plus exact evidence
+records exported successfully. RiX short checks: **1,723 passed / 21,006
+assertions**. Cross-repository short testing stopped on the pre-existing missing
+published Web schema `calculus-derivative-declaration/v1.schema.json`; generated
+Web schema/catalog/bundle refresh remains Q1. Design reconciliation now lives in
+`rix/documentation/`, including earlier T1/T2 changes stranded in generated docs.
+Evidence: `tmp/t3-final-focused.log`, `tmp/t3-plugin-verified.log`,
+`tmp/t3-docs.log`, `tmp/t3-short.log`, `tmp/t3-export.log`, `tmp/t3-exports/`.
 
 ## N — Exact-number and fraction tools
 
