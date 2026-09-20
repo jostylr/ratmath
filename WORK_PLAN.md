@@ -1,13 +1,12 @@
 # RatMath / RiX consolidated execution plan
 
-Reconciled against the checkout on **2026-09-19**.
+Reconciled against the checkout on **2026-09-20**.
 
 This is the authoritative cross-repository work queue. Detailed source designs
 remain useful, but their historical ordering, unchecked boxes, and “decision”
 labels do not override this plan. A future instruction to **“go for it”** means
 execute the active queue below, in dependency order, through its completion
-checks. It does not include the later/user-decision register. This planning
-commit does not itself implement the queue.
+checks. It does not include the later/user-decision register. Completion records below describe the implemented queue.
 
 RiX-Ed and multivariate polynomial/Groebner/elimination work are explicitly
 excluded, including their dependent algebraic-extension projects. No files in
@@ -17,9 +16,9 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, H3, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, R4, C1, C2, C3, C4**.
-All Cel tasks (C1–C4) are complete. **33 of 34 tasks are complete.** Q1 final integration verification is underway.
-Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, H3, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, R4, C1, C2, C3, C4, Q1**.
+**All 34 active tasks are complete.** Public package publication remains the explicit later decision D15.
+The later register remains excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
 ## Execution rules and settled defaults
@@ -428,13 +427,17 @@ Web tutorials now exercise recent Float/sparse/plot APIs through both evaluators
 
 The documentation audit corrected stale runtime, geometry, workbook, startup and
 package guidance; exposed current eval guides that were absent from site render;
-and regenerated runtime reference, navigation and method catalogs. Nine obsolete
+and regenerated runtime reference, navigation and method catalogs. Ten obsolete
 specifications/roadmaps remain linked from a history index at their original URLs
 but are excluded from search. Build-time validation rejects missing current pages,
 indexed history and stale generated search records in both navigation modes.
 Documentation tests: 19/967 assertions; executable examples: 165/165. Source and
 host examples are tested, not merely presented as runnable. Q1 records final
 site/build/browser verification and integration fixes discovered by this audit.
+Core now also has a tested NumeralSystem class manual, README/API links and
+generated site, with explicit workspace-versus-registry availability guidance.
+H3 commits: RiX `18f90c2`/`ee42894`, Web `e7cbbe3`, Notebook `3e28664`,
+Cel `e35c666`, Core `a9a23f1`.
 
 ## M — Bounded numerical, symbolic, and visualization work
 
@@ -1115,31 +1118,79 @@ Distribution bundle reconciliation remains Q1.
 
 ### Q1 — Verify the delivered queue and close the plan
 
-R4 integration finding: the bundled-plugin lint gate has 71 existing RX1203
-warnings (calculus 2, cas 2, linalg 25, ode 9, optimize 33). HEAD and R4
-have identical diagnostic source signatures; resolve the baseline without
-weakening the gate. Comparison evidence: `tmp/r4-lint-comparison.json`.
+R4's 71-warning plugin-lint baseline is resolved: intentional discarded
+validation maps now use explicit discard assignments, local names avoid
+shadowing, and lint no longer leaks loop-body scope sharing into nested blocks.
+Runtime/lint regression tests retain required outer captures; the gate is not
+weakened. Q1 also fixes async Float tensor materialization and canonical schema
+IDs exposed by runnable Web lessons and schema publication.
 
-- [ ] For each task: update public reference, tutorial/example, schemas and
+- [x] For each task: update public reference, tutorial/example, schemas and
   capability group; run meaningful positive, invalid-input and bounded-failure
   tests. Record actual external tools exercised and explicit unavailable cases.
-- [ ] Run RiX focused/plugin tests during development and the complete RiX suite
+- [x] Run RiX focused/plugin tests during development and the complete RiX suite
   for completed plugin milestones. Run relevant Web, Notebook, Cel and Core
   tests after shared-contract changes; use existing documentation/editor checks.
-- [ ] At final integration run the complete non-education repository checks:
+- [x] At final integration run the complete non-education repository checks:
   `bun test --dots apps packages` from the umbrella, and `bun run test:suite`
   separately in `rix`, `rix-web`, and `rix-nb`. Existing umbrella named profiles
   include RiX-Ed, so do not use them to silently expand this scope.
-- [ ] Run RiX native tests, docs verification, editor-policy and package dry-run/
+- [x] Run RiX native tests, docs verification, editor-policy and package dry-run/
   isolated-consumer checks when their contracts changed. No publish is implied.
-- [ ] Inspect representative exported report, deck, SVG/PNG and PDF pages;
+- [x] Inspect representative exported report, deck, SVG/PNG and PDF pages;
   compile with available tools. Byte/header assertions alone are not visual QA.
-- [ ] Mark tasks complete only with evidence. Commit changed repositories and
+- [x] Mark tasks complete only with evidence. Commit changed repositories and
   compatible umbrella pins; leave the later register intact and report remaining
   environmental limitations instead of claiming unrun checks passed.
 
 **Done:** every active task is complete, tests are green, exports are inspectable,
 and the remaining backlog consists only of explicitly deferred decisions/scope.
+
+**Completed 2026-09-20:** final integration commits include RiX fixes `988aacf`
+and generated documentation `e710ab4`, Web `feaf6b7`, Notebook `d6999eb`,
+Cel `4dda3a2`, and Core generated reference `f91beb3`. All generated artifacts
+were built from their maintained sources; Notebook's packaged help matches the
+final RiX capstones, history and search files byte-for-byte.
+
+| Verification | Result |
+|---|---|
+| Complete RiX suite | 3,664 passed, 0 failed; 35,814 assertions across 244 files |
+| Complete Web suite | 281 passed, 0 failed; 5,302 assertions |
+| Complete Notebook suite | 82 passed, 0 failed; 436 assertions |
+| Umbrella non-education `apps packages` | 1,609 passed, 0 failed; 78,330 assertions; existing 1 skipped division-trace test and 134 legacy todos retained under D14 |
+| Cel focused full suite | 42 passed, 0 failed; 249 assertions |
+| Native RiX programs | All 6 files passed |
+| Documentation | 165/165 executable blocks; documentation suite 19/967, final navigation/search follow-up 6/304 |
+| Core numeral manual | All new snippets executed; 7 tests / 42,634 assertions passed |
+| Packaging/editor policy | Package-content tests 2/38, dry run, matching 269-capability editor policy; isolated paired local Core/RiX tarballs pass |
+
+Both RiX navigation builds validate 100 HTML pages: dynamic 3,379 local
+references and static 12,723. Both indexes contain all 89 current pages / 568
+records and exclude all ten historical pages. Chromium verifies search,
+navigation, preserved history links and narrow layouts. Updated Core reference
+search/links and narrow layout are also verified. Web tutorials execute new
+Float and Plot cells in the real browser. Seven Cel/Notebook browser workflows
+cover structural edits, workbook ownership, XLSX, tensor regions, authoring,
+live/static publication and async cancellation. Cel/Web builds and Notebook
+web/browser builds pass; only existing bundle-size advisories remain.
+
+Actual publication builds produced four review variants and two live variants.
+The local TeX, PNG, GIF and Quarto toolchains were exercised; representative
+article, all three deck pages, renderer-report PDFs and PNGs were visually
+inspected. The documented unavailable-toolchain fallback remains explicit.
+No website, npm package, or signed native application was published.
+
+**Release boundary:** the default registry-dependency smoke was actually run
+and correctly fails because published Core ^0.5.0 lacks `NumeralSystem`.
+The separate `--workspace-core` rehearsal packs and installs both local packages
+successfully; it does not replace or weaken the registry release gate. Selecting
+and publishing coordinated versions is recorded in D15, outside this queue.
+
+Reproduction/evidence: `tmp/q1-rix-suite-final.log`, `tmp/q1-web-suite-final.log`,
+`tmp/q1-notebook.log`, `tmp/q1-umbrella.log`, `tmp/q1-native.log`,
+`tmp/q1-package-final.log`, `tmp/q1-consumer-workspace-final.log`,
+`tmp/q1-consumer-registry-final.log`, `tmp/h3-docs-*-followup.log`,
+`tmp/h3-docs-browser-*`, `tmp/q1-visual/`, and `tmp/q1-core-*`.
 
 ## Later tasks and user decisions
 
@@ -1155,11 +1206,11 @@ its own acceptance criteria rather than activating an entire research heading.
 | D3 | Shared global assumptions/restricted-domain wrappers, named complex branches, continuation paths and monodromy | Preserve existing explicit per-result premises. Adopt a versioned branch/obligation value before generalizing; never make principal-branch assumptions silently. |
 | D4 | Finite first-order logic language and model-search scope | Start with explicit nonempty finite domains, equality, relation tables and quantifiers; exclude function symbols and distinguish bounded countermodels from validity. |
 | D5 | **Multivariate Polynomial/Groebner/elimination**, extension fields, multivariate FractionFunction, exact conic/algebraic isolation, extension-field eigenspaces/Jordan forms, Oracle multivariate sign/root exchange | Later separate program; start over Q with explicit monomial orders and replayable reductions. None is required by M1–M5 or T3's rational subset. |
-| D6 | Excel formula compatibility and tensor spill behavior | First ship C3 values/structure and C4 explicit materialization. Later choose a supported formula subset and explicit spill ownership/collision/resize rules; do not promise general Excel compatibility. |
+| D6 | Excel formula compatibility and tensor spill behavior | Build on the shipped C3 values/structure and C4 explicit materialization. Choose a supported formula subset and explicit spill ownership/collision/resize rules; do not promise general Excel compatibility. |
 | D7 | Production publishing targets: tagged PDF/PDF-A, print color profiles, journal templates/fonts, canonical signed JSON, external evidence stores, native app signing/distribution | Choose one concrete target/toolchain and verifier first. Keep deterministic source/local bundles as baseline. Font licensing and signing identities need explicit selection. |
 | D8 | External CAS/SMT/proof assistants, Arb/MPFR/Acb, database/CMS/network services, external solver/provider, decomposition/column-generation or certificate ecosystems | Require a concrete use case, chosen provider, license and trust/permission policy. Keep public portable schemas and native checkers; avoid mandatory external services. |
 | D9 | Research programs: abstract metric/Banach/Hilbert/Lp spaces, infinite expansions/topologies, nonlinear coordinate charts/tensor fields, distributions/Sobolev/PDE theory, Cauchy completeness/proof exchange, continued-fraction correlation proofs, Cayley one-generated series/derivatives/zero divisors, quaternion slice/Fueter and octonion/G2/Jordan analysis | Choose one educational/research question with a finite example and explicit evidence contract. Finite-support polynomial coordinates in T3 do not authorize infinite-series/topology semantics. |
-| D10 | Scale/acceleration: SIMD/Wasm/native/GPU/WebGPU providers, distributed numerics, Arrow/Parquet/lazy data warehouses, huge tiled/16-bit/linear-color raster output, WebP/AVIF/APNG/WebM/MP4 codecs | Profile R4 first, then pick one bottleneck and supported backend. Do not add optional native dependencies solely because a roadmap mentions them. |
+| D10 | Scale/acceleration: SIMD/Wasm/native/GPU/WebGPU providers, distributed numerics, Arrow/Parquet/lazy data warehouses, huge tiled/16-bit/linear-color raster output, WebP/AVIF/APNG/WebM/MP4 codecs | Use the recorded R4 measurements to pick one bottleneck and supported backend. Do not add optional native dependencies solely because a roadmap mentions them. |
 | D11 | Advanced analysis/solvers: stiff/DAE/delay/symplectic/PDE solvers, broad continuation/collocation, generalized/Bayesian statistics, stochastic processes, complex special functions/contour integration/root isolation | Select a narrow problem family and validation standard before implementation. Existing bounded scalar/vector and finite-data services remain the default. |
 | D12 | Interactive terminal repaint/input, external symbol libraries/vector-authoring round trips, full 3D ecosystem (GLB/import, textures, animation assets, OBJ/STL/PLY/USD/AR/printing) | Pick a real host/format and round-trip requirement. Continue portable static terminal output, existing glTF JSON and O6 snapshots meanwhile. |
 | D13 | Broad automatic proof/locus exploration, unrestricted CAS/Risch-style integration, grammar-of-graphics replacement, general symbolic closure builder and pure-RiX `.fracfun` migration | Keep bounded named rules/public expression contracts. Choose a concrete missing operation before committing to a new general architecture. |
