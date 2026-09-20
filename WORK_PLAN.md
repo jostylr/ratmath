@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2**.
-T3, H2, C1 and C2 are complete. H3, remaining R4 slices, C3/C4 and Q1 remain. C3/C4 are the remaining Cel tasks.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2, C3**.
+C3 is complete. **30 of 34 tasks are complete.** H3, remaining R4 slices, C4 and Q1 remain. C4 is the remaining Cel task.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -983,18 +983,43 @@ Evidence: `tmp/c2-source-manifest.json`, `tmp/c2-short.log`,
 
 **Depends:** C2, O3, H2.
 
-- [ ] Embed a RiXCel document as a notebook widget with explicit named exports,
+- [x] Embed a RiXCel document as a notebook widget with explicit named exports,
   isolated execution, lifecycle disposal and script/document import-cycle checks.
-- [ ] Add XLSX values and sheet-structure import/export through a host adapter,
+- [x] Add XLSX values and sheet-structure import/export through a host adapter,
   preserving source metadata, dimensions and exact values where the format can.
   Disclose numeric precision loss; retain unsupported formulas as inert text.
-- [ ] Use an existing compatible library if available; otherwise isolate the
+- [x] Use an existing compatible library if available; otherwise isolate the
   adapter and select a maintained permissively licensed dependency through an
   implementation record. No Excel automation or account integration is needed.
 
 **Done:** round-trip value fixtures, sparse/large-sheet limits and notebook
 reactivity work; formulas are never executed under another language by accident.
 Executable Excel-formula translation remains D6.
+
+**Completed 2026-09-20:** Notebook `.cel`/`.celOpen` embeds an isolated
+workbook with editable Sheet views, explicit Get/View exports, record snapshots,
+resource disposal and bounded project-relative readers. Reactive exports update
+in browser and published live HTML; session edits require an explicit Record to
+persist. Native/browser readers and publication runs resolve each note's workbook
+within its selected project. RiX now exports the shared isolated workbook host.
+
+Cel opens XLSX and exports XLSX values through a bounded host adapter. Exact
+fractions and large integers use text plus inert scalar/source metadata; sparse
+sheet dimensions survive round trips. Foreign formulas remain inert text and
+precision limitations are disclosed. ZIP expansion, XML, coordinate and cell
+budgets run before workbook allocation. The maintained MIT dependency
+`@protobi/exceljs@4.4.0-protobi.10` is pinned; the rationale is recorded in
+`apps/cel/documentation/xlsx-dependency-decision.md`. Rank-N plane materialization
+remains C4; executable Excel translation remains D6.
+
+Verification: RiX short suite **1,723/21,006 assertions**; workbook regressions
+**7/36**; final Cel suite **39/228**; Notebook suite **80/414**, plus final
+embedding/reader checks **10/52** after the UTF-8 budget refinement. Real Chromium
+checks passed for XLSX import/download round trips and embedded/live sheets,
+reactive exports, rejected cycles and rerun disposal. Browser, native and isolated
+live bundles built successfully. Evidence is in `tmp/c3-*`; generated distribution
+bundle reconciliation remains Q1. Implementation commits: RiX `bc364b4`,
+Cel `15df64e`, Notebook `4ffaaaf`.
 
 ### C4 — Explicit tensor materialization and sheet formatting
 
