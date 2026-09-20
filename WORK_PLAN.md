@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1, C2**.
-C1 and C2 are complete. H2 Notebook authoring, T3 rational spectral/finite-support work and remaining R4 slices have saved work or remain pending. C3/C4 are the remaining Cel tasks.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1, C2**.
+H2, C1 and C2 are complete. H3, T3, remaining R4 slices, C3/C4 and Q1 remain; T3 has saved work. C3/C4 are the remaining Cel tasks.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -375,16 +375,33 @@ or assignments. Source commits are recorded in repository history.
 
 **Depends:** O3/O7 where applicable; R2 for async behavior.
 
-- [ ] Finish common completion/diagnostic/source-location integration in both
+- [x] Finish common completion/diagnostic/source-location integration in both
   workbenches using the existing language service and CodeMirror support.
-- [ ] Preserve cross-note references/figure IDs and expose export capabilities
+- [x] Preserve cross-note references/figure IDs and expose export capabilities
   accurately. Keep native filesystem/plugin grants and browser ZIP storage
   behind the existing DocShell adapters.
-- [ ] Verify open/edit/save/reopen and static/live exports, widget disposal,
+- [x] Verify open/edit/save/reopen and static/live exports, widget disposal,
   plugin failures, and missing-asset/tool diagnostics on both host paths.
 
 **Done:** authoring and supported exports have automated host integration tests;
 unsupported native capabilities are not simulated by the browser.
+
+**Completed 2026-09-20:** both editors share bounded language-service completion,
+hover and source diagnostics, including inline expressions and execution scopes.
+Static and live publications preserve figure/table anchors and cross-note links.
+Export notices distinguish browser ZIP/static output, native live HTML and CLI
+compilation. Published live documents reuse the async notebook engine and retain
+static results when live execution fails. Widget listeners and async resources
+are disposed on rerun/close. DocShell's injectable native API preserves production
+grant behavior while enabling real-filesystem lifecycle tests.
+
+Verification: Notebook suite **70 passed / 363 assertions**; native, browser and
+live bundles built. Chromium exercised completion, precise error navigation,
+exact live slider reruns, stable figure IDs and missing-plugin static fallback.
+Browser ZIP and injected native adapter tests cover save/reopen, assets/references,
+unsupported targets and cleanup; native OS permission dialogs are not automated.
+Evidence: `tmp/h2-tests.log`, `tmp/h2-browser-check.log`, `tmp/h2-*-build.log`,
+`tmp/h2-browser/live-export.png`. Distributed bundle refresh remains Q1.
 
 ### H3 — Runnable tutorial and capstone coverage
 
