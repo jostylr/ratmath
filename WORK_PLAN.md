@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2, C3, C4**.
-All Cel tasks (C1–C4) are complete. **31 of 34 tasks are complete.** H3, remaining R4 slices and Q1 remain.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, R4, C1, C2, C3, C4**.
+All Cel tasks (C1–C4) are complete. **32 of 34 tasks are complete.** H3 and Q1 remain.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -886,12 +886,12 @@ speedup. Evidence: `tmp/r3-source-manifest.json`, `tmp/r3-final-streams.log`,
 
 - [x] Add parser/tokenizer fuzz/property tests, malformed-number/Unicode/source
   span regression fixtures, large-input limits and editor recovery diagnostics.
-- [ ] Add Float typed-array tensor adapters and sparse finite linear methods
+- [x] Add Float typed-array tensor adapters and sparse finite linear methods
   where supported; preserve evidence and exact/approximate boundaries.
-- [ ] Add Canvas path caches, OffscreenCanvas/worker plans where supported, dirty
+- [x] Add Canvas path caches, OffscreenCanvas/worker plans where supported, dirty
   repaint and bounded heatmap/downsampled/streaming plot inputs. Keep main-thread
   and static fallbacks, and validate semantic IDs/accessibility companions.
-- [ ] Profile memory/allocation and numeric/rendering hot paths; optimize measured
+- [x] Profile memory/allocation and numeric/rendering hot paths; optimize measured
   bottlenecks with deterministic output checks. Report limits that cannot be
   enforced in-process rather than claiming hard memory isolation.
 
@@ -909,8 +909,42 @@ Measured exact ODE async time 11.05s→2.98s, shared snapshot allocation
 17.8MB→0.60MB, warm 16-task worker batch 4.85s→8ms. Checksums/steps unchanged;
 owner execution is still fastest for tiny tasks. Short suite 1720/20991 assertions,
 parser/lint/nav 670/17240, isolation/tensor graph 52/197. Rendering and Float
-adapter slices remain outstanding. Evidence: `tmp/r4-source-manifest.json`,
+adapter slices were subsequently completed as recorded below. Evidence: `tmp/r4-source-manifest.json`,
 `tmp/r4-short-final.log`, versioned `rix/benchmarks/runtime-performance-baseline.json`.
+
+**Remaining slices completed 2026-09-20:** RiX `86465ca`. Copy-owned binary32/binary64 Float
+Tensor/ToShaped/MatMul adapters preserve approximate status and per-cell
+diagnostics; finite sparse Rational MatMul/Apply avoid ambient dense allocation.
+Canvas now has bounded path retention, conservative dirty repaint, explicit
+OffscreenCanvas worker handling and main-thread/static fallbacks. Plot adds
+bounded min/max downsampling, stream tails and exact heatmap aggregation with
+stable source IDs and visible/accessibility disclosures.
+
+Versioned benchmarks record pairwise Float reduction 5.35→3.28ms (131,070
+slice arrays eliminated), 48×48 boxed-reference/typed multiplication
+65.38→9.47ms, and retained Canvas path construction 6000→200 (32.85→8.70ms).
+Repeated plot hashes are deterministic: line HTML 5.89→0.20MB and heatmap
+3.14→0.20MB. Parse-only documentation fences now skip unused evaluator setup
+(12-fence reference 3749→0.47ms) while hidden setup still executes. These are
+specific fixture measurements, not general speed guarantees or hard process
+memory limits. Exact/approximate boundaries, budgets and reproduction commands
+are documented in `rix/documentation/design/eval/runtime-performance.md`.
+
+Real Chromium checks pass for dirty/full/worker pixel equivalence, fractional
+coordinates/DPR, invalidation, fallback, semantic IDs, stream/heatmap disclosure
+and narrow-screen layout. Focused checks pass: Float 101/794 assertions, linalg
+99/608, plot 162/1166, renderer/Canvas 26/186, final numeric/documentation
+19/74, and import lifecycle 25/44. The broad run also exposed stale CLI example
+serialization/output-directory fixtures and a concurrency fixture missing its
+explicit safe declaration; these were corrected and retested.
+
+Complete RiX sweep: **3651 passed, 4 failed, 35,652 assertions across 243
+files** (`tmp/r4-rix-suite-final.log`). Three failing fixtures were corrected
+and pass focused reruns (CLI 2/8 and import 25/44); the fourth is the existing
+71-warning plugin-lint baseline, unchanged by R4 and explicitly tracked in Q1.
+The complete sweep was not rerun after those fixture corrections. Browser
+evidence: `tmp/r4-render-browser/` and `tmp/r4-plot-browser/`; numeric/render/plot
+baselines are committed under `rix/benchmarks/`.
 
 ## C — RiXCel
 
@@ -1062,6 +1096,11 @@ Distribution bundle reconciliation remains Q1.
 ## Q — Completion gate
 
 ### Q1 — Verify the delivered queue and close the plan
+
+R4 integration finding: the bundled-plugin lint gate has 71 existing RX1203
+warnings (calculus 2, cas 2, linalg 25, ode 9, optimize 33). HEAD and R4
+have identical diagnostic source signatures; resolve the baseline without
+weakening the gate. Comparison evidence: `tmp/r4-lint-comparison.json`.
 
 - [ ] For each task: update public reference, tutorial/example, schemas and
   capability group; run meaningful positive, invalid-input and bounded-failure
