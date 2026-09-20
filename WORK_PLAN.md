@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, R4, C1, C2, C3, C4**.
-All Cel tasks (C1–C4) are complete. **32 of 34 tasks are complete.** H3 and Q1 remain.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, H3, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, R4, C1, C2, C3, C4**.
+All Cel tasks (C1–C4) are complete. **33 of 34 tasks are complete.** Q1 final integration verification is underway.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -407,16 +407,34 @@ Evidence: `tmp/h2-tests.log`, `tmp/h2-browser-check.log`, `tmp/h2-*-build.log`,
 
 **Depends:** completed features in the relevant task, not all tasks at once.
 
-- [ ] Compare the tutorial curriculum outline to actual pages/tests and fill
+- [x] Compare the tutorial curriculum outline to actual pages/tests and fill
   real gaps only. Keep method reference chips/catalogs generated.
-- [ ] Add one end-to-end capstone per delivered pipeline: publication,
+- [x] Add one end-to-end capstone per delivered pipeline: publication,
   certified nonlinear/ODE exploration, exact-number views, tensor coordinates,
   async cancellation, and RiXCel interchange.
-- [ ] Include bounded-failure and unavailable-host examples, prerequisites,
+- [x] Include bounded-failure and unavailable-host examples, prerequisites,
   exact-versus-approximate explanations, and static output alternatives.
 
 **Done:** examples execute in supported hosts and proposed/unsupported examples
 cannot misleadingly run. This excludes curriculum production in RiX-Ed.
+
+**Completed 2026-09-20:** reconciled the actual Web curriculum instead of
+recreating existing lessons. Added a six-workflow capstone guide linking tested
+publication, bounded nonlinear/ODE, exact-number, coordinate tensor, cooperative
+cancellation and RiXCel interchange examples. Two missing integrated sources and
+five end-to-end tests add 19 assertions. Existing and new lessons state host
+requirements, exact/approximate boundaries, bounded failure and static fallbacks.
+Web tutorials now exercise recent Float/sparse/plot APIs through both evaluators.
+
+The documentation audit corrected stale runtime, geometry, workbook, startup and
+package guidance; exposed current eval guides that were absent from site render;
+and regenerated runtime reference, navigation and method catalogs. Nine obsolete
+specifications/roadmaps remain linked from a history index at their original URLs
+but are excluded from search. Build-time validation rejects missing current pages,
+indexed history and stale generated search records in both navigation modes.
+Documentation tests: 19/967 assertions; executable examples: 165/165. Source and
+host examples are tested, not merely presented as runnable. Q1 records final
+site/build/browser verification and integration fixes discovered by this audit.
 
 ## M — Bounded numerical, symbolic, and visualization work
 
@@ -1146,6 +1164,7 @@ its own acceptance criteria rather than activating an entire research heading.
 | D12 | Interactive terminal repaint/input, external symbol libraries/vector-authoring round trips, full 3D ecosystem (GLB/import, textures, animation assets, OBJ/STL/PLY/USD/AR/printing) | Pick a real host/format and round-trip requirement. Continue portable static terminal output, existing glTF JSON and O6 snapshots meanwhile. |
 | D13 | Broad automatic proof/locus exploration, unrestricted CAS/Risch-style integration, grammar-of-graphics replacement, general symbolic closure builder and pure-RiX `.fracfun` migration | Keep bounded named rules/public expression contracts. Choose a concrete missing operation before committing to a new general architecture. |
 | D14 | Renewed legacy Calc/WebCalc/Forge feature development and old support-package plans | Maintain compatibility; put new parser/evaluator and document features in RiX. Reactivate a legacy plan only after choosing its product role relative to Notebook/Cel. |
+| D15 | Coordinated public Core/RiX package release | Registry Core ^0.5.0 lacks the new `NumeralSystem` export required by this checkout. Local paired tarballs pass isolated installation; the default registry release gate intentionally fails. Recommend selecting new compatible Core/RiX versions, publishing Core first, updating the RiX dependency, then rerunning the registry smoke and release gate before publishing RiX. No publication or version choice is authorized by Q1. |
 
 The refinable-real specification's filename, writer ordering, opaque snapshot,
 provider version, expression allowlist and embedded-evidence questions are
