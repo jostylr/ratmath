@@ -13,7 +13,7 @@
       },
       "dependencies": {
         "@ratmath/algebra": "^0.2.0",
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
         "@ratmath/oracles": "workspace:*",
         "@ratmath/parser": "^0.2.0",
         "@ratmath/reals": "^0.1.0",
@@ -32,7 +32,7 @@
     "apps/forge": {
       "name": "ratforge",
       "dependencies": {
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -46,7 +46,7 @@
       "version": "1.0.0",
       "dependencies": {
         "@ratmath/algebra": "^0.2.0",
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
         "@ratmath/oracles": "workspace:*",
         "@ratmath/parser": "^0.2.0",
         "@ratmath/reals": "^0.1.0",
@@ -57,7 +57,7 @@
       "name": "@ratmath/algebra",
       "version": "0.2.0",
       "dependencies": {
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
         "@ratmath/parser": "^0.2.0",
       },
       "devDependencies": {
@@ -78,7 +78,7 @@
     },
     "packages/core": {
       "name": "@ratmath/core",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "devDependencies": {
         "bun-types": "1.3.14",
       },
@@ -87,7 +87,7 @@
       "name": "@ratmath/oracles",
       "version": "0.1.0",
       "dependencies": {
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
       },
       "devDependencies": {
         "@types/bun": "^1.3.5",
@@ -100,7 +100,7 @@
       "name": "@ratmath/parser",
       "version": "0.2.0",
       "dependencies": {
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
         "@ratmath/reals": "^0.1.0",
       },
     },
@@ -108,7 +108,7 @@
       "name": "@ratmath/reals",
       "version": "0.1.0",
       "dependencies": {
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
       },
       "devDependencies": {
         "bun-types": "latest",
@@ -119,7 +119,7 @@
       "version": "0.2.0",
       "dependencies": {
         "@ratmath/algebra": "^0.2.0",
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
       },
     },
     "rix": {
@@ -136,7 +136,7 @@
         "@lezer/common": "^1.5.2",
         "@lezer/highlight": "^1.2.3",
         "@lezer/lr": "^1.4.10",
-        "@ratmath/core": "^0.5.0",
+        "@ratmath/core": "^0.6.0",
       },
       "devDependencies": {
         "@lezer/generator": "^1.8.0",

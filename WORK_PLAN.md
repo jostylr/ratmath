@@ -1215,7 +1215,7 @@ its own acceptance criteria rather than activating an entire research heading.
 | D12 | Interactive terminal repaint/input, external symbol libraries/vector-authoring round trips, full 3D ecosystem (GLB/import, textures, animation assets, OBJ/STL/PLY/USD/AR/printing) | Pick a real host/format and round-trip requirement. Continue portable static terminal output, existing glTF JSON and O6 snapshots meanwhile. |
 | D13 | Broad automatic proof/locus exploration, unrestricted CAS/Risch-style integration, grammar-of-graphics replacement, general symbolic closure builder and pure-RiX `.fracfun` migration | Keep bounded named rules/public expression contracts. Choose a concrete missing operation before committing to a new general architecture. |
 | D14 | Renewed legacy Calc/WebCalc/Forge feature development and old support-package plans | Maintain compatibility; put new parser/evaluator and document features in RiX. Reactivate a legacy plan only after choosing its product role relative to Notebook/Cel. |
-| D15 | Coordinated public Core/RiX package release | Registry Core ^0.5.0 lacks the new `NumeralSystem` export required by this checkout. Local paired tarballs pass isolated installation; the default registry release gate intentionally fails. Recommend selecting new compatible Core/RiX versions, publishing Core first, updating the RiX dependency, then rerunning the registry smoke and release gate before publishing RiX. No publication or version choice is authorized by Q1. |
+| D15 | Coordinated public Core/RiX package release | Core 0.6.0 is prepared and all explicit consumer ranges now require ^0.6.0. The maintainer will publish Core; then rerun the RiX registry consumer smoke and release gate before selecting/publishing a RiX release. Local paired-tarball validation does not replace that registry gate. See the release preparation record below. |
 
 The refinable-real specification's filename, writer ordering, opaque snapshot,
 provider version, expression allowlist and embedded-evidence questions are
@@ -1265,3 +1265,30 @@ Primary source indexes:
 - [Notebook](rix-nb/README.md) and [host boundaries](rix-nb/ARCHITECTURE.md)
 - [Mathematical serialization](rix/documentation/eval/mathematical-serialization.md)
 - [Refinable-real design](rix/plugins/numerics/refinable-real-json.md)
+
+## Core 0.6.0 release preparation — 2026-09-20
+
+Core 0.6.0 is prepared for the maintainer to publish, with release notes,
+versioned API documentation, and a local `v0.6.0` tag in `packages/core`.
+All nine explicit Core dependency ranges now require `^0.6.0`; `workspace:*`
+consumers continue to use the matching checkout. The umbrella lockfile is the
+authoritative development lock. The redundant standalone Forge and Oracles
+locks pinned registry Core 0.5.0 and have been removed; standalone users can
+generate fresh locks with `bun install` after Core 0.6.0 is published.
+
+The earlier Q1 registry failure above is historical. D15 now has an approved
+Core version and prepared consumer changes; publication remains with the
+maintainer. From `packages/core`, run `npm publish` to publish 0.6.0. Then run
+`bun run smoke:package` and `bun run check:release` from `rix` against the
+registry before a RiX release. Push the Core commit and `v0.6.0` tag along with
+the coordinated consumer commits when ready. No package has been published
+and no Git remote has been pushed by this preparation.
+
+Validation: Core's complete prepublish gate passed (553 tests, 75,702
+assertions, coverage thresholds, executable examples, and package contents).
+RiX's two packaging tests and isolated paired Core/RiX tarball consumer passed.
+The frozen umbrella lockfile installed successfully, and the short workspace
+profile passed in 66.7 seconds. Core and RiX documentation were rebuilt; RiX
+validated 100 HTML pages, 3,379 local links/assets, and 568 search records.
+Notebook's local help bundle was refreshed. The post-publication registry
+consumer gate remains pending. Evidence: `tmp/core-060-*.log`.
