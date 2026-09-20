@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2, C3**.
-C3 is complete. **30 of 34 tasks are complete.** H3, remaining R4 slices, C4 and Q1 remain. C4 is the remaining Cel task.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, H2, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, T3, N1, N2, R1, R2, R3, C1, C2, C3, C4**.
+All Cel tasks (C1–C4) are complete. **31 of 34 tasks are complete.** H3, remaining R4 slices and Q1 remain.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -1025,14 +1025,39 @@ Cel `15df64e`, Notebook `4ffaaaf`.
 
 **Depends:** T1/T2, C1/C2.
 
-- [ ] Add explicit snapshot materialization of a selected finite tensor plane
+- [x] Add explicit snapshot materialization of a selected finite tensor plane
   into formula slots and linked read-only tensor views. Collisions diagnose
   and leave the destination unchanged; automatic spill semantics remain D6.
-- [ ] Add block formatting and named rank-N regions without changing canonical
+- [x] Add block formatting and named rank-N regions without changing canonical
   numeric addresses or exact values.
 
 **Done:** plane changes, shape mismatches, readonly updates and collisions have
 atomic, tested behavior in the editor and notebook embedding.
+
+**Completed 2026-09-20:** Shared finite tensor-plane helpers support dense and
+finite sparse exact coordinates, explicit source axes/slices and rank-N
+destinations. Snapshots publish one atomic batch, reject occupied/draft cells and
+shape mismatches, preserve exact scalar sources, and support undo/redo. Linked
+read-only views refresh after edits; failed replacements preserve the existing
+link and failed refreshes retain the last valid plane with diagnostics. Selected
+planes are bounded at 4,096 cells; countable storage needs a finite projection.
+
+Named rank-N regions and sparse formatting layers replay with structural
+insertions, save/open and undo/redo. Safe CSS and exact/decimal presentation apply
+in rendered output and live widget updates without changing underlying values.
+Cel exposes the controls in its editor; Notebook exposes Materialize, TensorView,
+Region and Format on embedded handles. Editor history operations now serialize
+rapid clicks, and expanded controls retain a scrollable page. Links are session
+local; automatic spill and Excel formula translation remain D6.
+
+Verification: shared tensor tests **8/40 assertions**, region/output regressions
+**131/906**, final region widget subset **11/57**; RiX short suite
+**1,723/21,006**; Cel suite **42/247**, plus final worker checks **3/21** after
+last-valid-view retention; Notebook suite **82/436**. Real Chromium Cel and
+Notebook/live HTML checks passed for plane changes, readonly updates, collisions,
+exact snapshots, formatting and history. Browser/live builds and runnable examples
+passed; the final Cel screenshot was visually inspected. Evidence: `tmp/c4-*`.
+Distribution bundle reconciliation remains Q1.
 
 ## Q — Completion gate
 
