@@ -1292,3 +1292,37 @@ profile passed in 66.7 seconds. Core and RiX documentation were rebuilt; RiX
 validated 100 HTML pages, 3,379 local links/assets, and 568 search records.
 Notebook's local help bundle was refreshed. The post-publication registry
 consumer gate remains pending. Evidence: `tmp/core-060-*.log`.
+
+
+## REPL defaults and Node/Bun support — 2026-09-20
+
+The interactive REPL now starts with the curated `full` plugin set. Saved
+selections override that default; `--plugins=...` replaces it, repeatable
+`--plugin=...` adds to the selected set, and `--plugins=none` suppresses implicit
+preloads. Scripts and embedded evaluators remain bare. `--no-config` ignores
+saved settings and the automatic preamble, restoring the built-in REPL default;
+combine it with `--plugins=none` for a clean bare session. Explicit source loads
+and source/preamble plugin headers remain allowed.
+
+Node.js 22+ and Bun 1.4+ share the CLI and evaluator. The package commands use a
+Node shebang; `bunx --bun --no-install rix` explicitly selects Bun. Bundled RiX
+source is emitted as ordinary JavaScript string modules, preserving the original
+`.rix` source as authoritative. Live publication uses packaged browser assets
+instead of requiring a bundler at execution time. Source developers regenerate
+both with `bun run build:package`; freshness checks and Node 22/24/26 CI guard
+the generated assets and portable behavior.
+
+Local portability checks passed on Node 22.23.2, 24.21.0, 26.5.0, and Bun 1.4.0,
+covering modules, plugin loading, async cancellation, REPL/script boundaries,
+editor workers/language server, and static/live publication. Isolated local
+Core/RiX tarball installation passed with Node and Bun. CLI/publication/package
+regressions: 59 tests, 373 assertions, no failures. Documentation and local
+Notebook help were refreshed. Registry release validation remains separate; no
+publication or remote push is part of these changes. Evidence: `tmp/node-*.log`.
+
+The broader RiX CI profile passed: 2,174 tests and 23,710 assertions. Final
+plugin-selection regressions passed 9 tests and 71 assertions. The real browser
+acceptance check passed for the prebuilt live runtime, including no-JavaScript
+output, offline file loading, CSP/local assets, retained SVG selection, repeated
+control and drag updates, and static fallback. Browser bundles deliberately
+preserve class names because Core numeric dispatch uses them.
