@@ -17,8 +17,8 @@ excluded, including their dependent algebraic-extension projects. No files in
 
 **Resumed 2026-09-19** by explicit user instruction after the quota reset.
 The three saved WIP tasks (O3, H1, M1) are now complete and verified.
-Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1**.
-C1 is now complete. H2 Notebook authoring, T3 rational spectral/finite-support work and the remaining R4 slices have saved work or remain pending; C2 workbook coordination is the next Cel task.
+Completed: **A1, A2, O1, O2, O3, O4, O5, O6, O7, H1, M1, M2, M3, M4, M5, M6, M7, M8, T1, T2, N1, N2, R1, R2, R3, C1, C2**.
+C1 and C2 are complete. H2 Notebook authoring, T3 rational spectral/finite-support work and remaining R4 slices have saved work or remain pending. C3/C4 are the remaining Cel tasks.
 Continue unchecked tasks in dependency order. Keep the later register excluded. Local evidence is under
 `tmp/`; `rix-ed/` remains unrelated and untouched.
 
@@ -906,14 +906,35 @@ sheet rendered in at most 480 cells. Evidence: `tmp/c1-final-tests.log`,
 
 **Depends:** R1 where background updates are used.
 
-- [ ] Implement explicit `book`, `names`, and `imports` namespaces and document-
+- [x] Implement explicit `book`, `names`, and `imports` namespaces and document-
   owned exports; coordinate tracked cross-graph dependencies with atomic epochs,
   cycle diagnostics and disposal.
-- [ ] Adopt explicit refresh for external/volatile sources by default. Scheduled
+- [x] Adopt explicit refresh for external/volatile sources by default. Scheduled
   refresh is opt-in host policy; preserve source/version metadata and bound work.
 
 **Done:** cross-sheet edits recompute once per epoch, import/reactive cycles show
 complete paths, and failed updates do not publish mixed old/new states.
+
+**Completed 2026-09-19:** RiX `33bc434`, Cel `f0b0ef7`. Portable `.rixbook`
+records declare document-owned names/exports and explicit `book.Get`, `names.Get`
+and `imports.Get` reads. One bounded private coordinator graph evaluates each
+node at most once per epoch and commits all documents together; failures retain
+old values/configuration/epoch, with full cross-document cycle paths. Slot exports
+follow C1 insertion/undo identities. The implementation rebuilds materialized
+nodes per transaction rather than promising affected-node-only recomputation.
+External mathematical-JSON snapshots retain source/version metadata; refresh is
+explicit, stale/failed/timed-out responses cannot publish, and scheduled refresh
+requires host policy. Disposal aborts pending work and removes timers/listeners.
+The Cel host uses fresh isolated contexts and denies host/IO/async/random/global-
+configuration capabilities. Workbook open/select/edit/save/recovery/undo is wired
+through the existing worker. Schema, guide and runnable cross-sheet file added.
+Validation: short suite 1720 tests/20991 assertions; combined Cel/reactive/history
+regressions 44/302; final focused workbook/parser checks 13/76; documentation and
+schema/example navigation 7/190; final schedule-bound check; real Chromium C1+C2
+acceptance including cross-sheet edits, saved selection/restart and undo.
+Evidence: `tmp/c2-source-manifest.json`, `tmp/c2-short.log`,
+`tmp/c2-regression.log`, `tmp/c2-final-focused.log`, `tmp/c2-schema-nav.log`,
+`tmp/c2-browser-final.log`. Generated release artifacts remain Q1.
 
 ### C3 — Notebook embedding and XLSX value interchange
 
