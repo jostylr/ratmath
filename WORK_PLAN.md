@@ -1215,7 +1215,7 @@ its own acceptance criteria rather than activating an entire research heading.
 | D12 | Interactive terminal repaint/input, external symbol libraries/vector-authoring round trips, full 3D ecosystem (GLB/import, textures, animation assets, OBJ/STL/PLY/USD/AR/printing) | Pick a real host/format and round-trip requirement. Continue portable static terminal output, existing glTF JSON and O6 snapshots meanwhile. |
 | D13 | Broad automatic proof/locus exploration, unrestricted CAS/Risch-style integration, grammar-of-graphics replacement, general symbolic closure builder and pure-RiX `.fracfun` migration | Keep bounded named rules/public expression contracts. Choose a concrete missing operation before committing to a new general architecture. |
 | D14 | Renewed legacy Calc/WebCalc/Forge feature development and old support-package plans | Maintain compatibility; put new parser/evaluator and document features in RiX. Reactivate a legacy plan only after choosing its product role relative to Notebook/Cel. |
-| D15 | Coordinated public Core/RiX package release | Core 0.6.0 is published and the RiX registry consumer smoke passed. RiX 0.1.0 is prepared and tagged locally as `v0.1.0` in its repository. The tutorial coverage timeout was corrected; the complete release gate must pass before the maintainer publishes RiX. |
+| D15 | Coordinated public Core/RiX package release | Core 0.6.0 is published and the RiX registry consumer smoke passed. RiX 0.1.0 remains prepared, but its local release tag was removed while improving verification. Run `bun run check:release` once on the final state to record success; `npm publish` then performs only freshness checks. Retagging and publication remain pending. |
 
 The refinable-real specification's filename, writer ordering, opaque snapshot,
 provider version, expression allowlist and embedded-evidence questions are
@@ -1335,3 +1335,27 @@ extension, and workspace version records already agreed on 0.1.0. The README
 now identifies the alpha release and the npm package includes `CHANGELOG.md`.
 Package-content tests and asset freshness checks passed. No npm publication
 or remote push was performed.
+
+
+## Independent release verification and tag withdrawal — 2026-09-21
+
+Removed the local RiX `v0.1.0` tag; no matching remote tag existed. The package
+version remains 0.1.0. The earlier tag record above is historical.
+
+`bun run check:release` now prepares assets, runs the complete checks, and records
+a local ignored success receipt only when the inputs remain unchanged. The
+fingerprint includes source/tests/docs, actual npm contents, installed dependency
+contents, lockfiles, platform/runtime versions, and execution options. Commits
+and tags alone do not invalidate it. Failed or interrupted checks clear old
+receipts. `npm publish` now only checks the receipt and asset freshness; packing
+does not rebuild after verification. The full run remains mandatory separately.
+
+The exact tensor test file now allows 60 seconds per test and passed with
+coverage: 14 tests, 98 assertions, including both reported timeout cases.
+Receipt/package tests passed: 6 tests, 64 assertions, covering failed/missing/
+stale verification, input changes during a run, source/dependency/package edits,
+and unchanged content committed after verification. Actual `prepublishOnly`
+correctly refuses publication without a successful receipt. No full release
+receipt was created by these focused tests; no publication or retagging occurred.
+Evidence: `tmp/rix-tensor-timeout-coverage.log`,
+`tmp/rix-publish-flow-tests.log`, and `tmp/rix-prepublish-guard.log`.
