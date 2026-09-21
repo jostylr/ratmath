@@ -1215,7 +1215,7 @@ its own acceptance criteria rather than activating an entire research heading.
 | D12 | Interactive terminal repaint/input, external symbol libraries/vector-authoring round trips, full 3D ecosystem (GLB/import, textures, animation assets, OBJ/STL/PLY/USD/AR/printing) | Pick a real host/format and round-trip requirement. Continue portable static terminal output, existing glTF JSON and O6 snapshots meanwhile. |
 | D13 | Broad automatic proof/locus exploration, unrestricted CAS/Risch-style integration, grammar-of-graphics replacement, general symbolic closure builder and pure-RiX `.fracfun` migration | Keep bounded named rules/public expression contracts. Choose a concrete missing operation before committing to a new general architecture. |
 | D14 | Renewed legacy Calc/WebCalc/Forge feature development and old support-package plans | Maintain compatibility; put new parser/evaluator and document features in RiX. Reactivate a legacy plan only after choosing its product role relative to Notebook/Cel. |
-| D15 | Coordinated public Core/RiX package release | Core 0.6.0 is prepared and all explicit consumer ranges now require ^0.6.0. The maintainer will publish Core; then rerun the RiX registry consumer smoke and release gate before selecting/publishing a RiX release. Local paired-tarball validation does not replace that registry gate. See the release preparation record below. |
+| D15 | Coordinated public Core/RiX package release | Core 0.6.0 is published and the RiX registry consumer smoke passed. RiX 0.1.0 is prepared and tagged locally as `v0.1.0` in its repository. The tutorial coverage timeout was corrected; the complete release gate must pass before the maintainer publishes RiX. |
 
 The refinable-real specification's filename, writer ordering, opaque snapshot,
 provider version, expression allowlist and embedded-evidence questions are
@@ -1326,3 +1326,12 @@ acceptance check passed for the prebuilt live runtime, including no-JavaScript
 output, offline file loading, CSP/local assets, retained SVG selection, repeated
 control and drag updates, and static fallback. Browser bundles deliberately
 preserve class names because Core numeric dispatch uses them.
+
+
+## RiX 0.1.0 release tag — 2026-09-21
+
+RiX commit `7fa458f` is tagged `v0.1.0` (annotated). Package, language-server,
+extension, and workspace version records already agreed on 0.1.0. The README
+now identifies the alpha release and the npm package includes `CHANGELOG.md`.
+Package-content tests and asset freshness checks passed. No npm publication
+or remote push was performed.
