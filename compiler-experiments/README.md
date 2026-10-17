@@ -1,6 +1,15 @@
 # RiX compiler experiments
 
-Reproducible, isolated experiments using the local RiX interpreter and RatMath arithmetic. Performance changes remain isolated here. The signed-leading-decimal constructor fix was subsequently promoted to production core; see the October 17 status below. **The previous RiX-to-JavaScript compiler was deleted**, as confirmed by the user. Its actual output is unavailable; the clearly labeled recreated baseline translates current IR into current runtime-helper calls.
+Reproducible, isolated experiments using the local RiX interpreter and RatMath arithmetic. Production promotions now include the signed-leading-decimal constructor fix and RiX immutable operator-metadata cache. Direct-loop and other performance work remain experimental; see the October 17 status below. **The previous RiX-to-JavaScript compiler was deleted**, as confirmed by the user. Its actual output is unavailable; the clearly labeled recreated baseline translates current IR into current runtime-helper calls.
+
+## Metadata cache promoted to RiX — October 17, 2026
+
+RiX commit `e7381fe` promotes the bounded immutable operator-metadata cache.
+[Broader production verification](metadata-cache/production/README.md) records
+2,213 passing CI tests, the full snapshot run and successful environment-dependent
+reruns, plus Node/Bun portability checks. The `.exactLoop` capability remains
+experimental. [What Fold does](direct-loops/FOLD-WALKTHROUGH.md) walks through a
+concrete polynomial example and explains the callback-to-JavaScript translation.
 
 ## Metadata caching and explicit numeric loops — October 17, 2026
 

@@ -2,8 +2,9 @@
 
 ## New follow-up: tested priorities
 
-The [metadata cache](metadata-cache/README.md) is now the clearest next production
-RiX candidate: the same 358-test suite passes in **52.73 → 4.15 seconds (12.7×)**.
+The [metadata cache](metadata-cache/README.md) was subsequently promoted to RiX
+in commit `e7381fe`. Its original paired experiment ran the same 358-test suite
+in **52.73 → 4.15 seconds (12.7×)**.
 Warm fresh-session construction drops from roughly 272 → 2.15 ms in Bun and
 194 → 1.95 ms in Node. Cold first construction remains about the same. It shares
 only immutable parser results; catalogs, namespaces and loaded state stay fresh.
@@ -31,7 +32,13 @@ archive plus this fix passes 557. Bun and Node pass 224 constructor equivalence
 cases plus malformed-input checks for each fixed snapshot.
 [Reproduction and reports](rational-decimal-fix/README.md).
 
-All performance changes below remain experimental. These are promotion
+The immutable plugin operator-metadata cache is now in production RiX, commit
+**`e7381fe`**. Actual working-tree CI passes 2,213 tests; the full clean snapshot
+run records 3,677 passes plus two environment failures, both resolved in targeted
+reruns covering 13 tests. Node and Bun portability checks pass. See
+[production promotion evidence](metadata-cache/production/README.md).
+
+Other performance changes below remain experimental. These are promotion
 recommendations, not a request to merge them all at once. Ratios come from
 specific kernels and are not additive or representative of every RiX program.
 
@@ -113,7 +120,8 @@ The earlier arithmetic/dispatch variants did not demonstrate meaningful suite
 speedups (337 tests took roughly 53–58 seconds). The new cache addresses the
 separate repeated plugin-tokenization bottleneck. Warm fresh contexts now cost
 about 2 ms, while first construction still costs about 220–300 ms per process.
-No production startup or test code has been changed.
+The cache has now been promoted to production RiX with focused tests; the raw
+paired timing remains the earlier experiment, not a matched production CI benchmark.
 
 ## Included plugins
 
@@ -143,5 +151,5 @@ suitable boundaries. Many render/Float/data plugins already use JavaScript.
 
 Historical files retain the runtime versions, source fingerprints, and failures
 observed when measured. New snapshots must be rebuilt from their prerequisites
-when production changes. The leading-decimal fix is the only production change
-made by this follow-up; unrelated existing changes remain outside its commits.
+when production changes. Production promotions now include the leading-decimal fix and immutable RiX
+operator metadata cache; unrelated existing changes remain outside its commits.

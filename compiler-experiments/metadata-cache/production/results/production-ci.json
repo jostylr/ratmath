@@ -1,0 +1,13 @@
+{
+  "name": "production-ci",
+  "cwd": "/Users/jostylr/ai-repos/ratmath/rix",
+  "command": [
+    "bun",
+    "run",
+    "test:ci"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 59.74140470800921,
+  "passed": 2213,
+  "failed": 0
+}

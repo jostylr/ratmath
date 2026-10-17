@@ -6,6 +6,9 @@ in an isolated copy. The metadata cache is enabled to reduce session setup; none
 of the earlier arithmetic/copy/dispatch optimizations is included in the timed
 interpreter. Production sources and included plugin implementations are unchanged.
 
+For a worked numerical example and a plain-language explanation of the parser,
+callback and JavaScript loop, see [What Fold does](FOLD-WALKTHROUGH.md).
+
 ## A usable convention
 
 ```rix

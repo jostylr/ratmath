@@ -1,0 +1,16 @@
+{
+  "name": "clean-environment-reruns",
+  "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+  "command": [
+    "bun",
+    "test",
+    "--timeout",
+    "60000",
+    "tests/runtime/async-stream-local-fixtures.test.js",
+    "tests/cli/renderer-export.test.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 14.508011333062313,
+  "passed": 13,
+  "failed": 0
+}

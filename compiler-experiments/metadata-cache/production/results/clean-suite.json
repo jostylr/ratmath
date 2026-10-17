@@ -1,0 +1,13 @@
+{
+  "name": "clean-suite",
+  "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+  "command": [
+    "bun",
+    "run",
+    "test:suite"
+  ],
+  "exitCode": 1,
+  "wallSeconds": 546.7823922910029,
+  "passed": 3677,
+  "failed": 2
+}

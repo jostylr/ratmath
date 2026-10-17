@@ -1,0 +1,2 @@
+Optional PDF and PNG host renderers passed.
+Portable runtime passed on Node 26.12.0: modules, plugins, async/cancellation, CLI/REPL, editor tools, static/live publication.

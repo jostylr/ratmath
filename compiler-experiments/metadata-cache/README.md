@@ -1,5 +1,10 @@
 # Immutable plugin operator metadata cache
 
+**Promoted:** RiX commit `e7381fe` now contains the cache. See
+[production validation and broader results](production/README.md). The measurements
+below describe the preceding isolated experiment. The builder can still reconstruct
+an uncached control from current production, entirely within its copied sources.
+
 Experimental copied RiX only; production source and core arithmetic are unchanged.
 Bun 1.4.3 / Node 26.12.0, Apple M4 Pro / macOS ARM64, October 17, 2026.
 

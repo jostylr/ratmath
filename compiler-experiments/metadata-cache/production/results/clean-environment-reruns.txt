@@ -1,0 +1,23 @@
+bun test v1.4.3 (c6da4a4d3)
+
+tests/runtime/async-stream-local-fixtures.test.js:
+(pass) local file stream enforces real roots and closes early with byte-bounded reads [7.61ms]
+(pass) loopback HTTP and WebSocket services retain message order and reject redirects [6.04ms]
+
+tests/cli/renderer-export.test.js:
+(pass) CLI renderer export > the exact polynomial example prints quotient, remainder, and synthetic Grid [556.29ms]
+(pass) CLI renderer export > the terminal ASCII example prints synthetic division and a small plot [646.12ms]
+(pass) CLI renderer export > the LaTeX publication example includes exact synthetic division [498.61ms]
+(pass) CLI renderer export > the polynomial transparency fixture remains close across SVG rasterizers [1351.75ms]
+(pass) CLI renderer export > the mathematical timeline fixture exports two timed GIF frames [602.39ms]
+(pass) CLI renderer export > Quarto writes external SVG assets and optionally compiles the QMD [5064.78ms]
+(pass) CLI renderer export > the PDF fixture renders one nonblank letter-size page [2108.54ms]
+(pass) CLI renderer export > the numbered document example exports resolved Markdown and HTML references [697.83ms]
+(pass) CLI renderer export > the 4D example exports a Scene3D snapshot and embedded glTF [1046.29ms]
+(pass) CLI renderer export > .Out selects loaded text/vector renderers by extension [424.53ms]
+(pass) CLI renderer export > PNG/PDF adapters emit original binary files when host tools are available [1417.65ms]
+
+ 13 pass
+ 0 fail
+ 78 expect() calls
+Ran 13 tests across 2 files. [14.49s]

@@ -1,0 +1,2 @@
+Optional PDF and PNG host renderers passed.
+Portable runtime passed on Bun 1.4.3: modules, plugins, async/cancellation, CLI/REPL, editor tools, static/live publication.

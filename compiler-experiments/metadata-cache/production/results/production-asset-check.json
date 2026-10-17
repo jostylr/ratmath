@@ -1,0 +1,13 @@
+{
+  "name": "production-asset-check",
+  "cwd": "/Users/jostylr/ai-repos/ratmath/rix",
+  "command": [
+    "node",
+    "scripts/build-live-runtime.js",
+    "--check"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 0.22590816696174443,
+  "passed": 0,
+  "failed": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "clean-portable-node",
+  "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+  "command": [
+    "node",
+    "scripts/check-portable-runtime.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 8.261301249964163,
+  "passed": 0,
+  "failed": 0
+}

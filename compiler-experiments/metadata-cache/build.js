@@ -24,6 +24,28 @@ for(const variant of ['baseline','cached']) {
  for(const f of ['src','tests','plugins','examples','bin','package.json'])await cp(resolve(root,'rix',f),resolve(rix,f),{recursive:true});
  await mkdir(resolve(env,'node_modules/@ratmath'),{recursive:true});await symlink('../../packages/core',resolve(env,'node_modules/@ratmath/core'));
  for(const e of await readdir(resolve(root,'node_modules'),{withFileTypes:true}))if(!['@ratmath','.bin'].includes(e.name))await symlink(resolve(root,'node_modules',e.name),resolve(env,'node_modules',e.name));
+ // Production now uses the promoted cache. Reconstruct only the uncached
+ // catalog call in each isolated control before applying the historical
+ // experimental helper. Keep every other current production source unchanged.
+ const catalogPath=resolve(rix,'src/runtime/plugin-catalog.js');
+ let catalogSource=await readFile(catalogPath,'utf8');
+ const promotedImport='import { cachedPluginOperatorDefinitions } from "./plugin-operator-cache.js";\n';
+ if(catalogSource.includes(promotedImport)) {
+  catalogSource=catalogSource.replace(promotedImport,'');
+  const importAnchor='import {\n    mergeOperatorDefinitions,';
+  assert.ok(catalogSource.includes(importAnchor),'Promoted cache import changed');
+  catalogSource=catalogSource.replace(importAnchor,'import {\n    extractOperatorDeclarationsFromSource,\n    mergeOperatorDefinitions,');
+  const call=`cachedPluginOperatorDefinitions(source, {
+                label: sourcePath,
+                owner: { pluginId: metadata.id, mount: metadata.mount || null },
+            })`;
+  assert.equal(catalogSource.split(call).length,2,'Promoted cache call changed');
+  catalogSource=catalogSource.replace(call,`Array.from(extractOperatorDeclarationsFromSource(source, {
+                label: sourcePath,
+                owner: { pluginId: metadata.id, mount: metadata.mount || null },
+            }).values())`);
+  await writeFile(catalogPath,catalogSource);
+ }
  if(variant==='cached') {
   const path=resolve(rix,'src/runtime/plugin-catalog.js');let source=await readFile(path,'utf8');
   const anchor=`Array.from(extractOperatorDeclarationsFromSource(source, {

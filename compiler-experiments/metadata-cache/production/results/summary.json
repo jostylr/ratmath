@@ -1,0 +1,106 @@
+{
+  "rixCommit": "e7381fe",
+  "date": "2026-10-17",
+  "records": [
+    {
+      "name": "clean-environment-reruns",
+      "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+      "command": [
+        "bun",
+        "test",
+        "--timeout",
+        "60000",
+        "tests/runtime/async-stream-local-fixtures.test.js",
+        "tests/cli/renderer-export.test.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 14.508011333062313,
+      "passed": 13,
+      "failed": 0
+    },
+    {
+      "name": "clean-portable-bun",
+      "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+      "command": [
+        "bun",
+        "scripts/check-portable-runtime.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 7.411038874997757,
+      "passed": 0,
+      "failed": 0
+    },
+    {
+      "name": "clean-portable-node",
+      "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+      "command": [
+        "node",
+        "scripts/check-portable-runtime.js"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 8.261301249964163,
+      "passed": 0,
+      "failed": 0
+    },
+    {
+      "name": "clean-suite",
+      "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+      "command": [
+        "bun",
+        "run",
+        "test:suite"
+      ],
+      "exitCode": 1,
+      "wallSeconds": 546.7823922910029,
+      "passed": 3677,
+      "failed": 2
+    },
+    {
+      "name": "production-asset-check",
+      "cwd": "/Users/jostylr/ai-repos/ratmath/rix",
+      "command": [
+        "node",
+        "scripts/build-live-runtime.js",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 0.22590816696174443,
+      "passed": 0,
+      "failed": 0
+    },
+    {
+      "name": "production-ci",
+      "cwd": "/Users/jostylr/ai-repos/ratmath/rix",
+      "command": [
+        "bun",
+        "run",
+        "test:ci"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 59.74140470800921,
+      "passed": 2213,
+      "failed": 0
+    },
+    {
+      "name": "production-plugin-source-check",
+      "cwd": "/Users/jostylr/ai-repos/ratmath/rix",
+      "command": [
+        "node",
+        "scripts/generate-plugin-sources.js",
+        "--check"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 0.09281983296386898,
+      "passed": 0,
+      "failed": 0
+    }
+  ],
+  "fullSuiteNote": "Initial restricted run: 3677 pass, 2 environmental failures; both affected files pass on rerun (13 tests) with loopback access and a task-local installed-font mapping.",
+  "preexistingSourceEditsPreserved": true,
+  "directLoopRuntimePromoted": false,
+  "environmentOverrides": {
+    "initialFullSuite": "Restricted runner; no font mapping.",
+    "affectedFilesRerun": "Loopback server access plus task-local MAGICK_CONFIGURE_PATH using installed Helvetica.",
+    "productionCI": "Normal local test access plus the same task-local font mapping."
+  }
+}

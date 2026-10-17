@@ -1,0 +1,12 @@
+{
+  "name": "clean-portable-bun",
+  "cwd": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/metadata-production/clean/rix",
+  "command": [
+    "bun",
+    "scripts/check-portable-runtime.js"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 7.411038874997757,
+  "passed": 0,
+  "failed": 0
+}
