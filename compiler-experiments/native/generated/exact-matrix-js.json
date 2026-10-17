@@ -1,0 +1,43 @@
+{
+  "spec": {
+    "name": "exact-matrix",
+    "execution": "native",
+    "numeric": "exact-rational",
+    "pattern": "matrix-reduce",
+    "expression": "x*y"
+  },
+  "ir": {
+    "fn": "MUL",
+    "args": [
+      {
+        "fn": "RETRIEVE",
+        "args": [
+          "x"
+        ],
+        "pos": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "fn": "RETRIEVE",
+        "args": [
+          "y"
+        ],
+        "pos": [
+          2,
+          2,
+          3
+        ]
+      }
+    ],
+    "pos": [
+      0,
+      0,
+      1
+    ]
+  },
+  "core": "\nconst t0 = x.multiply(y);\nreturn t0;",
+  "fused": "const t0n = (x.numerator)*(y.numerator), t0d = (x.denominator)*(y.denominator);\nreturn new Rational(t0n, t0d);"
+}

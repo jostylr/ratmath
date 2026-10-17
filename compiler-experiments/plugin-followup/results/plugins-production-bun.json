@@ -1,0 +1,194 @@
+{
+  "timestamp": "2026-10-17T16:12:47.865Z",
+  "variant": "production",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "loadMs": 166.16816700000004,
+  "fingerprints": {
+    "core/src/rational.js": "21ac45a109dfb2c71a5c69ff83abc717f6b2ef63fccd79c2b59e1c248926e5f8",
+    "core/src/integer.js": "e3b5d02045fe0ca66b421931739d470dc5ba14b5e044fee28154df1a8155f4d9",
+    "rix/plugins/poly/poly.plugin.rix": "6fb04193af5b8e6adfb8c949ddf166cbf0ddf4c8a1db0ddf178fc639aed65b7d",
+    "rix/plugins/stats/stats.plugin.rix": "af723fba5f132c7bca7f6aafad87e572b4fefabdcf739bd3c6be1c6b035c14a4",
+    "rix/src/runtime/cell.js": "7e0a51d80c24044a780a09c430376daf371889bb70737ac074f0913f94086c3d",
+    "rix/src/runtime/methods.js": "af4d27c05e89e20d773657658250d72f71d3d5ca04cb05bd04cb7100d295327f",
+    "rix/src/eval/registry.js": "94aeec9a3452bfdce00ed606b78e932965e5abedaf25a8620311d331c4adc81e"
+  },
+  "methodology": "3 warmup batches, 9 alternating measurement rounds; parsing/loading excluded; every value checked outside timer. Direct JS omits RiX dispatch/captures/budgets/metadata; opportunity ratio only.",
+  "results": [
+    {
+      "name": "poly internal Horner, degree 19 Integer",
+      "source": "PolyEvaluateAscending(coeff, 2);",
+      "expected": "19922945",
+      "expectedClass": "Integer",
+      "repetitions": {
+        "rix": 20,
+        "js": 1000
+      },
+      "samplesMs": {
+        "rix": [
+          0.9080562499999985,
+          0.9392707999999971,
+          0.8596375000000023,
+          0.886183299999999,
+          0.8472166499999958,
+          0.883850000000001,
+          0.8218250000000011,
+          0.868727050000001,
+          0.830389550000001
+        ],
+        "js": [
+          0.0005450829999999769,
+          0.0004954169999999749,
+          0.00027670900000009626,
+          0.0002603749999999536,
+          0.0002783329999999751,
+          0.00022195800000008602,
+          0.0002616659999999911,
+          0.00022766699999999672,
+          0.0002600830000000087
+        ]
+      },
+      "rixMs": 0.868727050000001,
+      "jsMs": 0.0002616659999999911,
+      "opportunityRatio": 3319.9844458203615
+    },
+    {
+      "name": "poly public callable, degree 19 exact",
+      "source": "P(2);",
+      "expected": "19922945",
+      "expectedClass": "Rational",
+      "repetitions": {
+        "rix": 20,
+        "js": 1000
+      },
+      "samplesMs": {
+        "rix": [
+          1.247399999999999,
+          1.1584249999999998,
+          1.1842666500000008,
+          1.161706250000003,
+          1.2406728999999985,
+          1.147493750000001,
+          1.1279520500000046,
+          1.1265917000000059,
+          1.127100000000007
+        ],
+        "js": [
+          0.0018117919999999686,
+          0.002470083999999929,
+          0.00189654100000007,
+          0.002712625000000003,
+          0.001778415999999993,
+          0.0023957090000000106,
+          0.0017498339999999645,
+          0.0016821669999999359,
+          0.001873166000000083
+        ]
+      },
+      "rixMs": 1.1584249999999998,
+      "jsMs": 0.001873166000000083,
+      "opportunityRatio": 618.4315752047328
+    },
+    {
+      "name": "poly public callable, degree 7 Rational",
+      "source": "F(7/5);",
+      "expected": "51709081/2812500",
+      "expectedClass": "Rational",
+      "repetitions": {
+        "rix": 20,
+        "js": 1000
+      },
+      "samplesMs": {
+        "rix": [
+          0.48131249999999,
+          0.5002978999999982,
+          0.4963250000000016,
+          0.5021937500000035,
+          0.4884999999999991,
+          0.5101312499999949,
+          0.46099164999999404,
+          0.46043544999999997,
+          0.45713124999999766
+        ],
+        "js": [
+          0.002478250000000116,
+          0.001800999999999931,
+          0.0028347499999999853,
+          0.0019444999999998344,
+          0.0019750000000001364,
+          0.0025249170000001867,
+          0.0019724589999998445,
+          0.0026020419999999832,
+          0.0019767910000000485
+        ]
+      },
+      "rixMs": 0.4884999999999991,
+      "jsMs": 0.0019767910000000485,
+      "opportunityRatio": 247.1176770837115
+    },
+    {
+      "name": "stats public Mean, 64 Rationals",
+      "source": ".stats.Mean(values);",
+      "expected": "65/14",
+      "expectedClass": "Rational",
+      "repetitions": {
+        "rix": 10,
+        "js": 1000
+      },
+      "samplesMs": {
+        "rix": [
+          2.974066700000003,
+          2.896637499999997,
+          2.8019915999999965,
+          2.7556500000000144,
+          2.6785916000000043,
+          2.760941600000001,
+          2.9104042000000163,
+          2.8230334000000084,
+          2.701691699999992
+        ],
+        "js": [
+          0.004560083000000077,
+          0.005352541999999858,
+          0.004929499999999962,
+          0.004397625000000062,
+          0.004611292000000049,
+          0.004990833000000066,
+          0.004596041000000014,
+          0.0051083750000000235,
+          0.00519662500000004
+        ]
+      },
+      "rixMs": 2.8019915999999965,
+      "jsMs": 0.004929499999999962,
+      "opportunityRatio": 568.4129424890999
+    }
+  ]
+}

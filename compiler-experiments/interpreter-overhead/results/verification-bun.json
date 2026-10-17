@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-17T12:53:39.664Z",
+  "runtime": "bun",
+  "polynomialCases": 168,
+  "variants": [
+    "control",
+    "copy",
+    "literals"
+  ],
+  "comparisons": 580,
+  "checks": "Exact types/values, input mutation, fresh copy identity, shallow/deep metadata and aliases, intervals, subclasses/field/prototype overrides, formatting/JSON, fresh literals and parser fallback, trace, loop budgets, live registry overrides and async evaluation",
+  "passed": true
+}

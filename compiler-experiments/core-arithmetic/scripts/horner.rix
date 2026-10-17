@@ -1,0 +1,7 @@
+## Coefficients are highest degree first. Ordinary exploratory RiX algorithm.
+Horner(coefficients,x) -> {@ r=0-0,i=1;
+  i<=coefficients.Len();
+  r:=r*x+coefficients.Get(i),i+=1;
+  ;r};
+Run(coefficients,points) -> points.Map((x)->Horner(@coefficients,x));
+Run(coefficients,points);

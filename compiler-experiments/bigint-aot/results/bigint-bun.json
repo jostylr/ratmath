@@ -1,0 +1,451 @@
+{
+  "timestamp": "2026-10-13T13:36:11.921Z",
+  "runtime": "bun",
+  "versions": {
+    "node": "26.3.0",
+    "bun": "1.4.0",
+    "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+    "openssl": "1.1.0",
+    "llhttp": "9.3.0",
+    "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+    "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+    "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+    "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+    "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "modules": "147"
+  },
+  "machine": {
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0",
+    "cpu": "Apple M4 Pro"
+  },
+  "methodology": {
+    "rounds": 9,
+    "warmups": 3,
+    "order": "rotated",
+    "timings": "whole batch; guarded inputs, unboxing and Integer/sequence outputs except raw diagnostic",
+    "compilation": "excluded and recorded separately",
+    "tuningRounds": 3
+  },
+  "workload": {
+    "count": 24,
+    "bits": 2048,
+    "exponentBits": 1024,
+    "seed": 591751049
+  },
+  "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "outputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+  "setup": [
+    {
+      "peepholes": false,
+      "compileIncludingParseMs": 1.0865830000000187,
+      "importMs": 0.455332999999996,
+      "sourceHash": "fb61a5da460e30a0680f7e580f2949c1a0572ebed11ef33c39843253d90ce794",
+      "generatedHash": "5e2ccbba1cb550e6791b55d56063e3b296304bc76071716a1d3f9ac2e8c83c75",
+      "specializations": 2
+    },
+    {
+      "peepholes": true,
+      "compileIncludingParseMs": 0.37637499999993906,
+      "importMs": 0.18500000000005912,
+      "sourceHash": "fb61a5da460e30a0680f7e580f2949c1a0572ebed11ef33c39843253d90ce794",
+      "generatedHash": "b8f20d1116654afd2b62342e7630209be8118877fc0a01d7f5d5f92b5a946004",
+      "specializations": 2
+    }
+  ],
+  "parseSamples": [
+    0.26099999999996726,
+    0.21195800000009513,
+    0.18762500000002547,
+    0.17674999999997,
+    0.19395799999995234
+  ],
+  "training": [
+    {
+      "algorithm": "binary",
+      "ms": [
+        30.090458000000126,
+        29.54083300000002,
+        30.1532500000003
+      ]
+    },
+    {
+      "algorithm": "window-1",
+      "ms": [
+        30.37808300000006,
+        28.959499999999935,
+        30.107915999999932
+      ]
+    },
+    {
+      "algorithm": "window-2",
+      "ms": [
+        26.27779099999998,
+        25.851291000000174,
+        26.52883399999996
+      ]
+    },
+    {
+      "algorithm": "window-3",
+      "ms": [
+        24.564333999999917,
+        24.596000000000004,
+        24.996374999999944
+      ]
+    },
+    {
+      "algorithm": "window-4",
+      "ms": [
+        24.222667,
+        23.623792000000094,
+        23.975417000000107
+      ]
+    },
+    {
+      "algorithm": "window-5",
+      "ms": [
+        23.17616699999985,
+        23.544332999999824,
+        24.36658299999999
+      ]
+    },
+    {
+      "algorithm": "window-6",
+      "ms": [
+        22.705208999999968,
+        22.783916999999974,
+        23.395749999999907
+      ]
+    },
+    {
+      "algorithm": "montgomery-1",
+      "ms": [
+        45.71291700000006,
+        44.91404199999988,
+        45.54770800000006
+      ]
+    },
+    {
+      "algorithm": "montgomery-2",
+      "ms": [
+        40.45616699999982,
+        40.26424999999995,
+        40.252709000000095
+      ]
+    },
+    {
+      "algorithm": "montgomery-3",
+      "ms": [
+        37.166749999999865,
+        37.53108299999985,
+        37.13362499999994
+      ]
+    },
+    {
+      "algorithm": "montgomery-4",
+      "ms": [
+        37.01645899999994,
+        35.83837500000004,
+        35.92204099999981
+      ]
+    },
+    {
+      "algorithm": "montgomery-5",
+      "ms": [
+        35.85458300000005,
+        34.80170799999996,
+        34.900290999999925
+      ]
+    }
+  ],
+  "selected": "window-6",
+  "provenance": {
+    "compiler.js": "a7855392a140241db89e8c28757fba57f741c679023b322292a8cac5cab0d642",
+    "bench.js": "526bb2e3762e4b0d8f949509a99aeb402ee0cc2b6554a47c8361e2c82e4bc31a",
+    "../whole-scripts/scripts/modular-powers.rix": "fb61a5da460e30a0680f7e580f2949c1a0572ebed11ef33c39843253d90ce794",
+    "../whole-scripts/optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "../whole-scripts/workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb"
+  },
+  "results": [
+    {
+      "name": "interpreted RiX",
+      "medianMs": 1588.7034590000003,
+      "minMs": 1560.7526669999997,
+      "maxMs": 1628.6058329999978,
+      "samples": [
+        {
+          "wallMs": 1560.7526669999997,
+          "cpuMs": 1679.931
+        },
+        {
+          "wallMs": 1561.0768750000007,
+          "cpuMs": 1673.347
+        },
+        {
+          "wallMs": 1578.7346249999991,
+          "cpuMs": 1711.163
+        },
+        {
+          "wallMs": 1575.914166999999,
+          "cpuMs": 1684.529
+        },
+        {
+          "wallMs": 1588.7034590000003,
+          "cpuMs": 1691.949
+        },
+        {
+          "wallMs": 1591.9359999999997,
+          "cpuMs": 1709.736
+        },
+        {
+          "wallMs": 1606.020583999998,
+          "cpuMs": 1715.404
+        },
+        {
+          "wallMs": 1628.6058329999978,
+          "cpuMs": 1748.548
+        },
+        {
+          "wallMs": 1626.1333330000016,
+          "cpuMs": 1739.28
+        }
+      ]
+    },
+    {
+      "name": "compiled BigInt",
+      "medianMs": 31.502874999998312,
+      "minMs": 30.984833000000435,
+      "maxMs": 32.07849999999962,
+      "samples": [
+        {
+          "wallMs": 31.89220899999964,
+          "cpuMs": 32.753
+        },
+        {
+          "wallMs": 31.191875000000437,
+          "cpuMs": 32.618
+        },
+        {
+          "wallMs": 30.984833000000435,
+          "cpuMs": 31.513
+        },
+        {
+          "wallMs": 31.413957999999184,
+          "cpuMs": 32.082
+        },
+        {
+          "wallMs": 32.07849999999962,
+          "cpuMs": 32.731
+        },
+        {
+          "wallMs": 31.376124999998865,
+          "cpuMs": 32.092
+        },
+        {
+          "wallMs": 31.658166999997775,
+          "cpuMs": 31.942
+        },
+        {
+          "wallMs": 31.502874999998312,
+          "cpuMs": 32.063
+        },
+        {
+          "wallMs": 31.829499999999825,
+          "cpuMs": 32.634
+        }
+      ]
+    },
+    {
+      "name": "compiled BigInt + peepholes",
+      "medianMs": 30.060292000000118,
+      "minMs": 29.926124999999956,
+      "maxMs": 30.88129100000151,
+      "samples": [
+        {
+          "wallMs": 29.926124999999956,
+          "cpuMs": 30.256
+        },
+        {
+          "wallMs": 30.252042000000074,
+          "cpuMs": 30.576
+        },
+        {
+          "wallMs": 30.43025000000125,
+          "cpuMs": 30.846
+        },
+        {
+          "wallMs": 30.060292000000118,
+          "cpuMs": 30.35
+        },
+        {
+          "wallMs": 29.95929199999955,
+          "cpuMs": 30.372
+        },
+        {
+          "wallMs": 29.941124999997555,
+          "cpuMs": 30.236
+        },
+        {
+          "wallMs": 30.045249999999214,
+          "cpuMs": 30.848
+        },
+        {
+          "wallMs": 30.42254099999991,
+          "cpuMs": 30.682
+        },
+        {
+          "wallMs": 30.88129100000151,
+          "cpuMs": 31.584
+        }
+      ]
+    },
+    {
+      "name": "handwritten binary",
+      "medianMs": 30.11345799999981,
+      "minMs": 29.81537500000013,
+      "maxMs": 31.063583999999537,
+      "samples": [
+        {
+          "wallMs": 29.81537500000013,
+          "cpuMs": 30.186
+        },
+        {
+          "wallMs": 29.904292000001078,
+          "cpuMs": 30.709
+        },
+        {
+          "wallMs": 31.063583999999537,
+          "cpuMs": 31.905
+        },
+        {
+          "wallMs": 30.396875000000364,
+          "cpuMs": 30.707
+        },
+        {
+          "wallMs": 30.11345799999981,
+          "cpuMs": 30.647
+        },
+        {
+          "wallMs": 29.977083000001585,
+          "cpuMs": 30.461
+        },
+        {
+          "wallMs": 30.081333000001905,
+          "cpuMs": 30.352
+        },
+        {
+          "wallMs": 30.2310839999991,
+          "cpuMs": 30.808
+        },
+        {
+          "wallMs": 30.628292000001238,
+          "cpuMs": 30.827
+        }
+      ]
+    },
+    {
+      "name": "hand-tuned window-6",
+      "medianMs": 23.274750000000495,
+      "minMs": 22.86383300000307,
+      "maxMs": 23.805333000000246,
+      "samples": [
+        {
+          "wallMs": 23.534041999999317,
+          "cpuMs": 24.056
+        },
+        {
+          "wallMs": 23.291833000001134,
+          "cpuMs": 23.726
+        },
+        {
+          "wallMs": 23.08166700000038,
+          "cpuMs": 23.89
+        },
+        {
+          "wallMs": 23.297874999998385,
+          "cpuMs": 23.809
+        },
+        {
+          "wallMs": 22.964375000001382,
+          "cpuMs": 23.541
+        },
+        {
+          "wallMs": 23.07012499999837,
+          "cpuMs": 23.469
+        },
+        {
+          "wallMs": 23.274750000000495,
+          "cpuMs": 23.931
+        },
+        {
+          "wallMs": 22.86383300000307,
+          "cpuMs": 22.865
+        },
+        {
+          "wallMs": 23.805333000000246,
+          "cpuMs": 24.425
+        }
+      ]
+    },
+    {
+      "name": "compiled raw diagnostic",
+      "medianMs": 30.183583,
+      "minMs": 29.649375000000873,
+      "maxMs": 31.014875000000757,
+      "samples": [
+        {
+          "wallMs": 30.183583,
+          "cpuMs": 30.775
+        },
+        {
+          "wallMs": 29.649375000000873,
+          "cpuMs": 29.912
+        },
+        {
+          "wallMs": 29.802999999999884,
+          "cpuMs": 30.075
+        },
+        {
+          "wallMs": 30.464874999999665,
+          "cpuMs": 31.157
+        },
+        {
+          "wallMs": 30.3142080000016,
+          "cpuMs": 30.579
+        },
+        {
+          "wallMs": 30.071500000000015,
+          "cpuMs": 30.843
+        },
+        {
+          "wallMs": 30.168249999998807,
+          "cpuMs": 30.581
+        },
+        {
+          "wallMs": 30.337416999998823,
+          "cpuMs": 30.972
+        },
+        {
+          "wallMs": 31.014875000000757,
+          "cpuMs": 31.953
+        }
+      ]
+    }
+  ]
+}

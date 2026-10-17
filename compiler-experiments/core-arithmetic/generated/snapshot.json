@@ -1,0 +1,12 @@
+{
+  "source": "packages/core/src/rational.js",
+  "originalHash": "63c02f2fdb0d7a1a7b649d76b6f4d3b5357f0fbac6cdd7f44beabb9170d21ff1",
+  "baselineHash": "4d324827607fb9a7ca3cf6a446c4c04ee677be8173a4831131846e74620777e9",
+  "candidateHash": "0daad5abbd6e010e8395154eb20622d12ec8217703ff324a3e11655f1e0f3ddc",
+  "changes": [
+    "Imports redirected to experiment support",
+    "Candidate overrides four arithmetic methods for Integer/Rational pairs",
+    "Private fromReduced factory allocates a zero Rational and sets proven canonical fields; lazy caches start empty"
+  ],
+  "warning": "Snapshot classes are distinct from production Rational. These are prototypes for changes inside core, not drop-in objects for the current core API."
+}

@@ -1,0 +1,12 @@
+FizzBuzz batches: 1000 values, 9 timed rounds, 3 warmups
+Setup and RiX parsing/lowering are excluded; the anonymous group is constructed by its timed expression.
+Native JavaScript uses Number; RatMath core and RiX use exact integers. RiX also includes evaluator and map-pipe overhead.
+| language | form | median ms/batch | min–max ms/batch |
+|---|---|---:|---:|
+| RiX | ternary | 2.742 | 2.504–3.635 |
+| RiX | named multifunction | 3.894 | 3.230–4.718 |
+| RiX | anonymous multifunction | 3.592 | 2.929–4.125 |
+| RiX | case block | 3.046 | 2.486–3.417 |
+| JavaScript | if/return | 0.004 | 0.004–0.009 |
+| JavaScript | nested ternary | 0.005 | 0.004–0.009 |
+| JavaScript + RatMath core | Integer if/return | 0.046 | 0.032–0.064 |

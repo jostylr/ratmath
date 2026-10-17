@@ -1,0 +1,2 @@
+NativeReference(left,right,n) -> {@ <left,right,n> k=1,total=0; k<=n;
+    x := left[k], y := right[k], total += ((((x * x) + (2 * x)) + 1) + y); k+=1; total };

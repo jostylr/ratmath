@@ -1,0 +1,127 @@
+{
+  "spec": {
+    "name": "fused-reduction",
+    "execution": "native",
+    "numeric": "exact-rational",
+    "pattern": "map-reduce",
+    "expression": "x*x + 2*x + 1 + y"
+  },
+  "ir": {
+    "fn": "ADD",
+    "args": [
+      {
+        "fn": "ADD",
+        "args": [
+          {
+            "fn": "ADD",
+            "args": [
+              {
+                "fn": "MUL",
+                "args": [
+                  {
+                    "fn": "RETRIEVE",
+                    "args": [
+                      "x"
+                    ],
+                    "pos": [
+                      0,
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "fn": "RETRIEVE",
+                    "args": [
+                      "x"
+                    ],
+                    "pos": [
+                      2,
+                      2,
+                      3
+                    ]
+                  }
+                ],
+                "pos": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              {
+                "fn": "MUL",
+                "args": [
+                  {
+                    "fn": "LITERAL",
+                    "args": [
+                      "2"
+                    ],
+                    "pos": [
+                      5,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "fn": "RETRIEVE",
+                    "args": [
+                      "x"
+                    ],
+                    "pos": [
+                      8,
+                      8,
+                      9
+                    ]
+                  }
+                ],
+                "pos": [
+                  5,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "pos": [
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "fn": "LITERAL",
+            "args": [
+              "1"
+            ],
+            "pos": [
+              11,
+              12,
+              13
+            ]
+          }
+        ],
+        "pos": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "fn": "RETRIEVE",
+        "args": [
+          "y"
+        ],
+        "pos": [
+          15,
+          16,
+          17
+        ]
+      }
+    ],
+    "pos": [
+      0,
+      0,
+      1
+    ]
+  },
+  "core": "const c0=constants[0];\nconst c1=constants[1];\nconst t0 = x.multiply(x);\nconst t1 = c0.multiply(x);\nconst t2 = t0.add(t1);\nconst t3 = t2.add(c1);\nconst t4 = t3.add(y);\nreturn t4;",
+  "fused": "const t0n = (x.numerator)*(x.numerator), t0d = (x.denominator)*(x.denominator);\nconst t1n = (2n)*(x.numerator), t1d = (1n)*(x.denominator);\nconst t2n = (t0n)*(t1d) + (t1n)*(t0d), t2d = (t0d)*(t1d);\nconst t3n = (t2n)*(1n) + (1n)*(t2d), t3d = (t2d)*(1n);\nconst t4n = (t3n)*(y.denominator) + (y.numerator)*(t3d), t4d = (t3d)*(y.denominator);\nreturn new Rational(t4n, t4d);"
+}

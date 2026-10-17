@@ -1,0 +1,44 @@
+{
+  "differentialExpressions": 574,
+  "runtimes": [
+    "Bun 1.4.0",
+    "Node 26.10.0"
+  ],
+  "packageResolution": "Every RiX tree resolves its own core; literals, intervals and type promotion share local classes",
+  "production": "No production code or dependency links modified",
+  "controlledComparisons": {
+    "baselineCore": "byte-identical source copy",
+    "candidateRiX": "byte-identical to baseline RiX",
+    "candidateCores": "identical for core-only and wired environments",
+    "wiredRiXChanges": [
+      "src/eval/functions/arithmetic.js"
+    ]
+  },
+  "coreTests": {
+    "baseline": 555,
+    "candidate": 555,
+    "failures": 0
+  },
+  "focusedRiXTests": {
+    "baseline": 90,
+    "candidate": 90,
+    "candidate-wired": 90,
+    "failures": 0
+  },
+  "inputDigest": "b0c4922d5d2414b8c781d50abf48a79c3a77a35117f091d8c0272db90d9cc9d3",
+  "expectedDigests": {
+    "integer-horner": "fe1cad9701950a12b125b6f141da86cd4bfc2e5b7c9ef79da78d8aa7481d26d8",
+    "rational-horner": "6e8d2ebc1cb8540751a3407cedaa00dd4f810e2faebd60d779efdfe135c089d6",
+    "rational-coefficients-horner": "8dfc612bc91b7b63b4f86be6cc79ede953bf2f7aeb24a67267dc1f26f71b52d4",
+    "larger-rational-horner": "96905005ee92725fa1793c273542d255246ddd60494bad4a0ee8aae175ce7dcb",
+    "zero-rational-horner": "4c5617af7ad5b0ab5e289fa56c6ae0475000d129b6477b60ec7c215a45ab0789",
+    "interval-horner": "2cf5d871f74af3ac13805fda35083d3c4abb4afad92179a9bac7a65227f2407b",
+    "mixed-rational-loop-256": "e7f8fb7a1bcc50dca52a934639f4e7abbcb575805277ec14cdf410246b3e147a",
+    "mixed-rational-loop-1024": "7d2c92b1b2946ddc95893f9634e224f31a73d2247e60a41c1420374208e36494",
+    "integer-division-inexact": "320155a14512d7e69db24d917316895ca02ca3054bb3c4d5f79360b95759ce67",
+    "integer-division-exact": "202b7adfafb662c142be6c73a98d69f03bea6b742911c16218c77004d8fecc8e",
+    "integer-modulo-inexact": "76dd4b43e31b75890bfd3fb7c89e8b63c7857604f309bb156899a81f857bf404",
+    "integer-modulo-exact": "839d2abdc22a80338e7dd8c21cc3f1f0a41aa0b2b7b41ed2de6099fb69e99b79",
+    "binary-modular-powers": "b8568f1b93471e10c2039d5b0f582cd04f90a68484a54800d178677689eb7cfb"
+  }
+}

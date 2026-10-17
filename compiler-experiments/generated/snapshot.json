@@ -1,0 +1,1305 @@
+[
+  {
+    "workload": "integer-small",
+    "source": "x*x + 2*x + 1",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    2,
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "LITERAL",
+                  "args": [
+                    "2"
+                  ],
+                  "pos": [
+                    5,
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    8,
+                    8,
+                    9
+                  ]
+                }
+              ],
+              "pos": [
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "LITERAL",
+          "args": [
+            "1"
+          ],
+          "pos": [
+            11,
+            12,
+            13
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([registry.get(\"LITERAL\").impl([\"2\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), registry.get(\"LITERAL\").impl([\"1\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([constants[0], registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), constants[1]], context);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "methods": {
+        "source": "return (((x).multiply(x)).add((constants[0]).multiply(x))).add(constants[1]);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "bigint": {
+        "source": "return (((x * x) + (2n * x)) + 1n);"
+      },
+      "wasmHex": "0061736d01000000010a0260017f017f60017f0003030200010503010001071b03066b65726e656c00000562617463680001066d656d6f727902000a43021000200020006c410220006c6a41016a0b3001017f02400340200120004f0d01200141046c4180086a200141046c2802001000360200200141016a21010c000b0b0b"
+    }
+  },
+  {
+    "workload": "integer-160bit",
+    "source": "x*x + 2*x + 1",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    2,
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "LITERAL",
+                  "args": [
+                    "2"
+                  ],
+                  "pos": [
+                    5,
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    8,
+                    8,
+                    9
+                  ]
+                }
+              ],
+              "pos": [
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "LITERAL",
+          "args": [
+            "1"
+          ],
+          "pos": [
+            11,
+            12,
+            13
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([registry.get(\"LITERAL\").impl([\"2\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), registry.get(\"LITERAL\").impl([\"1\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([constants[0], registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), constants[1]], context);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "methods": {
+        "source": "return (((x).multiply(x)).add((constants[0]).multiply(x))).add(constants[1]);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "bigint": {
+        "source": "return (((x * x) + (2n * x)) + 1n);"
+      }
+    }
+  },
+  {
+    "workload": "rational-small",
+    "source": "x*x + 2*x + 1",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    2,
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "LITERAL",
+                  "args": [
+                    "2"
+                  ],
+                  "pos": [
+                    5,
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    8,
+                    8,
+                    9
+                  ]
+                }
+              ],
+              "pos": [
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "LITERAL",
+          "args": [
+            "1"
+          ],
+          "pos": [
+            11,
+            12,
+            13
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([registry.get(\"LITERAL\").impl([\"2\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), registry.get(\"LITERAL\").impl([\"1\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([constants[0], registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), constants[1]], context);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "methods": {
+        "source": "return (((x).multiply(x)).add((constants[0]).multiply(x))).add(constants[1]);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      }
+    }
+  },
+  {
+    "workload": "rational-128bit",
+    "source": "x*x + 2*x + 1",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    2,
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "LITERAL",
+                  "args": [
+                    "2"
+                  ],
+                  "pos": [
+                    5,
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    8,
+                    8,
+                    9
+                  ]
+                }
+              ],
+              "pos": [
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "LITERAL",
+          "args": [
+            "1"
+          ],
+          "pos": [
+            11,
+            12,
+            13
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([registry.get(\"LITERAL\").impl([\"2\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), registry.get(\"LITERAL\").impl([\"1\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([constants[0], registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), constants[1]], context);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "methods": {
+        "source": "return (((x).multiply(x)).add((constants[0]).multiply(x))).add(constants[1]);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      }
+    }
+  },
+  {
+    "workload": "rational-add32",
+    "source": "x + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "ADD",
+              "args": [
+                {
+                  "fn": "ADD",
+                  "args": [
+                    {
+                      "fn": "ADD",
+                      "args": [
+                        {
+                          "fn": "ADD",
+                          "args": [
+                            {
+                              "fn": "ADD",
+                              "args": [
+                                {
+                                  "fn": "ADD",
+                                  "args": [
+                                    {
+                                      "fn": "ADD",
+                                      "args": [
+                                        {
+                                          "fn": "ADD",
+                                          "args": [
+                                            {
+                                              "fn": "ADD",
+                                              "args": [
+                                                {
+                                                  "fn": "ADD",
+                                                  "args": [
+                                                    {
+                                                      "fn": "ADD",
+                                                      "args": [
+                                                        {
+                                                          "fn": "ADD",
+                                                          "args": [
+                                                            {
+                                                              "fn": "ADD",
+                                                              "args": [
+                                                                {
+                                                                  "fn": "ADD",
+                                                                  "args": [
+                                                                    {
+                                                                      "fn": "ADD",
+                                                                      "args": [
+                                                                        {
+                                                                          "fn": "ADD",
+                                                                          "args": [
+                                                                            {
+                                                                              "fn": "ADD",
+                                                                              "args": [
+                                                                                {
+                                                                                  "fn": "ADD",
+                                                                                  "args": [
+                                                                                    {
+                                                                                      "fn": "ADD",
+                                                                                      "args": [
+                                                                                        {
+                                                                                          "fn": "ADD",
+                                                                                          "args": [
+                                                                                            {
+                                                                                              "fn": "ADD",
+                                                                                              "args": [
+                                                                                                {
+                                                                                                  "fn": "ADD",
+                                                                                                  "args": [
+                                                                                                    {
+                                                                                                      "fn": "ADD",
+                                                                                                      "args": [
+                                                                                                        {
+                                                                                                          "fn": "ADD",
+                                                                                                          "args": [
+                                                                                                            {
+                                                                                                              "fn": "ADD",
+                                                                                                              "args": [
+                                                                                                                {
+                                                                                                                  "fn": "ADD",
+                                                                                                                  "args": [
+                                                                                                                    {
+                                                                                                                      "fn": "ADD",
+                                                                                                                      "args": [
+                                                                                                                        {
+                                                                                                                          "fn": "ADD",
+                                                                                                                          "args": [
+                                                                                                                            {
+                                                                                                                              "fn": "ADD",
+                                                                                                                              "args": [
+                                                                                                                                {
+                                                                                                                                  "fn": "ADD",
+                                                                                                                                  "args": [
+                                                                                                                                    {
+                                                                                                                                      "fn": "RETRIEVE",
+                                                                                                                                      "args": [
+                                                                                                                                        "x"
+                                                                                                                                      ],
+                                                                                                                                      "pos": [
+                                                                                                                                        0,
+                                                                                                                                        0,
+                                                                                                                                        1
+                                                                                                                                      ]
+                                                                                                                                    },
+                                                                                                                                    {
+                                                                                                                                      "fn": "RETRIEVE",
+                                                                                                                                      "args": [
+                                                                                                                                        "step"
+                                                                                                                                      ],
+                                                                                                                                      "pos": [
+                                                                                                                                        3,
+                                                                                                                                        4,
+                                                                                                                                        8
+                                                                                                                                      ]
+                                                                                                                                    }
+                                                                                                                                  ],
+                                                                                                                                  "pos": [
+                                                                                                                                    0,
+                                                                                                                                    0,
+                                                                                                                                    1
+                                                                                                                                  ]
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "fn": "RETRIEVE",
+                                                                                                                                  "args": [
+                                                                                                                                    "step"
+                                                                                                                                  ],
+                                                                                                                                  "pos": [
+                                                                                                                                    10,
+                                                                                                                                    11,
+                                                                                                                                    15
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ],
+                                                                                                                              "pos": [
+                                                                                                                                0,
+                                                                                                                                0,
+                                                                                                                                1
+                                                                                                                              ]
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "fn": "RETRIEVE",
+                                                                                                                              "args": [
+                                                                                                                                "step"
+                                                                                                                              ],
+                                                                                                                              "pos": [
+                                                                                                                                17,
+                                                                                                                                18,
+                                                                                                                                22
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ],
+                                                                                                                          "pos": [
+                                                                                                                            0,
+                                                                                                                            0,
+                                                                                                                            1
+                                                                                                                          ]
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "fn": "RETRIEVE",
+                                                                                                                          "args": [
+                                                                                                                            "step"
+                                                                                                                          ],
+                                                                                                                          "pos": [
+                                                                                                                            24,
+                                                                                                                            25,
+                                                                                                                            29
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ],
+                                                                                                                      "pos": [
+                                                                                                                        0,
+                                                                                                                        0,
+                                                                                                                        1
+                                                                                                                      ]
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                      "fn": "RETRIEVE",
+                                                                                                                      "args": [
+                                                                                                                        "step"
+                                                                                                                      ],
+                                                                                                                      "pos": [
+                                                                                                                        31,
+                                                                                                                        32,
+                                                                                                                        36
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ],
+                                                                                                                  "pos": [
+                                                                                                                    0,
+                                                                                                                    0,
+                                                                                                                    1
+                                                                                                                  ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                  "fn": "RETRIEVE",
+                                                                                                                  "args": [
+                                                                                                                    "step"
+                                                                                                                  ],
+                                                                                                                  "pos": [
+                                                                                                                    38,
+                                                                                                                    39,
+                                                                                                                    43
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ],
+                                                                                                              "pos": [
+                                                                                                                0,
+                                                                                                                0,
+                                                                                                                1
+                                                                                                              ]
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "fn": "RETRIEVE",
+                                                                                                              "args": [
+                                                                                                                "step"
+                                                                                                              ],
+                                                                                                              "pos": [
+                                                                                                                45,
+                                                                                                                46,
+                                                                                                                50
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ],
+                                                                                                          "pos": [
+                                                                                                            0,
+                                                                                                            0,
+                                                                                                            1
+                                                                                                          ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "fn": "RETRIEVE",
+                                                                                                          "args": [
+                                                                                                            "step"
+                                                                                                          ],
+                                                                                                          "pos": [
+                                                                                                            52,
+                                                                                                            53,
+                                                                                                            57
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ],
+                                                                                                      "pos": [
+                                                                                                        0,
+                                                                                                        0,
+                                                                                                        1
+                                                                                                      ]
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "fn": "RETRIEVE",
+                                                                                                      "args": [
+                                                                                                        "step"
+                                                                                                      ],
+                                                                                                      "pos": [
+                                                                                                        59,
+                                                                                                        60,
+                                                                                                        64
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "pos": [
+                                                                                                    0,
+                                                                                                    0,
+                                                                                                    1
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "fn": "RETRIEVE",
+                                                                                                  "args": [
+                                                                                                    "step"
+                                                                                                  ],
+                                                                                                  "pos": [
+                                                                                                    66,
+                                                                                                    67,
+                                                                                                    71
+                                                                                                  ]
+                                                                                                }
+                                                                                              ],
+                                                                                              "pos": [
+                                                                                                0,
+                                                                                                0,
+                                                                                                1
+                                                                                              ]
+                                                                                            },
+                                                                                            {
+                                                                                              "fn": "RETRIEVE",
+                                                                                              "args": [
+                                                                                                "step"
+                                                                                              ],
+                                                                                              "pos": [
+                                                                                                73,
+                                                                                                74,
+                                                                                                78
+                                                                                              ]
+                                                                                            }
+                                                                                          ],
+                                                                                          "pos": [
+                                                                                            0,
+                                                                                            0,
+                                                                                            1
+                                                                                          ]
+                                                                                        },
+                                                                                        {
+                                                                                          "fn": "RETRIEVE",
+                                                                                          "args": [
+                                                                                            "step"
+                                                                                          ],
+                                                                                          "pos": [
+                                                                                            80,
+                                                                                            81,
+                                                                                            85
+                                                                                          ]
+                                                                                        }
+                                                                                      ],
+                                                                                      "pos": [
+                                                                                        0,
+                                                                                        0,
+                                                                                        1
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "fn": "RETRIEVE",
+                                                                                      "args": [
+                                                                                        "step"
+                                                                                      ],
+                                                                                      "pos": [
+                                                                                        87,
+                                                                                        88,
+                                                                                        92
+                                                                                      ]
+                                                                                    }
+                                                                                  ],
+                                                                                  "pos": [
+                                                                                    0,
+                                                                                    0,
+                                                                                    1
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "fn": "RETRIEVE",
+                                                                                  "args": [
+                                                                                    "step"
+                                                                                  ],
+                                                                                  "pos": [
+                                                                                    94,
+                                                                                    95,
+                                                                                    99
+                                                                                  ]
+                                                                                }
+                                                                              ],
+                                                                              "pos": [
+                                                                                0,
+                                                                                0,
+                                                                                1
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "fn": "RETRIEVE",
+                                                                              "args": [
+                                                                                "step"
+                                                                              ],
+                                                                              "pos": [
+                                                                                101,
+                                                                                102,
+                                                                                106
+                                                                              ]
+                                                                            }
+                                                                          ],
+                                                                          "pos": [
+                                                                            0,
+                                                                            0,
+                                                                            1
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "fn": "RETRIEVE",
+                                                                          "args": [
+                                                                            "step"
+                                                                          ],
+                                                                          "pos": [
+                                                                            108,
+                                                                            109,
+                                                                            113
+                                                                          ]
+                                                                        }
+                                                                      ],
+                                                                      "pos": [
+                                                                        0,
+                                                                        0,
+                                                                        1
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "fn": "RETRIEVE",
+                                                                      "args": [
+                                                                        "step"
+                                                                      ],
+                                                                      "pos": [
+                                                                        115,
+                                                                        116,
+                                                                        120
+                                                                      ]
+                                                                    }
+                                                                  ],
+                                                                  "pos": [
+                                                                    0,
+                                                                    0,
+                                                                    1
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "fn": "RETRIEVE",
+                                                                  "args": [
+                                                                    "step"
+                                                                  ],
+                                                                  "pos": [
+                                                                    122,
+                                                                    123,
+                                                                    127
+                                                                  ]
+                                                                }
+                                                              ],
+                                                              "pos": [
+                                                                0,
+                                                                0,
+                                                                1
+                                                              ]
+                                                            },
+                                                            {
+                                                              "fn": "RETRIEVE",
+                                                              "args": [
+                                                                "step"
+                                                              ],
+                                                              "pos": [
+                                                                129,
+                                                                130,
+                                                                134
+                                                              ]
+                                                            }
+                                                          ],
+                                                          "pos": [
+                                                            0,
+                                                            0,
+                                                            1
+                                                          ]
+                                                        },
+                                                        {
+                                                          "fn": "RETRIEVE",
+                                                          "args": [
+                                                            "step"
+                                                          ],
+                                                          "pos": [
+                                                            136,
+                                                            137,
+                                                            141
+                                                          ]
+                                                        }
+                                                      ],
+                                                      "pos": [
+                                                        0,
+                                                        0,
+                                                        1
+                                                      ]
+                                                    },
+                                                    {
+                                                      "fn": "RETRIEVE",
+                                                      "args": [
+                                                        "step"
+                                                      ],
+                                                      "pos": [
+                                                        143,
+                                                        144,
+                                                        148
+                                                      ]
+                                                    }
+                                                  ],
+                                                  "pos": [
+                                                    0,
+                                                    0,
+                                                    1
+                                                  ]
+                                                },
+                                                {
+                                                  "fn": "RETRIEVE",
+                                                  "args": [
+                                                    "step"
+                                                  ],
+                                                  "pos": [
+                                                    150,
+                                                    151,
+                                                    155
+                                                  ]
+                                                }
+                                              ],
+                                              "pos": [
+                                                0,
+                                                0,
+                                                1
+                                              ]
+                                            },
+                                            {
+                                              "fn": "RETRIEVE",
+                                              "args": [
+                                                "step"
+                                              ],
+                                              "pos": [
+                                                157,
+                                                158,
+                                                162
+                                              ]
+                                            }
+                                          ],
+                                          "pos": [
+                                            0,
+                                            0,
+                                            1
+                                          ]
+                                        },
+                                        {
+                                          "fn": "RETRIEVE",
+                                          "args": [
+                                            "step"
+                                          ],
+                                          "pos": [
+                                            164,
+                                            165,
+                                            169
+                                          ]
+                                        }
+                                      ],
+                                      "pos": [
+                                        0,
+                                        0,
+                                        1
+                                      ]
+                                    },
+                                    {
+                                      "fn": "RETRIEVE",
+                                      "args": [
+                                        "step"
+                                      ],
+                                      "pos": [
+                                        171,
+                                        172,
+                                        176
+                                      ]
+                                    }
+                                  ],
+                                  "pos": [
+                                    0,
+                                    0,
+                                    1
+                                  ]
+                                },
+                                {
+                                  "fn": "RETRIEVE",
+                                  "args": [
+                                    "step"
+                                  ],
+                                  "pos": [
+                                    178,
+                                    179,
+                                    183
+                                  ]
+                                }
+                              ],
+                              "pos": [
+                                0,
+                                0,
+                                1
+                              ]
+                            },
+                            {
+                              "fn": "RETRIEVE",
+                              "args": [
+                                "step"
+                              ],
+                              "pos": [
+                                185,
+                                186,
+                                190
+                              ]
+                            }
+                          ],
+                          "pos": [
+                            0,
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "fn": "RETRIEVE",
+                          "args": [
+                            "step"
+                          ],
+                          "pos": [
+                            192,
+                            193,
+                            197
+                          ]
+                        }
+                      ],
+                      "pos": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    {
+                      "fn": "RETRIEVE",
+                      "args": [
+                        "step"
+                      ],
+                      "pos": [
+                        199,
+                        200,
+                        204
+                      ]
+                    }
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "step"
+                  ],
+                  "pos": [
+                    206,
+                    207,
+                    211
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "RETRIEVE",
+              "args": [
+                "step"
+              ],
+              "pos": [
+                213,
+                214,
+                218
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "RETRIEVE",
+          "args": [
+            "step"
+          ],
+          "pos": [
+            220,
+            221,
+            225
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context), registry.get(\"RETRIEVE\").impl([\"step\"], context)], context);",
+        "constants": []
+      },
+      "methods": {
+        "source": "return ((((((((((((((((((((((((((((((((x).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step)).add(step);",
+        "constants": []
+      }
+    }
+  },
+  {
+    "workload": "interval-polynomial",
+    "source": "x*x + 2*x + 1",
+    "ir": {
+      "fn": "ADD",
+      "args": [
+        {
+          "fn": "ADD",
+          "args": [
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    2,
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "pos": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "fn": "MUL",
+              "args": [
+                {
+                  "fn": "LITERAL",
+                  "args": [
+                    "2"
+                  ],
+                  "pos": [
+                    5,
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "fn": "RETRIEVE",
+                  "args": [
+                    "x"
+                  ],
+                  "pos": [
+                    8,
+                    8,
+                    9
+                  ]
+                }
+              ],
+              "pos": [
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "pos": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "fn": "LITERAL",
+          "args": [
+            "1"
+          ],
+          "pos": [
+            11,
+            12,
+            13
+          ]
+        }
+      ],
+      "pos": [
+        0,
+        0,
+        1
+      ]
+    },
+    "generated": {
+      "runtime": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([registry.get(\"LITERAL\").impl([\"2\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), registry.get(\"LITERAL\").impl([\"1\"], context)], context);",
+        "constants": []
+      },
+      "hoisted": {
+        "source": "return registry.get(\"ADD\").impl([registry.get(\"ADD\").impl([registry.get(\"MUL\").impl([registry.get(\"RETRIEVE\").impl([\"x\"], context), registry.get(\"RETRIEVE\").impl([\"x\"], context)], context), registry.get(\"MUL\").impl([constants[0], registry.get(\"RETRIEVE\").impl([\"x\"], context)], context)], context), constants[1]], context);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      },
+      "methods": {
+        "source": "return (((x).multiply(x)).add((constants[0]).multiply(x))).add(constants[1]);",
+        "constants": [
+          "2/1",
+          "1/1"
+        ]
+      }
+    }
+  }
+]

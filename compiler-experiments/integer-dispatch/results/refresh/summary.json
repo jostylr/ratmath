@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-10-17T15:45:30.522Z",
+  "method": "Original harnesses/inputs, sequential runtime processes, historical reports restored byte-for-byte",
+  "runs": [
+    {
+      "folder": "integrated-core",
+      "runtime": "bun",
+      "versions": {
+        "bun": "1.4.3",
+        "node": "26.3.0"
+      },
+      "wallMs": 10671.544708000001,
+      "groups": 13
+    },
+    {
+      "folder": "integrated-core",
+      "runtime": "node",
+      "versions": {
+        "bun": null,
+        "node": "26.12.0"
+      },
+      "wallMs": 18323.603541999997,
+      "groups": 13
+    },
+    {
+      "folder": "polynomial-core",
+      "runtime": "bun",
+      "versions": {
+        "bun": "1.4.3",
+        "node": "26.3.0"
+      },
+      "wallMs": 9889.605708,
+      "groups": 8
+    },
+    {
+      "folder": "polynomial-core",
+      "runtime": "node",
+      "versions": {
+        "bun": null,
+        "node": "26.12.0"
+      },
+      "wallMs": 10334.818375000003,
+      "groups": 8
+    },
+    {
+      "folder": "interpreter-overhead",
+      "runtime": "bun",
+      "versions": {
+        "bun": "1.4.3",
+        "node": "26.3.0"
+      },
+      "wallMs": 8141.479290999996,
+      "groups": 8
+    },
+    {
+      "folder": "interpreter-overhead",
+      "runtime": "node",
+      "versions": {
+        "bun": null,
+        "node": "26.12.0"
+      },
+      "wallMs": 8157.9884170000005,
+      "groups": 8
+    }
+  ]
+}

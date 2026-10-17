@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-10-17T16:18:18.404Z",
+  "checked": {
+    "rix": 164,
+    "plugins": 254
+  },
+  "loaded": [
+    {
+      "variant": "production",
+      "plugin": "poly",
+      "sha256": "6fb04193af5b8e6adfb8c949ddf166cbf0ddf4c8a1db0ddf178fc639aed65b7d"
+    },
+    {
+      "variant": "production",
+      "plugin": "stats",
+      "sha256": "af723fba5f132c7bca7f6aafad87e572b4fefabdcf739bd3c6be1c6b035c14a4"
+    },
+    {
+      "variant": "experimental",
+      "plugin": "poly",
+      "sha256": "6fb04193af5b8e6adfb8c949ddf166cbf0ddf4c8a1db0ddf178fc639aed65b7d"
+    },
+    {
+      "variant": "experimental",
+      "plugin": "stats",
+      "sha256": "af723fba5f132c7bca7f6aafad87e572b4fefabdcf739bd3c6be1c6b035c14a4"
+    }
+  ],
+  "passed": true
+}

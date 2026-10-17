@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-13T11:54:49.945310+00:00",
+  "repository": "/Users/jostylr/ai-repos/ratmath",
+  "revision": "d2b86f28bb1a005c84faca95d95694733667cac5",
+  "productionFilesChecked": 280,
+  "productionFingerprint": "61704350186ec717fd10ea8667a4ef484e9fd78bcc480fa778de10d4e1c8cd35",
+  "fingerprintMethod": "SHA-256 of compact sorted JSON mapping repository-relative JS/RiX paths to file digests in rix/src, rix/plugins and packages/core/src; before/after installation checked.",
+  "verification": {
+    "bun": "228 modular outputs, 12 JavaScript algorithms, both native algorithms; 1020 bounded scores; all async variants, microtask/timer modes, host failure order, native guards, concurrent activations and cache reuse passed",
+    "node": "same checks passed"
+  },
+  "benchmark": "One sequential process per runtime, five rotated held-out samples plus warmup; all exact result and effect trace digests agree across runtimes.",
+  "scope": "Handwritten complete-script translations, not a general RiX compiler; only compiler-experiments changed."
+}

@@ -1,0 +1,3 @@
+## Same Horner reductions, with intermediate pairs retained inside core.
+Run(coefficients,points) -> points.Map((x)->.polynomialFused(@coefficients,x));
+Run(coefficients,points);

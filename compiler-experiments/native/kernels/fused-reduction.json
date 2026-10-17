@@ -1,0 +1,7 @@
+{
+  "name": "fused-reduction",
+  "execution": "native",
+  "numeric": "exact-rational",
+  "pattern": "map-reduce",
+  "expression": "x*x + 2*x + 1 + y"
+}

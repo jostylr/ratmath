@@ -1,0 +1,7 @@
+{
+  "name": "exact-matrix",
+  "execution": "native",
+  "numeric": "exact-rational",
+  "pattern": "matrix-reduce",
+  "expression": "x*y"
+}

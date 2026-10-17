@@ -1,0 +1,3 @@
+## Inspect or reuse this explicit computation plan in an exploratory session.
+plan := .preparePolynomial(coefficients);
+plan.Evaluate(points);

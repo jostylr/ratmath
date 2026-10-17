@@ -1,0 +1,2963 @@
+{
+  "timestamp": "2026-10-17T12:54:22.621Z",
+  "runtime": "v26.10.0",
+  "samplingIntervalUs": 500,
+  "durationMs": 1500,
+  "method": "V8 sampling; profiles are diagnostic, not benchmark timings; percentages include profiler/GC/host work",
+  "provenance": {
+    "profile.js": "7376b71ff8a3a73f05b0ce1740e9af2127e8d4dba4162c49a023682f3770aa1f",
+    "load.js": "a740bc7b21cf650b617158c98de94a5340070b935160caaefeeebea8ff77724e",
+    "../polynomial-core/paths.js": "5b6355537611a0cd89de3ac0c24baf7bee224058735ed26db212cd7e6201bf3d",
+    "../integrated-core/scripts/horner.rix": "f7a07283768fad349d09b8e78ab2f09871b03ff1e0a0081a7e266530fd0f2b79",
+    "results/build-provenance.json": "7e4cb106dfef215182b2b7d4dc70866aaa4db995497c0ac3806f115e0ff6d174"
+  },
+  "profiles": [
+    {
+      "variant": "control",
+      "name": "integer-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 499,
+      "elapsedMs": 1502.495291,
+      "profileFile": "control-integer-horner-rix.cpuprofile",
+      "samples": 1997,
+      "attribution": {
+        "Other interpreter/runtime/host": 84.87029698342128,
+        "Other core arithmetic": 13.22012506751984,
+        "Other work below value copy": 0.44030726721236546,
+        "GC": 0.8821726845888561,
+        "Rational normalization elsewhere": 0.5870979972576557
+      },
+      "self": [
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 12.381191049985457
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 11.013849358042131
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 7.298570137532721
+        },
+        {
+          "function": "parseNumber",
+          "file": "packages/core/src/number-parser.js",
+          "line": 409,
+          "percent": 6.365822495533303
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 5.879939336020277
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 4.898109963850916
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 3.1832358623841777
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 2.9854157144637887
+        },
+        {
+          "function": "cleanDigits",
+          "file": "packages/core/src/number-parser.js",
+          "line": 31,
+          "percent": 2.8386249844184985
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 2.690016412515062
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 2.644894980678938
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 2.4381803922383347
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 2.199653571280176
+        },
+        {
+          "function": "parseLiteral",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 739,
+          "percent": 1.662026841733494
+        },
+        {
+          "function": "get",
+          "file": "rix/src/eval/registry.js",
+          "line": 213,
+          "percent": 1.3220254913366851
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 1.0777205301865624
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 681,
+          "percent": 1.0764869946399633
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2347,
+          "percent": 1.028833568787136
+        },
+        {
+          "function": "getAttachedSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 51,
+          "percent": 0.9778690738355424
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 1243,
+          "percent": 0.928722420742095
+        },
+        {
+          "function": "isShaped",
+          "file": "rix/src/runtime/shaped.js",
+          "line": 146,
+          "percent": 0.8824972992063822
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.8821726845888561
+        },
+        {
+          "function": "builtinProtoFor",
+          "file": "rix/src/runtime/methods.js",
+          "line": 1985,
+          "percent": 0.8336103378069556
+        },
+        {
+          "function": "transferMetaForUpdate",
+          "file": "rix/src/runtime/cell.js",
+          "line": 460,
+          "percent": 0.686105455603108
+        },
+        {
+          "function": "isReactiveNode",
+          "file": "rix/src/runtime/reactive-graph.js",
+          "line": 75,
+          "percent": 0.6363095732746084
+        },
+        {
+          "function": "evaluationCheckpoint",
+          "file": "rix/src/runtime/evaluation-budget.js",
+          "line": 52,
+          "percent": 0.6353357294220302
+        },
+        {
+          "function": "refreshRuntimeMetadata",
+          "file": "rix/src/runtime/semantic.js",
+          "line": 131,
+          "percent": 0.6244936011966593
+        },
+        {
+          "function": "readStickyHeader",
+          "file": "rix/src/runtime/semantic.js",
+          "line": 247,
+          "percent": 0.5871629201811609
+        },
+        {
+          "function": "isUndecided",
+          "file": "rix/src/runtime/decision.js",
+          "line": 34,
+          "percent": 0.5409377986454481
+        },
+        {
+          "function": "compareTo",
+          "file": "packages/core/src/rational.js",
+          "line": 611,
+          "percent": 0.539379648481323
+        },
+        {
+          "function": "isExactValue",
+          "file": "rix/src/runtime/exact-values.js",
+          "line": 75,
+          "percent": 0.5387304192462709
+        },
+        {
+          "function": "add",
+          "file": "packages/core/src/integer.js",
+          "line": 54,
+          "percent": 0.5386005733992604
+        },
+        {
+          "function": "resolveFromProto",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2016,
+          "percent": 0.4901031495408651
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/registry.js",
+          "line": 91,
+          "percent": 0.4897136119998338
+        },
+        {
+          "function": "multiply",
+          "file": "packages/core/src/integer.js",
+          "line": 108,
+          "percent": 0.43933342335978726
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 96.03937705156439
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.55250446669714
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 93.55250446669714
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 93.55250446669714
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 93.5034876594507
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.45440592928075
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 93.45440592928075
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 93.35650216063489
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 93.25853346906553
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 93.25853346906553
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.2097114305896
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 92.96495200897495
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 92.96495200897495
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 92.96495200897495
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 92.9159352017285
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 92.9159352017285
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 92.71993289566626
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 92.32870735862384
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 92.18185170565505
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 92.18185170565505
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 92.18185170565505
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 92.18185170565505
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 91.62455333028629
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 91.47815213778202
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 88.93499137823576
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "name": "rational-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 219,
+      "elapsedMs": 1502.525208,
+      "profileFile": "control-rational-horner-rix.cpuprofile",
+      "samples": 1995,
+      "attribution": {
+        "Other interpreter/runtime/host": 13.640833567935942,
+        "Rational normalization below value copy": 79.19531088845847,
+        "Other core arithmetic": 6.185659964167424,
+        "Other work below value copy": 0.6356973924730834,
+        "GC": 0.2935235409123166,
+        "Rational normalization elsewhere": 0.04897464605277326
+      },
+      "self": [
+        {
+          "function": "#gcd",
+          "file": "packages/core/src/rational.js",
+          "line": 328,
+          "percent": 79.19531088845847
+        },
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 3.595776893567391
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 2.557060327682546
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 1.4657365592165095
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 1.0699176317807182
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 0.8792084140387931
+        },
+        {
+          "function": "parseNumber",
+          "file": "packages/core/src/number-parser.js",
+          "line": 409,
+          "percent": 0.781842925661028
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 0.732998013769984
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 0.7316358050718273
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 0.6347243862601144
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 0.5367750941545679
+        },
+        {
+          "function": "shallowCopyValue",
+          "file": "rix/src/runtime/cell.js",
+          "line": 73,
+          "percent": 0.39127823177526927
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 0.3907592951283525
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 0.3902403584814357
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 0.34230358572249603
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.2935235409123166
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.29293973718453514
+        },
+        {
+          "function": "parseLiteral",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 739,
+          "percent": 0.29274513594194135
+        },
+        {
+          "function": "isExactValue",
+          "file": "rix/src/runtime/exact-values.js",
+          "line": 75,
+          "percent": 0.2447434961021371
+        },
+        {
+          "function": "toRational",
+          "file": "packages/core/src/integer.js",
+          "line": 456,
+          "percent": 0.2439650911317619
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 0.24370562280830352
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 0.19583371713022846
+        },
+        {
+          "function": "toExactBigInt",
+          "file": "packages/core/src/bigint.js",
+          "line": 9,
+          "percent": 0.19563911588763463
+        },
+        {
+          "function": "get",
+          "file": "rix/src/eval/registry.js",
+          "line": 213,
+          "percent": 0.19537964756417625
+        },
+        {
+          "function": "getAttachedSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 51,
+          "percent": 0.1471185394009136
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 0.1468590710774552
+        },
+        {
+          "function": "isCayleyValue",
+          "file": "rix/src/runtime/exact-values.js",
+          "line": 79,
+          "percent": 0.14659960275399678
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 0.14659960275399678
+        },
+        {
+          "function": "builtinProtoFor",
+          "file": "rix/src/runtime/methods.js",
+          "line": 1985,
+          "percent": 0.1465347356731322
+        },
+        {
+          "function": "isSymbolicSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 47,
+          "percent": 0.1463401344305384
+        },
+        {
+          "function": "cleanDigits",
+          "file": "packages/core/src/number-parser.js",
+          "line": 31,
+          "percent": 0.14608066610707998
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 680,
+          "percent": 0.09807902626727573
+        },
+        {
+          "function": "isReactiveNode",
+          "file": "rix/src/runtime/reactive-graph.js",
+          "line": 75,
+          "percent": 0.09801415918641113
+        },
+        {
+          "function": "isMathExpression",
+          "file": "rix/src/runtime/math-expression.js",
+          "line": 172,
+          "percent": 0.09794929210554652
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 1243,
+          "percent": 0.09794929210554652
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 98.92625521044828
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 96.36919488276573
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 96.32041483795554
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 96.27150505898364
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 96.22278988125433
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 95.83254952277288
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "name": "larger-rational-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 37,
+      "elapsedMs": 1535.9933330000003,
+      "profileFile": "control-larger-rational-horner-rix.cpuprofile",
+      "samples": 2038,
+      "attribution": {
+        "Other interpreter/runtime/host": 6.078805447711227,
+        "Rational normalization below value copy": 88.64736522891509,
+        "Other core arithmetic": 4.466079158507415,
+        "GC": 0.5700653286544516,
+        "Other work below value copy": 0.23768483621182068
+      },
+      "self": [
+        {
+          "function": "#gcd",
+          "file": "packages/core/src/rational.js",
+          "line": 328,
+          "percent": 88.64736522891509
+        },
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 4.228457368671247
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 3.1765916372765477
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.5700653286544516
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 0.4285262153134603
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 0.3804218306902191
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 0.3800435524363011
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 0.2383152999683507
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 1243,
+          "percent": 0.14261090172709243
+        },
+        {
+          "function": "shallowCopyValue",
+          "file": "rix/src/runtime/cell.js",
+          "line": 73,
+          "percent": 0.1424217626001334
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 0.1423587162244804
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 0.1422326234731744
+        },
+        {
+          "function": "toRational",
+          "file": "packages/core/src/integer.js",
+          "line": 456,
+          "percent": 0.1420434843462154
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 680,
+          "percent": 0.09545221273864629
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 0.0953261199873403
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 0.09507393448472827
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 0.04785219912062915
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/eval/functions/units.js",
+          "line": 314,
+          "percent": 0.04785219912062915
+        },
+        {
+          "function": "ensureSequence",
+          "file": "rix/src/runtime/methods.js",
+          "line": 520,
+          "percent": 0.04778915274497615
+        },
+        {
+          "function": "builtinProtoFor",
+          "file": "rix/src/runtime/methods.js",
+          "line": 1985,
+          "percent": 0.04778915274497615
+        },
+        {
+          "function": "possibleRelations",
+          "file": "packages/core/src/certified-approximation.js",
+          "line": 155,
+          "percent": 0.047726106369323146
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2452,
+          "percent": 0.047726106369323146
+        },
+        {
+          "function": "traitOrderFromSet",
+          "file": "rix/src/runtime/semantic.js",
+          "line": 53,
+          "percent": 0.04766305999367015
+        },
+        {
+          "function": "performUpdate",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 1157,
+          "percent": 0.04766305999367015
+        },
+        {
+          "function": "Integer",
+          "file": "packages/core/src/integer.js",
+          "line": 26,
+          "percent": 0.04766305999367015
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 0.04760001361801714
+        },
+        {
+          "function": "evaluationCheckpoint",
+          "file": "rix/src/runtime/evaluation-budget.js",
+          "line": 52,
+          "percent": 0.04760001361801714
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 0.04760001361801714
+        },
+        {
+          "function": "materializePipeSkip",
+          "file": "rix/src/runtime/expected-error.js",
+          "line": 9,
+          "percent": 0.04760001361801714
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 125,
+          "percent": 0.04760001361801714
+        },
+        {
+          "function": "checkFrozenImmutable",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 1131,
+          "percent": 0.047536967242364135
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2347,
+          "percent": 0.047536967242364135
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2389,
+          "percent": 0.047536967242364135
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 0.047473920866711136
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/registry.js",
+          "line": 91,
+          "percent": 0.047473920866711136
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 99.04989111890924
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 95.8732994816327
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 95.82576251439033
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 95.7306885799056
+        }
+      ]
+    },
+    {
+      "variant": "control",
+      "name": "larger-rational-horner",
+      "path": "JS Horner, same methods",
+      "batches": 871,
+      "elapsedMs": 1500.3640829999995,
+      "profileFile": "control-larger-rational-horner-js.cpuprofile",
+      "samples": 1990,
+      "attribution": {
+        "Other interpreter/runtime/host": 2.7007464729203505,
+        "Other core arithmetic": 97.15116092968444,
+        "GC": 0.1480925973952165
+      },
+      "self": [
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 92.22412609362823
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 2.613145161448368
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 1.9916396600729422
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 0.7894570090521356
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 0.5911292076882726
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 0.5427231138771321
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 0.346028446582471
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.19675999265742922
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 125,
+          "percent": 0.191925915812592
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.1480925973952165
+        },
+        {
+          "function": "multiply",
+          "file": "packages/core/src/rational.js",
+          "line": 443,
+          "percent": 0.09890259923085917
+        },
+        {
+          "function": "Context",
+          "file": "rix/src/runtime/context.js",
+          "line": 19,
+          "percent": 0.049647275703733805
+        },
+        {
+          "function": "toExactBigInt",
+          "file": "packages/core/src/bigint.js",
+          "line": 9,
+          "percent": 0.04958195034096573
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 11,
+          "percent": 0.04951662497819766
+        },
+        {
+          "function": "evaluatePolynomial",
+          "file": "packages/core/src/experimental-polynomial.js",
+          "line": 15,
+          "percent": 0.049451299615429586
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 87,
+          "percent": 0.04905934743882116
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 0.018813704477204388
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 99.21158819675216
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 11,
+          "percent": 97.201134832202
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 11,
+          "percent": 97.15148755649827
+        },
+        {
+          "function": "evaluatePolynomial",
+          "file": "packages/core/src/experimental-polynomial.js",
+          "line": 15,
+          "percent": 97.10197093152007
+        },
+        {
+          "function": "multiply",
+          "file": "packages/core/src/rational.js",
+          "line": 443,
+          "percent": 95.42519951998923
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 95.02965444842856
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 93.9501528286862
+        },
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 92.22412609362823
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 1.9916396600729422
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 12,
+          "percent": 1.9916396600729422
+        },
+        {
+          "function": "post",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 12,
+          "percent": 1.9916396600729422
+        },
+        {
+          "function": "add",
+          "file": "packages/core/src/rational.js",
+          "line": 358,
+          "percent": 1.6273201119154115
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 1.3312002424877465
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 0.8871184263904014
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 0.5911292076882726
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.38907786064662964
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 0.29664247232980945
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 0.24673389517500338
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 125,
+          "percent": 0.2415078661535577
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 0.197478571647878
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.1480925973952165
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 0.09851064705425075
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.09824934560317847
+        },
+        {
+          "function": "Context",
+          "file": "rix/src/runtime/context.js",
+          "line": 19,
+          "percent": 0.049647275703733805
+        },
+        {
+          "function": "sequence",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 19,
+          "percent": 0.049647275703733805
+        },
+        {
+          "function": "toExactBigInt",
+          "file": "packages/core/src/bigint.js",
+          "line": 9,
+          "percent": 0.04958195034096573
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 0.049385974252661516
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 0.049189998164357304
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 87,
+          "percent": 0.04905934743882116
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 125,
+          "percent": 0.04905934743882116
+        }
+      ]
+    },
+    {
+      "variant": "literals",
+      "name": "integer-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 541,
+      "elapsedMs": 1501.3576659999999,
+      "profileFile": "literals-integer-horner-rix.cpuprofile",
+      "samples": 1996,
+      "attribution": {
+        "Other interpreter/runtime/host": 93.76858780200297,
+        "Other core arithmetic": 4.215052063377511,
+        "Other work below value copy": 0.8639721937638701,
+        "GC": 0.9128065134527076,
+        "Rational normalization elsewhere": 0.2395814274029386
+      },
+      "self": [
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 13.735768079058046
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 10.53367751115826
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 7.449465085692756
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 7.243799922094597
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 5.198432456589414
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 4.284542152751967
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 3.701016659133261
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 3.3151235297905286
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 2.8846674899223435
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 2.6889476969135564
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 2.4044845971072997
+        },
+        {
+          "function": "parseLiteral",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 739,
+          "percent": 1.9712234527139068
+        },
+        {
+          "function": "transferMetaForUpdate",
+          "file": "rix/src/runtime/cell.js",
+          "line": 472,
+          "percent": 1.395475748915094
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 1.3458764007193817
+        },
+        {
+          "function": "isShaped",
+          "file": "rix/src/runtime/shaped.js",
+          "line": 146,
+          "percent": 1.150602874339605
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/registry.js",
+          "line": 91,
+          "percent": 0.913125275330572
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.9128065134527076
+        },
+        {
+          "function": "getAttachedSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 51,
+          "percent": 0.9115952183168226
+        },
+        {
+          "function": "multiply",
+          "file": "packages/core/src/integer.js",
+          "line": 108,
+          "percent": 0.9008210668450033
+        },
+        {
+          "function": "evaluationCheckpoint",
+          "file": "rix/src/runtime/evaluation-budget.js",
+          "line": 52,
+          "percent": 0.8656297555287654
+        },
+        {
+          "function": "refreshRuntimeMetadata",
+          "file": "rix/src/runtime/semantic.js",
+          "line": 131,
+          "percent": 0.8649922317730364
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 680,
+          "percent": 0.8092726555223264
+        },
+        {
+          "function": "Rational",
+          "file": "packages/core/src/rational.js",
+          "line": 125,
+          "percent": 0.7681523732778093
+        },
+        {
+          "function": "performUpdate",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 1159,
+          "percent": 0.736212433115789
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2349,
+          "percent": 0.7219956533630334
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 1243,
+          "percent": 0.7215493867340231
+        },
+        {
+          "function": "shallowCopyValue",
+          "file": "rix/src/runtime/cell.js",
+          "line": 85,
+          "percent": 0.6724600575428942
+        },
+        {
+          "function": "builtinProtoFor",
+          "file": "rix/src/runtime/methods.js",
+          "line": 1985,
+          "percent": 0.6709300005291448
+        },
+        {
+          "function": "get",
+          "file": "rix/src/eval/registry.js",
+          "line": 213,
+          "percent": 0.6260483281258268
+        },
+        {
+          "function": "resolveFromProto",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2016,
+          "percent": 0.6250282901166605
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 681,
+          "percent": 0.6248370329899418
+        },
+        {
+          "function": "add",
+          "file": "packages/core/src/integer.js",
+          "line": 54,
+          "percent": 0.6241995092342129
+        },
+        {
+          "function": "isReactiveNode",
+          "file": "rix/src/runtime/reactive-graph.js",
+          "line": 75,
+          "percent": 0.6239444997319212
+        },
+        {
+          "function": "toRational",
+          "file": "packages/core/src/integer.js",
+          "line": 456,
+          "percent": 0.5764489799301147
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/eval/functions/units.js",
+          "line": 314,
+          "percent": 0.4814579403265014
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 95.19817107184956
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 90.9136289190976
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 90.9136289190976
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 90.9136289190976
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 90.8654321231645
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 90.81755408910925
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 90.76961230267842
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 90.76961230267842
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 90.76961230267842
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 90.76961230267842
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 90.76961230267842
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 90.72160676387203
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 90.67353747269007
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 90.67353747269007
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 90.67353747269007
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 90.33539487265145
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 90.28738933384506
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 90.28738933384506
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 90.28738933384506
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 90.28738933384506
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 89.85961089375093
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 89.66765249090095
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 89.61920068546554
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 89.61920068546554
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 89.61920068546554
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 89.33110370025163
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 88.93838906672259
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 88.80195898299661
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 86.01374883731604
+        }
+      ]
+    },
+    {
+      "variant": "literals",
+      "name": "rational-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 1318,
+      "elapsedMs": 1500.9205410000013,
+      "profileFile": "literals-rational-horner-rix.cpuprofile",
+      "samples": 1993,
+      "attribution": {
+        "Other interpreter/runtime/host": 65.29154465925832,
+        "Other core arithmetic": 30.249089978460876,
+        "Rational normalization elsewhere": 0.783488922550087,
+        "Other work below value copy": 2.5943733257812154,
+        "GC": 1.0815031139495064
+      },
+      "self": [
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 20.944460755402318
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 8.660923766047167
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 7.391895157204434
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 5.486760842961851
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 4.89761770521278
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 3.1785798727398857
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 2.4943424071336335
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 2.2536836061016263
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 2.2057467113211615
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 1.8621989653944986
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 1.811858730360813
+        },
+        {
+          "function": "parseLiteral",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 739,
+          "percent": 1.7152054790961362
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 1.6649951543464083
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 1.6632413655129767
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 1.567887217087879
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 1.3207978569999559
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 1.2227805477537212
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 1.1771820380844988
+        },
+        {
+          "function": "experimentalCopyRational",
+          "file": "rix/src/runtime/cell.js",
+          "line": 77,
+          "percent": 1.1245683730815499
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 1.0815031139495064
+        },
+        {
+          "function": "getAttachedSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 51,
+          "percent": 0.8814412766543425
+        },
+        {
+          "function": "transferMetaForUpdate",
+          "file": "rix/src/runtime/cell.js",
+          "line": 472,
+          "percent": 0.7844632496797711
+        },
+        {
+          "function": "get",
+          "file": "rix/src/eval/registry.js",
+          "line": 213,
+          "percent": 0.7840735188278974
+        },
+        {
+          "function": "isShaped",
+          "file": "rix/src/runtime/shaped.js",
+          "line": 146,
+          "percent": 0.7337982389361907
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 671,
+          "percent": 0.6822238562049049
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.5879739451934494
+        },
+        {
+          "function": "refreshRuntimeMetadata",
+          "file": "rix/src/runtime/semantic.js",
+          "line": 131,
+          "percent": 0.587259438631681
+        },
+        {
+          "function": "builtinProtoFor",
+          "file": "rix/src/runtime/methods.js",
+          "line": 1985,
+          "percent": 0.587259438631681
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2349,
+          "percent": 0.587194483489702
+        },
+        {
+          "function": "isMathExpression",
+          "file": "rix/src/runtime/math-expression.js",
+          "line": 172,
+          "percent": 0.5867397974958494
+        },
+        {
+          "function": "toRational",
+          "file": "packages/core/src/integer.js",
+          "line": 456,
+          "percent": 0.539777229845069
+        },
+        {
+          "function": "#normalize",
+          "file": "packages/core/src/rational.js",
+          "line": 299,
+          "percent": 0.5385430821474689
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 680,
+          "percent": 0.5383482167215321
+        },
+        {
+          "function": "isSymbolicSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 47,
+          "percent": 0.5375687550177847
+        },
+        {
+          "function": "rationalParts",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 307,
+          "percent": 0.4902164565151306
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 96.47222128398128
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 93.9289676549375
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 93.9289676549375
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.88005643302735
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.83121016625918
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 93.83121016625918
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 93.78255876491694
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.78255876491694
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 93.78255876491694
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 93.78255876491694
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 93.78255876491694
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 93.7336475430068
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.68486623138061
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 93.63608491975442
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 93.4889615231721
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.39120403449378
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 93.29370636638338
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.24511992018311
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 93.24511992018311
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 93.24511992018311
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 92.95119790272838
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 92.90228668081822
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 92.90228668081822
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 92.85324554862412
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 92.60836466336347
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 92.31444264590874
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 92.2164253366625
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 92.1186028928422
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 92.1186028928422
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 92.1186028928422
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 91.92224349863984
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 91.7267285212832
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 91.67788225451503
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 115,
+          "percent": 89.96241695485098
+        }
+      ]
+    },
+    {
+      "variant": "literals",
+      "name": "larger-rational-horner",
+      "path": "RiX Horner, fast core",
+      "batches": 591,
+      "elapsedMs": 1500.5293330000004,
+      "profileFile": "literals-larger-rational-horner-rix.cpuprofile",
+      "samples": 1991,
+      "attribution": {
+        "Other interpreter/runtime/host": 31.686506668030532,
+        "Other core arithmetic": 66.48052014474038,
+        "Other work below value copy": 1.3993913743942512,
+        "GC": 0.24031761050518483,
+        "Rational normalization elsewhere": 0.19326420232965516
+      },
+      "self": [
+        {
+          "function": "gcd",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 4,
+          "percent": 61.80784820161362
+        },
+        {
+          "function": "post",
+          "file": "node:inspector",
+          "line": 115,
+          "percent": 4.070886982316614
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 4.0026723267143165
+        },
+        {
+          "function": "resolveMethod",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2042,
+          "percent": 3.469613471595341
+        },
+        {
+          "function": "_prepareVariant",
+          "file": "rix/src/eval/registry.js",
+          "line": 63,
+          "percent": 2.5548210564001583
+        },
+        {
+          "function": "_callSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 148,
+          "percent": 1.9272078661023668
+        },
+        {
+          "function": "reduced",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 11,
+          "percent": 1.8295848303903643
+        },
+        {
+          "function": "_invokeSystemMultifunction",
+          "file": "rix/src/eval/registry.js",
+          "line": 86,
+          "percent": 1.6398368474216523
+        },
+        {
+          "function": "(program)",
+          "file": "",
+          "line": 0,
+          "percent": 1.446444782569781
+        },
+        {
+          "function": "_canUseReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 284,
+          "percent": 1.1559411320947717
+        },
+        {
+          "function": "getEnv",
+          "file": "rix/src/runtime/context.js",
+          "line": 422,
+          "percent": 0.9635719674206293
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 0.9628047922873326
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 0.7714585277909192
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 0.7229986318710123
+        },
+        {
+          "function": "experimentalCopyRational",
+          "file": "rix/src/runtime/cell.js",
+          "line": 77,
+          "percent": 0.579281156900101
+        },
+        {
+          "function": "toRational",
+          "file": "packages/core/src/integer.js",
+          "line": 456,
+          "percent": 0.5783221879834801
+        },
+        {
+          "function": "#arithmeticFast",
+          "file": "packages/core/src/rational.js",
+          "line": 293,
+          "percent": 0.5308851922413022
+        },
+        {
+          "function": "transferMetaForUpdate",
+          "file": "rix/src/runtime/cell.js",
+          "line": 472,
+          "percent": 0.5308212609801941
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 671,
+          "percent": 0.48242529632139525
+        },
+        {
+          "function": "parseLiteral",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 739,
+          "percent": 0.48165812118809853
+        },
+        {
+          "function": "getAttachedSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 51,
+          "percent": 0.38588909204822974
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/core.js",
+          "line": 2349,
+          "percent": 0.290183994169469
+        },
+        {
+          "function": "isExactValue",
+          "file": "rix/src/runtime/exact-values.js",
+          "line": 75,
+          "percent": 0.2892889565139562
+        },
+        {
+          "function": "_findCell",
+          "file": "rix/src/runtime/context.js",
+          "line": 316,
+          "percent": 0.289097162730632
+        },
+        {
+          "function": "isShaped",
+          "file": "rix/src/runtime/shaped.js",
+          "line": 146,
+          "percent": 0.28896930020841594
+        },
+        {
+          "function": "isPlainInteger",
+          "file": "packages/core/src/experimental-reduced.js",
+          "line": 43,
+          "percent": 0.24166016698845402
+        },
+        {
+          "function": "get numerator",
+          "file": "packages/core/src/rational.js",
+          "line": 341,
+          "percent": 0.24127657942180566
+        },
+        {
+          "function": "#fromReduced",
+          "file": "packages/core/src/rational.js",
+          "line": 259,
+          "percent": 0.24063726681072511
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "percent": 0.24031761050518483
+        },
+        {
+          "function": "prep",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 680,
+          "percent": 0.24018974798296872
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/registry.js",
+          "line": 91,
+          "percent": 0.1932002710685471
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/runtime/type-system.js",
+          "line": 1243,
+          "percent": 0.1932002710685471
+        },
+        {
+          "function": "resolveFromProto",
+          "file": "rix/src/runtime/methods.js",
+          "line": 2016,
+          "percent": 0.1928806147630068
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 149,
+          "percent": 0.19268882097968265
+        },
+        {
+          "function": "isSymbolicSpec",
+          "file": "rix/src/eval/functions/symbolic.js",
+          "line": 47,
+          "percent": 0.19256095845746654
+        }
+      ],
+      "inclusive": [
+        {
+          "function": "(root)",
+          "file": "",
+          "line": 0,
+          "percent": 100
+        },
+        {
+          "function": "(anonymous)",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/profile.js",
+          "line": 0,
+          "percent": 98.07285606515875
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/methods.js",
+          "line": 73,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/interpreter-overhead/load.js",
+          "line": 15,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "run",
+          "file": "file:///Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/polynomial-core/paths.js",
+          "line": 10,
+          "percent": 94.00196908284212
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 832,
+          "percent": 93.95382884322777
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.95382884322777
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 830,
+          "percent": 93.95382884322777
+        },
+        {
+          "function": "mapCallbacks",
+          "file": "rix/src/runtime/methods.js",
+          "line": 482,
+          "percent": 93.90562467235229
+        },
+        {
+          "function": "callbackSteps",
+          "file": "rix/src/runtime/methods.js",
+          "line": 469,
+          "percent": 93.85754836399903
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.80940812438466
+        },
+        {
+          "function": "callWithConcreteArgs",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 382,
+          "percent": 93.80940812438466
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 834,
+          "percent": 93.80940812438466
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/runtime/methods.js",
+          "line": 483,
+          "percent": 93.80940812438466
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 93.66479561175824
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.61639964709944
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 93.61639964709944
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 93.61639964709944
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 522,
+          "percent": 93.51992737408739
+        },
+        {
+          "function": "invokeUserCallable",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 198,
+          "percent": 93.37608203659425
+        },
+        {
+          "function": "impl",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 237,
+          "percent": 93.32762214067435
+        },
+        {
+          "function": "evaluate",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1234,
+          "percent": 93.32762214067435
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 93.32762214067435
+        },
+        {
+          "function": "(anonymous)",
+          "file": "rix/src/eval/functions/functions.js",
+          "line": 272,
+          "percent": 93.32762214067435
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 93.32762214067435
+        },
+        {
+          "function": "evaluateShared",
+          "file": "rix/src/eval/functions/control.js",
+          "line": 114,
+          "percent": 93.18320142183124
+        },
+        {
+          "function": "withSharedBody",
+          "file": "rix/src/runtime/context.js",
+          "line": 517,
+          "percent": 93.13493331969467
+        },
+        {
+          "function": "evalFn",
+          "file": "rix/src/eval/evaluator.js",
+          "line": 1279,
+          "percent": 92.46033065248245
+        }
+      ]
+    }
+  ]
+}

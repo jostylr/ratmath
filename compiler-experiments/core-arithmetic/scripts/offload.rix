@@ -1,0 +1,2 @@
+## Same coefficient/point values; request one whole exact batch.
+.polynomial(coefficients,points);

@@ -1,0 +1,17 @@
+## Whole script: host fetches, fresh scopes, captured bindings and ordered effects.
+## Inputs: jobs (sequence of Integer IDs), bias (an unsigned 32-bit Integer).
+Rule(value,bias) -> {;
+  offset := bias;
+  Score(v) -> (v*1664525+@offset)%1000003;
+  Score(value)
+};
+
+Process(id,bias) -> {;
+  payload := .fetch(id);
+  score := Rule(payload,bias);
+  .publish(id,score);
+  score
+};
+
+Run(jobs,bias) -> jobs.Map((id)->Process(id,@bias));
+Run(jobs,bias);

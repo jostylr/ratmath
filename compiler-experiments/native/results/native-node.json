@@ -1,0 +1,999 @@
+{
+  "startedAt": "2026-10-12T12:55:09.150Z",
+  "completedAt": "2026-10-12T12:55:18.384Z",
+  "config": {
+    "rounds": 3,
+    "bits": 160,
+    "matrixSizes": [
+      4,
+      12,
+      32,
+      96
+    ],
+    "reductionSizes": [
+      16,
+      256,
+      4096,
+      65536
+    ]
+  },
+  "environment": {
+    "runtime": "node",
+    "versions": {
+      "node": "26.10.0",
+      "acorn": "8.18.0",
+      "ada": "4.0.0",
+      "amaro": "1.1.11",
+      "ares": "1.34.8",
+      "brotli": "1.2.0",
+      "cldr": "48.0",
+      "icu": "78.3",
+      "libffi": "3.8.0",
+      "llhttp": "9.4.3",
+      "merve": "1.2.2",
+      "modules": "147",
+      "napi": "10",
+      "nbytes": "0.1.4",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.70.0",
+      "nghttp3": "",
+      "ngtcp2": "",
+      "openssl": "3.6.5",
+      "simdjson": "5.0.0",
+      "simdutf": "9.2.1",
+      "sqlite": "3.53.4",
+      "tz": "2026a",
+      "undici": "8.10.2",
+      "unicode": "17.0",
+      "uv": "1.53.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.6.202.34-node.35",
+      "zlib": "1.2.12",
+      "zstd": "1.5.7"
+    },
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M4 Pro",
+    "osRelease": "27.0.0"
+  },
+  "sourceHashes": {
+    "plan.js": "527e5b1a65fad26bea1f5b927648de9ceb42a9d62dbf046c4ce4e0288ac92ca7",
+    "host.js": "5c79da676679783e8daa23f24c0b20d3b2e80887087db9dc88f19f193694d8f5",
+    "jobs.js": "87aed77cd9202fdc572a669a4a028874fa087553294f4be3274ac0722bb78402",
+    "worker.c.in": "a7a2677848fc1401c2e4b5e6008522ff8c2e05871b763c9a97b769ac30be9870",
+    "verify.js": "bdf002c275d9c1086904bf8867d66084b4d6a0892f25fa8696ded1abcac47e17",
+    "bench.js": "183c2f88ce73decdcb54d758f36ae4f8b9cfc7f984c0abaaf9a0cd8226430dfd"
+  },
+  "builds": [
+    {
+      "name": "exact-matrix",
+      "cold": {
+        "key": "cec8797708de0d62c0fda4b92306e28eccde808a19f43796954116f160e289a6",
+        "cached": false,
+        "prepareMs": 66.07554199999998,
+        "sourceHash": "200c88e09f66475c4e6b845ce15388bc647eed069fdfbc88bffa4e7c6ea547fb",
+        "environment": {
+          "compiler": "clang",
+          "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+          "gmpVersion": "6.3.0",
+          "flags": [
+            "-O3",
+            "-std=c11",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+          ],
+          "linkFlags": [
+            "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+            "-lgmp"
+          ],
+          "platform": "darwin",
+          "arch": "arm64"
+        },
+        "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/bench-43e55219-7a46-4f32-858a-995ec92a1a0e/cec8797708de0d62c0fda4b92306e28eccde808a19f43796954116f160e289a6/kernel"
+      },
+      "cachedPrepareMs": 8.927624999999978
+    },
+    {
+      "name": "fused-reduction",
+      "cold": {
+        "key": "3cddbcf79e17c1446019941fadabf3b69a3ce941e2b14040670185defa5eb108",
+        "cached": false,
+        "prepareMs": 61.05541699999958,
+        "sourceHash": "5a24cb6ff7cc0f4fefbc0d9a7d210fe78e2d2689d69ff9688b04875ed470973c",
+        "environment": {
+          "compiler": "clang",
+          "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+          "gmpVersion": "6.3.0",
+          "flags": [
+            "-O3",
+            "-std=c11",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+          ],
+          "linkFlags": [
+            "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+            "-lgmp"
+          ],
+          "platform": "darwin",
+          "arch": "arm64"
+        },
+        "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/bench-43e55219-7a46-4f32-858a-995ec92a1a0e/3cddbcf79e17c1446019941fadabf3b69a3ce941e2b14040670185defa5eb108/kernel"
+      },
+      "cachedPrepareMs": 8.948457999999846
+    }
+  ],
+  "results": [
+    {
+      "kernel": "exact-matrix",
+      "size": 4,
+      "bits": 160,
+      "outputs": 16,
+      "terms": 64,
+      "nativeSpeedupVsBestJs": 0.026362842596991926,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "6a854e7c24cde662854f61facf3a6c1911a6ae6a0a57d31704db9857f1cecdfe",
+      "variants": [
+        {
+          "name": "RiX function + actual loop",
+          "samples": [
+            {
+              "wallMs": 4.705250000000092
+            },
+            {
+              "wallMs": 2.157375000000002
+            },
+            {
+              "wallMs": 1.522707999999966
+            }
+          ],
+          "medianWallMs": 2.157375000000002,
+          "minWallMs": 1.522707999999966,
+          "maxWallMs": 4.705250000000092
+        },
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 0.1865420000000313
+            },
+            {
+              "wallMs": 0.11345800000003692
+            },
+            {
+              "wallMs": 0.07687499999997272
+            }
+          ],
+          "medianWallMs": 0.11345800000003692,
+          "minWallMs": 0.07687499999997272,
+          "maxWallMs": 0.1865420000000313
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 0.09791599999994105
+            },
+            {
+              "wallMs": 0.09812499999998181
+            },
+            {
+              "wallMs": 0.07941600000003746
+            }
+          ],
+          "medianWallMs": 0.09791599999994105,
+          "minWallMs": 0.07941600000003746,
+          "maxWallMs": 0.09812499999998181
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 5.303999999999974,
+              "metrics": {
+                "wallMs": 5.28774999999996,
+                "validateMs": 0.02987499999994725,
+                "serializeMs": 0.027999999999906322,
+                "transferMs": 5.1141249999999445,
+                "deserializeMs": 0.1062090000000353,
+                "nativeParseMs": 0.058,
+                "nativeComputeMs": 0.032,
+                "nativeFormatMs": 0.017,
+                "inputBytes": 1729,
+                "outputBytes": 1852
+              }
+            },
+            {
+              "wallMs": 3.714166999999975,
+              "metrics": {
+                "wallMs": 3.705332999999996,
+                "validateMs": 0.009875000000079126,
+                "serializeMs": 0.01845900000000711,
+                "transferMs": 3.63250000000005,
+                "deserializeMs": 0.038374999999973625,
+                "nativeParseMs": 0.042,
+                "nativeComputeMs": 0.026,
+                "nativeFormatMs": 0.012,
+                "inputBytes": 1729,
+                "outputBytes": 1852
+              }
+            },
+            {
+              "wallMs": 3.0728749999999536,
+              "metrics": {
+                "wallMs": 3.066291999999976,
+                "validateMs": 0.005708999999910702,
+                "serializeMs": 0.01333399999998619,
+                "transferMs": 3.018291999999974,
+                "deserializeMs": 0.0246670000000222,
+                "nativeParseMs": 0.032,
+                "nativeComputeMs": 0.023,
+                "nativeFormatMs": 0.01,
+                "inputBytes": 1729,
+                "outputBytes": 1852
+              }
+            }
+          ],
+          "medianWallMs": 3.714166999999975,
+          "minWallMs": 3.0728749999999536,
+          "maxWallMs": 5.303999999999974,
+          "medianNativeComputeMs": 0.026
+        }
+      ]
+    },
+    {
+      "kernel": "exact-matrix",
+      "size": 12,
+      "bits": 160,
+      "outputs": 144,
+      "terms": 1728,
+      "nativeSpeedupVsBestJs": 0.30245561663512377,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "4f33665e1bf0b81639a06bd41767396c7449ced97c59aff7c5bb28f194ea982b",
+      "variants": [
+        {
+          "name": "RiX function + actual loop",
+          "samples": [
+            {
+              "wallMs": 11.575667000000067
+            },
+            {
+              "wallMs": 10.302291000000082
+            },
+            {
+              "wallMs": 9.744416999999999
+            }
+          ],
+          "medianWallMs": 10.302291000000082,
+          "minWallMs": 9.744416999999999,
+          "maxWallMs": 11.575667000000067
+        },
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 1.2716249999999718
+            },
+            {
+              "wallMs": 1.2480829999999514
+            },
+            {
+              "wallMs": 1.1053329999999733
+            }
+          ],
+          "medianWallMs": 1.2480829999999514,
+          "minWallMs": 1.1053329999999733,
+          "maxWallMs": 1.2716249999999718
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 0.8700830000000224
+            },
+            {
+              "wallMs": 0.8494590000000244
+            },
+            {
+              "wallMs": 0.8063329999999951
+            }
+          ],
+          "medianWallMs": 0.8494590000000244,
+          "minWallMs": 0.8063329999999951,
+          "maxWallMs": 0.8700830000000224
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 3.0391250000000127,
+              "metrics": {
+                "wallMs": 3.0330000000000155,
+                "validateMs": 0.012542000000053122,
+                "serializeMs": 0.05958299999997507,
+                "transferMs": 2.822999999999979,
+                "deserializeMs": 0.13487500000007913,
+                "nativeParseMs": 0.081,
+                "nativeComputeMs": 0.283,
+                "nativeFormatMs": 0.057,
+                "inputBytes": 15414,
+                "outputBytes": 17785
+              }
+            },
+            {
+              "wallMs": 2.5448330000000396,
+              "metrics": {
+                "wallMs": 2.5404589999999416,
+                "validateMs": 0.010791999999923974,
+                "serializeMs": 0.0404159999999365,
+                "transferMs": 2.36262499999998,
+                "deserializeMs": 0.1241659999999456,
+                "nativeParseMs": 0.076,
+                "nativeComputeMs": 0.275,
+                "nativeFormatMs": 0.056,
+                "inputBytes": 15414,
+                "outputBytes": 17785
+              }
+            },
+            {
+              "wallMs": 2.808540999999991,
+              "metrics": {
+                "wallMs": 2.802583000000027,
+                "validateMs": 0.010750000000030013,
+                "serializeMs": 0.040124999999989086,
+                "transferMs": 2.6114579999999705,
+                "deserializeMs": 0.1364170000000513,
+                "nativeParseMs": 0.075,
+                "nativeComputeMs": 0.258,
+                "nativeFormatMs": 0.053,
+                "inputBytes": 15414,
+                "outputBytes": 17785
+              }
+            }
+          ],
+          "medianWallMs": 2.808540999999991,
+          "minWallMs": 2.5448330000000396,
+          "maxWallMs": 3.0391250000000127,
+          "medianNativeComputeMs": 0.275
+        }
+      ]
+    },
+    {
+      "kernel": "exact-matrix",
+      "size": 32,
+      "bits": 160,
+      "outputs": 1024,
+      "terms": 32768,
+      "nativeSpeedupVsBestJs": 1.6141166612274982,
+      "coldCompileBreakEvenJobs": 13,
+      "referenceSha256": "69b37ce90518f7252e5b11f954a6d280691a4724a0bbd96c7bb81b31e3a06133",
+      "variants": [
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 26.257000000000062
+            },
+            {
+              "wallMs": 26.14483400000006
+            },
+            {
+              "wallMs": 27.402750000000083
+            }
+          ],
+          "medianWallMs": 26.257000000000062,
+          "minWallMs": 26.14483400000006,
+          "maxWallMs": 27.402750000000083
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 13.463791000000015
+            },
+            {
+              "wallMs": 13.487625000000094
+            },
+            {
+              "wallMs": 13.592209000000025
+            }
+          ],
+          "medianWallMs": 13.487625000000094,
+          "minWallMs": 13.463791000000015,
+          "maxWallMs": 13.592209000000025
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 8.356041000000005,
+              "metrics": {
+                "wallMs": 8.338082999999983,
+                "validateMs": 0.02733299999999872,
+                "serializeMs": 0.22412500000007185,
+                "transferMs": 7.275207999999907,
+                "deserializeMs": 0.8062919999999849,
+                "nativeParseMs": 0.348,
+                "nativeComputeMs": 4.234,
+                "nativeFormatMs": 0.301,
+                "inputBytes": 109510,
+                "outputBytes": 133484
+              }
+            },
+            {
+              "wallMs": 7.954583999999954,
+              "metrics": {
+                "wallMs": 7.946000000000026,
+                "validateMs": 0.02491700000007313,
+                "serializeMs": 0.22045800000000781,
+                "transferMs": 6.889249999999947,
+                "deserializeMs": 0.8077919999999494,
+                "nativeParseMs": 0.36,
+                "nativeComputeMs": 4.207,
+                "nativeFormatMs": 0.296,
+                "inputBytes": 109510,
+                "outputBytes": 133484
+              }
+            },
+            {
+              "wallMs": 8.58395900000005,
+              "metrics": {
+                "wallMs": 8.571916999999985,
+                "validateMs": 0.03433400000005804,
+                "serializeMs": 0.22591600000009748,
+                "transferMs": 7.487374999999929,
+                "deserializeMs": 0.8222919999999476,
+                "nativeParseMs": 0.365,
+                "nativeComputeMs": 4.356,
+                "nativeFormatMs": 0.308,
+                "inputBytes": 109510,
+                "outputBytes": 133484
+              }
+            }
+          ],
+          "medianWallMs": 8.356041000000005,
+          "minWallMs": 7.954583999999954,
+          "maxWallMs": 8.58395900000005,
+          "medianNativeComputeMs": 4.234
+        }
+      ]
+    },
+    {
+      "kernel": "exact-matrix",
+      "size": 96,
+      "bits": 160,
+      "outputs": 9216,
+      "terms": 884736,
+      "nativeSpeedupVsBestJs": 2.6087773751197476,
+      "coldCompileBreakEvenJobs": 1,
+      "referenceSha256": "db279abcd4ff913796908481339a5ad324e842247171b67afae28dac65325104",
+      "variants": [
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 993.5913329999998
+            },
+            {
+              "wallMs": 1001.898666
+            },
+            {
+              "wallMs": 1001.8462919999993
+            }
+          ],
+          "medianWallMs": 1001.8462919999993,
+          "minWallMs": 993.5913329999998,
+          "maxWallMs": 1001.898666
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 368.6668749999999
+            },
+            {
+              "wallMs": 368.43070799999987
+            },
+            {
+              "wallMs": 370.8341250000003
+            }
+          ],
+          "medianWallMs": 368.6668749999999,
+          "minWallMs": 368.43070799999987,
+          "maxWallMs": 370.8341250000003
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 141.31787499999973,
+              "metrics": {
+                "wallMs": 141.26616699999977,
+                "validateMs": 0.306124999999156,
+                "serializeMs": 1.9867089999997916,
+                "transferMs": 129.48654199999964,
+                "deserializeMs": 9.486041999999543,
+                "nativeParseMs": 2.879,
+                "nativeComputeMs": 120.859,
+                "nativeFormatMs": 2.612,
+                "inputBytes": 985401,
+                "outputBytes": 1253540
+              }
+            },
+            {
+              "wallMs": 141.28520900000058,
+              "metrics": {
+                "wallMs": 141.2288749999998,
+                "validateMs": 0.3348340000002281,
+                "serializeMs": 2.0051669999993464,
+                "transferMs": 129.38504199999988,
+                "deserializeMs": 9.50104199999987,
+                "nativeParseMs": 2.984,
+                "nativeComputeMs": 120.439,
+                "nativeFormatMs": 2.658,
+                "inputBytes": 985401,
+                "outputBytes": 1253540
+              }
+            },
+            {
+              "wallMs": 141.9910409999993,
+              "metrics": {
+                "wallMs": 141.9364169999999,
+                "validateMs": 0.3766669999995429,
+                "serializeMs": 2.0248750000000655,
+                "transferMs": 129.9889579999999,
+                "deserializeMs": 9.544750000000022,
+                "nativeParseMs": 2.903,
+                "nativeComputeMs": 121.325,
+                "nativeFormatMs": 2.637,
+                "inputBytes": 985401,
+                "outputBytes": 1253540
+              }
+            }
+          ],
+          "medianWallMs": 141.31787499999973,
+          "minWallMs": 141.28520900000058,
+          "maxWallMs": 141.9910409999993,
+          "medianNativeComputeMs": 120.859
+        }
+      ]
+    },
+    {
+      "kernel": "fused-reduction",
+      "size": 16,
+      "bits": 160,
+      "outputs": 1,
+      "terms": 16,
+      "nativeSpeedupVsBestJs": 0.010773889162111288,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "a6b259dfb54021bac7e0c18574930ac0cfb43bda11eceeba76331666150f7f06",
+      "variants": [
+        {
+          "name": "RiX function + actual loop",
+          "samples": [
+            {
+              "wallMs": 0.31987499999922875
+            },
+            {
+              "wallMs": 0.2200830000001588
+            },
+            {
+              "wallMs": 0.2249999999985448
+            }
+          ],
+          "medianWallMs": 0.2249999999985448,
+          "minWallMs": 0.2200830000001588,
+          "maxWallMs": 0.31987499999922875
+        },
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 0.04624999999941792
+            },
+            {
+              "wallMs": 0.04854200000045239
+            },
+            {
+              "wallMs": 0.05258300000059535
+            }
+          ],
+          "medianWallMs": 0.04854200000045239,
+          "minWallMs": 0.04624999999941792,
+          "maxWallMs": 0.05258300000059535
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 0.020832999998674495
+            },
+            {
+              "wallMs": 0.019124999998894054
+            },
+            {
+              "wallMs": 0.017249999998966814
+            }
+          ],
+          "medianWallMs": 0.019124999998894054,
+          "minWallMs": 0.017249999998966814,
+          "maxWallMs": 0.020832999998674495
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 1.9131669999987935,
+              "metrics": {
+                "wallMs": 1.9089999999996508,
+                "validateMs": 0.0033750000002328306,
+                "serializeMs": 0.007749999998850399,
+                "transferMs": 1.8896659999991243,
+                "deserializeMs": 0.007041999999273685,
+                "nativeParseMs": 0.022,
+                "nativeComputeMs": 0.009,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 1730,
+                "outputBytes": 166
+              }
+            },
+            {
+              "wallMs": 1.7170420000002196,
+              "metrics": {
+                "wallMs": 1.7142499999990832,
+                "validateMs": 0.0028329999986453913,
+                "serializeMs": 0.007582999998703599,
+                "transferMs": 1.6989169999997102,
+                "deserializeMs": 0.004166999999142718,
+                "nativeParseMs": 0.02,
+                "nativeComputeMs": 0.009,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 1730,
+                "outputBytes": 166
+              }
+            },
+            {
+              "wallMs": 1.7751250000001164,
+              "metrics": {
+                "wallMs": 1.7730830000000424,
+                "validateMs": 0.0020830000012210803,
+                "serializeMs": 0.006290999999691849,
+                "transferMs": 1.760667000000467,
+                "deserializeMs": 0.00333400000090478,
+                "nativeParseMs": 0.023,
+                "nativeComputeMs": 0.009,
+                "nativeFormatMs": 0.001,
+                "inputBytes": 1730,
+                "outputBytes": 166
+              }
+            }
+          ],
+          "medianWallMs": 1.7751250000001164,
+          "minWallMs": 1.7170420000002196,
+          "maxWallMs": 1.9131669999987935,
+          "medianNativeComputeMs": 0.009
+        }
+      ]
+    },
+    {
+      "kernel": "fused-reduction",
+      "size": 256,
+      "bits": 160,
+      "outputs": 1,
+      "terms": 256,
+      "nativeSpeedupVsBestJs": 0.08848133848137493,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "93c218782cc78ee33054b1f6f70b06d2e039d0bc8c5d150c26186d42a82ac11c",
+      "variants": [
+        {
+          "name": "RiX function + actual loop",
+          "samples": [
+            {
+              "wallMs": 2.938624999998865
+            },
+            {
+              "wallMs": 2.342124999999214
+            },
+            {
+              "wallMs": 2.3732080000008864
+            }
+          ],
+          "medianWallMs": 2.3732080000008864,
+          "minWallMs": 2.342124999999214,
+          "maxWallMs": 2.938624999998865
+        },
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 0.7632089999988239
+            },
+            {
+              "wallMs": 0.6286249999993743
+            },
+            {
+              "wallMs": 0.5991670000003069
+            }
+          ],
+          "medianWallMs": 0.6286249999993743,
+          "minWallMs": 0.5991670000003069,
+          "maxWallMs": 0.7632089999988239
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 0.2134170000008453
+            },
+            {
+              "wallMs": 0.17104199999994307
+            },
+            {
+              "wallMs": 0.171875
+            }
+          ],
+          "medianWallMs": 0.171875,
+          "minWallMs": 0.17104199999994307,
+          "maxWallMs": 0.2134170000008453
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 2.257166999999754,
+              "metrics": {
+                "wallMs": 2.252583000001323,
+                "validateMs": 0.017583000000740867,
+                "serializeMs": 0.09412499999962165,
+                "transferMs": 2.131999999999607,
+                "deserializeMs": 0.007832999999664025,
+                "nativeParseMs": 0.098,
+                "nativeComputeMs": 0.064,
+                "nativeFormatMs": 0.003,
+                "inputBytes": 27395,
+                "outputBytes": 168
+              }
+            },
+            {
+              "wallMs": 1.7685419999997976,
+              "metrics": {
+                "wallMs": 1.765957999999955,
+                "validateMs": 0.017416000000594067,
+                "serializeMs": 0.068583000000217,
+                "transferMs": 1.674790999999459,
+                "deserializeMs": 0.0042090000006282935,
+                "nativeParseMs": 0.093,
+                "nativeComputeMs": 0.065,
+                "nativeFormatMs": 0.001,
+                "inputBytes": 27395,
+                "outputBytes": 168
+              }
+            },
+            {
+              "wallMs": 1.9424999999991996,
+              "metrics": {
+                "wallMs": 1.9396249999990687,
+                "validateMs": 0.015332999999372987,
+                "serializeMs": 0.06762499999967986,
+                "transferMs": 1.8496250000007421,
+                "deserializeMs": 0.006250000000363798,
+                "nativeParseMs": 0.093,
+                "nativeComputeMs": 0.064,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 27395,
+                "outputBytes": 168
+              }
+            }
+          ],
+          "medianWallMs": 1.9424999999991996,
+          "minWallMs": 1.7685419999997976,
+          "maxWallMs": 2.257166999999754,
+          "medianNativeComputeMs": 0.064
+        }
+      ]
+    },
+    {
+      "kernel": "fused-reduction",
+      "size": 4096,
+      "bits": 160,
+      "outputs": 1,
+      "terms": 4096,
+      "nativeSpeedupVsBestJs": 0.5233025857024589,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "eff3cce4eaba5a4e7df443e34cd43a49f6fb648cc6dd75ea0a11364253b716a6",
+      "variants": [
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 9.719959000000017
+            },
+            {
+              "wallMs": 9.928791000000274
+            },
+            {
+              "wallMs": 9.726958000001105
+            }
+          ],
+          "medianWallMs": 9.726958000001105,
+          "minWallMs": 9.719959000000017,
+          "maxWallMs": 9.928791000000274
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 2.947582999999213
+            },
+            {
+              "wallMs": 2.6679169999988517
+            },
+            {
+              "wallMs": 2.795416999999361
+            }
+          ],
+          "medianWallMs": 2.795416999999361,
+          "minWallMs": 2.6679169999988517,
+          "maxWallMs": 2.947582999999213
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 5.536082999999053,
+              "metrics": {
+                "wallMs": 5.525625000000218,
+                "validateMs": 0.08666600000105973,
+                "serializeMs": 1.1559159999997064,
+                "transferMs": 4.274708999999348,
+                "deserializeMs": 0.007207999999081949,
+                "nativeParseMs": 1.299,
+                "nativeComputeMs": 0.95,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 437978,
+                "outputBytes": 172
+              }
+            },
+            {
+              "wallMs": 5.029875000000175,
+              "metrics": {
+                "wallMs": 5.02087500000016,
+                "validateMs": 0.07337499999994179,
+                "serializeMs": 0.9753749999999854,
+                "transferMs": 3.9668750000000728,
+                "deserializeMs": 0.004750000000058208,
+                "nativeParseMs": 1.326,
+                "nativeComputeMs": 0.956,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 437978,
+                "outputBytes": 172
+              }
+            },
+            {
+              "wallMs": 5.341875000000073,
+              "metrics": {
+                "wallMs": 5.332416999999623,
+                "validateMs": 0.10020900000017718,
+                "serializeMs": 1.0487080000002607,
+                "transferMs": 4.178375000001324,
+                "deserializeMs": 0.004458000001250184,
+                "nativeParseMs": 1.31,
+                "nativeComputeMs": 0.957,
+                "nativeFormatMs": 0.002,
+                "inputBytes": 437978,
+                "outputBytes": 172
+              }
+            }
+          ],
+          "medianWallMs": 5.341875000000073,
+          "minWallMs": 5.029875000000175,
+          "maxWallMs": 5.536082999999053,
+          "medianNativeComputeMs": 0.956
+        }
+      ]
+    },
+    {
+      "kernel": "fused-reduction",
+      "size": 65536,
+      "bits": 160,
+      "outputs": 1,
+      "terms": 65536,
+      "nativeSpeedupVsBestJs": 0.7187330654197335,
+      "coldCompileBreakEvenJobs": null,
+      "referenceSha256": "83c601152f0ea77f5ef691f75b8be93322bc99b51abd88c4386d804a0db90b82",
+      "variants": [
+        {
+          "name": "JS RatMath direct",
+          "samples": [
+            {
+              "wallMs": 160.93716700000004
+            },
+            {
+              "wallMs": 160.8669579999987
+            },
+            {
+              "wallMs": 160.94945799999914
+            }
+          ],
+          "medianWallMs": 160.93716700000004,
+          "minWallMs": 160.8669579999987,
+          "maxWallMs": 160.94945799999914
+        },
+        {
+          "name": "JS fused + denominator-aware sum",
+          "samples": [
+            {
+              "wallMs": 41.89312500000051
+            },
+            {
+              "wallMs": 41.121625000001586
+            },
+            {
+              "wallMs": 41.20562500000051
+            }
+          ],
+          "medianWallMs": 41.20562500000051,
+          "minWallMs": 41.121625000001586,
+          "maxWallMs": 41.89312500000051
+        },
+        {
+          "name": "Native GMP whole job",
+          "samples": [
+            {
+              "wallMs": 57.33091599999898,
+              "metrics": {
+                "wallMs": 57.098667000000205,
+                "validateMs": 1.0916249999991123,
+                "serializeMs": 15.770583000001352,
+                "transferMs": 40.21733400000085,
+                "deserializeMs": 0.016875000001164153,
+                "nativeParseMs": 20.086,
+                "nativeComputeMs": 16.118,
+                "nativeFormatMs": 0.005,
+                "inputBytes": 7007677,
+                "outputBytes": 176
+              }
+            },
+            {
+              "wallMs": 59.13958300000013,
+              "metrics": {
+                "wallMs": 58.88862500000141,
+                "validateMs": 1.0704590000004828,
+                "serializeMs": 15.868207999999868,
+                "transferMs": 41.92974999999933,
+                "deserializeMs": 0.016541000000870554,
+                "nativeParseMs": 21.589,
+                "nativeComputeMs": 16.121,
+                "nativeFormatMs": 0.008,
+                "inputBytes": 7007677,
+                "outputBytes": 176
+              }
+            },
+            {
+              "wallMs": 57.13420899999983,
+              "metrics": {
+                "wallMs": 57.007292000000234,
+                "validateMs": 1.0921670000006998,
+                "serializeMs": 15.381540999998833,
+                "transferMs": 40.518458999998984,
+                "deserializeMs": 0.013291000001117936,
+                "nativeParseMs": 20.426,
+                "nativeComputeMs": 16.132,
+                "nativeFormatMs": 0.005,
+                "inputBytes": 7007677,
+                "outputBytes": 176
+              }
+            }
+          ],
+          "medianWallMs": 57.33091599999898,
+          "minWallMs": 57.13420899999983,
+          "maxWallMs": 59.13958300000013,
+          "medianNativeComputeMs": 16.121
+        }
+      ]
+    }
+  ]
+}

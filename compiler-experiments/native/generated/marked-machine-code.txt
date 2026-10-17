@@ -1,0 +1,1 @@
+/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/source-demo-f3a27b30-0f0e-4c53-a718-0367505f0a45/ef48a72cde3c8821e429f7049dc169f43eb7d2e18097aa1f0365c7a7b168af8a/kernel: Mach-O 64-bit executable arm64

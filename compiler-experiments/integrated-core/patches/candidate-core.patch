@@ -1,0 +1,191 @@
+--- a/packages/core/src/integer.js
++++ b/packages/core/src/integer.js
+@@ -1,3 +1,4 @@
++import { installIntegerPrototype, isPlainInteger } from './experimental-reduced.js';
+ /**
+  * Integer.js
+  *
+@@ -57,6 +58,7 @@
+     if (other instanceof Integer) {
+       return new Integer(this.#value + other.value);
+     } else if (other instanceof Rational) {
++      if (isPlainInteger(this) && Rational._canUseReduced(other)) return Rational._integerLeft('add', this, other);
+       // Promote this integer to rational and add
+       const thisAsRational = new Rational(this.#value, 1n);
+       return thisAsRational.add(other);
+@@ -83,6 +85,7 @@
+     if (other instanceof Integer) {
+       return new Integer(this.#value - other.value);
+     } else if (other instanceof Rational) {
++      if (isPlainInteger(this) && Rational._canUseReduced(other)) return Rational._integerLeft('subtract', this, other);
+       // Promote this integer to rational and subtract
+       const thisAsRational = new Rational(this.#value, 1n);
+       return thisAsRational.subtract(other);
+@@ -109,6 +112,7 @@
+     if (other instanceof Integer) {
+       return new Integer(this.#value * other.value);
+     } else if (other instanceof Rational) {
++      if (isPlainInteger(this) && Rational._canUseReduced(other)) return Rational._integerLeft('multiply', this, other);
+       // Promote this integer to rational and multiply
+       const thisAsRational = new Rational(this.#value, 1n);
+       return thisAsRational.multiply(other);
+@@ -146,6 +150,7 @@
+         return new Rational(this.#value, other.value);
+       }
+     } else if (other instanceof Rational) {
++      if (isPlainInteger(this) && Rational._canUseReduced(other)) return Rational._integerLeft('divide', this, other);
+       // Promote this integer to rational and divide
+       const thisAsRational = new Rational(this.#value, 1n);
+       return thisAsRational.divide(other);
+@@ -182,6 +187,27 @@
+    * @returns {Integer} The remainder as a new Integer
+    * @throws {Error} If other is zero
+    */
++
++  // New experiment-only APIs; existing divide/modulo semantics are unchanged.
++  floorDivide(other) {
++    if (!isPlainInteger(this) || !isPlainInteger(other)) throw new TypeError('Plain Integers required');
++    if (other.value === 0n) throw new Error('Division by zero');
++    const a = this.#value, b = other.value, q = a / b, r = a % b;
++    return new Integer(r !== 0n && ((a < 0n) !== (b < 0n)) ? q - 1n : q);
++  }
++  floorModulo(other) {
++    if (!isPlainInteger(this) || !isPlainInteger(other)) throw new TypeError('Plain Integers required');
++    if (other.value <= 0n) throw new Error('Modulo divisor must be positive');
++    const r = this.#value % other.value;
++    return new Integer(r < 0n ? r + other.value : r);
++  }
++  divmod(other) {
++    if (!isPlainInteger(this) || !isPlainInteger(other)) throw new TypeError('Plain Integers required');
++    if (other.value <= 0n) throw new Error('Division with remainder divisor must be positive');
++    const a = this.#value, b = other.value, q = a / b, r = a % b;
++    return [new Integer(r < 0n ? q - 1n : q), new Integer(r < 0n ? r + b : r)];
++  }
++
+   modulo(other) {
+     if (other.value === 0n) {
+       throw new Error("Modulo by zero");
+@@ -567,3 +593,5 @@
+     return { $ratmath: "Integer", value: this.#value.toString() };
+   }
+ }
++
++installIntegerPrototype(Integer.prototype);
+--- a/packages/core/src/rational.js
++++ b/packages/core/src/rational.js
+@@ -1,3 +1,4 @@
++import { reduced, isPlainInteger } from './experimental-reduced.js';
+ /**
+  * Rational.js
+  *
+@@ -253,6 +254,31 @@
+    * Convert the rational to lowest terms and ensure denominator is positive
+    * @private
+    */
++
++  // Experiment only: private fields can be set only after proving reduction.
++  static #fromReduced(n, d) {
++    if (n === 0n) d = 1n;
++    if (d < 0n) { n = -n; d = -d; }
++    const result = new Rational(0n, 1n);
++    result.#numerator = n; result.#denominator = d;
++    result.#isNegative = n < 0n;
++    return result;
++  }
++  static _canUseReduced(value) {
++    return value != null && Object.getPrototypeOf(value) === Rational.prototype &&
++      !Object.hasOwn(value, 'numerator') && !Object.hasOwn(value, 'denominator') && !Object.hasOwn(value, 'constructor');
++  }
++  static _integerLeft(op, value, other) {
++    if (!isPlainInteger(value) || !Rational._canUseReduced(other)) throw new TypeError('Plain Integer/Rational operands required');
++    const [n, d] = reduced(op, value.value, 1n, other.#numerator, other.#denominator);
++    return Rational.#fromReduced(n, d);
++  }
++  #arithmeticFast(op, other) {
++    const [c, d] = isPlainInteger(other) ? [other.value, 1n] : [other.#numerator, other.#denominator];
++    const [n, den] = reduced(op, this.#numerator, this.#denominator, c, d);
++    return Rational.#fromReduced(n, den);
++  }
++
+   #normalize() {
+     // Handle sign: ensure denominator is positive
+     if (this.#denominator < 0n) {
+@@ -313,6 +339,7 @@
+    * @returns {Rational|RationalInterval} The sum with appropriate type
+    */
+   add(other) {
++    if (other?.isCertifiedApproximation !== true && (Rational._canUseReduced(other) || isPlainInteger(other))) return this.#arithmeticFast('add', other);
+     if (other?.isCertifiedApproximation === true) {
+       return other._operateExactLeft("add", this);
+     }
+@@ -355,6 +382,7 @@
+    * @returns {Rational|RationalInterval} The difference with appropriate type
+    */
+   subtract(other) {
++    if (other?.isCertifiedApproximation !== true && (Rational._canUseReduced(other) || isPlainInteger(other))) return this.#arithmeticFast('subtract', other);
+     if (other?.isCertifiedApproximation === true) {
+       return other._operateExactLeft("subtract", this);
+     }
+@@ -396,6 +424,7 @@
+    * @returns {Rational|RationalInterval} The product with appropriate type
+    */
+   multiply(other) {
++    if (other?.isCertifiedApproximation !== true && (Rational._canUseReduced(other) || isPlainInteger(other))) return this.#arithmeticFast('multiply', other);
+     if (other?.isCertifiedApproximation === true) {
+       return other._operateExactLeft("multiply", this);
+     }
+@@ -436,6 +465,7 @@
+    * @throws {Error} If other is zero
+    */
+   divide(other) {
++    if (other?.isCertifiedApproximation !== true && (Rational._canUseReduced(other) || isPlainInteger(other))) return this.#arithmeticFast('divide', other);
+     if (other?.isCertifiedApproximation === true) {
+       return other._operateExactLeft("divide", this);
+     }
+--- a/packages/core/src/experimental-reduced.js
++++ b/packages/core/src/experimental-reduced.js
+@@ -0,0 +1,44 @@
++// Inputs to these internal kernels must be canonical rational pairs with d>0.
++// Outputs are reduced by proof; there is no public 'trust arbitrary fractions' API.
++export const abs = n => n < 0n ? -n : n;
++export function gcd(a, b) {
++  a = abs(a); b = abs(b);
++  if (a === 0n) return b;
++  if (b === 1n) return 1n;
++  while (b) { const r = a % b; a = b; b = r; }
++  return a;
++}
++export function reduced(op, a, b, c, d) {
++  if (op === 'add' || op === 'subtract') {
++    if (op === 'subtract') c = -c;
++    if (d === 1n) return [a + c * b, b];
++    if (b === 1n) return [a * d + c, d];
++    if (b === d) {
++      const n = a + c, g = gcd(n, b);
++      return [n / g, b / g];
++    }
++    const g = gcd(b, d), bb = b / g, dd = d / g;
++    const n = a * dd + c * bb;
++    const h = g === 1n ? 1n : gcd(n, g);
++    return [n / h, bb * (d / h)];
++  }
++  if (op === 'multiply') {
++    if (a === 0n || c === 0n) return [0n, 1n];
++    const g = gcd(a, d), h = gcd(c, b);
++    return [(a / g) * (c / h), (b / h) * (d / g)];
++  }
++  if (op === 'divide') {
++    if (c === 0n) throw new Error('Division by zero');
++    if (a === 0n) return [0n, 1n];
++    const g = gcd(a, c), h = gcd(b, d);
++    let n = (a / g) * (d / h), den = (b / h) * (c / g);
++    if (den < 0n) { n = -n; den = -den; }
++    return [n, den];
++  }
++  throw new Error(`Unsupported operation ${op}`);
++}
++
++let integerPrototype;
++export const installIntegerPrototype = prototype => { integerPrototype = prototype; };
++export const isPlainInteger = value => value != null && Object.getPrototypeOf(value) === integerPrototype &&
++  !Object.hasOwn(value, 'value') && !Object.hasOwn(value, 'constructor');

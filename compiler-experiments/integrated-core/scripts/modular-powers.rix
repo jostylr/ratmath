@@ -1,0 +1,7 @@
+## Ordinary exact binary modular exponentiation, all loops remain interpreted.
+Power(base,exponent,modulus) -> {@ b=base%modulus,e=0+exponent,r=1%modulus;
+  e>0;
+  r:=e%2==1 ?:r*b%modulus ?_r,b:=b*b%modulus,e//=2;
+  ;r};
+Run(bases,exponent,modulus) -> bases.Map((base)->Power(base,@exponent,@modulus));
+Run(bases,exponent,modulus);

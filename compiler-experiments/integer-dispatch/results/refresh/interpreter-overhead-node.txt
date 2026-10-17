@@ -1,0 +1,93 @@
+node: 8 interpreter-overhead workloads; no instrumentation or profiler
+Checked integer-horner: control 3.3292ms; copy 3.2955ms; literals 2.9297ms; literals + RiX hoisted Len 2.5670ms; JS Horner, same core methods 0.0352ms
+Checked rational-horner: control 6.9356ms; copy 1.3078ms; literals 1.2046ms; literals + RiX hoisted Len 1.1106ms; JS Horner, same core methods 0.3197ms
+Checked rational-coefficients-horner: control 7.0612ms; copy 1.3493ms; literals 1.2252ms; literals + RiX hoisted Len 1.1300ms; JS Horner, same core methods 0.3683ms
+Checked larger-rational-horner: control 42.2117ms; copy 2.7755ms; literals 2.6571ms; literals + RiX hoisted Len 2.5900ms; JS Horner, same core methods 1.8172ms
+Checked zero-rational-horner: control 1.6402ms; copy 1.7021ms; literals 1.5912ms; literals + RiX hoisted Len 1.4394ms; JS Horner, same core methods 0.0753ms
+Checked interval-horner: control 0.3494ms; copy 0.3564ms; literals 0.3315ms; literals + RiX hoisted Len 0.3060ms; JS Horner, same core methods 0.0669ms
+Checked rational-coefficients-integer-points: control 2.0379ms; copy 2.0975ms; literals 1.8859ms; literals + RiX hoisted Len 1.6991ms; JS Horner, same core methods 0.1867ms
+Checked constant-rational-polynomial: control 0.1124ms; copy 0.1138ms; literals 0.0981ms; literals + RiX hoisted Len 0.0965ms; JS Horner, same core methods 0.0039ms
+# Interpreter overhead — node
+
+Times are milliseconds per full point batch. Same fast core; original RiX source unless labeled otherwise.
+
+## integer-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 3.3292 | 1.00× |
+| copy | 3.2955 | 1.01× |
+| literals | 2.9297 | 1.14× |
+| literals + RiX hoisted Len | 2.5670 | 1.30× |
+| JS Horner, same core methods | 0.0352 | 94.52× |
+
+## rational-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 6.9356 | 1.00× |
+| copy | 1.3078 | 5.30× |
+| literals | 1.2046 | 5.76× |
+| literals + RiX hoisted Len | 1.1106 | 6.24× |
+| JS Horner, same core methods | 0.3197 | 21.69× |
+
+## rational-coefficients-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 7.0612 | 1.00× |
+| copy | 1.3493 | 5.23× |
+| literals | 1.2252 | 5.76× |
+| literals + RiX hoisted Len | 1.1300 | 6.25× |
+| JS Horner, same core methods | 0.3683 | 19.17× |
+
+## larger-rational-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 42.2117 | 1.00× |
+| copy | 2.7755 | 15.21× |
+| literals | 2.6571 | 15.89× |
+| literals + RiX hoisted Len | 2.5900 | 16.30× |
+| JS Horner, same core methods | 1.8172 | 23.23× |
+
+## zero-rational-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 1.6402 | 1.00× |
+| copy | 1.7021 | 0.96× |
+| literals | 1.5912 | 1.03× |
+| literals + RiX hoisted Len | 1.4394 | 1.14× |
+| JS Horner, same core methods | 0.0753 | 21.79× |
+
+## interval-horner
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 0.3494 | 1.00× |
+| copy | 0.3564 | 0.98× |
+| literals | 0.3315 | 1.05× |
+| literals + RiX hoisted Len | 0.3060 | 1.14× |
+| JS Horner, same core methods | 0.0669 | 5.22× |
+
+## rational-coefficients-integer-points
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 2.0379 | 1.00× |
+| copy | 2.0975 | 0.97× |
+| literals | 1.8859 | 1.08× |
+| literals + RiX hoisted Len | 1.6991 | 1.20× |
+| JS Horner, same core methods | 0.1867 | 10.91× |
+
+## constant-rational-polynomial
+
+| Path | Median ms | Speedup vs unchanged interpreter |
+|---|---:|---:|
+| control | 0.1124 | 1.00× |
+| copy | 0.1138 | 0.99× |
+| literals | 0.0981 | 1.15× |
+| literals + RiX hoisted Len | 0.0965 | 1.17× |
+| JS Horner, same core methods | 0.0039 | 28.47× |
+

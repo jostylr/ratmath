@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-10-17T16:13:05.537Z",
+  "runtime": "v26.12.0",
+  "totalSamples": 1410,
+  "top": [
+    {
+      "function": "tryMatchSymbol",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 35.673758865248224
+    },
+    {
+      "function": "tokenizeSource",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 12.26950354609929
+    },
+    {
+      "function": "tryMatchIdentifier",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 7.872340425531915
+    },
+    {
+      "function": "tryMatchString",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 7.801418439716312
+    },
+    {
+      "function": "tryMatchExplicitCF",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 7.304964539007092
+    },
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "percent": 6.595744680851064
+    },
+    {
+      "function": "tryMatchNumber",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 4.25531914893617
+    },
+    {
+      "function": "tokenize",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 4.25531914893617
+    },
+    {
+      "function": "tryMatchSemicolonSequence",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 2.198581560283688
+    },
+    {
+      "function": "tryMatchRegexLiteral",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 2.127659574468085
+    },
+    {
+      "function": "tryMatchBrace",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 1.9148936170212767
+    },
+    {
+      "function": "(program)",
+      "url": "",
+      "percent": 1.3475177304964538
+    },
+    {
+      "function": "tryMatchOuterIdentifier",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 1.0638297872340425
+    },
+    {
+      "function": "extractOperatorDeclarations",
+      "url": "file://<root>/rix/src/parser/custom-operators.js",
+      "percent": 0.7801418439716312
+    },
+    {
+      "function": "tryMatchPostfixCheck",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 0.5673758865248227
+    },
+    {
+      "function": "checkSourceLimit",
+      "url": "file://<root>/rix/src/parser/source-limits.js",
+      "percent": 0.49645390070921985
+    },
+    {
+      "function": "tryMatchSystemFunctionRef",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 0.425531914893617
+    },
+    {
+      "function": "codePointAt",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 0.3546099290780142
+    },
+    {
+      "function": "tryMatchComment",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 0.3546099290780142
+    },
+    {
+      "function": "tryMatchOuterIdentifier",
+      "url": "file://<root>/rix/src/parser/tokenizer.js",
+      "percent": 0.28368794326241137
+    }
+  ]
+}

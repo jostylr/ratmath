@@ -1,0 +1,624 @@
+bun test v1.4.3 (c6da4a4d3)
+
+tests/fraction.test.js:
+(pass) Fraction > construction > creates from numeric inputs [0.04ms]
+(pass) Fraction > construction > creates from bigint inputs
+(pass) Fraction > construction > rejects unsafe JavaScript number components [0.06ms]
+(pass) Fraction > construction > creates with default denominator
+(pass) Fraction > construction > creates from string with fraction notation
+(pass) Fraction > construction > creates from string with just numerator
+(pass) Fraction > construction > handles whitespace in string input
+(pass) Fraction > construction > throws on zero denominator [0.02ms]
+(pass) Fraction > construction > throws on invalid string format [0.02ms]
+(pass) Fraction > arithmetic operations > adds fractions with equal denominators [0.02ms]
+(pass) Fraction > arithmetic operations > throws when adding fractions with different denominators [0.01ms]
+(pass) Fraction > arithmetic operations > subtracts fractions with equal denominators [0.01ms]
+(pass) Fraction > arithmetic operations > throws when subtracting fractions with different denominators [0.02ms]
+(pass) Fraction > arithmetic operations > multiplies fractions [0.02ms]
+(pass) Fraction > arithmetic operations > multiplies by zero
+(pass) Fraction > arithmetic operations > divides fractions [0.02ms]
+(pass) Fraction > arithmetic operations > throws on division by zero [0.02ms]
+(pass) Fraction > exponentiation > raises a fraction to an integer power [0.03ms]
+(pass) Fraction > exponentiation > handles power of zero
+(pass) Fraction > exponentiation > handles negative powers
+(pass) Fraction > exponentiation > throws on zero raised to zero [0.01ms]
+(pass) Fraction > exponentiation > throws on zero raised to negative power
+(pass) Fraction > reduction > reduces a fraction to lowest terms [0.03ms]
+(pass) Fraction > reduction > handles zero numerator [0.01ms]
+(pass) Fraction > reduction > normalizes sign when denominator is negative
+(pass) Fraction > reduction > does not modify the original fraction
+(pass) Fraction > scaling > scales a fraction by multiplying both numerator and denominator [0.01ms]
+(pass) Fraction > scaling > handles BigInt scaling factor
+(pass) Fraction > mediant > computes the mediant of two fractions [0.03ms]
+(pass) Fraction > conversion methods > converts to Rational [0.02ms]
+(pass) Fraction > conversion methods > creates from Rational [0.01ms]
+(pass) Fraction > string representation > converts to string with denominator [0.01ms]
+(pass) Fraction > string representation > converts to string without denominator when it's 1
+(pass) Fraction > string representation > preserves negative sign in string representation
+(pass) Fraction > equality > considers fractions equal only if both numerator and denominator match [0.01ms]
+(pass) Fraction > comparisons > compares fractions with lessThan [0.04ms]
+(pass) Fraction > comparisons > compares fractions with lessThanOrEqual [0.02ms]
+(pass) Fraction > comparisons > compares fractions with greaterThan [0.02ms]
+(pass) Fraction > comparisons > compares fractions with greaterThanOrEqual [0.02ms]
+(pass) Fraction > comparisons > handles negative fractions in comparisons
+(pass) Fraction > comparisons > handles zero in comparisons [0.01ms]
+(pass) Fraction > comparisons > compares fractions with large numerators and denominators
+
+tests/type-promotion-errors.test.js:
+(pass) TypePromotion.promoteToLevel error handling > throws when target level is greater than 2 [0.03ms]
+(pass) TypePromotion.promoteToLevel error handling > throws when target level is negative [0.02ms]
+(pass) TypePromotion.promoteToLevel error handling > throws when target level is not an integer [0.03ms]
+(pass) TypePromotion.determineTypeFromString > recognizes decimal uncertainty notation as an interval [0.01ms]
+
+tests/rational_expansion.test.js:
+(pass) Rational Base Expansion > Terminating Expansions > should handle terminating fractions in base 2 [0.22ms]
+(pass) Rational Base Expansion > Terminating Expansions > should handle terminating fractions in base 3 [0.02ms]
+(pass) Rational Base Expansion > Terminating Expansions > should handle mixed numbers [0.03ms]
+(pass) Rational Base Expansion > Repeating Expansions > should handle simple repeating fractions in base 10
+(pass) Rational Base Expansion > Repeating Expansions > should handle repeating fractions in base 2
+(pass) Rational Base Expansion > Repeating Expansions > should handle mixed repeating fractions
+(pass) Rational Base Expansion > Repeating Expansions > should handle 1/7 in base 10
+(pass) Rational Base Expansion > Custom Bases > should work with base 16 [0.01ms]
+(pass) Rational Base Expansion > Custom Bases > should work with custom charsets [0.01ms]
+(pass) Rational Base Expansion > Integers and Zero > should return just integer part if no fraction
+(pass) Rational Base Expansion > Integers and Zero > should handle zero
+(pass) Rational Base Expansion > Integers and Zero > should handle negative numbers [0.01ms]
+
+tests/numeral-system.test.js:
+(pass) all four families roundtrip signed rationals and repeat boundaries with independent carry identities [39.21ms]
+(pass) versioning and alphabets reject collisions and preserve explicit digit values [0.26ms]
+(pass) exact compound grammar has explicit unsupported and malformed diagnostics [0.23ms]
+(pass) work exhaustion preserves exact source, carries and fractional remainder without an exact spelling [0.29ms]
+(pass) locale profiles are reversible formatting adapters with strict grouping [0.41ms]
+(pass) place explanations reconstruct exact signed values independently [0.11ms]
+(pass) higher signed radices and boundary remainders retain exactness [6.29ms]
+
+tests/fraction-stern-brocot.test.js:
+(pass) Fraction Stern-Brocot navigation > computes paths in the signed tree [0.10ms]
+(pass) Fraction Stern-Brocot navigation > round-trips paths and rejects invalid directions [0.07ms]
+(pass) Fraction Stern-Brocot navigation > finds parents and handles the root [0.06ms]
+(pass) Fraction Stern-Brocot navigation > finds left and right children [0.04ms]
+(pass) Fraction Stern-Brocot navigation > validates canonical finite and infinite positions [0.04ms]
+(pass) Fraction Stern-Brocot navigation > reports depth and ancestors [0.06ms]
+(pass) Fraction Stern-Brocot navigation > rejects tree navigation from infinite boundaries [0.02ms]
+(pass) Fraction Stern-Brocot navigation > guards against impractically long paths [0.32ms]
+
+tests/type-promotion.test.js:
+(pass) TypePromotion public API > is a static-only utility class [0.01ms]
+(pass) TypePromotion public API > identifies every level and rejects unknown values [0.01ms]
+(pass) TypePromotion public API > performs the direct promotion helpers [0.05ms]
+(pass) TypePromotion public API > promotes stepwise, preserves matching values, and rejects demotion [0.02ms]
+(pass) TypePromotion public API > promotes pairs to their common type [0.03ms]
+(pass) TypePromotion public API > dispatches arithmetic after promotion [0.18ms]
+(pass) TypePromotion public API > dispatches exponentiation and E notation [0.10ms]
+(pass) TypePromotion public API > negates all supported types and rejects unknown values [0.05ms]
+(pass) TypePromotion public API > classifies scalar and interval source strings [0.01ms]
+
+tests/certified-approximation.test.js:
+(pass) CertifiedApproximation > constructs positive and negative closed decimal cylinders [0.43ms]
+(pass) CertifiedApproximation > keeps provisional digits in the candidate, not the default enclosure [0.08ms]
+(pass) CertifiedApproximation > accepts a contained explicit bound and rejects a contradictory one [0.27ms]
+(pass) CertifiedApproximation > constructs arbitrary-base cylinders [0.03ms]
+(pass) CertifiedApproximation > constructs continued-fraction cylinders in either orientation [0.13ms]
+(pass) CertifiedApproximation > propagates scalar enclosure arithmetic and collapses point results [0.42ms]
+(pass) CertifiedApproximation > uses interval-collection semantics when explicitly mixed with an interval [0.02ms]
+(pass) CertifiedApproximation > preserves all possible order relations [0.12ms]
+(pass) CertifiedApproximation > propagates unary operations and explicit conversions [0.23ms]
+(pass) CertifiedApproximation > round-trips portable JSON while preserving a stable source id [0.13ms]
+(pass) CertifiedApproximation > preserves a derived candidate in parseable string output [0.12ms]
+(pass) CertifiedApproximation > validates public construction and exact coefficient inputs [0.11ms]
+(pass) CertifiedApproximation > makes bounded conversion explicit and leaves ordinary ellipses display-only [0.17ms]
+
+tests/e-method.test.js:
+(pass) E Method > Rational.E() > applies positive E notation to integers
+(pass) E Method > Rational.E() > applies negative E notation to integers
+(pass) E Method > Rational.E() > applies E notation to fractions
+(pass) E Method > Rational.E() > applies positive E notation to fractions
+(pass) E Method > Rational.E() > handles zero exponent
+(pass) E Method > Rational.E() > handles zero value
+(pass) E Method > Rational.E() > handles negative numbers
+(pass) E Method > Rational.E() > handles large exponents
+(pass) E Method > Rational.E() > handles large negative exponents
+(pass) E Method > Rational.E() > accepts BigInt exponents
+(pass) E Method > RationalInterval.E() > applies E notation to both endpoints
+(pass) E Method > RationalInterval.E() > applies negative E notation to intervals
+(pass) E Method > RationalInterval.E() > handles fraction endpoints [0.01ms]
+(pass) E Method > RationalInterval.E() > preserves interval ordering
+(pass) E Method > RationalInterval.E() > handles zero exponent
+(pass) E Method > RationalInterval.E() > handles negative intervals
+(pass) E Method > RationalInterval.E() > handles intervals spanning zero
+(pass) E Method > Fraction.E() > applies positive E notation to fractions [0.02ms]
+(pass) E Method > Fraction.E() > applies negative E notation to fractions
+(pass) E Method > Fraction.E() > handles zero exponent
+(pass) E Method > Fraction.E() > handles negative fractions
+(pass) E Method > Fraction.E() > preserves exact fraction representation
+(pass) E Method > Fraction.E() > handles large exponents
+(pass) E Method > Fraction.E() > handles large negative exponents
+(pass) E Method > FractionInterval.E() > applies E notation to both fraction endpoints [0.04ms]
+(pass) E Method > FractionInterval.E() > applies negative E notation to fraction intervals
+(pass) E Method > FractionInterval.E() > handles zero exponent
+(pass) E Method > FractionInterval.E() > preserves fraction representation
+(pass) E Method > Integer.E() > applies positive E notation and returns Integer [0.01ms]
+(pass) E Method > Integer.E() > applies zero E notation and returns Integer
+(pass) E Method > Integer.E() > applies negative E notation and returns Rational
+(pass) E Method > Integer.E() > handles negative integers with positive exponent
+(pass) E Method > Integer.E() > handles negative integers with negative exponent
+(pass) E Method > Integer.E() > handles zero with any exponent
+(pass) E Method > Integer.E() > handles large positive exponents
+(pass) E Method > Integer.E() > handles large negative exponents
+(pass) E Method > Integer.E() > accepts BigInt exponents
+(pass) E Method > E Method Integration > produces same results as parser E notation for Rational
+(pass) E Method > E Method Integration > produces same results as parser E notation for RationalInterval [0.02ms]
+(pass) E Method > E Method Integration > chains E method calls correctly
+(pass) E Method > E Method Integration > chains E method calls with negative exponents
+(pass) E Method > E Method Integration > works with arithmetic operations
+(pass) E Method > E Method Integration > works with interval arithmetic [0.01ms]
+(pass) E Method > Edge Cases > handles very large numbers
+(pass) E Method > Edge Cases > handles very small fractions
+(pass) E Method > Edge Cases > maintains precision with repeated operations
+(pass) E Method > Edge Cases > handles integer overflow scenarios gracefully
+
+tests/rational-interval.test.js:
+(pass) RationalInterval > constructor > creates an interval from two rationals
+(pass) RationalInterval > constructor > creates an interval from strings
+(pass) RationalInterval > constructor > creates an interval from numbers
+(pass) RationalInterval > constructor > orders the endpoints correctly [0.02ms]
+(pass) RationalInterval > arithmetic operations > adds two intervals [0.01ms]
+(pass) RationalInterval > arithmetic operations > subtracts two intervals [0.01ms]
+(pass) RationalInterval > arithmetic operations > multiplies two positive intervals [0.01ms]
+(pass) RationalInterval > arithmetic operations > multiplies intervals with negative values [0.01ms]
+(pass) RationalInterval > arithmetic operations > divides two intervals not containing zero [0.01ms]
+(pass) RationalInterval > arithmetic operations > throws an error when dividing by an interval containing zero [0.01ms]
+(pass) RationalInterval > static constants > provides a zero constant [0.01ms]
+(pass) RationalInterval > static constants > provides a one constant
+(pass) RationalInterval > static constants > provides a unit interval constant
+(pass) RationalInterval > exponentiation > raises a positive interval to a positive power [0.01ms]
+(pass) RationalInterval > exponentiation > raises a negative interval to an even power [0.01ms]
+(pass) RationalInterval > exponentiation > raises a negative interval to an odd power
+(pass) RationalInterval > exponentiation > raises an interval containing zero to an even power [0.02ms]
+(pass) RationalInterval > exponentiation > raises an interval to power 0
+(pass) RationalInterval > exponentiation > raises an interval to a negative power
+(pass) RationalInterval > exponentiation > throws an error when raising zero to power 0 [0.01ms]
+(pass) RationalInterval > exponentiation > throws an error when raising an interval containing zero to power 0 [0.01ms]
+(pass) RationalInterval > exponentiation > throws an error when raising an interval containing zero to a negative power
+(pass) RationalInterval > multiplicative exponentiation > raises a positive interval to a positive power using multiplication [0.01ms]
+(pass) RationalInterval > multiplicative exponentiation > handles higher powers with multiplicative exponentiation [0.01ms]
+(pass) RationalInterval > multiplicative exponentiation > raises an interval to a negative power using reciprocal and multiplication [0.01ms]
+(pass) RationalInterval > multiplicative exponentiation > throws an error for exponent 0 [0.02ms]
+(pass) RationalInterval > negation and reciprocation > negates an interval
+(pass) RationalInterval > negation and reciprocation > reciprocates an interval not containing zero
+(pass) RationalInterval > negation and reciprocation > throws an error when reciprocating an interval containing zero
+(pass) RationalInterval > interval operations > checks for overlap between intervals [0.02ms]
+(pass) RationalInterval > interval operations > checks if one interval contains another
+(pass) RationalInterval > interval operations > checks if an interval contains a value
+(pass) RationalInterval > interval operations > computes the intersection of two intervals [0.03ms]
+(pass) RationalInterval > interval operations > computes the union of two overlapping intervals [0.02ms]
+(pass) RationalInterval > interval operations > returns null for union of disjoint intervals [0.03ms]
+(pass) RationalInterval > interval operations > unites intervals that share an endpoint [0.01ms]
+(pass) RationalInterval > interval operations > returns null for intervals separated by a gap
+(pass) RationalInterval > conversion > converts an interval to string
+(pass) RationalInterval > conversion > converts an interval to mixed number string format [0.03ms]
+(pass) RationalInterval > conversion > handles zero and negative values in mixed string format
+(pass) RationalInterval > conversion > handles whole numbers in mixed string format
+(pass) RationalInterval > static methods > creates a point interval
+(pass) RationalInterval > static methods > creates a point interval from an Integer
+(pass) RationalInterval > static methods > creates an interval from a string [0.01ms]
+(pass) RationalInterval > static methods > throws an error for invalid string format
+(pass) RationalInterval > new methods > mediant > calculates the mediant of interval endpoints [0.01ms]
+(pass) RationalInterval > new methods > mediant > works with integer endpoints
+(pass) RationalInterval > new methods > midpoint > calculates the arithmetic midpoint
+(pass) RationalInterval > new methods > midpoint > works with different denominators
+(pass) RationalInterval > new methods > shortestDecimal > finds integers when they exist in the interval [0.05ms]
+(pass) RationalInterval > new methods > shortestDecimal > finds decimal fractions with base 10 [0.01ms]
+(pass) RationalInterval > new methods > shortestDecimal > works with different bases
+(pass) RationalInterval > new methods > shortestDecimal > throws error for invalid base [0.02ms]
+(pass) RationalInterval > new methods > shortestDecimal > uses mathematical bound efficiently for large intervals
+(pass) RationalInterval > new methods > shortestDecimal > handles very small intervals correctly [0.01ms]
+(pass) RationalInterval > new methods > shortestDecimal > works with point intervals that have power-of-base representation [0.01ms]
+(pass) RationalInterval > new methods > shortestDecimal > supports terminating point values beyond 50 base digits [0.02ms]
+(pass) RationalInterval > new methods > shortestDecimal > keeps the interval-width search in arbitrary precision [0.03ms]
+(pass) RationalInterval > new methods > shortestDecimal > returns null for point intervals without power-of-base representation
+(pass) RationalInterval > new methods > randomRational > returns a rational within the interval [0.10ms]
+(pass) RationalInterval > new methods > randomRational > selects exact grid endpoints with an injected random source [0.03ms]
+(pass) RationalInterval > new methods > randomRational > works with point intervals [0.01ms]
+(pass) RationalInterval > new methods > randomRational > accepts a bigint grid denominator [0.01ms]
+(pass) RationalInterval > new methods > randomRational > throws error for an invalid grid denominator [0.01ms]
+
+tests/decimal-improvements.test.js:
+(pass) Enhanced decimal metadata provides detailed breakdown [0.13ms]
+(pass) Initial segment leading zeros are correctly computed [0.03ms]
+(pass) Period leading zeros are correctly computed
+(pass) Multiple leading zeros in initial segment
+(pass) MAX_PERIOD_DIGITS class property defaults to 30
+(pass) Period leading-zero metadata is exact beyond the stored prefix [0.11ms]
+(pass) Period leading-zero metadata remains exact with an initial segment [0.02ms]
+(pass) Repeat notation formatting works for leading zeros [0.07ms]
+(pass) Repeat notation formatting threshold works [0.02ms]
+(pass) Repeat notation parsing works [0.06ms]
+(pass) Scientific notation works for very small numbers [131.45ms]
+(pass) Scientific notation works for terminating decimals [0.09ms]
+(pass) Scientific notation works for numbers >= 1 [0.03ms]
+(pass) Scientific notation works for repeating decimals [0.05ms]
+(pass) Scientific notation with repeat notation parameter [0.02ms]
+(pass) Scientific notation handles zero correctly
+(pass) Scientific notation handles negative numbers [0.02ms]
+(pass) toRepeatingDecimalWithPeriod with repeat notation parameter [0.02ms]
+(pass) Decimal metadata for terminating decimals
+(pass) Decimal metadata for pure integers [0.02ms]
+(pass) Period computation respects maxPeriodDigits parameter [0.04ms]
+(pass) extractPeriodSegment method works correctly [0.04ms]
+(pass) Repeat notation formatting handles period digits [129.54ms]
+(pass) Scientific notation fallback in calc.js context [127.81ms]
+
+tests/integer-rational-integration.test.js:
+(pass) Integer-Rational Integration > division returning rationals > returns rational for non-exact division [0.04ms]
+(pass) Integer-Rational Integration > division returning rationals > can chain integer operations with rational results [0.04ms]
+(pass) Integer-Rational Integration > division returning rationals > handles large integer division producing rationals [0.05ms]
+(pass) Integer-Rational Integration > rational to integer conversion > converts whole number rationals to integers [0.02ms]
+(pass) Integer-Rational Integration > rational to integer conversion > throws error for non-whole rationals [0.03ms]
+(pass) Integer-Rational Integration > rational to integer conversion > handles negative whole rationals
+(pass) Integer-Rational Integration > rational to integer conversion > handles zero rational
+(pass) Integer-Rational Integration > integer to rational conversion > converts integers to rationals with denominator 1
+(pass) Integer-Rational Integration > integer to rational conversion > preserves negative values
+(pass) Integer-Rational Integration > integer to rational conversion > handles large integers
+(pass) Integer-Rational Integration > mixed arithmetic operations > allows arithmetic between integers and rationals
+(pass) Integer-Rational Integration > mixed arithmetic operations > handles complex mixed operations [0.01ms]
+(pass) Integer-Rational Integration > mixed arithmetic operations > preserves exact arithmetic through conversions [0.01ms]
+(pass) Integer-Rational Integration > edge cases and error handling > handles zero division consistently [0.01ms]
+(pass) Integer-Rational Integration > edge cases and error handling > handles very large numbers in conversions
+(pass) Integer-Rational Integration > edge cases and error handling > maintains precision across multiple conversions
+(pass) Integer-Rational Integration > practical use cases > calculates exact averages [0.03ms]
+(pass) Integer-Rational Integration > practical use cases > handles financial calculations with exact precision [0.01ms]
+(pass) Integer-Rational Integration > practical use cases > performs exact fraction arithmetic starting from integers [0.02ms]
+(pass) Integer-Rational Integration > practical use cases > computes exact powers and roots relationships [0.03ms]
+(pass) Integer-Rational Integration > negative exponents > returns rational for negative exponents
+(pass) Integer-Rational Integration > negative exponents > handles larger negative exponents
+(pass) Integer-Rational Integration > negative exponents > maintains mathematical relationship: n^k * n^(-k) = 1 [0.01ms]
+(pass) Integer-Rational Integration > negative exponents > works with large integers
+(pass) Integer-Rational Integration > negative exponents > throws error for zero with negative exponent [0.01ms]
+(pass) Integer-Rational Integration > negative exponents > handles negative bases with negative exponents
+(pass) Integer-Rational Integration > performance and memory efficiency > handles repeated operations efficiently [0.03ms]
+(pass) Integer-Rational Integration > performance and memory efficiency > maintains exact arithmetic with large intermediate results [0.01ms]
+
+tests/publishing-regressions.test.js:
+(pass) publishing regressions > generalized Farey parents > returns ordinary parents for a reduced fraction [0.11ms]
+(pass) publishing regressions > generalized Farey parents > recognizes the canonical zero root and its infinite boundaries [0.03ms]
+(pass) publishing regressions > generalized Farey parents > lifts reduced parents to a balanced unreduced representation [0.02ms]
+(pass) publishing regressions > generalized Farey parents > uses the component gcd as the generalized determinant [0.07ms]
+(pass) publishing regressions > generalized Farey parents > normalizes a negative denominator before finding parents [0.01ms]
+(pass) publishing regressions > generalized Farey parents > handles large components without walking the Stern-Brocot tree [0.03ms]
+(pass) publishing regressions > exact mediant partners > subtracts the known endpoint components from the mediant [0.01ms]
+(pass) publishing regressions > exact mediant partners > allows a nonzero zero-denominator partner
+(pass) publishing regressions > exact mediant partners > rejects identical endpoint and mediant components [0.02ms]
+(pass) publishing regressions > Fraction signs and zero denominators > compares finite values independently of denominator signs [0.02ms]
+(pass) publishing regressions > Fraction signs and zero denominators > supports signed nonzero values over zero when explicitly enabled [0.04ms]
+(pass) publishing regressions > Fraction signs and zero denominators > always rejects 0/0, including indeterminate arithmetic [0.02ms]
+(pass) publishing regressions > bounded rational approximations > finds the closest rational, including semiconvergents [0.07ms]
+(pass) publishing regressions > bounded rational approximations > separates absolute-error approximation from convergents [0.01ms]
+(pass) publishing regressions > bounded rational approximations > works symmetrically for negative values [0.01ms]
+(pass) publishing regressions > bounded rational approximations > rejects invalid denominator bounds [0.03ms]
+(pass) publishing regressions > bounded rational approximations > has no strictly closer small-denominator candidate [3.62ms]
+(pass) publishing regressions > BaseSystem validation > rejects non-integral digit indexes [0.04ms]
+(pass) publishing regressions > BaseSystem validation > rejects a bare minus sign [0.01ms]
+(pass) publishing regressions > BaseSystem validation > requires a single Unicode character per array entry [0.07ms]
+
+tests/release-contracts.test.js:
+192 |               throw new Error("Invalid decimal format");
+193 |             }
+194 | 
+195 |             // Convert decimal to fraction
+196 |             const isNegative = integerPart.startsWith("-");
+197 |             const wholePart = BigInt(integerPart);
+                                    ^
+SyntaxError: Failed to parse String to BigInt
+      at new Rational (/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/tmp/decimal-recheck/tmp/committed-core/before/src/rational.js:197:31)
+      at <anonymous> (/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/tmp/decimal-recheck/tmp/committed-core/before/tests/release-contracts.test.js:24:12)
+(fail) signed string construction > preserves a negative sign when the whole part is zero [0.12ms]
+(pass) signed string construction > requires unsigned mixed-number fraction components [0.06ms]
+(pass) bounded repeating-decimal serialization > publishes a configurable 30-digit global default limit [0.06ms]
+(pass) bounded repeating-decimal serialization > emits the complete 1/7 period and round-trips [0.06ms]
+(pass) bounded repeating-decimal serialization > supports error, null, and visibly truncated limit behavior [0.08ms]
+(pass) bounded repeating-decimal serialization > validates limit controls [0.03ms]
+(pass) bounded repeating-decimal serialization > uses and validates the mutable period-discovery limit in diagnostics [0.93ms]
+(pass) overridable formatting limits > supports mutable defaults and explicit overrides [0.17ms]
+(pass) overridable formatting limits > validates formatting defaults and boolean flags [0.03ms]
+(pass) denominator grids > computes the inclusive grid interval [0.04ms]
+(pass) denominator grids > handles a grid that misses the interval [0.03ms]
+(pass) denominator grids > samples huge grids without enumerating candidates [0.02ms]
+(pass) denominator grids > rejects a non-varying source instead of looping forever [0.02ms]
+(pass) rounding and tagged JSON > rounds exactly with explicit tie behavior [0.07ms]
+(pass) rounding and tagged JSON > revives nested tagged values and exposes public guards [0.23ms]
+(pass) rounding and tagged JSON > rejects inexact number inputs in newly covered conversion paths [0.02ms]
+(pass) rounding and tagged JSON > rejects unsafe number exponents throughout the exact API [0.06ms]
+(pass) rounding and tagged JSON > does not expose mutable decimal factor tables [0.02ms]
+
+tests/bit-length.test.js:
+(pass) Integer.bitLength() > bit length of positive integers [0.02ms]
+(pass) Integer.bitLength() > bit length of negative integers [0.01ms]
+(pass) Rational.bitLength() > bit length of various rationals [0.04ms]
+(pass) RationalInterval.bitLength() > bit length of various rational intervals [0.02ms]
+
+tests/bases_extension.test.js:
+(pass) Bases Extension > Integer.toBase > converts to binary [0.01ms]
+(pass) Bases Extension > Integer.toBase > converts to hex [0.02ms]
+(pass) Bases Extension > Integer.toBase > converts negative numbers
+(pass) Bases Extension > Integer.toString(base) > converts using numeric base [0.02ms]
+(pass) Bases Extension > Integer.toString(base) > converts using BaseSystem object
+(pass) Bases Extension > Integer.toString(base) > defaults to decimal
+(pass) Bases Extension > Rational.toBase > converts integer rational [0.01ms]
+(pass) Bases Extension > Rational.toBase > converts fraction rational
+(pass) Bases Extension > Rational.toBase > converts negative fraction rational
+(pass) Bases Extension > Rational.toString(base) > converts using numeric base [0.02ms]
+(pass) Bases Extension > Rational.toString(base) > converts using BaseSystem object
+
+tests/range-arithmetic.test.js:
+(pass) exact RationalIntervalSet arithmetic images > negation, absolute value, addition, and subtraction preserve topology [0.34ms]
+(pass) exact RationalIntervalSet arithmetic images > multiplication handles signs, open zero, and unbounded zero products [0.22ms]
+(pass) exact RationalIntervalSet arithmetic images > reciprocal removes only zero and produces exact disconnected rays [0.21ms]
+(pass) exact RationalIntervalSet arithmetic images > division reports denominator exclusions without discarding defined pairs [0.12ms]
+(pass) exact RationalIntervalSet arithmetic images > integer powers implement exact correlated images and scoped 0^0 convention [0.16ms]
+(pass) exact RationalIntervalSet arithmetic images > integer powers validate every exact exponent form and policy option [0.04ms]
+(pass) exact RationalIntervalSet arithmetic images > the exact checker accepts generated records and rejects changed claims [0.17ms]
+(pass) exact RationalIntervalSet arithmetic images > the exact checker recomputes every primitive and rejects unknown records [0.19ms]
+(pass) exact RationalIntervalSet arithmetic images > sampled defined scalar outputs are contained in binary images [0.09ms]
+
+tests/integer.test.js:
+(pass) Integer > static constants > provides a zero constant
+(pass) Integer > static constants > provides a one constant
+(pass) Integer > constructor > creates an integer from a number
+(pass) Integer > constructor > creates an integer from a bigint
+(pass) Integer > constructor > creates an integer from a string
+(pass) Integer > constructor > creates a negative integer
+(pass) Integer > constructor > creates a large integer
+(pass) Integer > constructor > copies another Integer exactly [0.01ms]
+(pass) Integer > constructor > rejects unsafe JavaScript numbers [0.01ms]
+(pass) Integer > constructor > throws error for invalid string format [0.02ms]
+(pass) Integer > constructor > handles string with whitespace
+(pass) Integer > arithmetic operations > addition > adds two positive integers
+(pass) Integer > arithmetic operations > addition > adds positive and negative integers
+(pass) Integer > arithmetic operations > addition > adds two negative integers
+(pass) Integer > arithmetic operations > subtraction > subtracts two positive integers
+(pass) Integer > arithmetic operations > subtraction > subtracts resulting in negative
+(pass) Integer > arithmetic operations > multiplication > multiplies two positive integers
+(pass) Integer > arithmetic operations > multiplication > multiplies positive and negative integers
+(pass) Integer > arithmetic operations > multiplication > multiplies by zero
+(pass) Integer > arithmetic operations > division > divides evenly returning an integer
+(pass) Integer > arithmetic operations > division > divides unevenly returning a rational
+(pass) Integer > arithmetic operations > division > throws error for division by zero [0.01ms]
+(pass) Integer > arithmetic operations > division > handles negative division
+(pass) Integer > arithmetic operations > modulo > computes modulo of positive integers
+(pass) Integer > arithmetic operations > modulo > computes modulo with negative dividend
+(pass) Integer > arithmetic operations > modulo > throws error for modulo by zero
+(pass) Integer > arithmetic operations > negation > negates a positive integer
+(pass) Integer > arithmetic operations > negation > negates a negative integer
+(pass) Integer > arithmetic operations > negation > negates zero
+(pass) Integer > arithmetic operations > power > raises to positive power
+(pass) Integer > arithmetic operations > power > raises to power of zero
+(pass) Integer > arithmetic operations > power > raises zero to positive power
+(pass) Integer > arithmetic operations > power > returns rational for negative exponent
+(pass) Integer > arithmetic operations > power > returns rational for larger negative exponent
+(pass) Integer > arithmetic operations > power > throws error for zero raised to negative power [0.02ms]
+(pass) Integer > arithmetic operations > power > throws error for zero raised to power zero
+(pass) Integer > arithmetic operations > power > handles large exponents
+(pass) Integer > comparison operations > equals > returns true for equal integers
+(pass) Integer > comparison operations > equals > returns false for unequal integers
+(pass) Integer > comparison operations > compareTo > returns 0 for equal integers
+(pass) Integer > comparison operations > compareTo > returns -1 when first is smaller
+(pass) Integer > comparison operations > compareTo > returns 1 when first is larger
+(pass) Integer > comparison operations > comparison methods > lessThan works correctly
+(pass) Integer > comparison operations > comparison methods > lessThanOrEqual works correctly [0.01ms]
+(pass) Integer > comparison operations > comparison methods > greaterThan works correctly
+(pass) Integer > comparison operations > comparison methods > greaterThanOrEqual works correctly [0.01ms]
+(pass) Integer > utility methods > abs > returns absolute value of positive integer
+(pass) Integer > utility methods > abs > returns absolute value of negative integer
+(pass) Integer > utility methods > abs > returns absolute value of zero
+(pass) Integer > utility methods > sign > returns 1 for positive integer
+(pass) Integer > utility methods > sign > returns -1 for negative integer
+(pass) Integer > utility methods > sign > returns 0 for zero
+(pass) Integer > utility methods > parity checks > isEven works correctly [0.01ms]
+(pass) Integer > utility methods > parity checks > isOdd works correctly
+(pass) Integer > utility methods > sign checks > isZero works correctly
+(pass) Integer > utility methods > sign checks > isPositive works correctly
+(pass) Integer > utility methods > sign checks > isNegative works correctly
+(pass) Integer > utility methods > gcd > computes gcd of positive integers [0.02ms]
+(pass) Integer > utility methods > gcd > computes gcd with negative integers
+(pass) Integer > utility methods > gcd > computes gcd when one is zero
+(pass) Integer > utility methods > lcm > computes lcm of positive integers [0.01ms]
+(pass) Integer > utility methods > lcm > returns zero when one operand is zero
+(pass) Integer > factorial operations > factorial > computes factorial of 0 [0.02ms]
+(pass) Integer > factorial operations > factorial > computes factorial of 1
+(pass) Integer > factorial operations > factorial > computes factorial of 5
+(pass) Integer > factorial operations > factorial > computes factorial of 10
+(pass) Integer > factorial operations > factorial > throws error for negative integers
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 0
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 1
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 5 (5!! = 5*3*1)
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 6 (6!! = 6*4*2)
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 7 (7!! = 7*5*3*1)
+(pass) Integer > factorial operations > doubleFactorial > computes double factorial of 8 (8!! = 8*6*4*2)
+(pass) Integer > factorial operations > doubleFactorial > throws error for negative integers
+(pass) Integer > conversion methods > toString > converts positive integer to string
+(pass) Integer > conversion methods > toString > converts negative integer to string
+(pass) Integer > conversion methods > toString > converts zero to string
+(pass) Integer > conversion methods > toNumber > converts small integer to number
+(pass) Integer > conversion methods > toNumber > converts negative integer to number
+(pass) Integer > conversion methods > toRational > converts integer to rational
+(pass) Integer > static methods > from > creates integer from number
+(pass) Integer > static methods > from > creates integer from string
+(pass) Integer > static methods > from > creates integer from bigint
+(pass) Integer > static methods > from > creates integer from another integer
+(pass) Integer > static methods > fromRational > creates integer from whole number rational
+(pass) Integer > static methods > fromRational > throws error for non-whole rational
+
+tests/number-parser.test.js:
+(pass) number-only parsing > preserves integer values and parses grouped digits [0.02ms]
+(pass) number-only parsing > parses fractions and finite decimals exactly [0.07ms]
+(pass) number-only parsing > parses repeating decimals exactly [0.04ms]
+(pass) number-only parsing > parses and emits mixed-fraction notation [0.03ms]
+(pass) number-only parsing > parses and emits continued fractions [0.06ms]
+(pass) number-only parsing > parses exact colon intervals with any scalar endpoint notation [0.02ms]
+(pass) number-only parsing > parses compact decimal interval notation [0.09ms]
+(pass) number-only parsing > parses relative and symmetric decimal intervals [0.05ms]
+(pass) number-only parsing > round-trips relative midpoint decimal interval output [0.07ms]
+(pass) number-only parsing > round-trips shortest relative decimal interval output [0.13ms]
+(pass) number-only parsing > preserves exact asymmetric and repeating offsets [0.09ms]
+(pass) number-only parsing > round-trips terminating bases and offsets beyond 20 decimal places [0.07ms]
+(pass) number-only parsing > formats wide relative intervals without enumerating their integers [0.03ms]
+(pass) number-only parsing > parses decimal-point ranges with repeating endpoints [0.05ms]
+(pass) number-only parsing > round-trips exact repeating interval output [0.03ms]
+(pass) number-only parsing > rejects expressions and malformed numeric forms [0.43ms]
+
+tests/bigint.test.js:
+(pass) toExactBigInt > accepts every exact integer input form [0.01ms]
+(pass) toExactBigInt > rejects rounded numbers and malformed inputs [0.02ms]
+
+tests/rational.test.js:
+(pass) Rational > static constants > provides a zero constant
+(pass) Rational > static constants > provides a one constant
+(pass) Rational > constructor > creates a rational from integers
+(pass) Rational > constructor > creates a rational from bigints
+(pass) Rational > constructor > copies another Rational
+(pass) Rational > constructor > accepts an exact integer string denominator
+(pass) Rational > constructor > rejects unsafe JavaScript number components [0.02ms]
+(pass) Rational > constructor > creates a rational from a string
+(pass) Rational > constructor > creates a rational from a whole number string
+(pass) Rational > constructor > normalizes the rational to lowest terms
+(pass) Rational > constructor > handles negative numbers [0.01ms]
+(pass) Rational > constructor > throws an error for zero denominator
+(pass) Rational > constructor > handles zero numerator
+(pass) Rational > arithmetic operations > adds two rationals
+(pass) Rational > arithmetic operations > subtracts two rationals
+(pass) Rational > arithmetic operations > multiplies two rationals
+(pass) Rational > arithmetic operations > divides two rationals
+(pass) Rational > arithmetic operations > throws an error when dividing by zero [0.01ms]
+(pass) Rational > arithmetic operations > negates a rational
+(pass) Rational > arithmetic operations > computes the reciprocal of a rational
+(pass) Rational > arithmetic operations > throws an error when computing the reciprocal of zero [0.01ms]
+(pass) Rational > arithmetic operations > computes absolute value
+(pass) Rational > exponentiation > raises a rational to a positive integer power
+(pass) Rational > exponentiation > raises a rational to a negative integer power [0.01ms]
+(pass) Rational > exponentiation > raises a rational to power 0
+(pass) Rational > exponentiation > throws an error when raising zero to a negative power
+(pass) Rational > exponentiation > throws an error when raising zero to power 0
+(pass) Rational > comparison > checks equality of rationals
+(pass) Rational > comparison > compares rationals
+(pass) Rational > comparison > checks if one rational is less than another
+(pass) Rational > comparison > checks if one rational is less than or equal to another
+(pass) Rational > comparison > checks if one rational is greater than another
+(pass) Rational > comparison > checks if one rational is greater than or equal to another
+(pass) Rational > conversion > converts a rational to string
+(pass) Rational > conversion > converts a rational to a number [0.01ms]
+(pass) Rational > conversion > converts a rational to a mixed number string [0.01ms]
+(pass) Rational > conversion > handles zero and negative mixed numbers
+(pass) Rational > repeating decimal conversion > converts simple fractions to repeating decimals [0.03ms]
+(pass) Rational > repeating decimal conversion > converts terminating decimals [0.03ms]
+(pass) Rational > repeating decimal conversion > converts integers [0.01ms]
+(pass) Rational > repeating decimal conversion > converts mixed numbers with repeating parts [0.02ms]
+(pass) Rational > repeating decimal conversion > converts mixed numbers with terminating parts [0.01ms]
+(pass) Rational > repeating decimal conversion > handles negative fractions [0.02ms]
+(pass) Rational > repeating decimal conversion > handles complex repeating patterns [0.02ms]
+(pass) Rational > repeating decimal conversion > roundtrip conversion works correctly [0.07ms]
+(pass) Rational > static methods > creates a rational from various types [0.02ms]
+(pass) Rational > continued-fraction utilities > calculates terminating and repeating periods in a base [0.03ms]
+(pass) Rational > continued-fraction utilities > validates arbitrary-base expansion and period limits [0.03ms]
+(pass) Rational > continued-fraction utilities > recognizes a period exactly at the global discovery boundary [0.02ms]
+(pass) Rational > continued-fraction utilities > recomputes cached period metadata when the discovery limit changes [0.02ms]
+(pass) Rational > continued-fraction utilities > parses continued-fraction strings and rejects malformed terms [0.08ms]
+(pass) Rational > continued-fraction utilities > computes, limits, and indexes canonical convergents [0.11ms]
+(pass) Rational > continued-fraction utilities > provides canonical and long finite expansions without retaining provenance [0.05ms]
+(pass) Rational > continued-fraction utilities > includes intermediate convergents along each coefficient run [0.03ms]
+(pass) Rational > continued-fraction utilities > does not canonicalize a coefficient prefix ending in a nonterminal one [0.01ms]
+(pass) Rational > continued-fraction utilities > indexes convergents beyond the default count limit [22.24ms]
+(pass) Rational > continued-fraction utilities > visibly marks incomplete continued-fraction strings at limit boundaries [1.49ms]
+(pass) Rational > continued-fraction utilities > rejects invalid continued-fraction counts and indexes [0.13ms]
+(pass) Rational > continued-fraction utilities > computes convergents from arrays and strings [0.04ms]
+(pass) Rational > continued-fraction utilities > returns a nonnegative approximation error [0.02ms]
+
+tests/efficient-decimal.test.js:
+(pass) Efficient Decimal Computation > computeDecimalMetadata for simple fractions [0.03ms]
+(pass) Efficient Decimal Computation > computeDecimalMetadata for 1/7 [0.01ms]
+(pass) Efficient Decimal Computation > computeDecimalMetadata for terminating decimal [0.01ms]
+(pass) Efficient Decimal Computation > computeDecimalMetadata for mixed terminating decimal
+(pass) Efficient Decimal Computation > toRepeatingDecimal uses new efficient method [0.02ms]
+(pass) Efficient Decimal Computation > toRepeatingDecimalWithPeriod uses new efficient method [0.02ms]
+(pass) Efficient Decimal Computation > reports a known period longer than the digit prefix [0.02ms]
+(pass) Efficient Decimal Computation > handles period > 10^7 gracefully [146.95ms]
+(pass) Efficient Decimal Computation > 100!!/99!! should not hang [131.53ms]
+(pass) Efficient Decimal Computation > extractPeriodSegment works correctly [0.09ms]
+
+tests/fraction-interval.test.js:
+(pass) FractionInterval > construction > creates from two Fraction endpoints [0.02ms]
+(pass) FractionInterval > construction > automatically orders endpoints [0.01ms]
+(pass) FractionInterval > construction > throws when endpoints are not Fraction objects [0.02ms]
+(pass) FractionInterval > mediantSplit > splits an interval into two using mediant [0.03ms]
+(pass) FractionInterval > mediantSplit > handles zero-width intervals (point intervals) [0.01ms]
+(pass) FractionInterval > partitionWithMediants > returns the original interval when n = 0 [0.03ms]
+(pass) FractionInterval > partitionWithMediants > splits once with default n = 1 [0.02ms]
+(pass) FractionInterval > partitionWithMediants > splits recursively with n = 2 [0.02ms]
+(pass) FractionInterval > partitionWithMediants > throws when n is negative [0.01ms]
+(pass) FractionInterval > partitionWith > creates intervals using the provided function [0.07ms]
+(pass) FractionInterval > partitionWith > deduplicates identical points [0.03ms]
+(pass) FractionInterval > partitionWith > sorts points in ascending order [0.03ms]
+(pass) FractionInterval > partitionWith > throws when partition function returns non-array [0.01ms]
+(pass) FractionInterval > partitionWith > throws when partition function returns non-Fraction elements [0.01ms]
+(pass) FractionInterval > conversion methods > converts to RationalInterval [0.02ms]
+(pass) FractionInterval > conversion methods > creates from RationalInterval [0.03ms]
+(pass) FractionInterval > string representation > converts to string format low:high
+(pass) FractionInterval > string representation > handles integer endpoints in string representation
+(pass) FractionInterval > equality > considers intervals equal if endpoints are equal [0.02ms]
+(pass) FractionInterval > equality > considers intervals not equal if endpoints differ
+(pass) FractionInterval > equality > distinguishes intervals with same rational value but different fractions
+
+tests/sci-mode-display.test.js:
+(pass) SCI mode basic repeating decimal display [0.02ms]
+(pass) SCI mode mixed number with repeating decimal [0.04ms]
+(pass) SCI mode {0~n} optimization - should only use when n > 6 [0.02ms]
+(pass) SCI mode {0~n} optimization - repeating zeros in fractional part [0.02ms]
+(pass) SCI mode proper decimal notation for simple fractions [0.01ms]
+(pass) SCI mode repeating decimals with proper # notation [0.02ms]
+(pass) SCI mode large numbers with repeating decimals [0.02ms]
+(pass) SCI mode preserves integer-tail digits that do not align with the period [0.10ms]
+(pass) every exact scientific expansion in a broad small-rational grid round-trips [90.67ms]
+(pass) SCI mode zero and whole numbers [0.06ms]
+(pass) SCI mode precision control [0.02ms]
+
+tests/base-system.test.js:
+(pass) BaseSystem public API > constructs named Unicode systems and returns defensive copies [0.07ms]
+(pass) BaseSystem public API > rejects malformed and conflicting character sets [0.09ms]
+(pass) BaseSystem public API > validates digit indexes [0.02ms]
+(pass) BaseSystem public API > converts positive, negative, zero, and Unicode values [0.08ms]
+(pass) BaseSystem public API > rejects invalid conversion inputs [0.03ms]
+(pass) BaseSystem public API > validates numeral strings and exposes digit bounds [0.02ms]
+(pass) BaseSystem public API > describes and compares systems by their digit sequence [0.07ms]
+(pass) BaseSystem public API > creates every supported standard pattern [0.12ms]
+(pass) BaseSystem public API > rejects unsupported bases and pattern sizes [0.04ms]
+(pass) BaseSystem public API > registers, resolves, and removes custom prefixes [0.09ms]
+(pass) BaseSystem public API > validates prefix registration [0.02ms]
+(pass) BaseSystem public API > applies case-sensitivity settings [0.13ms]
+(pass) BaseSystem public API > round-trips balanced and negative-radix integers [0.05ms]
+(pass) BaseSystem public API > supports bijective digits while rejecting unrepresentable zero [0.05ms]
+(pass) BaseSystem public API > allows parser punctuation only when the host requires quoted streams [0.04ms]
+
+tests/zero-notation-optimization.test.js:
+(pass) Zero notation optimization - should only use {0~n} when n > 6 [0.02ms]
+(pass) Zero notation optimization - various cases under threshold [0.03ms]
+(pass) Zero notation optimization - should use {0~n} when n > 6 [0.01ms]
+(pass) SCI mode zero notation consistency [0.03ms]
+
+tests/rational-interval-set.test.js:
+(pass) RationalIntervalSet > normalizes order, overlap, and covered touching endpoints [0.06ms]
+(pass) RationalIntervalSet > does not merge across an omitted touching point [0.04ms]
+(pass) RationalIntervalSet > represents empty, point, and unbounded sets canonically [0.06ms]
+(pass) RationalIntervalSet > drops empty open points and rejects reversed components [0.02ms]
+(pass) RationalIntervalSet > computes exact union and intersection with endpoint topology [0.04ms]
+(pass) RationalIntervalSet > checks set containment including open boundaries [0.07ms]
+(pass) RationalIntervalSet > forms a topology-preserving hull and converts only closed components [0.05ms]
+(pass) RationalIntervalSet > is immutable in its public structure and round-trips tagged JSON [0.12ms]
+
+1 tests failed:
+(fail) signed string construction > preserves a negative sign when the whole part is zero [0.12ms]
+
+ 552 pass
+ 1 fail
+ 75700 expect() calls
+Ran 553 tests across 26 files. [868.00ms]

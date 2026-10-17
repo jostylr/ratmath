@@ -1,0 +1,3 @@
+## A data description can also communicate a combined computation.
+request := {= operation="polynomial",coefficients=coefficients,points=points };
+.compute(request);

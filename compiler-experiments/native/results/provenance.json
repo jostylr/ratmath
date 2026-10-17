@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-10-12T13:02:13.563Z",
+  "root": "/Users/jostylr/ai-repos/ratmath",
+  "heads": {
+    ".": {
+      "head": "d2b86f28bb1a005c84faca95d95694733667cac5",
+      "status": "m packages/core\n m rix\n m rix-nb\n m rix-web\n?? compiler-experiments/\n?? docs/review-2026-10-08.md\n?? julia-port/\n?? project_euler/\n?? rix-ed/"
+    },
+    "rix": {
+      "head": "d525695bc4b7fe0ad621575b5dec4b2fb795edea",
+      "status": "M bin/generated/live-runtime/manifest.json\n M bin/generated/live-runtime/rix-page.js\n M documentation/eval/syntax-guide.md\n M documentation/introduction.md\n M plugins/generated/rix-sources.js\n M plugins/linalg/linalg.plugin.rix\n M scripts/run-test-profile.js\n M src/eval/functions/collections.js\n M src/eval/functions/comparison.js\n M src/eval/functions/functions.js\n M src/eval/functions/stdlib.js\n M src/eval/lint.js\n M src/eval/lower.js\n M src/parser/parser.js\n M src/runtime/exact-values.js\n M src/runtime/lazy-sequence.js\n M src/runtime/quantities.js\n M tests/eval/evaluator.test.js\n M tests/eval/units-exact.test.js\n M tests/parser/parser.test.js\n?? src/runtime/fresh-collection.js\n?? tests/eval/collection-value-semantics.test.js"
+    },
+    "packages/core": {
+      "head": "b2554fbb03cef7c69922e2d50910488861e28cb4",
+      "status": "M src/integer.js\n M src/rational.js\n M tests/integer.test.js\n M tests/rational.test.js"
+    }
+  },
+  "sourceHash": {
+    "sha256": "b1511b1c1d0c2b5ea3a5d577b71576cf721e9196f192677b61489aa69434a24c",
+    "files": 280,
+    "paths": [
+      "rix/src",
+      "rix/plugins",
+      "packages/core/src"
+    ],
+    "extensions": [
+      ".js",
+      ".rix"
+    ]
+  }
+}

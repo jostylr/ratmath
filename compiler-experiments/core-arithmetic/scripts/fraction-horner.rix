@@ -1,0 +1,9 @@
+## Keep a rational Horner accumulator as two Integers, normalize at the end.
+## Integer coefficients; points are Rational values exposing numerator/denominator.
+HornerPair(coefficients,a,b) -> {@ n=0-0,d=1,i=1;
+  i<=coefficients.Len();
+  d:=d*b,n:=n*a+coefficients.Get(i)*d,i+=1;
+  ;[n,d]};
+Evaluate(coefficients,x) -> {; pair:=HornerPair(coefficients,x.Numerator(),x.Denominator());pair.Get(1)/pair.Get(2)};
+Run(coefficients,points) -> points.Map((x)->Evaluate(@coefficients,x));
+Run(coefficients,points);

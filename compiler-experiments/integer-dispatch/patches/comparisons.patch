@@ -1,0 +1,144 @@
+--- a/rix/src/runtime/methods.js
++++ b/rix/src/runtime/methods.js
+@@ -2037,12 +2037,28 @@
+         return proto;
+     }
+     return builtinProtoFor(target);
++}
++
++// Cache syntax only. Resolved callables/prototypes/extensions are never cached.
++// Non-string names retain the original coercion path. Bound memory usage.
++const experimentalMethodKeys = new Map();
++function experimentalMethodCandidates(name, upper) {
++    if (typeof name !== 'string') {
++        return [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
++    }
++    let candidates = experimentalMethodKeys.get(name);
++    if (!candidates) {
++        candidates = [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
++        if (experimentalMethodKeys.size >= 256) experimentalMethodKeys.clear();
++        experimentalMethodKeys.set(name, candidates);
++    }
++    return candidates;
+ }
+ 
+ export function resolveMethod(target, name, context = null) {
+     const ext = target?._ext;
+     const upperName = String(name).toUpperCase();
+-    const candidates = [...new Set([name, upperName, `__${name}`, `_${name}`, `__${upperName}`, `_${upperName}`])];
++    const candidates = experimentalMethodCandidates(name, upperName);
+     const special = checkTraitsMethod(name);
+     if (special) {
+         return special;
+--- a/rix/src/eval/registry.js
++++ b/rix/src/eval/registry.js
+@@ -83,15 +83,17 @@
+         return { args };
+     }
+ 
+-    _invokeSystemMultifunction(name, args, context, evaluate) {
++    _invokeSystemMultifunction(name, args, context, evaluate, valueOnly = false) {
+         const func = this.functions.get(name);
+         if (!func?.systemMultifunction) {
+             throw new Error(`${name} is not a system multifunction`);
+         }
+         const nativeFallback = func.variants.find((variant) => variant.nativeFallback);
+         if (nativeFallback?.preempt?.(args, context, evaluate)) {
++            const value = nativeFallback.impl(args, context, evaluate);
++            if (valueOnly) return value;
+             return {
+-                value: nativeFallback.impl(args, context, evaluate),
++                value,
+                 args,
+                 variant: nativeFallback,
+             };
+@@ -115,9 +117,16 @@
+         // Existing variants retain their installation order. New plugin
+         // variants may declare a priority to make cross-plugin precedence
+         // explicit instead of depending on load order.
+-        const prioritized = candidates.filter(({ variant }) => Number.isFinite(variant.priority));
++        // Preserve all probe calls and read priorities only after all probes.
++        // Avoid a throwaway array/callback when no finite priorities match.
++        let prioritized;
++        for (const candidate of candidates) {
++            if (Number.isFinite(candidate.variant.priority)) {
++                (prioritized ??= []).push(candidate);
++            }
++        }
+         let selected = candidates[0] || null;
+-        if (prioritized.length > 0) {
++        if (prioritized) {
+             const priority = Math.max(...prioritized.map(({ variant }) => variant.priority));
+             const winners = prioritized.filter(({ variant }) => variant.priority === priority);
+             if (winners.length > 1) {
+@@ -125,8 +134,9 @@
+             }
+             selected = winners[0];
+         }
+-        if (!selected) return { value: null, args, variant: null };
+ 
++        if (!selected) return valueOnly ? null : { value: null, args, variant: null };
++
+         const { variant, prepared } = selected;
+         const tc = context?.getEnv?.("__trace_context__");
+         if (tc?.active && context?.getEnv?.("traceSystemVariants", false)) {
+@@ -138,15 +148,24 @@
+                 depth: tc.currentDepth ?? 0,
+             });
+         }
++        const value = variant.impl(prepared.args, context, evaluate);
++        // Keep the second args read after impl, even without an envelope:
++        // custom prepare results may expose an observable args getter.
++        const resultArgs = prepared.args;
++        if (valueOnly) return value;
+         return {
+-            value: variant.impl(prepared.args, context, evaluate),
+-            args: prepared.args,
++            value,
++            args: resultArgs,
+             variant,
+         };
+     }
+ 
+     _callSystemMultifunction(name, args, context, evaluate) {
+-        return this._invokeSystemMultifunction(name, args, context, evaluate).value;
++        // Retain the old wrapper contract if a host overrides this hook.
++        if (this._invokeSystemMultifunction !== experimentalOriginalInvoke) {
++            return this._invokeSystemMultifunction(name, args, context, evaluate).value;
++        }
++        return this._invokeSystemMultifunction(name, args, context, evaluate, true);
+     }
+ 
+     /**
+@@ -278,3 +297,5 @@
+         return this.list();
+     }
+ }
++
++const experimentalOriginalInvoke = Registry.prototype._invokeSystemMultifunction;
+--- a/rix/src/eval/functions/comparison.js
++++ b/rix/src/eval/functions/comparison.js
+@@ -100,7 +100,23 @@
+     return value instanceof Integer || value instanceof Rational || isEnclosed(value);
+ }
+ 
++const experimentalToRational = Integer.prototype.toRational;
++const experimentalIntegerValueGetter = Object.getOwnPropertyDescriptor(Integer.prototype, 'value').get;
+ function relationDecision(a, b, operation) {
++    // Runs INSIDE the existing comparison implementation, after registry
++    // selection. Every custom variant/override still has its original chance.
++    if (Object.getPrototypeOf(a ?? {}) === Integer.prototype && Object.getPrototypeOf(b ?? {}) === Integer.prototype &&
++        !Object.hasOwn(a, 'value') && !Object.hasOwn(b, 'value') &&
++        !Object.hasOwn(a, 'toRational') && !Object.hasOwn(b, 'toRational') &&
++        Integer.prototype.toRational === experimentalToRational &&
++        Object.getOwnPropertyDescriptor(Integer.prototype, 'value')?.get === experimentalIntegerValueGetter) {
++        const x = a.value, y = b.value;
++        switch (operation) {
++        case 'eq': return x === y; case 'neq': return x !== y;
++        case 'lt': return x < y; case 'gt': return x > y;
++        case 'lte': return x <= y; case 'gte': return x >= y;
++        }
++    }
+     if (!isCoreNumeric(a) || !isCoreNumeric(b)) return null;
+     const mask = possibleRelations(a, b);
+     switch (operation) {

@@ -1,0 +1,292 @@
+{
+  "timestamp": "2026-10-13T15:14:48.245Z",
+  "runtime": "node",
+  "versions": {
+    "node": "26.10.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.3",
+    "libffi": "3.8.0",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "147",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "3.6.5",
+    "simdjson": "5.0.0",
+    "simdutf": "9.2.1",
+    "sqlite": "3.53.4",
+    "tz": "2026a",
+    "undici": "8.10.2",
+    "unicode": "17.0",
+    "uv": "1.53.0",
+    "uvwasi": "0.0.23",
+    "v8": "14.6.202.34-node.35",
+    "zlib": "1.2.12",
+    "zstd": "1.5.7"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0"
+  },
+  "algorithm": "montgomery",
+  "workload": {
+    "count": 24,
+    "bits": 2048,
+    "exponentBits": 1024,
+    "seed": 591751049
+  },
+  "methodology": {
+    "rounds": 5,
+    "warmups": 2,
+    "order": "rotated",
+    "timed": "fresh context, RiX function binding, guards, dependency fingerprint/cache lookup, unboxing, entire kernel and boxed exact outputs for marked RiX; kernel and equivalent boundaries for direct paths",
+    "excluded": "parsing/lowering, fixtures, runtime initialization, first compilation, module import and native preparation; schedules/tables/Montgomery setup remain timed",
+    "native": "GMP mpz_powm uses a different library algorithm; full N-API batch boundary included",
+    "aot": "earlier tuned-aot compiler snapshot; marked compiler additionally preserves default constructor captures and checks live dependencies"
+  },
+  "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "outputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+  "beforeCompile": {
+    "calls": 0,
+    "compileAttempts": 0,
+    "builds": 0,
+    "compileFailures": 0,
+    "cacheHits": 0,
+    "compiledCalls": 0,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 0,
+    "reasons": {}
+  },
+  "firstUse": {
+    "wallMs": 48.672250000000076,
+    "calls": 1,
+    "compileAttempts": 1,
+    "builds": 1,
+    "compileFailures": 0,
+    "cacheHits": 0,
+    "compiledCalls": 1,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 1.6950840000000653,
+    "reasons": {}
+  },
+  "finalStats": {
+    "calls": 8,
+    "compileAttempts": 1,
+    "builds": 1,
+    "compileFailures": 0,
+    "cacheHits": 7,
+    "compiledCalls": 8,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 1.6950840000000653,
+    "reasons": {}
+  },
+  "aotCompileMs": 2.1929589999999735,
+  "nativeBuild": {
+    "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+    "cached": true,
+    "prepareMs": 90.938625,
+    "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+    "binaryHash": "e08098461cba8667341266a2e0a13deaec42f7efc0e60bbe6da565fcf0e07291",
+    "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+    "environment": {
+      "compiler": "clang",
+      "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+      "gmpVersion": "6.3.0",
+      "nodeHeaders": {
+        "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+        "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+        "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+        "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+      },
+      "flags": [
+        "-O3",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-shared",
+        "-fPIC",
+        "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+        "-undefined",
+        "dynamic_lookup",
+        "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+      ],
+      "linkFlags": [
+        "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+        "-lgmp"
+      ],
+      "platform": "darwin",
+      "arch": "arm64"
+    }
+  },
+  "provenance": {
+    "runner.js": "e4c74038e48a502e58c3e52b5ee44144c1b677aebf0b4e3f83f9eb44b9a2292f",
+    "compiler.js": "88dd47e0fe84dbc44bc8d4aeb9212d75b9cfbc1a2cdc2b1c6b30b814ad785ae7",
+    "verify.js": "88030b0aadb7134651b1022d7bc0fef23c94558e1e730d1a07c7b0835841cf98",
+    "bench.js": "d1243baa0833cb87c057d60421e72183764661ae43a64f60a74a787635e9646f",
+    "scripts/montgomery.rix": "e62065952ae1e35c0f546c94cdacd32eecc445ed7c827426f15bfec28971e9ba",
+    "../tuned-aot/compiler.js": "ecf722e456b642a7cd651849d61f106638ddb9b800ff1270fd2d584835304dd6",
+    "../whole-scripts/workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb",
+    "../whole-scripts/optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "../whole-scripts/addon.c": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b"
+  },
+  "results": [
+    {
+      "name": "interpreted marked RiX (ordinary interpreter)",
+      "medianMs": 7902.501083000003,
+      "minMs": 7876.644791999999,
+      "maxMs": 8017.680082999999,
+      "samples": [
+        {
+          "wallMs": 8017.680082999999,
+          "cpuMs": 8031.089
+        },
+        {
+          "wallMs": 7931.331125000001,
+          "cpuMs": 7954.317
+        },
+        {
+          "wallMs": 7876.644791999999,
+          "cpuMs": 7889.922
+        },
+        {
+          "wallMs": 7901.583584,
+          "cpuMs": 7912.38
+        },
+        {
+          "wallMs": 7902.501083000003,
+          "cpuMs": 7913.014
+        }
+      ]
+    },
+    {
+      "name": "marked RiX, cached compilation",
+      "medianMs": 43.39729200000147,
+      "minMs": 42.95487499999581,
+      "maxMs": 43.92437500000233,
+      "samples": [
+        {
+          "wallMs": 43.33833299999969,
+          "cpuMs": 44.227
+        },
+        {
+          "wallMs": 43.70383299999958,
+          "cpuMs": 43.782
+        },
+        {
+          "wallMs": 42.95487499999581,
+          "cpuMs": 43.19
+        },
+        {
+          "wallMs": 43.39729200000147,
+          "cpuMs": 43.511
+        },
+        {
+          "wallMs": 43.92437500000233,
+          "cpuMs": 44.07
+        }
+      ]
+    },
+    {
+      "name": "earlier direct BigInt AOT",
+      "medianMs": 42.931250000001455,
+      "minMs": 42.45037500000035,
+      "maxMs": 43.19333399999596,
+      "samples": [
+        {
+          "wallMs": 42.71799999999712,
+          "cpuMs": 45.907
+        },
+        {
+          "wallMs": 42.94024999999965,
+          "cpuMs": 43.794
+        },
+        {
+          "wallMs": 42.931250000001455,
+          "cpuMs": 43.09
+        },
+        {
+          "wallMs": 42.45037500000035,
+          "cpuMs": 42.542
+        },
+        {
+          "wallMs": 43.19333399999596,
+          "cpuMs": 43.293
+        }
+      ]
+    },
+    {
+      "name": "handwritten BigInt JS",
+      "medianMs": 40.42183300000033,
+      "minMs": 39.98908300000039,
+      "maxMs": 41.20349999999962,
+      "samples": [
+        {
+          "wallMs": 40.42183300000033,
+          "cpuMs": 40.783
+        },
+        {
+          "wallMs": 41.20349999999962,
+          "cpuMs": 45.182
+        },
+        {
+          "wallMs": 39.98908300000039,
+          "cpuMs": 40.305
+        },
+        {
+          "wallMs": 40.57912500000384,
+          "cpuMs": 40.626
+        },
+        {
+          "wallMs": 40.02037500000006,
+          "cpuMs": 40.097
+        }
+      ]
+    },
+    {
+      "name": "native C/GMP powm",
+      "medianMs": 15.62995800000499,
+      "minMs": 15.512417000005371,
+      "maxMs": 15.722083000000566,
+      "samples": [
+        {
+          "wallMs": 15.517916000000696,
+          "cpuMs": 15.519
+        },
+        {
+          "wallMs": 15.687000000001717,
+          "cpuMs": 15.688
+        },
+        {
+          "wallMs": 15.512417000005371,
+          "cpuMs": 15.514
+        },
+        {
+          "wallMs": 15.62995800000499,
+          "cpuMs": 15.632
+        },
+        {
+          "wallMs": 15.722083000000566,
+          "cpuMs": 15.808
+        }
+      ]
+    }
+  ]
+}

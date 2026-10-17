@@ -1,0 +1,54 @@
+--- a/rix/src/runtime/cell.js
++++ b/rix/src/runtime/cell.js
+@@ -70,6 +70,18 @@
+  * instances because they are used as plain objects but may carry _ext.
+  * Collections get a new top-level container with the same element references.
+  */
++// Return fresh objects, preserving RiX copy/meta/alias rules. Only canonical
++// plain Rational accessors may use core's existing non-normalizing copy ctor.
++const experimentalNumeratorGetter = Object.getOwnPropertyDescriptor(Rational.prototype, 'numerator').get;
++const experimentalDenominatorGetter = Object.getOwnPropertyDescriptor(Rational.prototype, 'denominator').get;
++function experimentalCopyRational(value) {
++    return Rational._canUseReduced(value) &&
++        Object.getOwnPropertyDescriptor(Rational.prototype, 'numerator').get === experimentalNumeratorGetter &&
++        Object.getOwnPropertyDescriptor(Rational.prototype, 'denominator').get === experimentalDenominatorGetter
++        ? new Rational(value)
++        : new Rational(value.numerator, value.denominator);
++}
++
+ export function shallowCopyValue(value) {
+     if (value == null) return value;
+     if (typeof value !== "object") return value;
+@@ -79,11 +91,11 @@
+ 
+     // Ratmath numeric types — create fresh instances so _ext is independent
+     if (value instanceof Integer) return new Integer(value.value);
+-    if (value instanceof Rational) return new Rational(value.numerator, value.denominator);
++    if (value instanceof Rational) return experimentalCopyRational(value);
+     if (value instanceof RationalInterval) {
+         return new RationalInterval(
+-            new Rational(value.start.numerator, value.start.denominator),
+-            new Rational(value.end.numerator, value.end.denominator),
++            experimentalCopyRational(value.start),
++            experimentalCopyRational(value.end),
+         );
+     }
+     if (value instanceof RationalIntervalSet) return new RationalIntervalSet(value);
+@@ -205,14 +217,14 @@
+         return copy;
+     }
+     if (value instanceof Rational) {
+-        const copy = new Rational(value.numerator, value.denominator);
++        const copy = experimentalCopyRational(value);
+         memo.set(value, copy);
+         return copy;
+     }
+     if (value instanceof RationalInterval) {
+         const copy = new RationalInterval(
+-            new Rational(value.start.numerator, value.start.denominator),
+-            new Rational(value.end.numerator, value.end.denominator),
++            experimentalCopyRational(value.start),
++            experimentalCopyRational(value.end),
+         );
+         memo.set(value, copy);
+         return copy;

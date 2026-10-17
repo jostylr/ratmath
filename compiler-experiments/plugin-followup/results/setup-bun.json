@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-10-17T16:11:39.769Z",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "rows": [
+    {
+      "name": "createDefaultRegistry",
+      "samplesMs": [
+        0.5875830000000022,
+        0.21950000000000358,
+        0.16491600000000517,
+        0.13954100000000125,
+        0.11870799999999804
+      ],
+      "medianMs": 0.16491600000000517
+    },
+    {
+      "name": "createDefaultSystemContext",
+      "samplesMs": [
+        340.79612499999996,
+        302.5675,
+        301.8606249999999,
+        307.24308399999995,
+        301.69066699999985
+      ],
+      "medianMs": 302.5675
+    },
+    {
+      "name": "new Context",
+      "samplesMs": [
+        0.09554200000002311,
+        0.002208000000109678,
+        0.0006249999998999556,
+        0.0004999999998744897,
+        0.0006249999998999556
+      ],
+      "medianMs": 0.0006249999998999556
+    },
+    {
+      "name": "parseAndEvaluate 1; fresh defaults",
+      "samplesMs": [
+        309.818,
+        307.7332080000001,
+        311.269417,
+        310.16137500000013,
+        308.9087920000002
+      ],
+      "medianMs": 309.818
+    },
+    {
+      "name": "parseAndEvaluate 1; reused session",
+      "samplesMs": [
+        2.1446249999999054,
+        0.8416670000001432,
+        0.866457999999966,
+        0.8026249999998072,
+        1.2082499999996799
+      ],
+      "medianMs": 0.866457999999966
+    }
+  ]
+}

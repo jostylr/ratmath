@@ -1,0 +1,11 @@
+{
+  "provenance": "User-provided terminal logs; compiled variant not available in this checkout; these are not rerun measurements.",
+  "runtime": "Bun (version not given in logs)",
+  "methodology": { "count": 1000, "rounds": 9, "warmups": 3, "excluded": ["parsing", "compilation", "module import", "setup"] },
+  "forms": ["ternary", "named-multifunction", "anonymous-multifunction", "case-block"],
+  "runs": [
+    { "interpretedMs": [3.292, 4.700, 4.323, 3.489], "compiledMs": [0.050, 0.062, 0.065, 0.047], "reportedSpeedups": [65.7, 76.2, 66.1, 74.3] },
+    { "interpretedMs": [2.92808, 3.99687, 4.18954, 3.04408], "compiledMs": [0.05410, 0.06633, 0.06926, 0.06556], "nativeNumberMs": 0.00181, "reportedSpeedups": [54.1, 60.3, 60.5, 46.4], "reportedCompiledOverNumber": [29.9, 36.7, 38.3, 36.2] },
+    { "interpretedMs": [3.26954, 3.76804, 4.48254, 3.19271], "compiledMs": [0.05578, 0.08047, 0.07492, 0.05917], "coreIntegerMs": 0.04012, "nativeNumberMs": 0.00161, "reportedSpeedups": [58.6, 46.8, 59.8, 54.0], "reportedCompiledOverCore": [1.4, 2.0, 1.9, 1.5], "reportedCompiledOverNumber": [34.6, 50.0, 46.5, 36.8] }
+  ]
+}

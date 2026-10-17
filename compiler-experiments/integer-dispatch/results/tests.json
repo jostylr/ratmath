@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-10-17T15:54:22.565Z",
+  "files": [
+    "methods",
+    "operator-dispatch",
+    "custom-operators",
+    "semantic-operators",
+    "type-system",
+    "identity-comparison",
+    "cells",
+    "constructor-capture",
+    "numeric-regressions",
+    "range-arithmetic",
+    "async-method-callbacks",
+    "function-return",
+    "number-notation",
+    "diagnostics"
+  ],
+  "results": [
+    {
+      "name": "core-unchanged",
+      "exitCode": 1,
+      "passed": 554,
+      "failed": 1,
+      "wallMs": 1264.104917,
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ]
+    },
+    {
+      "name": "rix-base",
+      "exitCode": 0,
+      "passed": 337,
+      "failed": 0,
+      "wallMs": 52791.086082999995,
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js"
+      ]
+    },
+    {
+      "name": "rix-methods",
+      "exitCode": 0,
+      "passed": 337,
+      "failed": 0,
+      "wallMs": 53663.311833,
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js"
+      ]
+    },
+    {
+      "name": "rix-dispatch",
+      "exitCode": 0,
+      "passed": 337,
+      "failed": 0,
+      "wallMs": 56423.132584,
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js"
+      ]
+    },
+    {
+      "name": "rix-both",
+      "exitCode": 0,
+      "passed": 337,
+      "failed": 0,
+      "wallMs": 57285.521083,
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js"
+      ]
+    },
+    {
+      "name": "rix-comparisons",
+      "exitCode": 0,
+      "passed": 337,
+      "failed": 0,
+      "wallMs": 57587.177292,
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js"
+      ]
+    }
+  ]
+}

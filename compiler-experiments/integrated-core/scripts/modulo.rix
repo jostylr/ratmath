@@ -1,0 +1,2 @@
+Run(values,divisor) -> values.Map((x)->x% @divisor);
+Run(values,divisor);

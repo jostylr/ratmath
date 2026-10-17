@@ -1,0 +1,33 @@
+## Pure RiX sliding-window exponentiation. Width 6 is the earlier Bun winner.
+## External inputs: bases (nonnegative Integer sequence), exponent>=0, modulus>0.
+Bits(exponent) -> {@ e=exponent, bits=[0];
+  e>0; bits:=bits.Push(e%2), e//=2; ; bits.Slice(2).Reverse() };
+
+WindowEnd(bits,start,width) -> {@ j=0+(start+width-1 < bits.Len() ?: start+width-1 ?_ bits.Len());
+  bits.Get(j)==0; j-=1; ; j };
+
+WindowWord(bits,start,end) -> {@ j=0+start, word=0;
+  j<=end; word:=word*2+bits.Get(j), j+=1; ; word };
+
+Schedule(exponent,width) -> {@ bits=Bits(exponent), steps=[[0-0,0-0]], i=1-0, end=0-0, word=0;
+  i<=bits.Len();
+  end:=bits.Get(i)==0 ?: i ?_ WindowEnd(bits,i,width),
+  word:=bits.Get(i)==0 ?: 0 ?_ WindowWord(bits,i,end),
+  steps:=steps.Push([end-i+1,word]), i:=end+1;
+  ; steps.Slice(2) };
+
+OddPowers(base,modulus,width) -> {@ b=base%modulus, squared=b*b%modulus, odd=[b], count=2^width//2, i=1;
+  i<count; odd:=odd.Push(odd.Last()*squared%modulus), i+=1; ; odd };
+
+Squares(value,count,modulus) -> {@ r=0+value, i=0;
+  i<count; r:=r*r%modulus, i+=1; ; r };
+
+WindowStep(value,odd,step,modulus) -> {; r:=Squares(value,step.Get(1),modulus); word:=step.Get(2);
+  word>0 ?: r*odd.Get((word-1)//2+1)%modulus ?_ r };
+
+WindowPower(base,modulus,steps,width) -> {; odd:=OddPowers(base,modulus,width);
+  steps.Reduce((r,step)->WindowStep(r,@odd,step,@modulus),1%modulus) };
+
+Run(bases,exponent,modulus) -> {; width:=6; steps:=Schedule(exponent,width);
+  bases.Map((base)->WindowPower(base,@modulus,@steps,@width)) };
+Run(bases,exponent,modulus);

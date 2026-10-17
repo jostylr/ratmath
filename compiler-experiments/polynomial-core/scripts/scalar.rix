@@ -1,0 +1,3 @@
+## Explicit combined core operation; RiX retains point traversal.
+Run(coefficients,points) -> points.Map((x)->.polynomialOne(@coefficients,x));
+Run(coefficients,points);

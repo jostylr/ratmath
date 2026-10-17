@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-10-13T10:49:01.784Z",
+  "runtime": "Node 26.10.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "freshArtifactCache": true,
+  "loadMs": 127.84270799999996,
+  "scalarMs": 137.31162500000005,
+  "scalarResults": {
+    "Product": "7/15",
+    "Transform": "8/5"
+  },
+  "builds": {
+    "map": {
+      "key": "ef48a72cde3c8821e429f7049dc169f43eb7d2e18097aa1f0365c7a7b168af8a",
+      "cached": false,
+      "prepareMs": 62.06462499999998,
+      "sourceHash": "2829b1c3bcf8627c24faee12f5aa75d43d8663367239f924855907d51771679d",
+      "environment": {
+        "compiler": "clang",
+        "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+        "gmpVersion": "6.3.0",
+        "flags": [
+          "-O3",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+        ],
+        "linkFlags": [
+          "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+          "-lgmp"
+        ],
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/source-demo-6feb0044-fb0f-4baf-8afb-091ae20aeced/ef48a72cde3c8821e429f7049dc169f43eb7d2e18097aa1f0365c7a7b168af8a/kernel"
+    },
+    "matrixReduce": {
+      "key": "a6597456ed6f3ee1d8f75dd83a32472a1620c388cf4c378b285b737033431c63",
+      "cached": false,
+      "prepareMs": 68.28620799999999,
+      "sourceHash": "0223bd14fd269b55c899eab66d656f087ddca05e396bdfc027a4727274d440cd",
+      "environment": {
+        "compiler": "clang",
+        "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+        "gmpVersion": "6.3.0",
+        "flags": [
+          "-O3",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+        ],
+        "linkFlags": [
+          "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+          "-lgmp"
+        ],
+        "platform": "darwin",
+        "arch": "arm64"
+      },
+      "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/source-demo-6feb0044-fb0f-4baf-8afb-091ae20aeced/a6597456ed6f3ee1d8f75dd83a32472a1620c388cf4c378b285b737033431c63/kernel"
+    }
+  },
+  "job": {
+    "rows": 96,
+    "inner": 96,
+    "cols": 96,
+    "numeratorBits": 160,
+    "terms": 884736,
+    "outputs": 9216
+  },
+  "methodology": "Deterministic fixture; precompiled variants; one warm execution each; three alternating-order samples; exact comparison of all outputs after each sample. Native wall includes encoding, subprocess, GMP, transfer and decoding. JS uses fused expression and LCM accumulator. Compilation and output validation excluded from samples. One process per runtime.",
+  "nativeSamples": [
+    {
+      "wallMs": 144.3986249999998,
+      "validateMs": 0.1614999999999327,
+      "serializeMs": 2.242375000000038,
+      "transferMs": 132.488208,
+      "deserializeMs": 9.49850000000015,
+      "nativeParseMs": 3.084,
+      "nativeComputeMs": 123.393,
+      "nativeFormatMs": 2.656,
+      "inputBytes": 985401,
+      "outputBytes": 1253540
+    },
+    {
+      "wallMs": 144.32500000000027,
+      "validateMs": 0.14770799999996598,
+      "serializeMs": 2.323040999999648,
+      "transferMs": 132.26645800000006,
+      "deserializeMs": 9.581416999999874,
+      "nativeParseMs": 3.044,
+      "nativeComputeMs": 123.287,
+      "nativeFormatMs": 2.755,
+      "inputBytes": 985401,
+      "outputBytes": 1253540
+    },
+    {
+      "wallMs": 145.56899999999996,
+      "validateMs": 0.15008299999999508,
+      "serializeMs": 2.223750000000109,
+      "transferMs": 132.98699999999963,
+      "deserializeMs": 10.198250000000371,
+      "nativeParseMs": 2.974,
+      "nativeComputeMs": 124.015,
+      "nativeFormatMs": 2.747,
+      "inputBytes": 985401,
+      "outputBytes": 1253540
+    }
+  ],
+  "jsSamplesMs": [
+    373.12583300000006,
+    373.24125000000004,
+    377.61354200000005
+  ],
+  "nativeMedianMs": 144.3986249999998,
+  "jsMedianMs": 373.24125000000004,
+  "speedup": 2.584797812306042,
+  "exactResultDigest": "db279abcd4ff913796908481339a5ad324e842247171b67afae28dac65325104",
+  "hostTimerHeartbeats": 31,
+  "sourceHashes": {
+    "source.js": "126a633d713b61984b95ad47a043fe6344d12518a33908870bbb4337f9744564",
+    "source-demo.js": "1827d7352d2260728ca526fab3d2c0f23ad83ba5913cbca39bbb77b8cdd54ea9",
+    "plan.js": "4ad2281ad40ef30bce549f17414260f7f0797d870f19f2941aa73d75f00a4be8",
+    "host.js": "b20994d951c2568b6f55c8543417766a7facd76aca9b0efc5169b75d28219e7e",
+    "jobs.js": "f2234ffb1dfbf69a0c0f4d7f279295d8df6157832d6fd660b141c4b558198b57",
+    "worker.c.in": "90b6845e15becca89ccc38be5dfb47903d3c40ae895f86d8d166bc9f3a52aa81",
+    "examples/marked-functions.rix": "00313653c9807835a8d2c6818c23e812f3093e642192ff6396b1924d0372ad01"
+  }
+}

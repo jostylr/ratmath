@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { defineKernel } from './plan.js';
+import { makeJob, runJs } from './jobs.js';
+import { checkMatrixProjections } from './projection.js';
+import { Rational } from '../runtime.js';
+const plan = defineKernel({ name: 'project', execution: 'native', numeric: 'exact-rational', pattern: 'matrix-reduce', expression: 'x*y' });
+const job = makeJob(plan, 6), outputs = runJs(plan, job);
+assert.equal(checkMatrixProjections(job, outputs).length, 2);
+outputs[0] = outputs[0].add(Rational.one);
+assert.throws(() => checkMatrixProjections(job, outputs), /Projection mismatch/);
+console.log('Both projection checks pass for exact reference results and detect a deliberately changed result.');

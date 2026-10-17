@@ -1,0 +1,43 @@
+{
+  "runtime": "node",
+  "version": "26.12.0",
+  "source": "Copied tests/release-contracts.test.js negative-leading-decimal case",
+  "bigintMinus": {
+    "error": "SyntaxError",
+    "message": "Cannot convert - to a BigInt"
+  },
+  "results": [
+    {
+      "core": "production",
+      "input": "-0.5",
+      "result": "-1/2"
+    },
+    {
+      "core": "production",
+      "input": "-.5",
+      "error": "SyntaxError",
+      "message": "Cannot convert - to a BigInt"
+    },
+    {
+      "core": "production",
+      "input": "-0..1/2",
+      "result": "-1/2"
+    },
+    {
+      "core": "experimental-base",
+      "input": "-0.5",
+      "result": "-1/2"
+    },
+    {
+      "core": "experimental-base",
+      "input": "-.5",
+      "error": "SyntaxError",
+      "message": "Cannot convert - to a BigInt"
+    },
+    {
+      "core": "experimental-base",
+      "input": "-0..1/2",
+      "result": "-1/2"
+    }
+  ]
+}

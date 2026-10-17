@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-10-13T10:51:10.533640+00:00",
+  "repository": "/Users/jostylr/ai-repos/ratmath",
+  "productionFilesChecked": 280,
+  "productionFingerprint": "61704350186ec717fd10ea8667a4ef484e9fd78bcc480fa778de10d4e1c8cd35",
+  "fingerprintMethod": "SHA-256 of compact, sorted JSON mapping repository-relative JS/RiX paths to file SHA-256 digests in rix/src, rix/plugins and packages/core/src; compared before/after installation.",
+  "verification": {
+    "bun": "source verifier: 97 exact outputs; original native verifier: 302 exact comparisons; initial verifier: 11520 outputs; projection checks passed",
+    "node": "same suites passed"
+  },
+  "scope": "Only compiler-experiments files installed. No production parser/evaluator/arithmetic changes.",
+  "benchmarkReports": [
+    "source-demo-bun.json",
+    "source-demo-node.json"
+  ]
+}

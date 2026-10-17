@@ -1,0 +1,32 @@
+--- a/rix/src/runtime/methods.js
++++ b/rix/src/runtime/methods.js
+@@ -2037,12 +2037,28 @@
+         return proto;
+     }
+     return builtinProtoFor(target);
++}
++
++// Cache syntax only. Resolved callables/prototypes/extensions are never cached.
++// Non-string names retain the original coercion path. Bound memory usage.
++const experimentalMethodKeys = new Map();
++function experimentalMethodCandidates(name, upper) {
++    if (typeof name !== 'string') {
++        return [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
++    }
++    let candidates = experimentalMethodKeys.get(name);
++    if (!candidates) {
++        candidates = [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
++        if (experimentalMethodKeys.size >= 256) experimentalMethodKeys.clear();
++        experimentalMethodKeys.set(name, candidates);
++    }
++    return candidates;
+ }
+ 
+ export function resolveMethod(target, name, context = null) {
+     const ext = target?._ext;
+     const upperName = String(name).toUpperCase();
+-    const candidates = [...new Set([name, upperName, `__${name}`, `_${name}`, `__${upperName}`, `_${upperName}`])];
++    const candidates = experimentalMethodCandidates(name, upperName);
+     const special = checkTraitsMethod(name);
+     if (special) {
+         return special;

@@ -1,0 +1,1022 @@
+{
+  "timestamp": "2026-10-13T11:48:06.626Z",
+  "runtime": "Bun 1.4.0",
+  "versions": {
+    "node": "26.3.0",
+    "bun": "1.4.0",
+    "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+    "openssl": "1.1.0",
+    "llhttp": "9.3.0",
+    "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+    "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+    "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+    "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+    "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "modules": "147"
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4 Pro"
+  },
+  "quick": false,
+  "timedSamplesPerVariant": 5,
+  "methodology": "Complete lowered RiX scripts; fresh execution contexts, input binding and function installation timed, parsing/default host-capability setup excluded. Handwritten JS algorithm search precedes held-out samples; each power batch prepares its schedule and reduction constants inside timing. Native in-process C/GMP through Node-API; BigInt transfer and Integer reconstruction timed. Same async host callbacks, delays, error behavior and sequential effect trace. One warm run per variant; rotated order; every exact output and async trace checked outside timing; compilation measured separately in a fresh artifact cache. CPU is process-wide, sampled alongside wall time. No browser, network or production modifications.",
+  "builds": {
+    "fresh": {
+      "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+      "cached": false,
+      "prepareMs": 281.62237500000003,
+      "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/cold-0d8335d5-99af-451c-940e-3b424aabd73e/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+      "binaryHash": "eabedbebe59869c31474d54cdb2d804085943798d6c09754a0d6cdce0d8b187d",
+      "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+      "environment": {
+        "compiler": "clang",
+        "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+        "gmpVersion": "6.3.0",
+        "nodeHeaders": {
+          "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+          "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+          "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+          "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+        },
+        "flags": [
+          "-O3",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-shared",
+          "-fPIC",
+          "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+          "-undefined",
+          "dynamic_lookup",
+          "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+        ],
+        "linkFlags": [
+          "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+          "-lgmp"
+        ],
+        "platform": "darwin",
+        "arch": "arm64"
+      }
+    },
+    "normal": {
+      "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+      "cached": true,
+      "prepareMs": 92.27712499999996,
+      "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+      "binaryHash": "e08098461cba8667341266a2e0a13deaec42f7efc0e60bbe6da565fcf0e07291",
+      "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+      "environment": {
+        "compiler": "clang",
+        "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+        "gmpVersion": "6.3.0",
+        "nodeHeaders": {
+          "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+          "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+          "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+          "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+        },
+        "flags": [
+          "-O3",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-shared",
+          "-fPIC",
+          "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+          "-undefined",
+          "dynamic_lookup",
+          "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+        ],
+        "linkFlags": [
+          "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+          "-lgmp"
+        ],
+        "platform": "darwin",
+        "arch": "arm64"
+      }
+    }
+  },
+  "rixHostCapabilitySetupMs": 287.6605,
+  "jsTuning": {
+    "candidates": {
+      "binary": [
+        29.110124999999925,
+        29.4201250000001,
+        28.94662500000004
+      ],
+      "window-1": [
+        29.04770899999994,
+        28.92416600000024,
+        29.243083999999726
+      ],
+      "window-2": [
+        25.58112499999993,
+        25.79524999999967,
+        25.380916999999954
+      ],
+      "window-3": [
+        24.141458000000057,
+        23.97179099999994,
+        23.87479200000007
+      ],
+      "window-4": [
+        23.42595899999992,
+        22.80574999999999,
+        23.35004200000003
+      ],
+      "window-5": [
+        22.97112500000003,
+        22.799999999999955,
+        23.246666000000005
+      ],
+      "window-6": [
+        22.740834000000177,
+        22.39716599999997,
+        22.743167000000085
+      ],
+      "montgomery-1": [
+        44.686500000000024,
+        46.26445799999988,
+        43.77833299999975
+      ],
+      "montgomery-2": [
+        39.27825000000007,
+        39.11508300000014,
+        38.88416599999982
+      ],
+      "montgomery-3": [
+        37.71770900000001,
+        36.288291999999956,
+        36.33158300000014
+      ],
+      "montgomery-4": [
+        37.25216699999987,
+        35.54712500000005,
+        35.395082999999886
+      ],
+      "montgomery-5": [
+        34.57487500000002,
+        34.38633400000026,
+        34.98629099999971
+      ]
+    },
+    "selected": "window-6"
+  },
+  "parseTimes": {
+    "modular-powers": [
+      1.8478329999998095,
+      0.7394999999996799,
+      0.6434580000022834,
+      0.7325830000008864,
+      0.5146249999997963
+    ],
+    "async-scopes": [
+      0.8260000000009313,
+      0.567125000001397,
+      0.40766700000312994,
+      0.4950840000019525,
+      0.41733400000157417
+    ]
+  },
+  "sourceHashes": {
+    "addon.c": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+    "build.js": "8df0495ad174e6dd0e922bb6131837aaacd7b0b25f714768cce95c24a1f7a805",
+    "optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb",
+    "bench.js": "d9e309144dd3170a40f7004646754c3bcc8edc7c543d6ff5ef91b577daa5faa5",
+    "scripts/modular-powers.rix": "fb61a5da460e30a0680f7e580f2949c1a0572ebed11ef33c39843253d90ce794",
+    "scripts/async-scopes.rix": "34bcf364a4af60a71e2f09e1b95409d217770972625645af1e10444d4772cbc1"
+  },
+  "workloads": [
+    {
+      "name": "modular-powers",
+      "description": "All batch mapping and exponentiation execute in each implementation; inputs and Integer output class match.",
+      "input": {
+        "count": 24,
+        "modulusBits": 2048,
+        "exponentBits": 1024,
+        "seed": 591751049,
+        "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+        "selectedJsAlgorithm": "window-6"
+      },
+      "summary": {
+        "rix": {
+          "medianMs": 1538.6792910000004,
+          "minMs": 1512.636125,
+          "maxMs": 1566.2247500000012,
+          "medianCpuMs": 1673.203
+        },
+        "javascript": {
+          "medianMs": 22.668749999999818,
+          "minMs": 22.40349999999944,
+          "maxMs": 22.874665999999706,
+          "medianCpuMs": 23.45
+        },
+        "native": {
+          "medianMs": 20.615584000000126,
+          "minMs": 20.196208999999726,
+          "maxMs": 20.828417000000627,
+          "medianCpuMs": 20.612
+        },
+        "js-binary-diagnostic": {
+          "medianMs": 29.832124999998996,
+          "minMs": 29.309792000000016,
+          "maxMs": 30.026166000000558,
+          "medianCpuMs": 30.607
+        },
+        "native-binary-diagnostic": {
+          "medianMs": 30.312792000000627,
+          "minMs": 29.749915999999757,
+          "maxMs": 30.41991600000074,
+          "medianCpuMs": 30.366
+        }
+      },
+      "samples": {
+        "rix": [
+          {
+            "wallMs": 1525.2988750000004,
+            "cpuMs": 1668.012
+          },
+          {
+            "wallMs": 1512.636125,
+            "cpuMs": 1643.439
+          },
+          {
+            "wallMs": 1538.6792910000004,
+            "cpuMs": 1673.203
+          },
+          {
+            "wallMs": 1557.3176670000012,
+            "cpuMs": 1687.802
+          },
+          {
+            "wallMs": 1566.2247500000012,
+            "cpuMs": 1725.816
+          }
+        ],
+        "javascript": [
+          {
+            "wallMs": 22.40349999999944,
+            "cpuMs": 22.758
+          },
+          {
+            "wallMs": 22.668749999999818,
+            "cpuMs": 23.582
+          },
+          {
+            "wallMs": 22.63837500000045,
+            "cpuMs": 23.613
+          },
+          {
+            "wallMs": 22.85358400000041,
+            "cpuMs": 23.45
+          },
+          {
+            "wallMs": 22.874665999999706,
+            "cpuMs": 23.245
+          }
+        ],
+        "native": [
+          {
+            "wallMs": 20.38050000000021,
+            "cpuMs": 20.381
+          },
+          {
+            "wallMs": 20.196208999999726,
+            "cpuMs": 20.197
+          },
+          {
+            "wallMs": 20.615584000000126,
+            "cpuMs": 20.612
+          },
+          {
+            "wallMs": 20.701708000000508,
+            "cpuMs": 20.706
+          },
+          {
+            "wallMs": 20.828417000000627,
+            "cpuMs": 20.83
+          }
+        ],
+        "js-binary-diagnostic": [
+          {
+            "wallMs": 30.026166000000558,
+            "cpuMs": 30.774
+          },
+          {
+            "wallMs": 29.309792000000016,
+            "cpuMs": 30.537
+          },
+          {
+            "wallMs": 29.845375000000786,
+            "cpuMs": 30.859
+          },
+          {
+            "wallMs": 29.549958999999944,
+            "cpuMs": 30.607
+          },
+          {
+            "wallMs": 29.832124999998996,
+            "cpuMs": 30.28
+          }
+        ],
+        "native-binary-diagnostic": [
+          {
+            "wallMs": 29.749915999999757,
+            "cpuMs": 29.778
+          },
+          {
+            "wallMs": 30.312792000000627,
+            "cpuMs": 30.366
+          },
+          {
+            "wallMs": 30.005290999999488,
+            "cpuMs": 30.007
+          },
+          {
+            "wallMs": 30.41991600000074,
+            "cpuMs": 30.421
+          },
+          {
+            "wallMs": 30.389999999999418,
+            "cpuMs": 30.381
+          }
+        ]
+      },
+      "exactResultDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+      "traceDigest": null
+    },
+    {
+      "name": "async-microtasks",
+      "description": "Fresh lexical scopes and a captured bias in RiX; all versions preserve fetch/await/score/publish order. Native includes a C Promise state machine calling the same JS host capabilities.",
+      "input": {
+        "count": 2048,
+        "hostDelayMs": 0,
+        "bias": "305419896",
+        "seed": 1164413355,
+        "inputDigest": "0c9170aa05797648c154e210161158e05e2758e6578ab7ec848c1809f3122549",
+        "deliberatelyRequestedWaitMs": 0,
+        "selectedJsScore": "bigint",
+        "jsTuningSamplesMs": {
+          "number": [
+            0.7464589999999589,
+            0.6714169999995647,
+            0.6908750000002328
+          ],
+          "bigint": [
+            0.587666999999783,
+            0.5772500000002765,
+            0.5579579999994166
+          ]
+        }
+      },
+      "summary": {
+        "rix": {
+          "medianMs": 31.316584000000148,
+          "minMs": 30.424957999999606,
+          "maxMs": 32.67420800000036,
+          "medianCpuMs": 51.857,
+          "medianHostWaitMs": 0.2023120000540075
+        },
+        "javascript": {
+          "medianMs": 0.670708999999988,
+          "minMs": 0.529207999999926,
+          "maxMs": 1.4002500000005966,
+          "medianCpuMs": 0.69,
+          "medianHostWaitMs": 0.10305199998219905
+        },
+        "native": {
+          "medianMs": 1.3297500000007858,
+          "minMs": 1.238166999999521,
+          "maxMs": 1.5247920000001614,
+          "medianCpuMs": 1.341,
+          "medianHostWaitMs": 0.5562459999655402
+        },
+        "native-hybrid-diagnostic": {
+          "medianMs": 0.5670000000009168,
+          "minMs": 0.5301249999993161,
+          "maxMs": 0.7232080000012502,
+          "medianCpuMs": 0.568,
+          "medianHostWaitMs": 0.10441800001717638
+        },
+        "js-other-score-diagnostic": {
+          "medianMs": 0.6330829999988055,
+          "minMs": 0.5889589999987948,
+          "maxMs": 1.2636249999995925,
+          "medianCpuMs": 0.635,
+          "medianHostWaitMs": 0.10248399997726665
+        }
+      },
+      "samples": {
+        "rix": [
+          {
+            "wallMs": 31.457499999998618,
+            "cpuMs": 59.549,
+            "host": {
+              "waitMs": 0.20301300001847267,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 32.67420800000036,
+            "cpuMs": 55.473,
+            "host": {
+              "waitMs": 0.20823199998449127,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 31.087750000000597,
+            "cpuMs": 51.857,
+            "host": {
+              "waitMs": 0.19960400001582457,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 30.424957999999606,
+            "cpuMs": 38.885,
+            "host": {
+              "waitMs": 0.19728299997768772,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 31.316584000000148,
+            "cpuMs": 35.847,
+            "host": {
+              "waitMs": 0.2023120000540075,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          }
+        ],
+        "javascript": [
+          {
+            "wallMs": 0.670708999999988,
+            "cpuMs": 2.93,
+            "host": {
+              "waitMs": 0.10305199998219905,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.6978749999998399,
+            "cpuMs": 0.69,
+            "host": {
+              "waitMs": 0.11848300003475742,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.5327500000003056,
+            "cpuMs": 0.537,
+            "host": {
+              "waitMs": 0.09613500004161324,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.4002500000005966,
+            "cpuMs": 3.88,
+            "host": {
+              "waitMs": 0.11613300000499294,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.529207999999926,
+            "cpuMs": 0.533,
+            "host": {
+              "waitMs": 0.09663599999294092,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          }
+        ],
+        "native": [
+          {
+            "wallMs": 1.3297500000007858,
+            "cpuMs": 1.341,
+            "host": {
+              "waitMs": 0.5451109999394248,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.238166999999521,
+            "cpuMs": 1.243,
+            "host": {
+              "waitMs": 0.5047649999341957,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.469875000000684,
+            "cpuMs": 1.459,
+            "host": {
+              "waitMs": 0.5971230000268406,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.5247920000001614,
+            "cpuMs": 3.373,
+            "host": {
+              "waitMs": 0.6160360000176297,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.3050839999996242,
+            "cpuMs": 1.305,
+            "host": {
+              "waitMs": 0.5562459999655402,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          }
+        ],
+        "native-hybrid-diagnostic": [
+          {
+            "wallMs": 0.5670000000009168,
+            "cpuMs": 0.568,
+            "host": {
+              "waitMs": 0.10346400003800227,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.569166999999652,
+            "cpuMs": 0.572,
+            "host": {
+              "waitMs": 0.10098800000741903,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.5440419999995356,
+            "cpuMs": 0.548,
+            "host": {
+              "waitMs": 0.10441800001717638,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.7232080000012502,
+            "cpuMs": 0.694,
+            "host": {
+              "waitMs": 0.12300200001664052,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.5301249999993161,
+            "cpuMs": 0.531,
+            "host": {
+              "waitMs": 0.10617800002000877,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          }
+        ],
+        "js-other-score-diagnostic": [
+          {
+            "wallMs": 0.6181660000002012,
+            "cpuMs": 0.618,
+            "host": {
+              "waitMs": 0.10186300000896154,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.5889589999987948,
+            "cpuMs": 0.589,
+            "host": {
+              "waitMs": 0.10156799996002519,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 1.2636249999995925,
+            "cpuMs": 3.732,
+            "host": {
+              "waitMs": 0.10460900000362017,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.6330829999988055,
+            "cpuMs": 0.635,
+            "host": {
+              "waitMs": 0.10248399997726665,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          },
+          {
+            "wallMs": 0.7216669999997976,
+            "cpuMs": 1.309,
+            "host": {
+              "waitMs": 0.10846799995670153,
+              "fetches": 2048,
+              "published": 2048,
+              "delayMs": 0
+            }
+          }
+        ]
+      },
+      "exactResultDigest": "25959a419061d940d8cefdb9768811b398166b1e66877d33f19554cd9175a579",
+      "traceDigest": "0c6003e490a5db6d6b7dcece80a5137a43dfc0ec37250c6b646e62516020d849"
+    },
+    {
+      "name": "async-host-latency",
+      "description": "Fresh lexical scopes and a captured bias in RiX; all versions preserve fetch/await/score/publish order. Native includes a C Promise state machine calling the same JS host capabilities.",
+      "input": {
+        "count": 128,
+        "hostDelayMs": 2,
+        "bias": "305419896",
+        "seed": 1164413355,
+        "inputDigest": "d5ff2b12274a3abafa9e78cc8ff2282b97d7ad277d6c9724b2ea945afad0ca58",
+        "deliberatelyRequestedWaitMs": 256,
+        "selectedJsScore": "number",
+        "jsTuningSamplesMs": {
+          "number": [
+            323.4120410000014,
+            322.5219589999997,
+            321.96170899999925
+          ],
+          "bigint": [
+            333.19341600000007,
+            322.4384170000012,
+            322.83745799999997
+          ]
+        }
+      },
+      "summary": {
+        "rix": {
+          "medianMs": 337.83916599999793,
+          "minMs": 336.2124580000018,
+          "maxMs": 338.95579200000066,
+          "medianCpuMs": 24.616,
+          "medianHostWaitMs": 322.33941500000947
+        },
+        "javascript": {
+          "medianMs": 322.01950000000215,
+          "minMs": 320.50716699999975,
+          "maxMs": 324.7796249999992,
+          "medianCpuMs": 6.153,
+          "medianHostWaitMs": 321.0367979999719
+        },
+        "native": {
+          "medianMs": 323.30304199999955,
+          "minMs": 322.32366700000057,
+          "maxMs": 324.52349999999933,
+          "medianCpuMs": 7.302,
+          "medianHostWaitMs": 321.9693790000201
+        },
+        "native-hybrid-diagnostic": {
+          "medianMs": 322.8615830000017,
+          "minMs": 320.666957999998,
+          "maxMs": 324.015625,
+          "medianCpuMs": 6.557,
+          "medianHostWaitMs": 322.0655800000095
+        },
+        "js-other-score-diagnostic": {
+          "medianMs": 322.3980410000004,
+          "minMs": 321.48229100000026,
+          "maxMs": 324.9728749999995,
+          "medianCpuMs": 7.601,
+          "medianHostWaitMs": 321.4577930000123
+        }
+      },
+      "samples": {
+        "rix": [
+          {
+            "wallMs": 337.015416000002,
+            "cpuMs": 25.035,
+            "host": {
+              "waitMs": 323.31199700000434,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 338.95579200000066,
+            "cpuMs": 22.735,
+            "host": {
+              "waitMs": 320.93282899998303,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 336.2124580000018,
+            "cpuMs": 23.674,
+            "host": {
+              "waitMs": 322.33941500000947,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 337.83916599999793,
+            "cpuMs": 24.616,
+            "host": {
+              "waitMs": 322.06854499999827,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 338.8455419999991,
+            "cpuMs": 41.472,
+            "host": {
+              "waitMs": 322.8657520000161,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          }
+        ],
+        "javascript": [
+          {
+            "wallMs": 324.7796249999992,
+            "cpuMs": 8.985,
+            "host": {
+              "waitMs": 323.87532900000224,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 321.0084170000009,
+            "cpuMs": 4.16,
+            "host": {
+              "waitMs": 320.45441699998264,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.8511670000007,
+            "cpuMs": 5.554,
+            "host": {
+              "waitMs": 322.1283760000297,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.01950000000215,
+            "cpuMs": 6.153,
+            "host": {
+              "waitMs": 321.0367979999719,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 320.50716699999975,
+            "cpuMs": 7.78,
+            "host": {
+              "waitMs": 319.66545000000406,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          }
+        ],
+        "native": [
+          {
+            "wallMs": 322.32366700000057,
+            "cpuMs": 5.932,
+            "host": {
+              "waitMs": 321.2198289999942,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 323.30304199999955,
+            "cpuMs": 7.302,
+            "host": {
+              "waitMs": 321.918752999969,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 324.19037500000195,
+            "cpuMs": 10.868,
+            "host": {
+              "waitMs": 322.8525449999943,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 324.52349999999933,
+            "cpuMs": 9.401,
+            "host": {
+              "waitMs": 323.0427549999804,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 323.0635829999992,
+            "cpuMs": 6.181,
+            "host": {
+              "waitMs": 321.9693790000201,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          }
+        ],
+        "native-hybrid-diagnostic": [
+          {
+            "wallMs": 320.666957999998,
+            "cpuMs": 6.557,
+            "host": {
+              "waitMs": 319.5654160000122,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 323.4807089999995,
+            "cpuMs": 8.803,
+            "host": {
+              "waitMs": 322.3677119999884,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 324.015625,
+            "cpuMs": 5.39,
+            "host": {
+              "waitMs": 323.2519619999912,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.5762089999989,
+            "cpuMs": 21.441,
+            "host": {
+              "waitMs": 321.5414649999948,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.8615830000017,
+            "cpuMs": 5.443,
+            "host": {
+              "waitMs": 322.0655800000095,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          }
+        ],
+        "js-other-score-diagnostic": [
+          {
+            "wallMs": 324.9728749999995,
+            "cpuMs": 8.74,
+            "host": {
+              "waitMs": 324.0615049999942,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 321.48229100000026,
+            "cpuMs": 7.601,
+            "host": {
+              "waitMs": 320.6958810000251,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 321.7642080000005,
+            "cpuMs": 5.025,
+            "host": {
+              "waitMs": 321.1843379999809,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.3980410000004,
+            "cpuMs": 14.307,
+            "host": {
+              "waitMs": 321.4577930000123,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          },
+          {
+            "wallMs": 322.4292920000007,
+            "cpuMs": 6.309,
+            "host": {
+              "waitMs": 321.6789669999962,
+              "fetches": 128,
+              "published": 128,
+              "delayMs": 2
+            }
+          }
+        ]
+      },
+      "exactResultDigest": "8ebbb31801c4d654a7e6dfc9a7366a4434e0e87afe1255243550053b8a7423d8",
+      "traceDigest": "c8900da9d4ab3b5860c4155ed7afd7ca5a49e9e47a73f380c8fe0ac57332f9e3"
+    }
+  ]
+}

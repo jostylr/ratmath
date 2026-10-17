@@ -1,0 +1,36 @@
+bun: 13 ordinary RiX workloads, 7 rounds; all paths interpreted
+Checked integer-horner: baseline 2.7627ms; candidate 2.7506ms; candidate-wired 2.8309ms
+Checked rational-horner: baseline 6.0683ms; candidate 2.8582ms; candidate-wired 2.8501ms
+Checked rational-coefficients-horner: baseline 6.2613ms; candidate 3.0060ms; candidate-wired 3.0193ms
+Checked larger-rational-horner: baseline 36.9910ms; candidate 13.9841ms; candidate-wired 14.0729ms
+Checked zero-rational-horner: baseline 1.4209ms; candidate 1.4524ms; candidate-wired 1.4425ms
+Checked interval-horner: baseline 0.3205ms; candidate 0.3250ms; candidate-wired 0.3429ms
+Checked mixed-rational-loop-256: baseline 9.6095ms; candidate 4.7099ms; candidate-wired 4.7300ms
+Checked mixed-rational-loop-1024: baseline 45.1829ms; candidate 16.5611ms; candidate-wired 16.8488ms
+Checked integer-division-inexact: baseline 2.1553ms; candidate 2.1057ms; candidate-wired 0.1358ms
+Checked integer-division-exact: baseline 0.1316ms; candidate 0.1319ms; candidate-wired 0.1289ms
+Checked integer-modulo-inexact: baseline 2.1575ms; candidate 2.1662ms; candidate-wired 0.0810ms
+Checked integer-modulo-exact: baseline 0.1477ms; candidate 0.1482ms; candidate-wired 0.0793ms
+Checked binary-modular-powers: baseline 87.9780ms; candidate 89.2082ms; candidate-wired 9.9729ms
+# Ordinary RiX with experimental core — bun
+
+7 measured samples, 2 warmups, calibrated repeats and rotated variant order. Times are ms per complete batch.
+
+| Workload | Baseline ms | Core-only ms | Core-only speedup | Core + Integer wiring ms | Speedup |
+|---|---:|---:|---:|---:|---:|
+| integer-horner | 2.7627 | 2.7506 | 1.00× | 2.8309 | 0.98× |
+| rational-horner | 6.0683 | 2.8582 | 2.12× | 2.8501 | 2.13× |
+| rational-coefficients-horner | 6.2613 | 3.0060 | 2.08× | 3.0193 | 2.07× |
+| larger-rational-horner | 36.9910 | 13.9841 | 2.65× | 14.0729 | 2.63× |
+| zero-rational-horner | 1.4209 | 1.4524 | 0.98× | 1.4425 | 0.99× |
+| interval-horner | 0.3205 | 0.3250 | 0.99× | 0.3429 | 0.93× |
+| mixed-rational-loop-256 | 9.6095 | 4.7099 | 2.04× | 4.7300 | 2.03× |
+| mixed-rational-loop-1024 | 45.1829 | 16.5611 | 2.73× | 16.8488 | 2.68× |
+| integer-division-inexact | 2.1553 | 2.1057 | 1.02× | 0.1358 | 15.87× |
+| integer-division-exact | 0.1316 | 0.1319 | 1.00× | 0.1289 | 1.02× |
+| integer-modulo-inexact | 2.1575 | 2.1662 | 1.00× | 0.0810 | 26.64× |
+| integer-modulo-exact | 0.1477 | 0.1482 | 1.00× | 0.0793 | 1.86× |
+| binary-modular-powers | 87.9780 | 89.2082 | 0.99× | 9.9729 | 8.82× |
+
+Core-only uses identical RiX source files and its default operator registry. Core + Integer wiring changes only the copied INTDIV/MOD/DIVMOD built-ins to use new core methods; production RiX is unchanged. No source annotations, compilation, Host math helpers, unboxed polynomial kernels or altered RiX algorithms are used. Full exact values and types match the baseline.
+

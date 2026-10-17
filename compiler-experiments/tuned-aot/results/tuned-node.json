@@ -1,0 +1,507 @@
+{
+  "timestamp": "2026-10-13T14:19:11.471Z",
+  "runtime": "node",
+  "versions": {
+    "node": "26.10.0",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.3",
+    "libffi": "3.8.0",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "147",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "3.6.5",
+    "simdjson": "5.0.0",
+    "simdutf": "9.2.1",
+    "sqlite": "3.53.4",
+    "tz": "2026a",
+    "undici": "8.10.2",
+    "unicode": "17.0",
+    "uv": "1.53.0",
+    "uvwasi": "0.0.23",
+    "v8": "14.6.202.34-node.35",
+    "zlib": "1.2.12",
+    "zstd": "1.5.7"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0"
+  },
+  "methodology": {
+    "rounds": 5,
+    "warmups": 2,
+    "order": "rotated",
+    "timed": "fresh input bindings or unboxing; guards; full batch; exact Integer/sequence outputs",
+    "excluded": "parsing, compilation, imports, input generation, shared context/registry setup, native build; schedule/table/Montgomery setup remains timed",
+    "algorithmWidths": {
+      "window": 6,
+      "montgomery": 5
+    },
+    "native": "GMP mpz_powm, different library algorithm; N-API full batch including BigInt conversion"
+  },
+  "workload": {
+    "count": 24,
+    "bits": 2048,
+    "exponentBits": 1024,
+    "seed": 591751049
+  },
+  "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "outputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+  "setup": {
+    "window": {
+      "compileIncludingParseMs": 2.5369579999999132,
+      "importMs": 0.3710839999999962,
+      "sourceHash": "f01451f169d22b95103c2832ec0e462e4d9e60e5bd731a782c35483b3435c45c",
+      "generatedHash": "62343e2ffacf9ada64b1ab17a5511f219335b3efcf212e047eebe6bff09ec68e",
+      "specializations": 9
+    },
+    "montgomery": {
+      "compileIncludingParseMs": 1.3641659999999547,
+      "importMs": 0.19779200000004948,
+      "sourceHash": "1d621e20d5d3bb6f0ee0be70a0f53506100805a80a3b26bcf4e4dccd2582a142",
+      "generatedHash": "3bb35702807ef045c6e745bf927a863907d6786f7a7af6b1cb39e8d36c6299aa",
+      "specializations": 12
+    }
+  },
+  "managedCold": {
+    "wallMs": 48.42075,
+    "builds": 1,
+    "calls": 1,
+    "compileMs": 1.1821659999999383,
+    "importMs": 0.35141700000008314
+  },
+  "managedFinal": {
+    "builds": 1,
+    "calls": 8,
+    "compileMs": 1.1821659999999383,
+    "importMs": 0.35141700000008314
+  },
+  "nativeBuild": {
+    "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+    "cached": true,
+    "prepareMs": 87.50395900000001,
+    "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+    "binaryHash": "e08098461cba8667341266a2e0a13deaec42f7efc0e60bbe6da565fcf0e07291",
+    "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+    "environment": {
+      "compiler": "clang",
+      "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+      "gmpVersion": "6.3.0",
+      "nodeHeaders": {
+        "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+        "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+        "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+        "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+      },
+      "flags": [
+        "-O3",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-shared",
+        "-fPIC",
+        "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+        "-undefined",
+        "dynamic_lookup",
+        "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+      ],
+      "linkFlags": [
+        "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+        "-lgmp"
+      ],
+      "platform": "darwin",
+      "arch": "arm64"
+    }
+  },
+  "provenance": {
+    "compiler.js": "ecf722e456b642a7cd651849d61f106638ddb9b800ff1270fd2d584835304dd6",
+    "emit.js": "88bbf8a1cdbb4dfa719f33ca3b9b7de76261d8f5e0e4ebc82517174bf2b5add6",
+    "bench.js": "5eff5e9dc93a851f4bb1b9d6e534c30c990672322147881b10a5c09ea994ce88",
+    "managed.js": "c29ba61544fb8139736b1ca28ee9c453a059be14488a2904e9eab9d84032d4f0",
+    "interpreter-fastpaths.js": "44f56cbc5444e2bfd384acdff15f4846b4cb337f033517ea86625300f8faf440",
+    "scripts/window.rix": "f01451f169d22b95103c2832ec0e462e4d9e60e5bd731a782c35483b3435c45c",
+    "scripts/montgomery.rix": "1d621e20d5d3bb6f0ee0be70a0f53506100805a80a3b26bcf4e4dccd2582a142",
+    "../whole-scripts/optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "../whole-scripts/workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb",
+    "../whole-scripts/addon.c": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b"
+  },
+  "results": [
+    {
+      "name": "interpreted binary RiX",
+      "medianMs": 4833.161416999996,
+      "minMs": 4802.496125000005,
+      "maxMs": 4852.015041999999,
+      "samples": [
+        {
+          "wallMs": 4817.934792,
+          "cpuMs": 4821.457
+        },
+        {
+          "wallMs": 4802.496125000005,
+          "cpuMs": 4806.361
+        },
+        {
+          "wallMs": 4834.307167000006,
+          "cpuMs": 4838.967
+        },
+        {
+          "wallMs": 4852.015041999999,
+          "cpuMs": 4853.884
+        },
+        {
+          "wallMs": 4833.161416999996,
+          "cpuMs": 4835.804
+        }
+      ]
+    },
+    {
+      "name": "interpreted window RiX",
+      "medianMs": 3841.655040999998,
+      "minMs": 3815.8198330000014,
+      "maxMs": 3857.9232080000074,
+      "samples": [
+        {
+          "wallMs": 3815.8198330000014,
+          "cpuMs": 3860.611
+        },
+        {
+          "wallMs": 3841.655040999998,
+          "cpuMs": 3889.058
+        },
+        {
+          "wallMs": 3842.1066250000003,
+          "cpuMs": 3879.393
+        },
+        {
+          "wallMs": 3832.8645830000023,
+          "cpuMs": 3868.683
+        },
+        {
+          "wallMs": 3857.9232080000074,
+          "cpuMs": 3905.724
+        }
+      ]
+    },
+    {
+      "name": "interpreted Montgomery RiX",
+      "medianMs": 7899.122457999998,
+      "minMs": 7883.524125000011,
+      "maxMs": 7926.999958,
+      "samples": [
+        {
+          "wallMs": 7899.122457999998,
+          "cpuMs": 8001.731
+        },
+        {
+          "wallMs": 7924.413291999997,
+          "cpuMs": 8024.456
+        },
+        {
+          "wallMs": 7896.959791000001,
+          "cpuMs": 7992.481
+        },
+        {
+          "wallMs": 7883.524125000011,
+          "cpuMs": 7985.247
+        },
+        {
+          "wallMs": 7926.999958,
+          "cpuMs": 8029.635
+        }
+      ]
+    },
+    {
+      "name": "binary RiX + Integer fastpaths",
+      "medianMs": 182.05075000000943,
+      "minMs": 180.5702910000109,
+      "maxMs": 182.46054200000071,
+      "samples": [
+        {
+          "wallMs": 181.6450829999958,
+          "cpuMs": 182.296
+        },
+        {
+          "wallMs": 182.05075000000943,
+          "cpuMs": 182.874
+        },
+        {
+          "wallMs": 180.5702910000109,
+          "cpuMs": 181.19
+        },
+        {
+          "wallMs": 182.27004100001068,
+          "cpuMs": 183.48
+        },
+        {
+          "wallMs": 182.46054200000071,
+          "cpuMs": 183.077
+        }
+      ]
+    },
+    {
+      "name": "window RiX + Integer fastpaths",
+      "medianMs": 222.43858400000317,
+      "minMs": 218.53399999999965,
+      "maxMs": 234.07341600001382,
+      "samples": [
+        {
+          "wallMs": 218.53399999999965,
+          "cpuMs": 245.305
+        },
+        {
+          "wallMs": 219.9730409999902,
+          "cpuMs": 247.665
+        },
+        {
+          "wallMs": 222.43858400000317,
+          "cpuMs": 261.008
+        },
+        {
+          "wallMs": 234.07341600001382,
+          "cpuMs": 278.079
+        },
+        {
+          "wallMs": 223.1468329999916,
+          "cpuMs": 254.212
+        }
+      ]
+    },
+    {
+      "name": "Montgomery RiX + Integer fastpaths",
+      "medianMs": 585.1357079999943,
+      "minMs": 581.3803749999934,
+      "maxMs": 597.9728340000001,
+      "samples": [
+        {
+          "wallMs": 585.1357079999943,
+          "cpuMs": 661.879
+        },
+        {
+          "wallMs": 581.3803749999934,
+          "cpuMs": 659.72
+        },
+        {
+          "wallMs": 582.7620420000021,
+          "cpuMs": 668.27
+        },
+        {
+          "wallMs": 597.9728340000001,
+          "cpuMs": 683.949
+        },
+        {
+          "wallMs": 587.4339579999942,
+          "cpuMs": 673.989
+        }
+      ]
+    },
+    {
+      "name": "compiled window RiX",
+      "medianMs": 76.83979100000579,
+      "minMs": 76.0724579999951,
+      "maxMs": 77.14429100000416,
+      "samples": [
+        {
+          "wallMs": 77.11120900000242,
+          "cpuMs": 84.862
+        },
+        {
+          "wallMs": 76.83979100000579,
+          "cpuMs": 82.825
+        },
+        {
+          "wallMs": 76.0724579999951,
+          "cpuMs": 82.41
+        },
+        {
+          "wallMs": 76.78649999998743,
+          "cpuMs": 83.689
+        },
+        {
+          "wallMs": 77.14429100000416,
+          "cpuMs": 85.079
+        }
+      ]
+    },
+    {
+      "name": "compiled Montgomery RiX",
+      "medianMs": 42.78225000000384,
+      "minMs": 42.53470799999195,
+      "maxMs": 42.96608399999968,
+      "samples": [
+        {
+          "wallMs": 42.78225000000384,
+          "cpuMs": 50.745
+        },
+        {
+          "wallMs": 42.96608399999968,
+          "cpuMs": 49.459
+        },
+        {
+          "wallMs": 42.78558300000441,
+          "cpuMs": 50.083
+        },
+        {
+          "wallMs": 42.73329199998989,
+          "cpuMs": 48.479
+        },
+        {
+          "wallMs": 42.53470799999195,
+          "cpuMs": 49.414
+        }
+      ]
+    },
+    {
+      "name": "handwritten window-6 JS",
+      "medianMs": 75.23291700000118,
+      "minMs": 75.08458300000348,
+      "maxMs": 75.9955420000042,
+      "samples": [
+        {
+          "wallMs": 75.171957999999,
+          "cpuMs": 77.116
+        },
+        {
+          "wallMs": 75.23291700000118,
+          "cpuMs": 75.263
+        },
+        {
+          "wallMs": 75.37604199998896,
+          "cpuMs": 75.378
+        },
+        {
+          "wallMs": 75.9955420000042,
+          "cpuMs": 76.021
+        },
+        {
+          "wallMs": 75.08458300000348,
+          "cpuMs": 74.892
+        }
+      ]
+    },
+    {
+      "name": "handwritten Montgomery-5 JS",
+      "medianMs": 40.437917000002926,
+      "minMs": 39.98325000000477,
+      "maxMs": 40.755708999997296,
+      "samples": [
+        {
+          "wallMs": 40.755708999997296,
+          "cpuMs": 40.878
+        },
+        {
+          "wallMs": 40.703999999997905,
+          "cpuMs": 44.247
+        },
+        {
+          "wallMs": 39.98325000000477,
+          "cpuMs": 40.098
+        },
+        {
+          "wallMs": 40.437917000002926,
+          "cpuMs": 40.49
+        },
+        {
+          "wallMs": 40.32162499999686,
+          "cpuMs": 40.404
+        }
+      ]
+    },
+    {
+      "name": "native C/GMP powm",
+      "medianMs": 15.632125000003725,
+      "minMs": 15.495083000001614,
+      "maxMs": 15.689999999995052,
+      "samples": [
+        {
+          "wallMs": 15.689999999995052,
+          "cpuMs": 15.692
+        },
+        {
+          "wallMs": 15.632125000003725,
+          "cpuMs": 15.632
+        },
+        {
+          "wallMs": 15.495083000001614,
+          "cpuMs": 15.496
+        },
+        {
+          "wallMs": 15.595667000001413,
+          "cpuMs": 15.597
+        },
+        {
+          "wallMs": 15.655249999996158,
+          "cpuMs": 15.657
+        }
+      ]
+    },
+    {
+      "name": "RiX calls cached compiled kernel",
+      "medianMs": 42.81599999999162,
+      "minMs": 42.65570899999875,
+      "maxMs": 43.25829199999862,
+      "samples": [
+        {
+          "wallMs": 43.25829199999862,
+          "cpuMs": 46.743
+        },
+        {
+          "wallMs": 42.65570899999875,
+          "cpuMs": 43.024
+        },
+        {
+          "wallMs": 42.81599999999162,
+          "cpuMs": 43.193
+        },
+        {
+          "wallMs": 42.70483299999614,
+          "cpuMs": 42.927
+        },
+        {
+          "wallMs": 42.98758300000918,
+          "cpuMs": 43.244
+        }
+      ]
+    },
+    {
+      "name": "compiled Montgomery without power facts",
+      "medianMs": 216.95524999999907,
+      "minMs": 216.32083300000522,
+      "maxMs": 217.93204099999275,
+      "samples": [
+        {
+          "wallMs": 216.77599999999802,
+          "cpuMs": 227.706
+        },
+        {
+          "wallMs": 216.32083300000522,
+          "cpuMs": 222.572
+        },
+        {
+          "wallMs": 217.72958300000755,
+          "cpuMs": 224.661
+        },
+        {
+          "wallMs": 216.95524999999907,
+          "cpuMs": 222.471
+        },
+        {
+          "wallMs": 217.93204099999275,
+          "cpuMs": 225.036
+        }
+      ]
+    }
+  ]
+}

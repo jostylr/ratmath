@@ -1,0 +1,4 @@
+## Repeated mixed Rational/Integer operations in normal scoped RiX calls.
+Update(x,count) -> {@ r=0+x,i=1; i<=count;r:=r+i-1,i+=1;;r};
+Run(points,count) -> points.Map((x)->Update(x,@count));
+Run(points,count);

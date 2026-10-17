@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-10-17T12:53:52.630Z",
+  "core": "Byte-identical in all environments",
+  "focusedRiXFiles": [
+    "cells",
+    "constructor-capture",
+    "collection-value-semantics",
+    "identity-comparison",
+    "number-notation",
+    "numeric-regressions",
+    "function-return",
+    "shared-scope",
+    "range-arithmetic",
+    "diagnostics",
+    "async-safety",
+    "performance-numeric-adapters",
+    "type-system"
+  ],
+  "results": [
+    {
+      "name": "core-unchanged",
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ],
+      "exitCode": 0,
+      "passed": 555,
+      "failed": 0,
+      "wallMs": 1296.513709
+    },
+    {
+      "name": "rix-control",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/collection-value-semantics.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/shared-scope.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/diagnostics.test.js",
+        "./tests/eval/async-safety.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/type-system.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 342,
+      "failed": 0,
+      "wallMs": 55313.346042000005
+    },
+    {
+      "name": "rix-copy",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/collection-value-semantics.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/shared-scope.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/diagnostics.test.js",
+        "./tests/eval/async-safety.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/type-system.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 342,
+      "failed": 0,
+      "wallMs": 55097.80783299999
+    },
+    {
+      "name": "rix-literals",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/collection-value-semantics.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/shared-scope.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/diagnostics.test.js",
+        "./tests/eval/async-safety.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/type-system.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 342,
+      "failed": 0,
+      "wallMs": 55024.835792
+    }
+  ]
+}

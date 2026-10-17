@@ -1,0 +1,16 @@
+  // Combined operation using exactly the scalar fast paths' reduction kernels.
+  // Horner still performs multiply then add at every step, reducing each result.
+  static _polynomialReduced(coefficients, x) {
+    const plain = v => isPlainInteger(v) || Rational._canUseReduced(v);
+    if (!Array.isArray(coefficients) || !plain(x) || !coefficients.every(plain)) return undefined;
+    // Empty and all-Integer cases belong to the Integer-returning wrapper.
+    if (!coefficients.length || (isPlainInteger(x) && coefficients.every(isPlainInteger))) return undefined;
+    const [xn, xd] = isPlainInteger(x) ? [x.value, 1n] : [x.#numerator, x.#denominator];
+    let n = 0n, d = 1n;
+    for (const c of coefficients) {
+      [n, d] = reduced('multiply', n, d, xn, xd);
+      const [cn, cd] = isPlainInteger(c) ? [c.value, 1n] : [c.#numerator, c.#denominator];
+      [n, d] = reduced('add', n, d, cn, cd);
+    }
+    return Rational.#fromReduced(n, d);
+  }

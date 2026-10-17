@@ -1,0 +1,32 @@
+[
+  {
+    "name": "production-core",
+    "command": [
+      "bun",
+      "test",
+      "./tests"
+    ],
+    "exitCode": 0,
+    "wallMs": 1319.1359170014039
+  },
+  {
+    "name": "production-bun-contract",
+    "command": [
+      "bun",
+      "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/contract.js",
+      "/Users/jostylr/ai-repos/ratmath/packages/core"
+    ],
+    "exitCode": 0,
+    "wallMs": 14.175625052303076
+  },
+  {
+    "name": "production-node-contract",
+    "command": [
+      "node",
+      "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/contract.js",
+      "/Users/jostylr/ai-repos/ratmath/packages/core"
+    ],
+    "exitCode": 0,
+    "wallMs": 96.28508298192173
+  }
+]

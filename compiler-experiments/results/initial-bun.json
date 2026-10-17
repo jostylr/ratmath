@@ -1,0 +1,1066 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-11T23:23:25.207Z",
+  "completedAt": "2026-10-11T23:23:41.994Z",
+  "config": {
+    "count": 256,
+    "rounds": 9,
+    "warmupMs": 50,
+    "targetSampleMs": 20,
+    "maxRepetitions": 262144
+  },
+  "environment": {
+    "runtime": "bun",
+    "versions": {
+      "node": "26.3.0",
+      "bun": "1.4.0",
+      "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+      "openssl": "1.1.0",
+      "llhttp": "9.3.0",
+      "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+      "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+      "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+      "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+      "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+      "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+      "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+      "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+      "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+      "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+      "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+      "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+      "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+      "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+      "v8": "14.6.202.34-node.20",
+      "uv": "1.48.0",
+      "napi": "10",
+      "icu": "78.1",
+      "unicode": "17.0",
+      "sqlite": "3.54.0",
+      "modules": "147"
+    },
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4 Pro",
+    "logicalCpus": 14,
+    "command": [
+      "/Users/jostylr/.bun/bin/bun",
+      "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/bench.js",
+      "--output",
+      "work/compiler-experiments/results/initial-bun.json"
+    ],
+    "root": "/Users/jostylr/ai-repos/ratmath"
+  },
+  "provenance": {
+    "rootHead": "d2b86f28bb1a005c84faca95d95694733667cac5",
+    "rootStatus": "m packages/core\n m rix\n m rix-nb\n m rix-web\n?? docs/review-2026-10-08.md\n?? julia-port/\n?? project_euler/\n?? rix-ed/",
+    "rixHead": "d525695bc4b7fe0ad621575b5dec4b2fb795edea",
+    "rixStatus": "M bin/generated/live-runtime/manifest.json\n M bin/generated/live-runtime/rix-page.js\n M documentation/eval/syntax-guide.md\n M documentation/introduction.md\n M plugins/generated/rix-sources.js\n M plugins/linalg/linalg.plugin.rix\n M scripts/run-test-profile.js\n M src/eval/functions/collections.js\n M src/eval/functions/comparison.js\n M src/eval/functions/functions.js\n M src/eval/functions/stdlib.js\n M src/eval/lint.js\n M src/eval/lower.js\n M src/parser/parser.js\n M src/runtime/exact-values.js\n M src/runtime/lazy-sequence.js\n M src/runtime/quantities.js\n M tests/eval/evaluator.test.js\n M tests/eval/units-exact.test.js\n M tests/parser/parser.test.js\n?? src/runtime/fresh-collection.js\n?? tests/eval/collection-value-semantics.test.js",
+    "coreHead": "b2554fbb03cef7c69922e2d50910488861e28cb4",
+    "coreStatus": "M src/integer.js\n M src/rational.js\n M tests/integer.test.js\n M tests/rational.test.js",
+    "sourceHash": {
+      "sha256": "b1511b1c1d0c2b5ea3a5d577b71576cf721e9196f192677b61489aa69434a24c",
+      "files": 280,
+      "paths": [
+        "rix/src",
+        "rix/plugins",
+        "packages/core/src"
+      ],
+      "extensions": [
+        ".js",
+        ".rix"
+      ]
+    },
+    "experimentHash": {
+      "runtime.js": "a9728a1818736a516c10318a7c8f4d024447ac19160afd0c5e54aaaa64ed74fb",
+      "compile.js": "00bf9c6b493069b3e63e71c401e9411b5ffd0a4c94782c0c45b33beceb17a55a",
+      "wasm.js": "b393cc7ed3600873cd28e6d3b397c89edb1e1139b480c9ea90dabe99013d83ce",
+      "workloads.js": "57f02799022739a7a554a7de5f7a5a9873af3a4b668d7c8c3f7644830a091813",
+      "bench.js": "78ae55b343e65502f41a9aaac294b9bc8fa7219c7a73f412eed0af08a5761085",
+      "verify.js": "706574b8be051a888db4c9e7d4550a67a7e4744917daf93f8237bbfbbbf05b42"
+    },
+    "currentCompiler": "Removed by user; runtime translation is a recreated experiment, not previous compiler output."
+  },
+  "results": [
+    {
+      "workload": "integer-small",
+      "source": "x*x + 2*x + 1",
+      "kind": "integer",
+      "setup": {
+        "parseLowerMs": 0.9582080000000133,
+        "runtimeCompileMs": 0.10112499999996771,
+        "hoistedCompileMs": 0.014791999999999916,
+        "methodsCompileMs": 0.00620800000001509,
+        "wasmCompileInstantiateMs": 0.6342920000000163
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.31344628906249916,
+            0.3179951171875004,
+            0.3123994140625008,
+            0.32908398437499997,
+            0.3151481093749986,
+            0.322493812500003,
+            0.2953779296875041,
+            0.2956464843749984,
+            0.2945351562499994
+          ],
+          "medianMsPerBatch": 0.31344628906249916,
+          "minMsPerBatch": 0.2945351562499994,
+          "maxMsPerBatch": 0.32908398437499997,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.21961882031249935,
+            0.23635221093750047,
+            0.2314860078124994,
+            0.22965007031250195,
+            0.23200455468749936,
+            0.22518652343750034,
+            0.2057259062500023,
+            0.20852896874999516,
+            0.2131233750000021
+          ],
+          "medianMsPerBatch": 0.22518652343750034,
+          "minMsPerBatch": 0.2057259062500023,
+          "maxMsPerBatch": 0.23635221093750047,
+          "speedupVsInterpreter": 1.391940708874148
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.16205924218749956,
+            0.1760986328125007,
+            0.16888671874999872,
+            0.17643652343750205,
+            0.1707353515625023,
+            0.17784439843749666,
+            0.16083039843750413,
+            0.15748796093750173,
+            0.15132064062499495
+          ],
+          "medianMsPerBatch": 0.16888671874999872,
+          "minMsPerBatch": 0.15132064062499495,
+          "maxMsPerBatch": 0.17784439843749666,
+          "speedupVsInterpreter": 1.8559558228287358
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 4096,
+          "samplesMsPerBatch": [
+            0.009048004150390643,
+            0.00970057153320314,
+            0.009330892089843723,
+            0.009424367431640657,
+            0.009433664794921914,
+            0.009332082275390619,
+            0.008101247314453053,
+            0.008125284912109176,
+            0.0082565407714843
+          ],
+          "medianMsPerBatch": 0.009330892089843723,
+          "minMsPerBatch": 0.008101247314453053,
+          "maxMsPerBatch": 0.00970057153320314,
+          "speedupVsInterpreter": 33.59231743807991
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 2048,
+          "samplesMsPerBatch": [
+            0.012302571289062536,
+            0.013075561523437473,
+            0.012974527832031235,
+            0.012787210937500015,
+            0.012903991699218631,
+            0.012857564453125248,
+            0.010625854492187337,
+            0.011251342773437312,
+            0.011354309082030944
+          ],
+          "medianMsPerBatch": 0.012787210937500015,
+          "minMsPerBatch": 0.010625854492187337,
+          "maxMsPerBatch": 0.013075561523437473,
+          "speedupVsInterpreter": 24.512482870152763
+        },
+        {
+          "name": "JS specialized BigInt boxed",
+          "domain": "boxed exact",
+          "repetitions": 4096,
+          "samplesMsPerBatch": [
+            0.00820660400390627,
+            0.008625254394531323,
+            0.008599212646484444,
+            0.008534993408203184,
+            0.00856336474609376,
+            0.008714304687500007,
+            0.007178161621093748,
+            0.007432342529296809,
+            0.007433339599609345
+          ],
+          "medianMsPerBatch": 0.008534993408203184,
+          "minMsPerBatch": 0.007178161621093748,
+          "maxMsPerBatch": 0.008714304687500007,
+          "speedupVsInterpreter": 36.724842547767935
+        },
+        {
+          "name": "JS specialized BigInt raw",
+          "domain": "raw exact integer",
+          "repetitions": 4096,
+          "samplesMsPerBatch": [
+            0.0074616191406249865,
+            0.0076847636718749834,
+            0.007893269775390621,
+            0.007819183349609404,
+            0.0075407409667967995,
+            0.00787694287109375,
+            0.006559987304687542,
+            0.007038452148437457,
+            0.0069398598632812725
+          ],
+          "medianMsPerBatch": 0.0075407409667967995,
+          "minMsPerBatch": 0.006559987304687542,
+          "maxMsPerBatch": 0.007893269775390621,
+          "speedupVsInterpreter": 41.567041016613345
+        },
+        {
+          "name": "JS guarded Number boxed",
+          "domain": "boxed exact",
+          "repetitions": 8192,
+          "samplesMsPerBatch": [
+            0.004236338378906246,
+            0.004272471069335926,
+            0.004346028686523451,
+            0.0044356790771484245,
+            0.004350830078125034,
+            0.004705205322265593,
+            0.003929590942382877,
+            0.0037862396240234686,
+            0.004041524291992227
+          ],
+          "medianMsPerBatch": 0.004272471069335926,
+          "minMsPerBatch": 0.0037862396240234686,
+          "maxMsPerBatch": 0.004705205322265593,
+          "speedupVsInterpreter": 73.36416887925667
+        },
+        {
+          "name": "hand JS Number raw",
+          "domain": "bounded raw exact integer",
+          "repetitions": 16384,
+          "samplesMsPerBatch": [
+            0.0010445480346679692,
+            0.0010103708496093655,
+            0.001007075012207037,
+            0.0010528360595703223,
+            0.0010249099731445277,
+            0.0010711059570312487,
+            0.0010469640502929756,
+            0.0010623474121094212,
+            0.0010944442749023509
+          ],
+          "medianMsPerBatch": 0.0010469640502929756,
+          "minMsPerBatch": 0.001007075012207037,
+          "maxMsPerBatch": 0.0010944442749023509,
+          "speedupVsInterpreter": 299.38591394306843
+        },
+        {
+          "name": "hand JS i32 batch raw",
+          "domain": "bounded raw exact integer",
+          "repetitions": 131072,
+          "samplesMsPerBatch": [
+            0.00020936043548584055,
+            0.00019567267608642733,
+            0.00020051765441894687,
+            0.00018751303100585787,
+            0.00019316450500488427,
+            0.0001954895706176782,
+            0.0001871725692748974,
+            0.00018428325653076227,
+            0.00018816979217529256
+          ],
+          "medianMsPerBatch": 0.00019316450500488427,
+          "minMsPerBatch": 0.00018428325653076227,
+          "maxMsPerBatch": 0.00020936043548584055,
+          "speedupVsInterpreter": 1622.690923752133
+        },
+        {
+          "name": "Wasm i32 scalar boxed",
+          "domain": "boxed exact",
+          "repetitions": 8192,
+          "samplesMsPerBatch": [
+            0.0041649475097656485,
+            0.0041345672607421835,
+            0.004248687744140611,
+            0.004279205322265611,
+            0.004202535034179722,
+            0.0042140096435546726,
+            0.0037377218017577984,
+            0.0036987711181640792,
+            0.0037786254882812287
+          ],
+          "medianMsPerBatch": 0.0041649475097656485,
+          "minMsPerBatch": 0.0036987711181640792,
+          "maxMsPerBatch": 0.004279205322265611,
+          "speedupVsInterpreter": 75.25816071572437
+        },
+        {
+          "name": "Wasm i32 scalar raw",
+          "domain": "bounded raw exact integer",
+          "repetitions": 16384,
+          "samplesMsPerBatch": [
+            0.0016879501342773329,
+            0.0016491979370117094,
+            0.0016456400146484251,
+            0.0016338195800781052,
+            0.0016076024169921765,
+            0.0016163279418945076,
+            0.0015969365844726857,
+            0.0016120579833984738,
+            0.0016125742187499958
+          ],
+          "medianMsPerBatch": 0.0016163279418945076,
+          "minMsPerBatch": 0.0015969365844726857,
+          "maxMsPerBatch": 0.0016879501342773329,
+          "speedupVsInterpreter": 193.9249337576302
+        },
+        {
+          "name": "Wasm i32 batch raw",
+          "domain": "bounded raw exact integer",
+          "repetitions": 131072,
+          "samplesMsPerBatch": [
+            0.00018189557647705148,
+            0.0001708917617797845,
+            0.00017217031860351784,
+            0.00016920280456543188,
+            0.00016560491180419787,
+            0.00016763623809814762,
+            0.00016532102966308748,
+            0.0001632566452026349,
+            0.0001644074172973617
+          ],
+          "medianMsPerBatch": 0.00016763623809814762,
+          "minMsPerBatch": 0.0001632566452026349,
+          "maxMsPerBatch": 0.00018189557647705148,
+          "speedupVsInterpreter": 1869.8003046273486
+        }
+      ]
+    },
+    {
+      "workload": "integer-160bit",
+      "source": "x*x + 2*x + 1",
+      "kind": "integer",
+      "setup": {
+        "parseLowerMs": 0.06612499999999955,
+        "runtimeCompileMs": 0.012707999999975073,
+        "hoistedCompileMs": 0.003500000000030923,
+        "methodsCompileMs": 0.003500000000030923
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.3252184296875029,
+            0.3164231796874972,
+            0.31059570312500284,
+            0.3166966171875032,
+            0.30850455468749516,
+            0.31066862500000525,
+            0.3100026015624948,
+            0.31548632812499733,
+            0.31246223437500475
+          ],
+          "medianMsPerBatch": 0.31246223437500475,
+          "minMsPerBatch": 0.30850455468749516,
+          "maxMsPerBatch": 0.3252184296875029,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.22235449218749892,
+            0.21718425000000252,
+            0.22195279687500147,
+            0.21979036718749967,
+            0.2217958984374988,
+            0.2176396484374976,
+            0.22605501562500052,
+            0.2197246093749996,
+            0.21498177343750058
+          ],
+          "medianMsPerBatch": 0.21979036718749967,
+          "minMsPerBatch": 0.21498177343750058,
+          "maxMsPerBatch": 0.22605501562500052,
+          "speedupVsInterpreter": 1.4216375284019986
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.16693327343750042,
+            0.16683430468750515,
+            0.1663037109374983,
+            0.1615280000000041,
+            0.16801562499999534,
+            0.16553938281249714,
+            0.16265885937500002,
+            0.15894238281249784,
+            0.1595003281249987
+          ],
+          "medianMsPerBatch": 0.16553938281249714,
+          "minMsPerBatch": 0.15894238281249784,
+          "maxMsPerBatch": 0.16801562499999534,
+          "speedupVsInterpreter": 1.8875401675800854
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 2048,
+          "samplesMsPerBatch": [
+            0.012526998046875182,
+            0.012568460937500081,
+            0.01272165966796912,
+            0.012914794921874861,
+            0.012928609374999844,
+            0.013561177246093958,
+            0.01312365722656228,
+            0.013067097656250137,
+            0.013129211425781051
+          ],
+          "medianMsPerBatch": 0.012928609374999844,
+          "minMsPerBatch": 0.012526998046875182,
+          "maxMsPerBatch": 0.013561177246093958,
+          "speedupVsInterpreter": 24.16827868426557
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 2048,
+          "samplesMsPerBatch": [
+            0.014986368652343707,
+            0.015016723632812479,
+            0.015010070800781428,
+            0.015383951660155937,
+            0.015438211914062805,
+            0.015854410644531303,
+            0.016131286621093643,
+            0.01531620312500026,
+            0.016326151367187514
+          ],
+          "medianMsPerBatch": 0.015383951660155937,
+          "minMsPerBatch": 0.014986368652343707,
+          "maxMsPerBatch": 0.016326151367187514,
+          "speedupVsInterpreter": 20.310921489975453
+        },
+        {
+          "name": "JS specialized BigInt boxed",
+          "domain": "boxed exact",
+          "repetitions": 2048,
+          "samplesMsPerBatch": [
+            0.011767924316406386,
+            0.0117771401367186,
+            0.011581563476562806,
+            0.01193680810546871,
+            0.012127359863280951,
+            0.01150290917968766,
+            0.012120544433594116,
+            0.01222888183593751,
+            0.012398030761718637
+          ],
+          "medianMsPerBatch": 0.01193680810546871,
+          "minMsPerBatch": 0.01150290917968766,
+          "maxMsPerBatch": 0.012398030761718637,
+          "speedupVsInterpreter": 26.176364034188822
+        },
+        {
+          "name": "JS specialized BigInt raw",
+          "domain": "raw exact integer",
+          "repetitions": 2048,
+          "samplesMsPerBatch": [
+            0.010400146484375039,
+            0.0106511230468751,
+            0.010416707519531165,
+            0.011074808593749985,
+            0.010758850097656314,
+            0.010930358886718672,
+            0.010592508789062371,
+            0.01070546435546893,
+            0.01093983935546916
+          ],
+          "medianMsPerBatch": 0.01070546435546893,
+          "minMsPerBatch": 0.010400146484375039,
+          "maxMsPerBatch": 0.011074808593749985,
+          "speedupVsInterpreter": 29.18717245696887
+        }
+      ]
+    },
+    {
+      "workload": "rational-small",
+      "source": "x*x + 2*x + 1",
+      "kind": "rational",
+      "setup": {
+        "parseLowerMs": 0.04262499999998681,
+        "runtimeCompileMs": 0.004874999999969987,
+        "hoistedCompileMs": 0.002415999999982432,
+        "methodsCompileMs": 0.0016249999999899956
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.46259506250001436,
+            0.4668854218749914,
+            0.4606087187500236,
+            0.4435052031249995,
+            0.44005273437500136,
+            0.4355501249999918,
+            0.45096354687501616,
+            0.4502884062499959,
+            0.4338951718749797
+          ],
+          "medianMsPerBatch": 0.4502884062499959,
+          "minMsPerBatch": 0.4338951718749797,
+          "maxMsPerBatch": 0.4668854218749914,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.36637109374999,
+            0.35314778124998725,
+            0.33531640625000136,
+            0.34939973437499816,
+            0.3519889375000105,
+            0.3583268281250014,
+            0.3584095156249987,
+            0.34963737500001457,
+            0.35720053124998685
+          ],
+          "medianMsPerBatch": 0.35314778124998725,
+          "minMsPerBatch": 0.33531640625000136,
+          "maxMsPerBatch": 0.36637109374999,
+          "speedupVsInterpreter": 1.275070749860508
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.30569954687499035,
+            0.29799382031249877,
+            0.3076572265624975,
+            0.2899612656249957,
+            0.288760742187506,
+            0.2942360078125006,
+            0.30259082031250273,
+            0.2958792343749934,
+            0.2995250703124981
+          ],
+          "medianMsPerBatch": 0.29799382031249877,
+          "minMsPerBatch": 0.288760742187506,
+          "maxMsPerBatch": 0.3076572265624975,
+          "speedupVsInterpreter": 1.5110662555947958
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 256,
+          "samplesMsPerBatch": [
+            0.13319840234375135,
+            0.1338979492187562,
+            0.1350232734375041,
+            0.12495247265625409,
+            0.1232298164062513,
+            0.12802734375000568,
+            0.13044612499999886,
+            0.13044856640624403,
+            0.1380670546874967
+          ],
+          "medianMsPerBatch": 0.13044856640624403,
+          "minMsPerBatch": 0.1232298164062513,
+          "maxMsPerBatch": 0.1380670546874967,
+          "speedupVsInterpreter": 3.451846338024934
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 256,
+          "samplesMsPerBatch": [
+            0.11176155468749727,
+            0.11296826171874841,
+            0.11390933984374385,
+            0.10373958593750388,
+            0.10794694140625438,
+            0.11069580078125085,
+            0.10973844531250165,
+            0.11103662109374568,
+            0.11467382812499949
+          ],
+          "medianMsPerBatch": 0.11103662109374568,
+          "minMsPerBatch": 0.10373958593750388,
+          "maxMsPerBatch": 0.11467382812499949,
+          "speedupVsInterpreter": 4.055314380197392
+        },
+        {
+          "name": "JS fused rational one normalization",
+          "domain": "boxed exact",
+          "repetitions": 1024,
+          "samplesMsPerBatch": [
+            0.036206868164063266,
+            0.036367675781249886,
+            0.036291340820310936,
+            0.033961791992187074,
+            0.03494934082031165,
+            0.03523116113281155,
+            0.03543025683593726,
+            0.036799926757812074,
+            0.03616870117187432
+          ],
+          "medianMsPerBatch": 0.03616870117187432,
+          "minMsPerBatch": 0.033961791992187074,
+          "maxMsPerBatch": 0.036799926757812074,
+          "speedupVsInterpreter": 12.449670340945264
+        },
+        {
+          "name": "JS algebraic rational (x+1)^2",
+          "domain": "boxed exact",
+          "repetitions": 1024,
+          "samplesMsPerBatch": [
+            0.02937886523437605,
+            0.0294537763671876,
+            0.030026652343750015,
+            0.028175333984375328,
+            0.028199055664062556,
+            0.02783032226562554,
+            0.02890197753906243,
+            0.029751383789061947,
+            0.02929158593750003
+          ],
+          "medianMsPerBatch": 0.02929158593750003,
+          "minMsPerBatch": 0.02783032226562554,
+          "maxMsPerBatch": 0.030026652343750015,
+          "speedupVsInterpreter": 15.372619536913573
+        }
+      ]
+    },
+    {
+      "workload": "rational-128bit",
+      "source": "x*x + 2*x + 1",
+      "kind": "rational",
+      "setup": {
+        "parseLowerMs": 0.04149999999998499,
+        "runtimeCompileMs": 0.004208000000005541,
+        "hoistedCompileMs": 0.001791999999966265,
+        "methodsCompileMs": 0.001209000000017113
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.9533854062500495,
+            1.001641906250029,
+            0.9712903750000237,
+            0.8790130312499969,
+            0.9308085937499868,
+            0.9063580937499864,
+            0.9385846249999759,
+            0.9498281250000105,
+            0.9413307187500095
+          ],
+          "medianMsPerBatch": 0.9413307187500095,
+          "minMsPerBatch": 0.8790130312499969,
+          "maxMsPerBatch": 1.001641906250029,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.85054818750001,
+            0.842736968749989,
+            0.8480390624999927,
+            0.8093580937500064,
+            0.8030859375000432,
+            0.8013359374999709,
+            0.8087044375000119,
+            0.8500156250000259,
+            0.8287512812499926
+          ],
+          "medianMsPerBatch": 0.8287512812499926,
+          "minMsPerBatch": 0.8013359374999709,
+          "maxMsPerBatch": 0.85054818750001,
+          "speedupVsInterpreter": 1.1358422485093658
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.7905012812500445,
+            0.7984088437499963,
+            0.7948450625000305,
+            0.7400104375000183,
+            0.7539869999999951,
+            0.7388346249999813,
+            0.7458880000000363,
+            0.7730481875000237,
+            0.77717578124998
+          ],
+          "medianMsPerBatch": 0.7730481875000237,
+          "minMsPerBatch": 0.7388346249999813,
+          "maxMsPerBatch": 0.7984088437499963,
+          "speedupVsInterpreter": 1.2176869876562264
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.6222024687500038,
+            0.6112975312500168,
+            0.6250865937500123,
+            0.6161432343750164,
+            0.59358984375001,
+            0.5921796875000211,
+            0.5991640624999945,
+            0.6162513124999975,
+            0.6160247343749745
+          ],
+          "medianMsPerBatch": 0.6160247343749745,
+          "minMsPerBatch": 0.5921796875000211,
+          "maxMsPerBatch": 0.6250865937500123,
+          "speedupVsInterpreter": 1.5280729266578785
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.596477203125005,
+            0.5997786406250043,
+            0.6033307343749925,
+            0.5780214843750002,
+            0.5549446718750062,
+            0.5832395781249886,
+            0.5769837343750055,
+            0.5861725312500141,
+            0.587611968750025
+          ],
+          "medianMsPerBatch": 0.5861725312500141,
+          "minMsPerBatch": 0.5549446718750062,
+          "maxMsPerBatch": 0.6033307343749925,
+          "speedupVsInterpreter": 1.605893603957558
+        },
+        {
+          "name": "JS fused rational one normalization",
+          "domain": "boxed exact",
+          "repetitions": 128,
+          "samplesMsPerBatch": [
+            0.157958984375,
+            0.1648372421875024,
+            0.16850260937499684,
+            0.14717707812499725,
+            0.1505130234374974,
+            0.15717253125001207,
+            0.155567710937504,
+            0.1576253281249933,
+            0.15813801562499918
+          ],
+          "medianMsPerBatch": 0.1576253281249933,
+          "minMsPerBatch": 0.14717707812499725,
+          "maxMsPerBatch": 0.16850260937499684,
+          "speedupVsInterpreter": 5.971950891062099
+        },
+        {
+          "name": "JS algebraic rational (x+1)^2",
+          "domain": "boxed exact",
+          "repetitions": 256,
+          "samplesMsPerBatch": [
+            0.14519889062499658,
+            0.14475716015624585,
+            0.1484510117187483,
+            0.13478759765625625,
+            0.13933170703125342,
+            0.1412260742187499,
+            0.1389791679687491,
+            0.14177034374999664,
+            0.15134472656249898
+          ],
+          "medianMsPerBatch": 0.14177034374999664,
+          "minMsPerBatch": 0.13478759765625625,
+          "maxMsPerBatch": 0.15134472656249898,
+          "speedupVsInterpreter": 6.639828146357527
+        }
+      ]
+    },
+    {
+      "workload": "rational-add32",
+      "source": "x + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step + step",
+      "kind": "sum",
+      "setup": {
+        "parseLowerMs": 0.25641600000000153,
+        "runtimeCompileMs": 0.030458000000010088,
+        "hoistedCompileMs": 0.013374999999996362,
+        "methodsCompileMs": 0.016999999999995907
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 8,
+          "samplesMsPerBatch": [
+            3.008041750000075,
+            3.0539739999999256,
+            2.969640625000011,
+            3.0289166249999653,
+            3.1294374999999945,
+            2.837005124999905,
+            2.744942750000064,
+            2.783822999999984,
+            2.7771458750000875
+          ],
+          "medianMsPerBatch": 2.969640625000011,
+          "minMsPerBatch": 2.744942750000064,
+          "maxMsPerBatch": 3.1294374999999945,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 16,
+          "samplesMsPerBatch": [
+            2.3147213124999553,
+            2.2326249999999845,
+            2.2722447499999134,
+            2.2838437500000737,
+            2.35476043750009,
+            2.1830651249999846,
+            2.1625156250000828,
+            2.2141692500000545,
+            2.2137994374999153
+          ],
+          "medianMsPerBatch": 2.2326249999999845,
+          "minMsPerBatch": 2.1625156250000828,
+          "maxMsPerBatch": 2.35476043750009,
+          "speedupVsInterpreter": 1.3301116958737054
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 8,
+          "samplesMsPerBatch": [
+            2.223145875,
+            2.231760500000064,
+            2.3161250000000564,
+            2.275536500000044,
+            2.1191823749998093,
+            2.1688906249999036,
+            2.165140625000049,
+            2.24725525000008,
+            2.23698437500002
+          ],
+          "medianMsPerBatch": 2.231760500000064,
+          "minMsPerBatch": 2.1191823749998093,
+          "maxMsPerBatch": 2.3161250000000564,
+          "speedupVsInterpreter": 1.3306269310707515
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.9679270937500064,
+            0.9665286562499773,
+            0.9730442812500542,
+            0.996897156249986,
+            0.8770846562500196,
+            0.9052330625000309,
+            0.9466809999999555,
+            0.9614830625000081,
+            0.9629960937500073
+          ],
+          "medianMsPerBatch": 0.9629960937500073,
+          "minMsPerBatch": 0.8770846562500196,
+          "maxMsPerBatch": 0.996897156249986,
+          "speedupVsInterpreter": 3.0837514754976008
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.9872981562500058,
+            1.0123580624999704,
+            1.0302838750000092,
+            1.0000025937500254,
+            1.0078671874999827,
+            0.9136940000000209,
+            0.9409036562499864,
+            0.9707239374999972,
+            0.9527773437499718
+          ],
+          "medianMsPerBatch": 0.9872981562500058,
+          "minMsPerBatch": 0.9136940000000209,
+          "maxMsPerBatch": 1.0302838750000092,
+          "speedupVsInterpreter": 3.0078458125349035
+        },
+        {
+          "name": "JS fixed denominator one normalization",
+          "domain": "boxed exact",
+          "repetitions": 512,
+          "samplesMsPerBatch": [
+            0.07277986523437363,
+            0.07345849609374966,
+            0.07237565039062588,
+            0.07476977539062446,
+            0.0780192070312502,
+            0.06740828320312531,
+            0.06811181640624753,
+            0.07361173437499957,
+            0.06965283203124883
+          ],
+          "medianMsPerBatch": 0.07277986523437363,
+          "minMsPerBatch": 0.06740828320312531,
+          "maxMsPerBatch": 0.0780192070312502,
+          "speedupVsInterpreter": 40.80305199022905
+        }
+      ]
+    },
+    {
+      "workload": "interval-polynomial",
+      "source": "x*x + 2*x + 1",
+      "kind": "interval",
+      "setup": {
+        "parseLowerMs": 0.09804100000002336,
+        "runtimeCompileMs": 0.005791999999985364,
+        "hoistedCompileMs": 0.0023329999999646134,
+        "methodsCompileMs": 0.0019169999999917309
+      },
+      "variants": [
+        {
+          "name": "interpreted IR",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.7136119687500013,
+            0.7525585937499955,
+            0.7400026250000451,
+            0.6954296875001091,
+            0.6923177187500187,
+            0.7214284062500838,
+            0.7208229062500777,
+            0.7354570312500073,
+            0.7405572812500623
+          ],
+          "medianMsPerBatch": 0.7214284062500838,
+          "minMsPerBatch": 0.6923177187500187,
+          "maxMsPerBatch": 0.7525585937499955,
+          "speedupVsInterpreter": 1
+        },
+        {
+          "name": "JS runtime translation (recreated)",
+          "domain": "boxed exact",
+          "repetitions": 32,
+          "samplesMsPerBatch": [
+            0.6327135625000437,
+            0.6290872499999978,
+            0.571239593749965,
+            0.5778932187499777,
+            0.5823489687500114,
+            0.6177590937500099,
+            0.63101171874996,
+            0.6465676874998962,
+            0.6740546874999609
+          ],
+          "medianMsPerBatch": 0.6290872499999978,
+          "minMsPerBatch": 0.571239593749965,
+          "maxMsPerBatch": 0.6740546874999609,
+          "speedupVsInterpreter": 1.1467859287405464
+        },
+        {
+          "name": "JS runtime + hoisted literals",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.5700735781249762,
+            0.5868847656250011,
+            0.5948190000000011,
+            0.5092649687499602,
+            0.544962250000026,
+            0.5503170624999711,
+            0.568829421875023,
+            0.5755416718750439,
+            0.5932089843749964
+          ],
+          "medianMsPerBatch": 0.5700735781249762,
+          "minMsPerBatch": 0.5092649687499602,
+          "maxMsPerBatch": 0.5948190000000011,
+          "speedupVsInterpreter": 1.2655005142019164
+        },
+        {
+          "name": "JS direct methods",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.403735015625017,
+            0.42329623437498753,
+            0.43714126562500155,
+            0.34296940625000616,
+            0.36978579687502133,
+            0.38929360937498814,
+            0.39651106249999657,
+            0.40398046874997817,
+            0.4115520937500037
+          ],
+          "medianMsPerBatch": 0.403735015625017,
+          "minMsPerBatch": 0.34296940625000616,
+          "maxMsPerBatch": 0.43714126562500155,
+          "speedupVsInterpreter": 1.7868858987453682
+        },
+        {
+          "name": "hand JS RatMath",
+          "domain": "boxed exact",
+          "repetitions": 64,
+          "samplesMsPerBatch": [
+            0.39944074999999657,
+            0.42997395312499975,
+            0.41988932812500934,
+            0.351050124999972,
+            0.3591816406249677,
+            0.4087766874999943,
+            0.3926575625000055,
+            0.4054446562499834,
+            0.4129850312500025
+          ],
+          "medianMsPerBatch": 0.4054446562499834,
+          "minMsPerBatch": 0.351050124999972,
+          "maxMsPerBatch": 0.42997395312499975,
+          "speedupVsInterpreter": 1.7793511275316343
+        }
+      ]
+    }
+  ]
+}

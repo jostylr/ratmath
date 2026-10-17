@@ -1,0 +1,503 @@
+{
+  "timestamp": "2026-10-13T14:16:37.252Z",
+  "runtime": "bun",
+  "versions": {
+    "node": "26.3.0",
+    "bun": "1.4.0",
+    "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+    "openssl": "1.1.0",
+    "llhttp": "9.3.0",
+    "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+    "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+    "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+    "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+    "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "modules": "147"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0"
+  },
+  "methodology": {
+    "rounds": 5,
+    "warmups": 2,
+    "order": "rotated",
+    "timed": "fresh input bindings or unboxing; guards; full batch; exact Integer/sequence outputs",
+    "excluded": "parsing, compilation, imports, input generation, shared context/registry setup, native build; schedule/table/Montgomery setup remains timed",
+    "algorithmWidths": {
+      "window": 6,
+      "montgomery": 5
+    },
+    "native": "GMP mpz_powm, different library algorithm; N-API full batch including BigInt conversion"
+  },
+  "workload": {
+    "count": 24,
+    "bits": 2048,
+    "exponentBits": 1024,
+    "seed": 591751049
+  },
+  "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "outputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+  "setup": {
+    "window": {
+      "compileIncludingParseMs": 2.6002919999999676,
+      "importMs": 1.548750000000041,
+      "sourceHash": "f01451f169d22b95103c2832ec0e462e4d9e60e5bd731a782c35483b3435c45c",
+      "generatedHash": "62343e2ffacf9ada64b1ab17a5511f219335b3efcf212e047eebe6bff09ec68e",
+      "specializations": 9
+    },
+    "montgomery": {
+      "compileIncludingParseMs": 1.7105000000000246,
+      "importMs": 0.4087920000000622,
+      "sourceHash": "1d621e20d5d3bb6f0ee0be70a0f53506100805a80a3b26bcf4e4dccd2582a142",
+      "generatedHash": "3bb35702807ef045c6e745bf927a863907d6786f7a7af6b1cb39e8d36c6299aa",
+      "specializations": 12
+    }
+  },
+  "managedCold": {
+    "wallMs": 32.44274999999993,
+    "builds": 1,
+    "calls": 1,
+    "compileMs": 1.40137500000003,
+    "importMs": 0.38754199999993943
+  },
+  "managedFinal": {
+    "builds": 1,
+    "calls": 8,
+    "compileMs": 1.40137500000003,
+    "importMs": 0.38754199999993943
+  },
+  "nativeBuild": {
+    "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+    "cached": true,
+    "prepareMs": 81.86804199999995,
+    "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+    "binaryHash": "e08098461cba8667341266a2e0a13deaec42f7efc0e60bbe6da565fcf0e07291",
+    "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+    "environment": {
+      "compiler": "clang",
+      "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+      "gmpVersion": "6.3.0",
+      "nodeHeaders": {
+        "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+        "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+        "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+        "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+      },
+      "flags": [
+        "-O3",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-shared",
+        "-fPIC",
+        "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+        "-undefined",
+        "dynamic_lookup",
+        "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+      ],
+      "linkFlags": [
+        "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+        "-lgmp"
+      ],
+      "platform": "darwin",
+      "arch": "arm64"
+    }
+  },
+  "provenance": {
+    "compiler.js": "ecf722e456b642a7cd651849d61f106638ddb9b800ff1270fd2d584835304dd6",
+    "emit.js": "88bbf8a1cdbb4dfa719f33ca3b9b7de76261d8f5e0e4ebc82517174bf2b5add6",
+    "bench.js": "5eff5e9dc93a851f4bb1b9d6e534c30c990672322147881b10a5c09ea994ce88",
+    "managed.js": "c29ba61544fb8139736b1ca28ee9c453a059be14488a2904e9eab9d84032d4f0",
+    "interpreter-fastpaths.js": "44f56cbc5444e2bfd384acdff15f4846b4cb337f033517ea86625300f8faf440",
+    "scripts/window.rix": "f01451f169d22b95103c2832ec0e462e4d9e60e5bd731a782c35483b3435c45c",
+    "scripts/montgomery.rix": "1d621e20d5d3bb6f0ee0be70a0f53506100805a80a3b26bcf4e4dccd2582a142",
+    "../whole-scripts/optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "../whole-scripts/workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb",
+    "../whole-scripts/addon.c": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b"
+  },
+  "results": [
+    {
+      "name": "interpreted binary RiX",
+      "medianMs": 1666.1387499999983,
+      "minMs": 1622.2792499999996,
+      "maxMs": 1698.621791999998,
+      "samples": [
+        {
+          "wallMs": 1628.8757920000007,
+          "cpuMs": 1773.929
+        },
+        {
+          "wallMs": 1692.4739590000027,
+          "cpuMs": 1850.188
+        },
+        {
+          "wallMs": 1666.1387499999983,
+          "cpuMs": 1814.406
+        },
+        {
+          "wallMs": 1622.2792499999996,
+          "cpuMs": 1760.413
+        },
+        {
+          "wallMs": 1698.621791999998,
+          "cpuMs": 1842.371
+        }
+      ]
+    },
+    {
+      "name": "interpreted window RiX",
+      "medianMs": 1380.9736249999987,
+      "minMs": 1375.5661250000048,
+      "maxMs": 1425.0546660000036,
+      "samples": [
+        {
+          "wallMs": 1380.9736249999987,
+          "cpuMs": 1519.368
+        },
+        {
+          "wallMs": 1392.2118750000009,
+          "cpuMs": 1520.915
+        },
+        {
+          "wallMs": 1425.0546660000036,
+          "cpuMs": 1586.957
+        },
+        {
+          "wallMs": 1377.2114169999986,
+          "cpuMs": 1510.321
+        },
+        {
+          "wallMs": 1375.5661250000048,
+          "cpuMs": 1516.193
+        }
+      ]
+    },
+    {
+      "name": "interpreted Montgomery RiX",
+      "medianMs": 3088.9521250000034,
+      "minMs": 3042.363541999999,
+      "maxMs": 3108.180666,
+      "samples": [
+        {
+          "wallMs": 3107.292791,
+          "cpuMs": 3394.766
+        },
+        {
+          "wallMs": 3042.363541999999,
+          "cpuMs": 3327.056
+        },
+        {
+          "wallMs": 3078.891584000001,
+          "cpuMs": 3371.381
+        },
+        {
+          "wallMs": 3108.180666,
+          "cpuMs": 3399.84
+        },
+        {
+          "wallMs": 3088.9521250000034,
+          "cpuMs": 3375.658
+        }
+      ]
+    },
+    {
+      "name": "binary RiX + Integer fastpaths",
+      "medianMs": 94.17420800000036,
+      "minMs": 93.71458300000086,
+      "maxMs": 97.06312500000058,
+      "samples": [
+        {
+          "wallMs": 93.71458300000086,
+          "cpuMs": 98.828
+        },
+        {
+          "wallMs": 93.97950000000128,
+          "cpuMs": 99.567
+        },
+        {
+          "wallMs": 94.17420800000036,
+          "cpuMs": 98.478
+        },
+        {
+          "wallMs": 97.06312500000058,
+          "cpuMs": 105.103
+        },
+        {
+          "wallMs": 96.72491700000683,
+          "cpuMs": 103.724
+        }
+      ]
+    },
+    {
+      "name": "window RiX + Integer fastpaths",
+      "medianMs": 155.44245899999805,
+      "minMs": 150.6650410000002,
+      "maxMs": 159.7897909999956,
+      "samples": [
+        {
+          "wallMs": 152.12704200000007,
+          "cpuMs": 170.984
+        },
+        {
+          "wallMs": 155.44245899999805,
+          "cpuMs": 172.342
+        },
+        {
+          "wallMs": 156.72766599999886,
+          "cpuMs": 173.314
+        },
+        {
+          "wallMs": 150.6650410000002,
+          "cpuMs": 168.606
+        },
+        {
+          "wallMs": 159.7897909999956,
+          "cpuMs": 177.872
+        }
+      ]
+    },
+    {
+      "name": "Montgomery RiX + Integer fastpaths",
+      "medianMs": 444.2136670000036,
+      "minMs": 434.31474999999773,
+      "maxMs": 450.9297499999957,
+      "samples": [
+        {
+          "wallMs": 434.31474999999773,
+          "cpuMs": 461.101
+        },
+        {
+          "wallMs": 449.31229099999837,
+          "cpuMs": 482.739
+        },
+        {
+          "wallMs": 450.9297499999957,
+          "cpuMs": 492.255
+        },
+        {
+          "wallMs": 437.7797500000015,
+          "cpuMs": 467.517
+        },
+        {
+          "wallMs": 444.2136670000036,
+          "cpuMs": 471.041
+        }
+      ]
+    },
+    {
+      "name": "compiled window RiX",
+      "medianMs": 25.900375000004715,
+      "minMs": 25.387125000001106,
+      "maxMs": 26.00645899999654,
+      "samples": [
+        {
+          "wallMs": 25.39754200000243,
+          "cpuMs": 26.201
+        },
+        {
+          "wallMs": 25.97466600000189,
+          "cpuMs": 28.274
+        },
+        {
+          "wallMs": 25.900375000004715,
+          "cpuMs": 27.232
+        },
+        {
+          "wallMs": 25.387125000001106,
+          "cpuMs": 27.092
+        },
+        {
+          "wallMs": 26.00645899999654,
+          "cpuMs": 26.003
+        }
+      ]
+    },
+    {
+      "name": "compiled Montgomery RiX",
+      "medianMs": 41.563624999998865,
+      "minMs": 40.00570799999696,
+      "maxMs": 42.23616700000275,
+      "samples": [
+        {
+          "wallMs": 41.563624999998865,
+          "cpuMs": 45.716
+        },
+        {
+          "wallMs": 41.74895800000013,
+          "cpuMs": 45.591
+        },
+        {
+          "wallMs": 42.23616700000275,
+          "cpuMs": 45.066
+        },
+        {
+          "wallMs": 40.00570799999696,
+          "cpuMs": 44.05
+        },
+        {
+          "wallMs": 41.126040999995894,
+          "cpuMs": 43.77
+        }
+      ]
+    },
+    {
+      "name": "handwritten window-6 JS",
+      "medianMs": 23.72725000000355,
+      "minMs": 23.625625000000582,
+      "maxMs": 24.074124999999185,
+      "samples": [
+        {
+          "wallMs": 23.775166999999783,
+          "cpuMs": 24.46
+        },
+        {
+          "wallMs": 24.074124999999185,
+          "cpuMs": 27.798
+        },
+        {
+          "wallMs": 23.72725000000355,
+          "cpuMs": 24.527
+        },
+        {
+          "wallMs": 23.67029200000252,
+          "cpuMs": 24.388
+        },
+        {
+          "wallMs": 23.625625000000582,
+          "cpuMs": 24.154
+        }
+      ]
+    },
+    {
+      "name": "handwritten Montgomery-5 JS",
+      "medianMs": 37.77720799999952,
+      "minMs": 37.41216599999825,
+      "maxMs": 40.46950000000652,
+      "samples": [
+        {
+          "wallMs": 37.41216599999825,
+          "cpuMs": 40.081
+        },
+        {
+          "wallMs": 37.77720799999952,
+          "cpuMs": 41.094
+        },
+        {
+          "wallMs": 38.450833999995666,
+          "cpuMs": 40.483
+        },
+        {
+          "wallMs": 37.62920800000575,
+          "cpuMs": 40.631
+        },
+        {
+          "wallMs": 40.46950000000652,
+          "cpuMs": 46.758
+        }
+      ]
+    },
+    {
+      "name": "native C/GMP powm",
+      "medianMs": 21.970375000000786,
+      "minMs": 21.52837499999805,
+      "maxMs": 22.482624999996915,
+      "samples": [
+        {
+          "wallMs": 21.52837499999805,
+          "cpuMs": 21.529
+        },
+        {
+          "wallMs": 21.970375000000786,
+          "cpuMs": 22.167
+        },
+        {
+          "wallMs": 22.482624999996915,
+          "cpuMs": 22.525
+        },
+        {
+          "wallMs": 21.961875000000873,
+          "cpuMs": 21.962
+        },
+        {
+          "wallMs": 22.111250000001746,
+          "cpuMs": 22.112
+        }
+      ]
+    },
+    {
+      "name": "RiX calls cached compiled kernel",
+      "medianMs": 25.924707999998645,
+      "minMs": 25.526332999997976,
+      "maxMs": 26.767625000000407,
+      "samples": [
+        {
+          "wallMs": 25.526332999997976,
+          "cpuMs": 27.426
+        },
+        {
+          "wallMs": 26.767625000000407,
+          "cpuMs": 28.903
+        },
+        {
+          "wallMs": 26.540707999993174,
+          "cpuMs": 28.507
+        },
+        {
+          "wallMs": 25.924707999998645,
+          "cpuMs": 27.971
+        },
+        {
+          "wallMs": 25.735916999998153,
+          "cpuMs": 26.522
+        }
+      ]
+    },
+    {
+      "name": "compiled Montgomery without power facts",
+      "medianMs": 148.9603750000024,
+      "minMs": 146.3623750000006,
+      "maxMs": 152.06549999999697,
+      "samples": [
+        {
+          "wallMs": 146.3623750000006,
+          "cpuMs": 149.04
+        },
+        {
+          "wallMs": 148.65129100000195,
+          "cpuMs": 153.094
+        },
+        {
+          "wallMs": 149.67845800000214,
+          "cpuMs": 152.301
+        },
+        {
+          "wallMs": 148.9603750000024,
+          "cpuMs": 151.862
+        },
+        {
+          "wallMs": 152.06549999999697,
+          "cpuMs": 156.444
+        }
+      ]
+    }
+  ]
+}

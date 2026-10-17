@@ -1,0 +1,12 @@
+// Return fresh objects, preserving RiX copy/meta/alias rules. Only canonical
+// plain Rational accessors may use core's existing non-normalizing copy ctor.
+const experimentalNumeratorGetter = Object.getOwnPropertyDescriptor(Rational.prototype, 'numerator').get;
+const experimentalDenominatorGetter = Object.getOwnPropertyDescriptor(Rational.prototype, 'denominator').get;
+function experimentalCopyRational(value) {
+    return Rational._canUseReduced(value) &&
+        Object.getOwnPropertyDescriptor(Rational.prototype, 'numerator').get === experimentalNumeratorGetter &&
+        Object.getOwnPropertyDescriptor(Rational.prototype, 'denominator').get === experimentalDenominatorGetter
+        ? new Rational(value)
+        : new Rational(value.numerator, value.denominator);
+}
+

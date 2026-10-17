@@ -1,0 +1,17 @@
+{
+  "productionBaselineFileCount": 280,
+  "productionBaselineFingerprint": "61704350186ec717fd10ea8667a4ef484e9fd78bcc480fa778de10d4e1c8cd35",
+  "productionFilesUnchanged": true,
+  "verification": {
+    "runtimes": [
+      "bun",
+      "node"
+    ],
+    "outputsPerRuntime": 224,
+    "sourceComparisonsPerRuntime": 18,
+    "unsupportedSourcesPerRuntime": 10
+  },
+  "fizzbuzzSourceSha256": "5a330ab288f9aca0d417738a0ea0f44d90057c50c2876e7c3b6485e518e309d5",
+  "matchingInputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "matchingOutputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d"
+}

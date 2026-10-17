@@ -1,0 +1,22 @@
+{
+  "verification": {
+    "runtimes": [
+      "Bun 1.4.0",
+      "Node 26.10.0"
+    ],
+    "scalarCases": 1994,
+    "polynomialPoints": 88,
+    "checks": [
+      "signed floor division/modulo/remainder",
+      "mixed and rational canonicality",
+      "zero/negative divisor errors",
+      "types and formatting",
+      "RiX Horner, Integer-pair kernels, compilation",
+      "Host batch, reusable plan, descriptor",
+      "coefficient snapshots and interval fallback"
+    ]
+  },
+  "scope": "No production core/RiX files modified; separate candidate classes and private registries/Host contexts under compiler-experiments/core-arithmetic",
+  "methodology": "60 scalar workloads and 5 polynomial workloads; seven timed samples, two warmups, calibrated repeats; full outputs verified; runtimes sequential",
+  "productionBaselineFiles": 280
+}

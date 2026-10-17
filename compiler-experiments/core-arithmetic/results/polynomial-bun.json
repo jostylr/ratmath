@@ -1,0 +1,4361 @@
+{
+  "timestamp": "2026-10-14T14:34:22.306Z",
+  "runtime": "bun",
+  "versions": {
+    "node": "26.3.0",
+    "bun": "1.4.0",
+    "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+    "openssl": "1.1.0",
+    "llhttp": "9.3.0",
+    "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+    "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+    "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+    "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+    "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "modules": "147"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0"
+  },
+  "methodology": {
+    "rounds": 7,
+    "warmups": 2,
+    "targetMs": 15,
+    "order": "rotated within workload",
+    "timed": "full output batch, scalar/method/capability boundaries and result allocations; fresh contexts except deliberately cached RiX plan",
+    "excluded": "parsing/lowering, fixtures, snapshot construction/imports, runtime init, compilation; cached-plan preparation separately excluded and reported",
+    "check": "every calibration/warmup/timed sample outside timing",
+    "coefficientOrder": "descending",
+    "snapshot": "distinct Rational class copies; compare numeric values, not class identity",
+    "interval": "not benchmarked; exact point arithmetic, interval Horner fallback verified separately"
+  },
+  "fixtureDigest": "e33651dd73178d3ff0e979850fc9534d36cb05c6d0685afbd0d975272c1d9c70",
+  "provenance": {
+    "polynomial.js": "6d67b7b6e4ef8bc2748f2fd0e42a3355580c09939bb8c0cf3a69b20c67aabeee",
+    "arithmetic.js": "68140c22ec7c1e527599055bdbe6f3690e55b9f3932b0656d406b5e92ab244ba",
+    "reduced.js": "b57fc3302c860db7df780d6fd4e1e1c417da0ef92c890585c1564e47631cdc73",
+    "fixtures.js": "4d478d03852a28c8bbdacd9034edbff39c3fc69807bc8b47ecd5a9c4285f2ceb",
+    "rix.js": "2049ddf6209739d87b189a4d32e556be9328feb6924fe0ece84f9737678e5c3f",
+    "measure.js": "5066c986c6f17e3138a6a6ee4b1a3545b01de5c6e08381aaaa9c32d99fc80326",
+    "combo-bench.js": "918dbfc809190e4f8a926efbca7cd45baab17bd6e99cda2e5b1a4ef5025d3e20",
+    "../marked-bigint/runner.js": "e4c74038e48a502e58c3e52b5ee44144c1b677aebf0b4e3f83f9eb44b9a2292f",
+    "../marked-bigint/compiler.js": "88dd47e0fe84dbc44bc8d4aeb9212d75b9cfbc1a2cdc2b1c6b30b814ad785ae7",
+    "scripts/horner.rix": "b568096611466946da0a236732af721f641804f953b6419c3f161ab1e2e203a5",
+    "scripts/powers.rix": "442eb418547ddd2ed698f3b80bc535d7d8321c345b0ac0ce199d0eb888489b14",
+    "scripts/offload.rix": "1ee7030748316456d2b8bc89616d8626db35319f010ac5a557d38d9dac4d0c0d",
+    "scripts/plan.rix": "a185ae2035f3638b63f2e896807bd42fcc6befbf7e38acb9939d19483db95881",
+    "scripts/descriptor.rix": "6700efbf850734bfe6cf4e4cffcc281fc604dad02f5a6c8d2954a663975ca030",
+    "scripts/fraction-horner.rix": "9feb2e6eee59eda8b416f75a224139c7c1978456ca95f703d6bcac9a88c705c6",
+    "scripts/fraction-horner-marked.rix": "2233700f5d81156c5e10406b7fda100a6944827a7d0dfd4ef7d7da657acba0e5"
+  },
+  "setup": [
+    {
+      "name": "integer-degree32",
+      "planPrepareMs": 0.16491700000000264,
+      "descriptor": {
+        "operation": "polynomial",
+        "coefficientOrder": "descending",
+        "degree": 32,
+        "method": "horner",
+        "arithmetic": "exact",
+        "backend": "BigInt common-denominator kernel",
+        "coefficientNumerators": [
+          "-6",
+          "1",
+          "-5",
+          "2",
+          "-4",
+          "3",
+          "-3",
+          "4",
+          "-2",
+          "5",
+          "-1",
+          "6",
+          "0",
+          "-6",
+          "1",
+          "-5",
+          "2",
+          "-4",
+          "3",
+          "-3",
+          "4",
+          "-2",
+          "5",
+          "-1",
+          "6",
+          "0",
+          "-6",
+          "1",
+          "-5",
+          "2",
+          "-4",
+          "3",
+          "-3"
+        ],
+        "coefficientDenominator": "1"
+      },
+      "growth": {
+        "peakBits": 1026,
+        "finalUnreducedBits": 1026,
+        "reducedBits": 1026
+      },
+      "cold": {
+        "markedFirstMs": 2.242750000000001,
+        "markedFirstStats": {
+          "calls": 1,
+          "compileAttempts": 1,
+          "builds": 1,
+          "compileFailures": 0,
+          "cacheHits": 0,
+          "compiledCalls": 1,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.7548750000000268,
+          "reasons": {}
+        },
+        "finalStats": {
+          "calls": 1858,
+          "compileAttempts": 1,
+          "builds": 1,
+          "compileFailures": 0,
+          "cacheHits": 1857,
+          "compiledCalls": 1858,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.7548750000000268,
+          "reasons": {}
+        }
+      }
+    },
+    {
+      "name": "rational-degree16",
+      "planPrepareMs": 0.03941700000001447,
+      "descriptor": {
+        "operation": "polynomial",
+        "coefficientOrder": "descending",
+        "degree": 16,
+        "method": "horner",
+        "arithmetic": "exact",
+        "backend": "BigInt common-denominator kernel",
+        "coefficientNumerators": [
+          "-6",
+          "1",
+          "-5",
+          "2",
+          "-4",
+          "3",
+          "-3",
+          "4",
+          "-2",
+          "5",
+          "-1",
+          "6",
+          "0",
+          "-6",
+          "1",
+          "-5",
+          "2"
+        ],
+        "coefficientDenominator": "1"
+      },
+      "growth": {
+        "peakBits": 1026,
+        "finalUnreducedBits": 1026,
+        "reducedBits": 1023
+      },
+      "cold": {
+        "markedFirstMs": 3.6792090000000144,
+        "markedFirstStats": {
+          "calls": 16,
+          "compileAttempts": 2,
+          "builds": 2,
+          "compileFailures": 0,
+          "cacheHits": 14,
+          "compiledCalls": 16,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.30275000000006,
+          "reasons": {}
+        },
+        "finalStats": {
+          "calls": 3088,
+          "compileAttempts": 2,
+          "builds": 2,
+          "compileFailures": 0,
+          "cacheHits": 3086,
+          "compiledCalls": 3088,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.30275000000006,
+          "reasons": {}
+        }
+      }
+    },
+    {
+      "name": "rational-coefficients-degree16",
+      "planPrepareMs": 0.037208000000021,
+      "descriptor": {
+        "operation": "polynomial",
+        "coefficientOrder": "descending",
+        "degree": 16,
+        "method": "horner",
+        "arithmetic": "exact",
+        "backend": "BigInt common-denominator kernel",
+        "coefficientNumerators": [
+          "-210",
+          "21",
+          "-75",
+          "70",
+          "-84",
+          "45",
+          "-105",
+          "84",
+          "-30",
+          "175",
+          "-21",
+          "90",
+          "0",
+          "-126",
+          "15",
+          "-175",
+          "42"
+        ],
+        "coefficientDenominator": "105"
+      },
+      "growth": {
+        "peakBits": 1034,
+        "finalUnreducedBits": 1034,
+        "reducedBits": 1032
+      },
+      "cold": {}
+    },
+    {
+      "name": "zero-polynomial-degree128",
+      "planPrepareMs": 0.05741699999998673,
+      "descriptor": {
+        "operation": "polynomial",
+        "coefficientOrder": "descending",
+        "degree": 128,
+        "method": "horner",
+        "arithmetic": "exact",
+        "backend": "BigInt common-denominator kernel",
+        "coefficientNumerators": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "coefficientDenominator": "1"
+      },
+      "growth": {
+        "peakBits": 16341,
+        "finalUnreducedBits": 16341,
+        "reducedBits": 1
+      },
+      "cold": {
+        "markedFirstMs": 0.9600829999999974,
+        "markedFirstStats": {
+          "calls": 4,
+          "compileAttempts": 1,
+          "builds": 1,
+          "compileFailures": 0,
+          "cacheHits": 3,
+          "compiledCalls": 4,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.16466700000000856,
+          "reasons": {}
+        },
+        "finalStats": {
+          "calls": 2952,
+          "compileAttempts": 1,
+          "builds": 1,
+          "compileFailures": 0,
+          "cacheHits": 2951,
+          "compiledCalls": 2952,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.16466700000000856,
+          "reasons": {}
+        }
+      }
+    },
+    {
+      "name": "cancellation-degree32",
+      "planPrepareMs": 0.021917000000030384,
+      "descriptor": {
+        "operation": "polynomial",
+        "coefficientOrder": "descending",
+        "degree": 32,
+        "method": "horner",
+        "arithmetic": "exact",
+        "backend": "BigInt common-denominator kernel",
+        "coefficientNumerators": [
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1",
+          "-1",
+          "1"
+        ],
+        "coefficientDenominator": "1"
+      },
+      "growth": {
+        "peakBits": 33,
+        "finalUnreducedBits": 33,
+        "reducedBits": 33
+      },
+      "cold": {
+        "markedFirstMs": 0.6152910000000134,
+        "markedFirstStats": {
+          "calls": 4,
+          "compileAttempts": 3,
+          "builds": 3,
+          "compileFailures": 0,
+          "cacheHits": 1,
+          "compiledCalls": 4,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.17158299999999826,
+          "reasons": {}
+        },
+        "finalStats": {
+          "calls": 4928,
+          "compileAttempts": 3,
+          "builds": 3,
+          "compileFailures": 0,
+          "cacheHits": 4925,
+          "compiledCalls": 4928,
+          "fallbacks": 0,
+          "guardFallbacks": 0,
+          "evictions": 0,
+          "compileMs": 0.17158299999999826,
+          "reasons": {}
+        }
+      }
+    }
+  ],
+  "results": [
+    {
+      "name": "integer-degree32",
+      "metadata": {
+        "degree": 32,
+        "points": 32,
+        "coefficientTypes": [
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer"
+        ],
+        "pointTypes": [
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer"
+        ]
+      },
+      "variants": [
+        {
+          "name": "JS power sum, core methods",
+          "repeats": 67,
+          "medianMs": 0.2763812238805977,
+          "minMs": 0.26741916417910006,
+          "maxMs": 0.31179850746268617,
+          "samples": [
+            {
+              "batchMs": 0.31179850746268617,
+              "wallMs": 20.890499999999975,
+              "cpuMs": 29.396
+            },
+            {
+              "batchMs": 0.27124067164179144,
+              "wallMs": 18.173125000000027,
+              "cpuMs": 21.827
+            },
+            {
+              "batchMs": 0.26741916417910006,
+              "wallMs": 17.917083999999704,
+              "cpuMs": 21.652
+            },
+            {
+              "batchMs": 0.2763812238805977,
+              "wallMs": 18.51754200000005,
+              "cpuMs": 22.904
+            },
+            {
+              "batchMs": 0.2708613134328353,
+              "wallMs": 18.147707999999966,
+              "cpuMs": 21.888
+            },
+            {
+              "batchMs": 0.28717164179104304,
+              "wallMs": 19.240499999999884,
+              "cpuMs": 22.803
+            },
+            {
+              "batchMs": 0.2794639253731353,
+              "wallMs": 18.724083000000064,
+              "cpuMs": 22.083
+            }
+          ]
+        },
+        {
+          "name": "RiX power sum",
+          "repeats": 1,
+          "medianMs": 31.63433299999997,
+          "minMs": 30.710708000000068,
+          "maxMs": 37.47745899999995,
+          "samples": [
+            {
+              "batchMs": 37.47745899999995,
+              "wallMs": 37.47745899999995,
+              "cpuMs": 78.909
+            },
+            {
+              "batchMs": 31.254500000000007,
+              "wallMs": 31.254500000000007,
+              "cpuMs": 41.008
+            },
+            {
+              "batchMs": 30.710708000000068,
+              "wallMs": 30.710708000000068,
+              "cpuMs": 33.655
+            },
+            {
+              "batchMs": 31.155333000000155,
+              "wallMs": 31.155333000000155,
+              "cpuMs": 40.573
+            },
+            {
+              "batchMs": 31.711499999999887,
+              "wallMs": 31.711499999999887,
+              "cpuMs": 34.964
+            },
+            {
+              "batchMs": 31.63433299999997,
+              "wallMs": 31.63433299999997,
+              "cpuMs": 34.673
+            },
+            {
+              "batchMs": 31.949334000000363,
+              "wallMs": 31.949334000000363,
+              "cpuMs": 35.141
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, core methods",
+          "repeats": 466,
+          "medianMs": 0.03880642060085816,
+          "minMs": 0.03652673605150225,
+          "maxMs": 0.040791489270385735,
+          "samples": [
+            {
+              "batchMs": 0.03880642060085816,
+              "wallMs": 18.083791999999903,
+              "cpuMs": 24.597
+            },
+            {
+              "batchMs": 0.03675581115879798,
+              "wallMs": 17.12820799999986,
+              "cpuMs": 20.134
+            },
+            {
+              "batchMs": 0.03652673605150225,
+              "wallMs": 17.02145900000005,
+              "cpuMs": 19.592
+            },
+            {
+              "batchMs": 0.03822934549356229,
+              "wallMs": 17.81487500000003,
+              "cpuMs": 21.176
+            },
+            {
+              "batchMs": 0.04001966952789732,
+              "wallMs": 18.64916600000015,
+              "cpuMs": 21.895
+            },
+            {
+              "batchMs": 0.04028022103004387,
+              "wallMs": 18.770583000000443,
+              "cpuMs": 22.083
+            },
+            {
+              "batchMs": 0.040791489270385735,
+              "wallMs": 19.00883399999975,
+              "cpuMs": 24.578
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner",
+          "repeats": 6,
+          "medianMs": 3.003013833333322,
+          "minMs": 2.831236166666637,
+          "maxMs": 3.053277666666721,
+          "samples": [
+            {
+              "batchMs": 3.003013833333322,
+              "wallMs": 18.018082999999933,
+              "cpuMs": 21.74
+            },
+            {
+              "batchMs": 2.9814375000000077,
+              "wallMs": 17.888625000000047,
+              "cpuMs": 20.375
+            },
+            {
+              "batchMs": 2.95477783333331,
+              "wallMs": 17.72866699999986,
+              "cpuMs": 19.201
+            },
+            {
+              "batchMs": 2.831236166666637,
+              "wallMs": 16.987416999999823,
+              "cpuMs": 18.64
+            },
+            {
+              "batchMs": 3.053277666666721,
+              "wallMs": 18.319666000000325,
+              "cpuMs": 20.573
+            },
+            {
+              "batchMs": 3.036340166666681,
+              "wallMs": 18.218041000000085,
+              "cpuMs": 20.019
+            },
+            {
+              "batchMs": 3.022138833333353,
+              "wallMs": 18.13283300000012,
+              "cpuMs": 19.975
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, public fast paths",
+          "repeats": 235,
+          "medianMs": 0.07250123829787125,
+          "minMs": 0.06728297872340339,
+          "maxMs": 0.0867062042553195,
+          "samples": [
+            {
+              "batchMs": 0.0867062042553195,
+              "wallMs": 20.375958000000082,
+              "cpuMs": 33.339
+            },
+            {
+              "batchMs": 0.06904325957446784,
+              "wallMs": 16.225165999999945,
+              "cpuMs": 19.752
+            },
+            {
+              "batchMs": 0.07207960851063887,
+              "wallMs": 16.938708000000133,
+              "cpuMs": 20.017
+            },
+            {
+              "batchMs": 0.07250123829787125,
+              "wallMs": 17.037790999999743,
+              "cpuMs": 20.993
+            },
+            {
+              "batchMs": 0.07269698723404408,
+              "wallMs": 17.083792000000358,
+              "cpuMs": 21.033
+            },
+            {
+              "batchMs": 0.07638811914893597,
+              "wallMs": 17.95120799999995,
+              "cpuMs": 21.839
+            },
+            {
+              "batchMs": 0.06728297872340339,
+              "wallMs": 15.811499999999796,
+              "cpuMs": 21.997
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner, public fast paths",
+          "repeats": 6,
+          "medianMs": 2.8028750000000096,
+          "minMs": 2.533131833333376,
+          "maxMs": 2.877048500000001,
+          "samples": [
+            {
+              "batchMs": 2.877048500000001,
+              "wallMs": 17.262291000000005,
+              "cpuMs": 27.242
+            },
+            {
+              "batchMs": 2.8028750000000096,
+              "wallMs": 16.817250000000058,
+              "cpuMs": 18.838
+            },
+            {
+              "batchMs": 2.795180499999977,
+              "wallMs": 16.771082999999862,
+              "cpuMs": 18.973
+            },
+            {
+              "batchMs": 2.8545554999999845,
+              "wallMs": 17.127332999999908,
+              "cpuMs": 19.431
+            },
+            {
+              "batchMs": 2.84540983333333,
+              "wallMs": 17.07245899999998,
+              "cpuMs": 19.067
+            },
+            {
+              "batchMs": 2.76893066666662,
+              "wallMs": 16.61358399999972,
+              "cpuMs": 18.308
+            },
+            {
+              "batchMs": 2.533131833333376,
+              "wallMs": 15.198791000000256,
+              "cpuMs": 17.338
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, prepare included",
+          "repeats": 446,
+          "medianMs": 0.03757558071748818,
+          "minMs": 0.03566423766816144,
+          "maxMs": 0.03982623318385609,
+          "samples": [
+            {
+              "batchMs": 0.036873690582959806,
+              "wallMs": 16.445666000000074,
+              "cpuMs": 18.978
+            },
+            {
+              "batchMs": 0.03566423766816144,
+              "wallMs": 15.90625,
+              "cpuMs": 18.16
+            },
+            {
+              "batchMs": 0.03722626905829557,
+              "wallMs": 16.602915999999823,
+              "cpuMs": 18.955
+            },
+            {
+              "batchMs": 0.03818292376681589,
+              "wallMs": 17.029583999999886,
+              "cpuMs": 19.759
+            },
+            {
+              "batchMs": 0.03757558071748818,
+              "wallMs": 16.758708999999726,
+              "cpuMs": 18.833
+            },
+            {
+              "batchMs": 0.03854615022421482,
+              "wallMs": 17.19158299999981,
+              "cpuMs": 19.745
+            },
+            {
+              "batchMs": 0.03982623318385609,
+              "wallMs": 17.762499999999818,
+              "cpuMs": 20.213
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, cached plan",
+          "repeats": 612,
+          "medianMs": 0.03027308006535959,
+          "minMs": 0.028187908496731987,
+          "maxMs": 0.03247630718954265,
+          "samples": [
+            {
+              "batchMs": 0.029806781045751487,
+              "wallMs": 18.24174999999991,
+              "cpuMs": 21.458
+            },
+            {
+              "batchMs": 0.028187908496731987,
+              "wallMs": 17.250999999999976,
+              "cpuMs": 19.693
+            },
+            {
+              "batchMs": 0.029364718954248258,
+              "wallMs": 17.971207999999933,
+              "cpuMs": 20.853
+            },
+            {
+              "batchMs": 0.030607026143791377,
+              "wallMs": 18.731500000000324,
+              "cpuMs": 21.302
+            },
+            {
+              "batchMs": 0.03027308006535959,
+              "wallMs": 18.52712500000007,
+              "cpuMs": 21.553
+            },
+            {
+              "batchMs": 0.03174598366013089,
+              "wallMs": 19.428542000000107,
+              "cpuMs": 22.212
+            },
+            {
+              "batchMs": 0.03247630718954265,
+              "wallMs": 19.875500000000102,
+              "cpuMs": 24.975
+            }
+          ]
+        },
+        {
+          "name": "RiX offload each point",
+          "repeats": 64,
+          "medianMs": 0.21766667187500133,
+          "minMs": 0.2092962343750031,
+          "maxMs": 0.22646875000000222,
+          "samples": [
+            {
+              "batchMs": 0.2175794218749978,
+              "wallMs": 13.925082999999859,
+              "cpuMs": 19.432
+            },
+            {
+              "batchMs": 0.22030664062500094,
+              "wallMs": 14.09962500000006,
+              "cpuMs": 15.3
+            },
+            {
+              "batchMs": 0.21666342187500476,
+              "wallMs": 13.866459000000305,
+              "cpuMs": 16.196
+            },
+            {
+              "batchMs": 0.21913085937499943,
+              "wallMs": 14.024374999999964,
+              "cpuMs": 15.089
+            },
+            {
+              "batchMs": 0.22646875000000222,
+              "wallMs": 14.494000000000142,
+              "cpuMs": 27.858
+            },
+            {
+              "batchMs": 0.2092962343750031,
+              "wallMs": 13.394959000000199,
+              "cpuMs": 14.522
+            },
+            {
+              "batchMs": 0.21766667187500133,
+              "wallMs": 13.930667000000085,
+              "cpuMs": 15.04
+            }
+          ]
+        },
+        {
+          "name": "RiX one batch capability",
+          "repeats": 393,
+          "medianMs": 0.03876017811704866,
+          "minMs": 0.03581127989821921,
+          "maxMs": 0.040689249363867586,
+          "samples": [
+            {
+              "batchMs": 0.03680449363867737,
+              "wallMs": 14.464166000000205,
+              "cpuMs": 16.99
+            },
+            {
+              "batchMs": 0.03581127989821921,
+              "wallMs": 14.07383300000015,
+              "cpuMs": 16.051
+            },
+            {
+              "batchMs": 0.03876017811704866,
+              "wallMs": 15.232750000000124,
+              "cpuMs": 17.946
+            },
+            {
+              "batchMs": 0.039051208651398925,
+              "wallMs": 15.347124999999778,
+              "cpuMs": 17.628
+            },
+            {
+              "batchMs": 0.038620758269720654,
+              "wallMs": 15.177958000000217,
+              "cpuMs": 18.342
+            },
+            {
+              "batchMs": 0.03917705852417322,
+              "wallMs": 15.396584000000075,
+              "cpuMs": 17.708
+            },
+            {
+              "batchMs": 0.040689249363867586,
+              "wallMs": 15.99087499999996,
+              "cpuMs": 18.337
+            }
+          ]
+        },
+        {
+          "name": "RiX prepare plan + evaluate",
+          "repeats": 414,
+          "medianMs": 0.038909318840579535,
+          "minMs": 0.0369211956521743,
+          "maxMs": 0.041683072463768435,
+          "samples": [
+            {
+              "batchMs": 0.038909318840579535,
+              "wallMs": 16.108457999999928,
+              "cpuMs": 20.263
+            },
+            {
+              "batchMs": 0.0369211956521743,
+              "wallMs": 15.285375000000158,
+              "cpuMs": 18.832
+            },
+            {
+              "batchMs": 0.038516304347825756,
+              "wallMs": 15.945749999999862,
+              "cpuMs": 18.233
+            },
+            {
+              "batchMs": 0.04065801207729487,
+              "wallMs": 16.832417000000078,
+              "cpuMs": 19.893
+            },
+            {
+              "batchMs": 0.03848128019323693,
+              "wallMs": 15.931250000000091,
+              "cpuMs": 18.183
+            },
+            {
+              "batchMs": 0.041082227053139936,
+              "wallMs": 17.008041999999932,
+              "cpuMs": 19.753
+            },
+            {
+              "batchMs": 0.041683072463768435,
+              "wallMs": 17.256792000000132,
+              "cpuMs": 19.933
+            }
+          ]
+        },
+        {
+          "name": "RiX cached plan evaluate",
+          "repeats": 547,
+          "medianMs": 0.0322524387568557,
+          "minMs": 0.030543875685557553,
+          "maxMs": 0.03372935648994543,
+          "samples": [
+            {
+              "batchMs": 0.030796084095064,
+              "wallMs": 16.845458000000008,
+              "cpuMs": 19.044
+            },
+            {
+              "batchMs": 0.030543875685557553,
+              "wallMs": 16.707499999999982,
+              "cpuMs": 20.706
+            },
+            {
+              "batchMs": 0.030689745886654653,
+              "wallMs": 16.787291000000096,
+              "cpuMs": 19.228
+            },
+            {
+              "batchMs": 0.03278184095063955,
+              "wallMs": 17.931666999999834,
+              "cpuMs": 25.03
+            },
+            {
+              "batchMs": 0.0322524387568557,
+              "wallMs": 17.642084000000068,
+              "cpuMs": 20.127
+            },
+            {
+              "batchMs": 0.03266834186471607,
+              "wallMs": 17.869582999999693,
+              "cpuMs": 20.233
+            },
+            {
+              "batchMs": 0.03372935648994543,
+              "wallMs": 18.44995800000015,
+              "cpuMs": 21.193
+            }
+          ]
+        },
+        {
+          "name": "RiX operation descriptor",
+          "repeats": 349,
+          "medianMs": 0.04391463610315172,
+          "minMs": 0.04155265042979922,
+          "maxMs": 0.045996776504297586,
+          "samples": [
+            {
+              "batchMs": 0.04165997994269324,
+              "wallMs": 14.539332999999942,
+              "cpuMs": 17.168
+            },
+            {
+              "batchMs": 0.04155265042979922,
+              "wallMs": 14.501874999999927,
+              "cpuMs": 16.309
+            },
+            {
+              "batchMs": 0.04287070200573055,
+              "wallMs": 14.961874999999964,
+              "cpuMs": 16.769
+            },
+            {
+              "batchMs": 0.04492585959885289,
+              "wallMs": 15.679124999999658,
+              "cpuMs": 18.668
+            },
+            {
+              "batchMs": 0.04391463610315172,
+              "wallMs": 15.326207999999951,
+              "cpuMs": 17.557
+            },
+            {
+              "batchMs": 0.04488192550143218,
+              "wallMs": 15.66379199999983,
+              "cpuMs": 18.964
+            },
+            {
+              "batchMs": 0.045996776504297586,
+              "wallMs": 16.052874999999858,
+              "cpuMs": 18.545
+            }
+          ]
+        },
+        {
+          "name": "RiX marked BigInt Horner",
+          "repeats": 152,
+          "medianMs": 0.09940378289473684,
+          "minMs": 0.09220860526315876,
+          "maxMs": 0.10453947368421268,
+          "samples": [
+            {
+              "batchMs": 0.09220860526315876,
+              "wallMs": 14.015708000000132,
+              "cpuMs": 15.523
+            },
+            {
+              "batchMs": 0.09445065789473747,
+              "wallMs": 14.356500000000096,
+              "cpuMs": 16.038
+            },
+            {
+              "batchMs": 0.1009802631578928,
+              "wallMs": 15.348999999999705,
+              "cpuMs": 17.963
+            },
+            {
+              "batchMs": 0.09902439473684185,
+              "wallMs": 15.051707999999962,
+              "cpuMs": 16.781
+            },
+            {
+              "batchMs": 0.09997396052631602,
+              "wallMs": 15.196042000000034,
+              "cpuMs": 16.861
+            },
+            {
+              "batchMs": 0.09940378289473684,
+              "wallMs": 15.109375,
+              "cpuMs": 16.451
+            },
+            {
+              "batchMs": 0.10453947368421268,
+              "wallMs": 15.890000000000327,
+              "cpuMs": 19.973
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rational-degree16",
+      "metadata": {
+        "degree": 16,
+        "points": 16,
+        "coefficientTypes": [
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer"
+        ],
+        "pointTypes": [
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational"
+        ]
+      },
+      "variants": [
+        {
+          "name": "JS power sum, core methods",
+          "repeats": 1,
+          "medianMs": 15.988540999999714,
+          "minMs": 15.694249999999556,
+          "maxMs": 16.30437499999971,
+          "samples": [
+            {
+              "batchMs": 15.694249999999556,
+              "wallMs": 15.694249999999556,
+              "cpuMs": 16.488
+            },
+            {
+              "batchMs": 16.30437499999971,
+              "wallMs": 16.30437499999971,
+              "cpuMs": 17.462
+            },
+            {
+              "batchMs": 15.857957999999599,
+              "wallMs": 15.857957999999599,
+              "cpuMs": 16.59
+            },
+            {
+              "batchMs": 15.841957999999977,
+              "wallMs": 15.841957999999977,
+              "cpuMs": 16.556
+            },
+            {
+              "batchMs": 16.10070799999994,
+              "wallMs": 16.10070799999994,
+              "cpuMs": 16.762
+            },
+            {
+              "batchMs": 16.273834000000534,
+              "wallMs": 16.273834000000534,
+              "cpuMs": 17.634
+            },
+            {
+              "batchMs": 15.988540999999714,
+              "wallMs": 15.988540999999714,
+              "cpuMs": 16.664
+            }
+          ]
+        },
+        {
+          "name": "RiX power sum",
+          "repeats": 1,
+          "medianMs": 34.40179100000023,
+          "minMs": 34.02595800000017,
+          "maxMs": 34.955291999999645,
+          "samples": [
+            {
+              "batchMs": 34.292584000000716,
+              "wallMs": 34.292584000000716,
+              "cpuMs": 37.134
+            },
+            {
+              "batchMs": 34.02595800000017,
+              "wallMs": 34.02595800000017,
+              "cpuMs": 36.62
+            },
+            {
+              "batchMs": 34.664958999999726,
+              "wallMs": 34.664958999999726,
+              "cpuMs": 36.856
+            },
+            {
+              "batchMs": 34.21020899999985,
+              "wallMs": 34.21020899999985,
+              "cpuMs": 36.114
+            },
+            {
+              "batchMs": 34.43591699999979,
+              "wallMs": 34.43591699999979,
+              "cpuMs": 36.372
+            },
+            {
+              "batchMs": 34.40179100000023,
+              "wallMs": 34.40179100000023,
+              "cpuMs": 36.444
+            },
+            {
+              "batchMs": 34.955291999999645,
+              "wallMs": 34.955291999999645,
+              "cpuMs": 37.766
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, core methods",
+          "repeats": 5,
+          "medianMs": 3.2773333999999523,
+          "minMs": 3.222149999999965,
+          "maxMs": 3.3600415999999313,
+          "samples": [
+            {
+              "batchMs": 3.3600415999999313,
+              "wallMs": 16.800207999999657,
+              "cpuMs": 18.988
+            },
+            {
+              "batchMs": 3.222149999999965,
+              "wallMs": 16.110749999999825,
+              "cpuMs": 16.898
+            },
+            {
+              "batchMs": 3.3542665999999373,
+              "wallMs": 16.771332999999686,
+              "cpuMs": 17.9
+            },
+            {
+              "batchMs": 3.2773333999999523,
+              "wallMs": 16.38666699999976,
+              "cpuMs": 17.23
+            },
+            {
+              "batchMs": 3.2711249999998473,
+              "wallMs": 16.355624999999236,
+              "cpuMs": 17.019
+            },
+            {
+              "batchMs": 3.2370249999999943,
+              "wallMs": 16.18512499999997,
+              "cpuMs": 16.955
+            },
+            {
+              "batchMs": 3.356433399999878,
+              "wallMs": 16.78216699999939,
+              "cpuMs": 17.659
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner",
+          "repeats": 3,
+          "medianMs": 6.043944333333154,
+          "minMs": 5.826833333333222,
+          "maxMs": 6.1059026666668315,
+          "samples": [
+            {
+              "batchMs": 6.069403000000118,
+              "wallMs": 18.208209000000352,
+              "cpuMs": 19.556
+            },
+            {
+              "batchMs": 5.834027999999914,
+              "wallMs": 17.50208399999974,
+              "cpuMs": 18.206
+            },
+            {
+              "batchMs": 6.1059026666668315,
+              "wallMs": 18.317708000000493,
+              "cpuMs": 19.488
+            },
+            {
+              "batchMs": 5.826833333333222,
+              "wallMs": 17.480499999999665,
+              "cpuMs": 18.337
+            },
+            {
+              "batchMs": 6.043944333333154,
+              "wallMs": 18.13183299999946,
+              "cpuMs": 19.304
+            },
+            {
+              "batchMs": 5.980499999999968,
+              "wallMs": 17.941499999999905,
+              "cpuMs": 18.921
+            },
+            {
+              "batchMs": 6.079069333333185,
+              "wallMs": 18.237207999999555,
+              "cpuMs": 19.409
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, public fast paths",
+          "repeats": 5,
+          "medianMs": 3.5498083999998924,
+          "minMs": 3.4774665999999343,
+          "maxMs": 3.605083200000081,
+          "samples": [
+            {
+              "batchMs": 3.5498083999998924,
+              "wallMs": 17.749041999999463,
+              "cpuMs": 18.824
+            },
+            {
+              "batchMs": 3.4949334000000816,
+              "wallMs": 17.47466700000041,
+              "cpuMs": 18.631
+            },
+            {
+              "batchMs": 3.605083200000081,
+              "wallMs": 18.025416000000405,
+              "cpuMs": 19.204
+            },
+            {
+              "batchMs": 3.565733200000068,
+              "wallMs": 17.82866600000034,
+              "cpuMs": 18.841
+            },
+            {
+              "batchMs": 3.4774665999999343,
+              "wallMs": 17.38733299999967,
+              "cpuMs": 18.416
+            },
+            {
+              "batchMs": 3.5498499999999695,
+              "wallMs": 17.749249999999847,
+              "cpuMs": 18.625
+            },
+            {
+              "batchMs": 3.5237332000000605,
+              "wallMs": 17.618666000000303,
+              "cpuMs": 18.476
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner, public fast paths",
+          "repeats": 3,
+          "medianMs": 6.125513666666848,
+          "minMs": 5.906180666666539,
+          "maxMs": 6.1793333333334886,
+          "samples": [
+            {
+              "batchMs": 6.1793333333334886,
+              "wallMs": 18.538000000000466,
+              "cpuMs": 23.244
+            },
+            {
+              "batchMs": 6.0847499999999854,
+              "wallMs": 18.254249999999956,
+              "cpuMs": 21.416
+            },
+            {
+              "batchMs": 6.030222000000019,
+              "wallMs": 18.090666000000056,
+              "cpuMs": 19.201
+            },
+            {
+              "batchMs": 5.906180666666539,
+              "wallMs": 17.718541999999616,
+              "cpuMs": 18.445
+            },
+            {
+              "batchMs": 6.156555666666766,
+              "wallMs": 18.4696670000003,
+              "cpuMs": 20.032
+            },
+            {
+              "batchMs": 6.125513666666848,
+              "wallMs": 18.376541000000543,
+              "cpuMs": 19.775
+            },
+            {
+              "batchMs": 6.14644433333342,
+              "wallMs": 18.43933300000026,
+              "cpuMs": 19.659
+            }
+          ]
+        },
+        {
+          "name": "snapshot control Horner",
+          "repeats": 5,
+          "medianMs": 3.2741416000000756,
+          "minMs": 3.242924999999923,
+          "maxMs": 3.323949999999968,
+          "samples": [
+            {
+              "batchMs": 3.3204499999999824,
+              "wallMs": 16.602249999999913,
+              "cpuMs": 21.499
+            },
+            {
+              "batchMs": 3.2803334000000177,
+              "wallMs": 16.40166700000009,
+              "cpuMs": 17.123
+            },
+            {
+              "batchMs": 3.323949999999968,
+              "wallMs": 16.61974999999984,
+              "cpuMs": 17.664
+            },
+            {
+              "batchMs": 3.2543668000000254,
+              "wallMs": 16.271834000000126,
+              "cpuMs": 18.084
+            },
+            {
+              "batchMs": 3.2741416000000756,
+              "wallMs": 16.370708000000377,
+              "cpuMs": 16.96
+            },
+            {
+              "batchMs": 3.2718917999998665,
+              "wallMs": 16.359458999999333,
+              "cpuMs": 17.199
+            },
+            {
+              "batchMs": 3.242924999999923,
+              "wallMs": 16.214624999999614,
+              "cpuMs": 17.295
+            }
+          ]
+        },
+        {
+          "name": "snapshot candidate Horner",
+          "repeats": 76,
+          "medianMs": 0.20755592105263676,
+          "minMs": 0.20472094736843055,
+          "maxMs": 0.21291994736842704,
+          "samples": [
+            {
+              "batchMs": 0.21291994736842704,
+              "wallMs": 16.181916000000456,
+              "cpuMs": 17.811
+            },
+            {
+              "batchMs": 0.20554276315789666,
+              "wallMs": 15.621250000000146,
+              "cpuMs": 16.672
+            },
+            {
+              "batchMs": 0.2109808026315788,
+              "wallMs": 16.03454099999999,
+              "cpuMs": 17.336
+            },
+            {
+              "batchMs": 0.2071162368421076,
+              "wallMs": 15.740834000000177,
+              "cpuMs": 16.465
+            },
+            {
+              "batchMs": 0.21204056578946956,
+              "wallMs": 16.115082999999686,
+              "cpuMs": 17.038
+            },
+            {
+              "batchMs": 0.20472094736843055,
+              "wallMs": 15.558792000000722,
+              "cpuMs": 16.053
+            },
+            {
+              "batchMs": 0.20755592105263676,
+              "wallMs": 15.774250000000393,
+              "cpuMs": 16.51
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, prepare included",
+          "repeats": 70,
+          "medianMs": 0.23254524285714848,
+          "minMs": 0.2247809571428531,
+          "maxMs": 0.24046607142857154,
+          "samples": [
+            {
+              "batchMs": 0.2247809571428531,
+              "wallMs": 15.734666999999718,
+              "cpuMs": 16.523
+            },
+            {
+              "batchMs": 0.23555774285714506,
+              "wallMs": 16.489042000000154,
+              "cpuMs": 17.575
+            },
+            {
+              "batchMs": 0.23254524285714848,
+              "wallMs": 16.278167000000394,
+              "cpuMs": 17.683
+            },
+            {
+              "batchMs": 0.23701012857142945,
+              "wallMs": 16.59070900000006,
+              "cpuMs": 20.226
+            },
+            {
+              "batchMs": 0.23219048571428566,
+              "wallMs": 16.253333999999995,
+              "cpuMs": 17.079
+            },
+            {
+              "batchMs": 0.23202618571428632,
+              "wallMs": 16.241833000000042,
+              "cpuMs": 17.278
+            },
+            {
+              "batchMs": 0.24046607142857154,
+              "wallMs": 16.832625000000007,
+              "cpuMs": 18.358
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, cached plan",
+          "repeats": 73,
+          "medianMs": 0.2268709999999959,
+          "minMs": 0.21977626027397143,
+          "maxMs": 0.23245320547945608,
+          "samples": [
+            {
+              "batchMs": 0.22684075342465504,
+              "wallMs": 16.559374999999818,
+              "cpuMs": 17.851
+            },
+            {
+              "batchMs": 0.21977626027397143,
+              "wallMs": 16.043666999999914,
+              "cpuMs": 16.852
+            },
+            {
+              "batchMs": 0.2268709999999959,
+              "wallMs": 16.5615829999997,
+              "cpuMs": 17.693
+            },
+            {
+              "batchMs": 0.22307534246575003,
+              "wallMs": 16.284499999999753,
+              "cpuMs": 17.266
+            },
+            {
+              "batchMs": 0.22687386301370444,
+              "wallMs": 16.561792000000423,
+              "cpuMs": 17.879
+            },
+            {
+              "batchMs": 0.23245320547945608,
+              "wallMs": 16.969084000000294,
+              "cpuMs": 18.01
+            },
+            {
+              "batchMs": 0.22994293150685274,
+              "wallMs": 16.78583400000025,
+              "cpuMs": 18.027
+            }
+          ]
+        },
+        {
+          "name": "RiX offload each point",
+          "repeats": 54,
+          "medianMs": 0.2910601851851795,
+          "minMs": 0.283677462962967,
+          "maxMs": 0.2992762222222188,
+          "samples": [
+            {
+              "batchMs": 0.2910601851851795,
+              "wallMs": 15.717249999999694,
+              "cpuMs": 16.613
+            },
+            {
+              "batchMs": 0.2992762222222188,
+              "wallMs": 16.160915999999816,
+              "cpuMs": 17.639
+            },
+            {
+              "batchMs": 0.283677462962967,
+              "wallMs": 15.318583000000217,
+              "cpuMs": 16.142
+            },
+            {
+              "batchMs": 0.28810416666665667,
+              "wallMs": 15.557624999999462,
+              "cpuMs": 16.29
+            },
+            {
+              "batchMs": 0.29218749999999666,
+              "wallMs": 15.778124999999818,
+              "cpuMs": 16.681
+            },
+            {
+              "batchMs": 0.29794907407407395,
+              "wallMs": 16.089249999999993,
+              "cpuMs": 17.452
+            },
+            {
+              "batchMs": 0.2900894999999966,
+              "wallMs": 15.664832999999817,
+              "cpuMs": 16.611
+            }
+          ]
+        },
+        {
+          "name": "RiX one batch capability",
+          "repeats": 69,
+          "medianMs": 0.23676630434782556,
+          "minMs": 0.22831340579710557,
+          "maxMs": 0.2386461449275463,
+          "samples": [
+            {
+              "batchMs": 0.23536231884058972,
+              "wallMs": 16.24000000000069,
+              "cpuMs": 17.441
+            },
+            {
+              "batchMs": 0.22831340579710557,
+              "wallMs": 15.753625000000284,
+              "cpuMs": 16.744
+            },
+            {
+              "batchMs": 0.2376394927536292,
+              "wallMs": 16.397125000000415,
+              "cpuMs": 17.675
+            },
+            {
+              "batchMs": 0.2386461449275463,
+              "wallMs": 16.466584000000694,
+              "cpuMs": 17.946
+            },
+            {
+              "batchMs": 0.23676630434782556,
+              "wallMs": 16.336874999999964,
+              "cpuMs": 17.716
+            },
+            {
+              "batchMs": 0.23687862318840178,
+              "wallMs": 16.344624999999724,
+              "cpuMs": 16.995
+            },
+            {
+              "batchMs": 0.2333774202898512,
+              "wallMs": 16.103041999999732,
+              "cpuMs": 16.687
+            }
+          ]
+        },
+        {
+          "name": "RiX prepare plan + evaluate",
+          "repeats": 68,
+          "medianMs": 0.2364362794117583,
+          "minMs": 0.23312991176470965,
+          "maxMs": 0.24775367647058535,
+          "samples": [
+            {
+              "batchMs": 0.23839216176471006,
+              "wallMs": 16.210667000000285,
+              "cpuMs": 17.859
+            },
+            {
+              "batchMs": 0.2341672794117692,
+              "wallMs": 15.923375000000306,
+              "cpuMs": 17.145
+            },
+            {
+              "batchMs": 0.23379411764706085,
+              "wallMs": 15.898000000000138,
+              "cpuMs": 16.676
+            },
+            {
+              "batchMs": 0.23854963235294235,
+              "wallMs": 16.22137500000008,
+              "cpuMs": 17.495
+            },
+            {
+              "batchMs": 0.23312991176470965,
+              "wallMs": 15.852834000000257,
+              "cpuMs": 16.996
+            },
+            {
+              "batchMs": 0.24775367647058535,
+              "wallMs": 16.847249999999804,
+              "cpuMs": 19.036
+            },
+            {
+              "batchMs": 0.2364362794117583,
+              "wallMs": 16.077666999999565,
+              "cpuMs": 17.187
+            }
+          ]
+        },
+        {
+          "name": "RiX cached plan evaluate",
+          "repeats": 69,
+          "medianMs": 0.23310688405797628,
+          "minMs": 0.22420833333333154,
+          "maxMs": 0.23970350724636996,
+          "samples": [
+            {
+              "batchMs": 0.22420833333333154,
+              "wallMs": 15.470374999999876,
+              "cpuMs": 16.565
+            },
+            {
+              "batchMs": 0.2259836956521779,
+              "wallMs": 15.592875000000276,
+              "cpuMs": 16.944
+            },
+            {
+              "batchMs": 0.23310688405797628,
+              "wallMs": 16.084375000000364,
+              "cpuMs": 17.567
+            },
+            {
+              "batchMs": 0.23970350724636996,
+              "wallMs": 16.53954199999953,
+              "cpuMs": 17.958
+            },
+            {
+              "batchMs": 0.22563707246376577,
+              "wallMs": 15.568957999999839,
+              "cpuMs": 16.093
+            },
+            {
+              "batchMs": 0.2346811594202929,
+              "wallMs": 16.19300000000021,
+              "cpuMs": 23.165
+            },
+            {
+              "batchMs": 0.23689673913044765,
+              "wallMs": 16.345875000000888,
+              "cpuMs": 17.011
+            }
+          ]
+        },
+        {
+          "name": "RiX operation descriptor",
+          "repeats": 64,
+          "medianMs": 0.2503209687500032,
+          "minMs": 0.24159895312499202,
+          "maxMs": 0.2693925781250073,
+          "samples": [
+            {
+              "batchMs": 0.24169075000000362,
+              "wallMs": 15.468208000000232,
+              "cpuMs": 16.515
+            },
+            {
+              "batchMs": 0.24159895312499202,
+              "wallMs": 15.46233299999949,
+              "cpuMs": 16.46
+            },
+            {
+              "batchMs": 0.2432421875000017,
+              "wallMs": 15.56750000000011,
+              "cpuMs": 16.924
+            },
+            {
+              "batchMs": 0.2693925781250073,
+              "wallMs": 17.241125000000466,
+              "cpuMs": 18.649
+            },
+            {
+              "batchMs": 0.25344792187500786,
+              "wallMs": 16.220667000000503,
+              "cpuMs": 17.564
+            },
+            {
+              "batchMs": 0.26004882812499375,
+              "wallMs": 16.6431249999996,
+              "cpuMs": 18.383
+            },
+            {
+              "batchMs": 0.2503209687500032,
+              "wallMs": 16.020542000000205,
+              "cpuMs": 16.553
+            }
+          ]
+        },
+        {
+          "name": "RiX marked Integer-pair Horner",
+          "repeats": 19,
+          "medianMs": 0.8080263157894718,
+          "minMs": 0.7839056842105588,
+          "maxMs": 0.8810592105263296,
+          "samples": [
+            {
+              "batchMs": 0.8080263157894718,
+              "wallMs": 15.352499999999964,
+              "cpuMs": 20.068
+            },
+            {
+              "batchMs": 0.8261184210526297,
+              "wallMs": 15.696249999999964,
+              "cpuMs": 17.682
+            },
+            {
+              "batchMs": 0.7982521578947662,
+              "wallMs": 15.166791000000558,
+              "cpuMs": 16.419
+            },
+            {
+              "batchMs": 0.8810592105263296,
+              "wallMs": 16.740125000000262,
+              "cpuMs": 17.84
+            },
+            {
+              "batchMs": 0.7852785263157784,
+              "wallMs": 14.92029199999979,
+              "cpuMs": 15.457
+            },
+            {
+              "batchMs": 0.7839056842105588,
+              "wallMs": 14.894208000000617,
+              "cpuMs": 15.334
+            },
+            {
+              "batchMs": 0.8130131578946977,
+              "wallMs": 15.447249999999258,
+              "cpuMs": 16.493
+            }
+          ]
+        },
+        {
+          "name": "RiX Integer-pair Horner",
+          "repeats": 12,
+          "medianMs": 1.3595381666666526,
+          "minMs": 1.3448090000000168,
+          "maxMs": 1.3981493333333976,
+          "samples": [
+            {
+              "batchMs": 1.3448090000000168,
+              "wallMs": 16.137708000000202,
+              "cpuMs": 18.094
+            },
+            {
+              "batchMs": 1.3932812499999727,
+              "wallMs": 16.719374999999673,
+              "cpuMs": 19.685
+            },
+            {
+              "batchMs": 1.3595381666666526,
+              "wallMs": 16.31445799999983,
+              "cpuMs": 17.455
+            },
+            {
+              "batchMs": 1.391861166666634,
+              "wallMs": 16.70233399999961,
+              "cpuMs": 18.136
+            },
+            {
+              "batchMs": 1.3981493333333976,
+              "wallMs": 16.777792000000773,
+              "cpuMs": 18.659
+            },
+            {
+              "batchMs": 1.359437499999937,
+              "wallMs": 16.313249999999243,
+              "cpuMs": 17.976
+            },
+            {
+              "batchMs": 1.3571249999999964,
+              "wallMs": 16.285499999999956,
+              "cpuMs": 17.425
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rational-coefficients-degree16",
+      "metadata": {
+        "degree": 16,
+        "points": 16,
+        "coefficientTypes": [
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational"
+        ],
+        "pointTypes": [
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational"
+        ]
+      },
+      "variants": [
+        {
+          "name": "JS power sum, core methods",
+          "repeats": 1,
+          "medianMs": 16.299958999999944,
+          "minMs": 15.93541600000026,
+          "maxMs": 16.8501669999996,
+          "samples": [
+            {
+              "batchMs": 16.8501669999996,
+              "wallMs": 16.8501669999996,
+              "cpuMs": 17.909
+            },
+            {
+              "batchMs": 16.049082999999882,
+              "wallMs": 16.049082999999882,
+              "cpuMs": 17.013
+            },
+            {
+              "batchMs": 16.355709000000388,
+              "wallMs": 16.355709000000388,
+              "cpuMs": 17.584
+            },
+            {
+              "batchMs": 16.37579200000073,
+              "wallMs": 16.37579200000073,
+              "cpuMs": 17.261
+            },
+            {
+              "batchMs": 16.296957999998995,
+              "wallMs": 16.296957999998995,
+              "cpuMs": 17.212
+            },
+            {
+              "batchMs": 16.299958999999944,
+              "wallMs": 16.299958999999944,
+              "cpuMs": 17.155
+            },
+            {
+              "batchMs": 15.93541600000026,
+              "wallMs": 15.93541600000026,
+              "cpuMs": 16.591
+            }
+          ]
+        },
+        {
+          "name": "RiX power sum",
+          "repeats": 1,
+          "medianMs": 35.26983300000029,
+          "minMs": 34.78899999999976,
+          "maxMs": 36.64808400000038,
+          "samples": [
+            {
+              "batchMs": 34.78899999999976,
+              "wallMs": 34.78899999999976,
+              "cpuMs": 36.617
+            },
+            {
+              "batchMs": 35.69720899999993,
+              "wallMs": 35.69720899999993,
+              "cpuMs": 42.371
+            },
+            {
+              "batchMs": 35.26983300000029,
+              "wallMs": 35.26983300000029,
+              "cpuMs": 37.406
+            },
+            {
+              "batchMs": 36.64808400000038,
+              "wallMs": 36.64808400000038,
+              "cpuMs": 38.518
+            },
+            {
+              "batchMs": 35.619832999998835,
+              "wallMs": 35.619832999998835,
+              "cpuMs": 37.656
+            },
+            {
+              "batchMs": 35.259125000000495,
+              "wallMs": 35.259125000000495,
+              "cpuMs": 37.162
+            },
+            {
+              "batchMs": 35.09729099999822,
+              "wallMs": 35.09729099999822,
+              "cpuMs": 36.789
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, core methods",
+          "repeats": 5,
+          "medianMs": 3.4260166000000027,
+          "minMs": 3.3891415999998573,
+          "maxMs": 3.4698584000001573,
+          "samples": [
+            {
+              "batchMs": 3.4115250000000743,
+              "wallMs": 17.05762500000037,
+              "cpuMs": 17.849
+            },
+            {
+              "batchMs": 3.4614832000001114,
+              "wallMs": 17.307416000000558,
+              "cpuMs": 18.504
+            },
+            {
+              "batchMs": 3.3958334000000834,
+              "wallMs": 16.979167000000416,
+              "cpuMs": 17.586
+            },
+            {
+              "batchMs": 3.4260166000000027,
+              "wallMs": 17.130083000000013,
+              "cpuMs": 18.061
+            },
+            {
+              "batchMs": 3.3891415999998573,
+              "wallMs": 16.945707999999286,
+              "cpuMs": 17.74
+            },
+            {
+              "batchMs": 3.4432083999996395,
+              "wallMs": 17.216041999998197,
+              "cpuMs": 18.241
+            },
+            {
+              "batchMs": 3.4698584000001573,
+              "wallMs": 17.349292000000787,
+              "cpuMs": 18.573
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner",
+          "repeats": 3,
+          "medianMs": 6.231735999999728,
+          "minMs": 6.12526399999994,
+          "maxMs": 6.449235999999776,
+          "samples": [
+            {
+              "batchMs": 6.280208333333273,
+              "wallMs": 18.840624999999818,
+              "cpuMs": 23.592
+            },
+            {
+              "batchMs": 6.12526399999994,
+              "wallMs": 18.37579199999982,
+              "cpuMs": 19.343
+            },
+            {
+              "batchMs": 6.177541666666912,
+              "wallMs": 18.532625000000735,
+              "cpuMs": 19.442
+            },
+            {
+              "batchMs": 6.281888999999865,
+              "wallMs": 18.845666999999594,
+              "cpuMs": 20.491
+            },
+            {
+              "batchMs": 6.186541666666623,
+              "wallMs": 18.55962499999987,
+              "cpuMs": 20.829
+            },
+            {
+              "batchMs": 6.449235999999776,
+              "wallMs": 19.34770799999933,
+              "cpuMs": 20.943
+            },
+            {
+              "batchMs": 6.231735999999728,
+              "wallMs": 18.695207999999184,
+              "cpuMs": 19.218
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, public fast paths",
+          "repeats": 5,
+          "medianMs": 3.705083200000081,
+          "minMs": 3.6343832000000473,
+          "maxMs": 3.787458400000105,
+          "samples": [
+            {
+              "batchMs": 3.705083200000081,
+              "wallMs": 18.525416000000405,
+              "cpuMs": 19.628
+            },
+            {
+              "batchMs": 3.6957083999999667,
+              "wallMs": 18.478541999999834,
+              "cpuMs": 19.332
+            },
+            {
+              "batchMs": 3.6343832000000473,
+              "wallMs": 18.171916000000238,
+              "cpuMs": 18.805
+            },
+            {
+              "batchMs": 3.7639084000000365,
+              "wallMs": 18.819542000000183,
+              "cpuMs": 19.904
+            },
+            {
+              "batchMs": 3.6787584000001514,
+              "wallMs": 18.393792000000758,
+              "cpuMs": 19.229
+            },
+            {
+              "batchMs": 3.7499083999999128,
+              "wallMs": 18.749541999999565,
+              "cpuMs": 20.146
+            },
+            {
+              "batchMs": 3.787458400000105,
+              "wallMs": 18.937292000000525,
+              "cpuMs": 19.863
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner, public fast paths",
+          "repeats": 3,
+          "medianMs": 6.533708333333379,
+          "minMs": 6.33823633333365,
+          "maxMs": 6.696346999999757,
+          "samples": [
+            {
+              "batchMs": 6.560222333333513,
+              "wallMs": 19.68066700000054,
+              "cpuMs": 21.372
+            },
+            {
+              "batchMs": 6.47172233333337,
+              "wallMs": 19.41516700000011,
+              "cpuMs": 20.706
+            },
+            {
+              "batchMs": 6.533708333333379,
+              "wallMs": 19.60112500000014,
+              "cpuMs": 21.246
+            },
+            {
+              "batchMs": 6.379583333333358,
+              "wallMs": 19.138750000000073,
+              "cpuMs": 20.162
+            },
+            {
+              "batchMs": 6.538694333333599,
+              "wallMs": 19.6160830000008,
+              "cpuMs": 21.117
+            },
+            {
+              "batchMs": 6.696346999999757,
+              "wallMs": 20.08904099999927,
+              "cpuMs": 28.161
+            },
+            {
+              "batchMs": 6.33823633333365,
+              "wallMs": 19.01470900000095,
+              "cpuMs": 19.801
+            }
+          ]
+        },
+        {
+          "name": "snapshot control Horner",
+          "repeats": 5,
+          "medianMs": 3.392174999999952,
+          "minMs": 3.354266600000119,
+          "maxMs": 3.4611415999999737,
+          "samples": [
+            {
+              "batchMs": 3.422149999999965,
+              "wallMs": 17.110749999999825,
+              "cpuMs": 18.035
+            },
+            {
+              "batchMs": 3.37471659999992,
+              "wallMs": 16.8735829999996,
+              "cpuMs": 17.821
+            },
+            {
+              "batchMs": 3.354266600000119,
+              "wallMs": 16.771333000000595,
+              "cpuMs": 17.378
+            },
+            {
+              "batchMs": 3.392174999999952,
+              "wallMs": 16.96087499999976,
+              "cpuMs": 17.796
+            },
+            {
+              "batchMs": 3.4223667999998724,
+              "wallMs": 17.111833999999362,
+              "cpuMs": 17.952
+            },
+            {
+              "batchMs": 3.4611415999999737,
+              "wallMs": 17.305707999999868,
+              "cpuMs": 18.643
+            },
+            {
+              "batchMs": 3.365508399999817,
+              "wallMs": 16.827541999999085,
+              "cpuMs": 17.4
+            }
+          ]
+        },
+        {
+          "name": "snapshot candidate Horner",
+          "repeats": 58,
+          "medianMs": 0.26226365517241307,
+          "minMs": 0.25267098275861793,
+          "maxMs": 0.2690258620689684,
+          "samples": [
+            {
+              "batchMs": 0.2671142241379286,
+              "wallMs": 15.492624999999862,
+              "cpuMs": 16.115
+            },
+            {
+              "batchMs": 0.2690258620689684,
+              "wallMs": 15.603500000000167,
+              "cpuMs": 16.387
+            },
+            {
+              "batchMs": 0.2539482758620736,
+              "wallMs": 14.72900000000027,
+              "cpuMs": 15.134
+            },
+            {
+              "batchMs": 0.2649504310344629,
+              "wallMs": 15.36712499999885,
+              "cpuMs": 25.628
+            },
+            {
+              "batchMs": 0.25803663793101744,
+              "wallMs": 14.96612499999901,
+              "cpuMs": 15.646
+            },
+            {
+              "batchMs": 0.26226365517241307,
+              "wallMs": 15.211291999999958,
+              "cpuMs": 16.211
+            },
+            {
+              "batchMs": 0.25267098275861793,
+              "wallMs": 14.654916999999841,
+              "cpuMs": 14.881
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, prepare included",
+          "repeats": 63,
+          "medianMs": 0.24449139682539162,
+          "minMs": 0.2395469523809504,
+          "maxMs": 0.24936177777777224,
+          "samples": [
+            {
+              "batchMs": 0.2395469523809504,
+              "wallMs": 15.091457999999875,
+              "cpuMs": 15.761
+            },
+            {
+              "batchMs": 0.24373479365079667,
+              "wallMs": 15.35529200000019,
+              "cpuMs": 16.38
+            },
+            {
+              "batchMs": 0.24449139682539162,
+              "wallMs": 15.402957999999671,
+              "cpuMs": 16.614
+            },
+            {
+              "batchMs": 0.24924868253967564,
+              "wallMs": 15.702666999999565,
+              "cpuMs": 16.729
+            },
+            {
+              "batchMs": 0.24066996825396408,
+              "wallMs": 15.162207999999737,
+              "cpuMs": 15.99
+            },
+            {
+              "batchMs": 0.2464821428571408,
+              "wallMs": 15.528374999999869,
+              "cpuMs": 16.404
+            },
+            {
+              "batchMs": 0.24936177777777224,
+              "wallMs": 15.709791999999652,
+              "cpuMs": 17.031
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, cached plan",
+          "repeats": 66,
+          "medianMs": 0.23403849999999005,
+          "minMs": 0.23100316666666526,
+          "maxMs": 0.24456754545454631,
+          "samples": [
+            {
+              "batchMs": 0.23100316666666526,
+              "wallMs": 15.246208999999908,
+              "cpuMs": 15.917
+            },
+            {
+              "batchMs": 0.23912500000000309,
+              "wallMs": 15.782250000000204,
+              "cpuMs": 16.799
+            },
+            {
+              "batchMs": 0.2320846060605976,
+              "wallMs": 15.317583999999442,
+              "cpuMs": 16.075
+            },
+            {
+              "batchMs": 0.24456754545454631,
+              "wallMs": 16.141458000000057,
+              "cpuMs": 17.611
+            },
+            {
+              "batchMs": 0.23330239393938731,
+              "wallMs": 15.397957999999562,
+              "cpuMs": 16.538
+            },
+            {
+              "batchMs": 0.24071086363638836,
+              "wallMs": 15.886917000001631,
+              "cpuMs": 16.823
+            },
+            {
+              "batchMs": 0.23403849999999005,
+              "wallMs": 15.446540999999343,
+              "cpuMs": 16.729
+            }
+          ]
+        },
+        {
+          "name": "RiX offload each point",
+          "repeats": 52,
+          "medianMs": 0.311731557692313,
+          "minMs": 0.30554246153846737,
+          "maxMs": 0.356508807692325,
+          "samples": [
+            {
+              "batchMs": 0.30554246153846737,
+              "wallMs": 15.888208000000304,
+              "cpuMs": 17.08
+            },
+            {
+              "batchMs": 0.31674359615383835,
+              "wallMs": 16.470666999999594,
+              "cpuMs": 17.726
+            },
+            {
+              "batchMs": 0.311731557692313,
+              "wallMs": 16.210041000000274,
+              "cpuMs": 17.054
+            },
+            {
+              "batchMs": 0.356508807692325,
+              "wallMs": 18.5384580000009,
+              "cpuMs": 18.541
+            },
+            {
+              "batchMs": 0.30691907692307024,
+              "wallMs": 15.959791999999652,
+              "cpuMs": 16.796
+            },
+            {
+              "batchMs": 0.30940784615383493,
+              "wallMs": 16.089207999999417,
+              "cpuMs": 16.848
+            },
+            {
+              "batchMs": 0.3136698846153824,
+              "wallMs": 16.310833999999886,
+              "cpuMs": 17.639
+            }
+          ]
+        },
+        {
+          "name": "RiX one batch capability",
+          "repeats": 65,
+          "medianMs": 0.2460942307692396,
+          "minMs": 0.23944935384615046,
+          "maxMs": 0.2531108923077017,
+          "samples": [
+            {
+              "batchMs": 0.2460942307692396,
+              "wallMs": 15.996125000000575,
+              "cpuMs": 17.243
+            },
+            {
+              "batchMs": 0.23944935384615046,
+              "wallMs": 15.56420799999978,
+              "cpuMs": 16.414
+            },
+            {
+              "batchMs": 0.2531108923077017,
+              "wallMs": 16.45220800000061,
+              "cpuMs": 18.087
+            },
+            {
+              "batchMs": 0.2446929384615382,
+              "wallMs": 15.905040999999983,
+              "cpuMs": 17.017
+            },
+            {
+              "batchMs": 0.24660769230770083,
+              "wallMs": 16.029500000000553,
+              "cpuMs": 17.534
+            },
+            {
+              "batchMs": 0.24149230769230948,
+              "wallMs": 15.697000000000116,
+              "cpuMs": 16.655
+            },
+            {
+              "batchMs": 0.24704423076920928,
+              "wallMs": 16.057874999998603,
+              "cpuMs": 17.307
+            }
+          ]
+        },
+        {
+          "name": "RiX prepare plan + evaluate",
+          "repeats": 64,
+          "medianMs": 0.2466725312500273,
+          "minMs": 0.24047006249998049,
+          "maxMs": 0.2526152343749999,
+          "samples": [
+            {
+              "batchMs": 0.24170898437499488,
+              "wallMs": 15.469374999999673,
+              "cpuMs": 16.278
+            },
+            {
+              "batchMs": 0.2526152343749999,
+              "wallMs": 16.167374999999993,
+              "cpuMs": 17.723
+            },
+            {
+              "batchMs": 0.24750129687500078,
+              "wallMs": 15.84008300000005,
+              "cpuMs": 16.941
+            },
+            {
+              "batchMs": 0.2504765624999834,
+              "wallMs": 16.030499999998938,
+              "cpuMs": 17.768
+            },
+            {
+              "batchMs": 0.24047006249998049,
+              "wallMs": 15.390083999998751,
+              "cpuMs": 16.468
+            },
+            {
+              "batchMs": 0.24630989062498543,
+              "wallMs": 15.763832999999067,
+              "cpuMs": 16.63
+            },
+            {
+              "batchMs": 0.2466725312500273,
+              "wallMs": 15.787042000001748,
+              "cpuMs": 16.851
+            }
+          ]
+        },
+        {
+          "name": "RiX cached plan evaluate",
+          "repeats": 74,
+          "medianMs": 0.23825506756756532,
+          "minMs": 0.2332882972972879,
+          "maxMs": 0.2498400945945881,
+          "samples": [
+            {
+              "batchMs": 0.23765990540540943,
+              "wallMs": 17.586833000000297,
+              "cpuMs": 19.028
+            },
+            {
+              "batchMs": 0.23564189189189189,
+              "wallMs": 17.4375,
+              "cpuMs": 18.321
+            },
+            {
+              "batchMs": 0.23825506756756532,
+              "wallMs": 17.630874999999833,
+              "cpuMs": 18.827
+            },
+            {
+              "batchMs": 0.2332882972972879,
+              "wallMs": 17.263333999999304,
+              "cpuMs": 18.229
+            },
+            {
+              "batchMs": 0.24587218918920395,
+              "wallMs": 18.194542000001093,
+              "cpuMs": 19.609
+            },
+            {
+              "batchMs": 0.2498400945945881,
+              "wallMs": 18.48816699999952,
+              "cpuMs": 19.582
+            },
+            {
+              "batchMs": 0.24265878378377534,
+              "wallMs": 17.956749999999374,
+              "cpuMs": 19.364
+            }
+          ]
+        },
+        {
+          "name": "RiX operation descriptor",
+          "repeats": 65,
+          "medianMs": 0.2584788461538455,
+          "minMs": 0.2489705076923061,
+          "maxMs": 0.2621544923077006,
+          "samples": [
+            {
+              "batchMs": 0.2585865384615457,
+              "wallMs": 16.808125000000473,
+              "cpuMs": 18.057
+            },
+            {
+              "batchMs": 0.2584788461538455,
+              "wallMs": 16.801124999999956,
+              "cpuMs": 18.297
+            },
+            {
+              "batchMs": 0.2489705076923061,
+              "wallMs": 16.183082999999897,
+              "cpuMs": 16.857
+            },
+            {
+              "batchMs": 0.2621544923077006,
+              "wallMs": 17.04004200000054,
+              "cpuMs": 18.633
+            },
+            {
+              "batchMs": 0.2568320461538511,
+              "wallMs": 16.69408300000032,
+              "cpuMs": 17.493
+            },
+            {
+              "batchMs": 0.2604051384615629,
+              "wallMs": 16.92633400000159,
+              "cpuMs": 18.117
+            },
+            {
+              "batchMs": 0.255569876923087,
+              "wallMs": 16.612042000000656,
+              "cpuMs": 17.474
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zero-polynomial-degree128",
+      "metadata": {
+        "degree": 128,
+        "points": 4,
+        "coefficientTypes": [
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer"
+        ],
+        "pointTypes": [
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational"
+        ]
+      },
+      "variants": [
+        {
+          "name": "JS Horner, core methods",
+          "repeats": 423,
+          "medianMs": 0.0394016950354621,
+          "minMs": 0.038124408983453394,
+          "maxMs": 0.04005989125295509,
+          "samples": [
+            {
+              "batchMs": 0.03961761229314603,
+              "wallMs": 16.75825000000077,
+              "cpuMs": 21.029
+            },
+            {
+              "batchMs": 0.04005989125295509,
+              "wallMs": 16.945334000000003,
+              "cpuMs": 18.757
+            },
+            {
+              "batchMs": 0.0392065602836845,
+              "wallMs": 16.584374999998545,
+              "cpuMs": 18.451
+            },
+            {
+              "batchMs": 0.0394016950354621,
+              "wallMs": 16.666917000000467,
+              "cpuMs": 19.158
+            },
+            {
+              "batchMs": 0.04001093380615005,
+              "wallMs": 16.92462500000147,
+              "cpuMs": 18.75
+            },
+            {
+              "batchMs": 0.03938652482269493,
+              "wallMs": 16.660499999999956,
+              "cpuMs": 19.462
+            },
+            {
+              "batchMs": 0.038124408983453394,
+              "wallMs": 16.126625000000786,
+              "cpuMs": 17.271
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner",
+          "repeats": 11,
+          "medianMs": 1.5090492727272662,
+          "minMs": 1.5033143636364086,
+          "maxMs": 1.5244508181817351,
+          "samples": [
+            {
+              "batchMs": 1.5033560000000845,
+              "wallMs": 16.53691600000093,
+              "cpuMs": 17.474
+            },
+            {
+              "batchMs": 1.5090492727272662,
+              "wallMs": 16.59954199999993,
+              "cpuMs": 17.786
+            },
+            {
+              "batchMs": 1.5033143636364086,
+              "wallMs": 16.536458000000493,
+              "cpuMs": 17.713
+            },
+            {
+              "batchMs": 1.5244508181817351,
+              "wallMs": 16.768958999999086,
+              "cpuMs": 18.003
+            },
+            {
+              "batchMs": 1.5149166363636057,
+              "wallMs": 16.664082999999664,
+              "cpuMs": 17.602
+            },
+            {
+              "batchMs": 1.5085757272726452,
+              "wallMs": 16.594332999999097,
+              "cpuMs": 17.258
+            },
+            {
+              "batchMs": 1.520071909090885,
+              "wallMs": 16.720790999999736,
+              "cpuMs": 17.684
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, public fast paths",
+          "repeats": 216,
+          "medianMs": 0.0816373472222225,
+          "minMs": 0.08027006018519219,
+          "maxMs": 0.08393171296296276,
+          "samples": [
+            {
+              "batchMs": 0.08272993518517911,
+              "wallMs": 17.869665999998688,
+              "cpuMs": 20.045
+            },
+            {
+              "batchMs": 0.08051157407407185,
+              "wallMs": 17.39049999999952,
+              "cpuMs": 19.721
+            },
+            {
+              "batchMs": 0.08393171296296276,
+              "wallMs": 18.129249999999956,
+              "cpuMs": 20.203
+            },
+            {
+              "batchMs": 0.08027006018519219,
+              "wallMs": 17.338333000001512,
+              "cpuMs": 19.537
+            },
+            {
+              "batchMs": 0.08178799999999413,
+              "wallMs": 17.666207999998733,
+              "cpuMs": 19.892
+            },
+            {
+              "batchMs": 0.0816373472222225,
+              "wallMs": 17.63366700000006,
+              "cpuMs": 19.895
+            },
+            {
+              "batchMs": 0.08128356481481408,
+              "wallMs": 17.55724999999984,
+              "cpuMs": 19.683
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner, public fast paths",
+          "repeats": 12,
+          "medianMs": 1.4310763333332943,
+          "minMs": 1.4018680000000738,
+          "maxMs": 1.4646909999999782,
+          "samples": [
+            {
+              "batchMs": 1.4018680000000738,
+              "wallMs": 16.822416000000885,
+              "cpuMs": 17.668
+            },
+            {
+              "batchMs": 1.4464583333333394,
+              "wallMs": 17.357500000000073,
+              "cpuMs": 18.874
+            },
+            {
+              "batchMs": 1.4418541666665685,
+              "wallMs": 17.30224999999882,
+              "cpuMs": 19.1
+            },
+            {
+              "batchMs": 1.4051909999999832,
+              "wallMs": 16.862291999999798,
+              "cpuMs": 18.466
+            },
+            {
+              "batchMs": 1.4310763333332943,
+              "wallMs": 17.172915999999532,
+              "cpuMs": 18.134
+            },
+            {
+              "batchMs": 1.4191805833332485,
+              "wallMs": 17.030166999998983,
+              "cpuMs": 18.208
+            },
+            {
+              "batchMs": 1.4646909999999782,
+              "wallMs": 17.57629199999974,
+              "cpuMs": 19.154
+            }
+          ]
+        },
+        {
+          "name": "snapshot control Horner",
+          "repeats": 453,
+          "medianMs": 0.03539725827814611,
+          "minMs": 0.03446863576158584,
+          "maxMs": 0.03661653642384067,
+          "samples": [
+            {
+              "batchMs": 0.03661653642384067,
+              "wallMs": 16.587290999999823,
+              "cpuMs": 20.666
+            },
+            {
+              "batchMs": 0.03625570419426287,
+              "wallMs": 16.42383400000108,
+              "cpuMs": 18.136
+            },
+            {
+              "batchMs": 0.03539725827814611,
+              "wallMs": 16.034958000000188,
+              "cpuMs": 17.786
+            },
+            {
+              "batchMs": 0.03460016556291481,
+              "wallMs": 15.673875000000407,
+              "cpuMs": 17.148
+            },
+            {
+              "batchMs": 0.03446863576158584,
+              "wallMs": 15.614291999998386,
+              "cpuMs": 17.178
+            },
+            {
+              "batchMs": 0.03561828697571645,
+              "wallMs": 16.13508399999955,
+              "cpuMs": 17.85
+            },
+            {
+              "batchMs": 0.03494131788079609,
+              "wallMs": 15.828417000000627,
+              "cpuMs": 18.096
+            }
+          ]
+        },
+        {
+          "name": "snapshot candidate Horner",
+          "repeats": 335,
+          "medianMs": 0.04552077014924899,
+          "minMs": 0.044262934328359205,
+          "maxMs": 0.04717649253731513,
+          "samples": [
+            {
+              "batchMs": 0.04701542089552182,
+              "wallMs": 15.750165999999808,
+              "cpuMs": 17.417
+            },
+            {
+              "batchMs": 0.04488781194030259,
+              "wallMs": 15.03741700000137,
+              "cpuMs": 15.954
+            },
+            {
+              "batchMs": 0.04501604477611806,
+              "wallMs": 15.080374999999549,
+              "cpuMs": 15.972
+            },
+            {
+              "batchMs": 0.04552077014924899,
+              "wallMs": 15.249457999998413,
+              "cpuMs": 15.847
+            },
+            {
+              "batchMs": 0.044262934328359205,
+              "wallMs": 14.828083000000333,
+              "cpuMs": 15.738
+            },
+            {
+              "batchMs": 0.04717649253731513,
+              "wallMs": 15.804125000000568,
+              "cpuMs": 16.937
+            },
+            {
+              "batchMs": 0.04583121791045197,
+              "wallMs": 15.35345800000141,
+              "cpuMs": 16.352
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, prepare included",
+          "repeats": 166,
+          "medianMs": 0.09490160843372916,
+          "minMs": 0.09278012048192737,
+          "maxMs": 0.09625401807228495,
+          "samples": [
+            {
+              "batchMs": 0.09373092771084085,
+              "wallMs": 15.55933399999958,
+              "cpuMs": 17.285
+            },
+            {
+              "batchMs": 0.09498067469878634,
+              "wallMs": 15.766791999998532,
+              "cpuMs": 18.182
+            },
+            {
+              "batchMs": 0.09424724096385605,
+              "wallMs": 15.645042000000103,
+              "cpuMs": 17.134
+            },
+            {
+              "batchMs": 0.09278012048192737,
+              "wallMs": 15.401499999999942,
+              "cpuMs": 17.472
+            },
+            {
+              "batchMs": 0.0955512048192715,
+              "wallMs": 15.861499999999069,
+              "cpuMs": 18.066
+            },
+            {
+              "batchMs": 0.09490160843372916,
+              "wallMs": 15.75366699999904,
+              "cpuMs": 17.671
+            },
+            {
+              "batchMs": 0.09625401807228495,
+              "wallMs": 15.978166999999303,
+              "cpuMs": 17.754
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, cached plan",
+          "repeats": 225,
+          "medianMs": 0.07389222222221886,
+          "minMs": 0.07245648444444265,
+          "maxMs": 0.07552185333333102,
+          "samples": [
+            {
+              "batchMs": 0.0731779644444436,
+              "wallMs": 16.465041999999812,
+              "cpuMs": 18.774
+            },
+            {
+              "batchMs": 0.07389222222221886,
+              "wallMs": 16.625749999999243,
+              "cpuMs": 18.884
+            },
+            {
+              "batchMs": 0.07419518222222299,
+              "wallMs": 16.693916000000172,
+              "cpuMs": 18.673
+            },
+            {
+              "batchMs": 0.07342814666666932,
+              "wallMs": 16.521333000000595,
+              "cpuMs": 18.98
+            },
+            {
+              "batchMs": 0.07245648444444265,
+              "wallMs": 16.302708999999595,
+              "cpuMs": 18.257
+            },
+            {
+              "batchMs": 0.07552185333333102,
+              "wallMs": 16.992416999999477,
+              "cpuMs": 19.212
+            },
+            {
+              "batchMs": 0.07499407555555485,
+              "wallMs": 16.87366699999984,
+              "cpuMs": 19.125
+            }
+          ]
+        },
+        {
+          "name": "RiX offload each point",
+          "repeats": 105,
+          "medianMs": 0.15075357142857337,
+          "minMs": 0.14769800952381046,
+          "maxMs": 0.15342579047619004,
+          "samples": [
+            {
+              "batchMs": 0.14769800952381046,
+              "wallMs": 15.5082910000001,
+              "cpuMs": 17.073
+            },
+            {
+              "batchMs": 0.15118016190476954,
+              "wallMs": 15.873917000000802,
+              "cpuMs": 17.222
+            },
+            {
+              "batchMs": 0.1496595238095324,
+              "wallMs": 15.714250000000902,
+              "cpuMs": 17.346
+            },
+            {
+              "batchMs": 0.14862301904762543,
+              "wallMs": 15.60541700000067,
+              "cpuMs": 16.831
+            },
+            {
+              "batchMs": 0.15075357142857337,
+              "wallMs": 15.829125000000204,
+              "cpuMs": 17.964
+            },
+            {
+              "batchMs": 0.15120278095238887,
+              "wallMs": 15.87629200000083,
+              "cpuMs": 17.194
+            },
+            {
+              "batchMs": 0.15342579047619004,
+              "wallMs": 16.109707999999955,
+              "cpuMs": 18.082
+            }
+          ]
+        },
+        {
+          "name": "RiX one batch capability",
+          "repeats": 196,
+          "medianMs": 0.09660947959183636,
+          "minMs": 0.09501105612245589,
+          "maxMs": 0.09890773469387383,
+          "samples": [
+            {
+              "batchMs": 0.09660947959183636,
+              "wallMs": 18.935457999999926,
+              "cpuMs": 21.628
+            },
+            {
+              "batchMs": 0.09655654591836779,
+              "wallMs": 18.925083000000086,
+              "cpuMs": 21.861
+            },
+            {
+              "batchMs": 0.09890773469387383,
+              "wallMs": 19.38591599999927,
+              "cpuMs": 22.209
+            },
+            {
+              "batchMs": 0.09670195918366814,
+              "wallMs": 18.953583999998955,
+              "cpuMs": 21.837
+            },
+            {
+              "batchMs": 0.09790114795918717,
+              "wallMs": 19.188625000000684,
+              "cpuMs": 21.705
+            },
+            {
+              "batchMs": 0.0953235510204074,
+              "wallMs": 18.683415999999852,
+              "cpuMs": 21.079
+            },
+            {
+              "batchMs": 0.09501105612245589,
+              "wallMs": 18.622167000001355,
+              "cpuMs": 20.681
+            }
+          ]
+        },
+        {
+          "name": "RiX prepare plan + evaluate",
+          "repeats": 178,
+          "medianMs": 0.09711938202246856,
+          "minMs": 0.09239255617977209,
+          "maxMs": 0.10473244382023184,
+          "samples": [
+            {
+              "batchMs": 0.0928789775280983,
+              "wallMs": 16.532458000001498,
+              "cpuMs": 18.492
+            },
+            {
+              "batchMs": 0.09875842696629059,
+              "wallMs": 17.578999999999724,
+              "cpuMs": 19.909
+            },
+            {
+              "batchMs": 0.09711938202246856,
+              "wallMs": 17.287249999999403,
+              "cpuMs": 19.756
+            },
+            {
+              "batchMs": 0.09833941573033575,
+              "wallMs": 17.504415999999765,
+              "cpuMs": 20.448
+            },
+            {
+              "batchMs": 0.09430921910112129,
+              "wallMs": 16.78704099999959,
+              "cpuMs": 18.773
+            },
+            {
+              "batchMs": 0.09239255617977209,
+              "wallMs": 16.445874999999432,
+              "cpuMs": 18.264
+            },
+            {
+              "batchMs": 0.10473244382023184,
+              "wallMs": 18.642375000001266,
+              "cpuMs": 25.122
+            }
+          ]
+        },
+        {
+          "name": "RiX cached plan evaluate",
+          "repeats": 230,
+          "medianMs": 0.07565525652173719,
+          "minMs": 0.07370905652173267,
+          "maxMs": 0.07711304347826428,
+          "samples": [
+            {
+              "batchMs": 0.07633750000000557,
+              "wallMs": 17.55762500000128,
+              "cpuMs": 20.714
+            },
+            {
+              "batchMs": 0.07565525652173719,
+              "wallMs": 17.40070899999955,
+              "cpuMs": 19.631
+            },
+            {
+              "batchMs": 0.0740846000000048,
+              "wallMs": 17.039458000001105,
+              "cpuMs": 19.366
+            },
+            {
+              "batchMs": 0.07433478260869458,
+              "wallMs": 17.096999999999753,
+              "cpuMs": 19.687
+            },
+            {
+              "batchMs": 0.07711304347826428,
+              "wallMs": 17.736000000000786,
+              "cpuMs": 20.294
+            },
+            {
+              "batchMs": 0.07370905652173267,
+              "wallMs": 16.953082999998514,
+              "cpuMs": 19.255
+            },
+            {
+              "batchMs": 0.07684782608695336,
+              "wallMs": 17.674999999999272,
+              "cpuMs": 20.072
+            }
+          ]
+        },
+        {
+          "name": "RiX operation descriptor",
+          "repeats": 143,
+          "medianMs": 0.10717248951048125,
+          "minMs": 0.10459790209790515,
+          "maxMs": 0.11751748251747184,
+          "samples": [
+            {
+              "batchMs": 0.10663403496503386,
+              "wallMs": 15.248666999999841,
+              "cpuMs": 16.848
+            },
+            {
+              "batchMs": 0.10717248951048125,
+              "wallMs": 15.325665999998819,
+              "cpuMs": 18.536
+            },
+            {
+              "batchMs": 0.10459790209790515,
+              "wallMs": 14.957500000000437,
+              "cpuMs": 16.128
+            },
+            {
+              "batchMs": 0.10790763636364349,
+              "wallMs": 15.43079200000102,
+              "cpuMs": 17.06
+            },
+            {
+              "batchMs": 0.11751748251747184,
+              "wallMs": 16.804999999998472,
+              "cpuMs": 17.86
+            },
+            {
+              "batchMs": 0.11030739860140969,
+              "wallMs": 15.773958000001585,
+              "cpuMs": 17.945
+            },
+            {
+              "batchMs": 0.10606497902097964,
+              "wallMs": 15.167292000000089,
+              "cpuMs": 17.473
+            }
+          ]
+        },
+        {
+          "name": "RiX marked Integer-pair Horner",
+          "repeats": 62,
+          "medianMs": 0.2562358870967904,
+          "minMs": 0.24525806451613114,
+          "maxMs": 0.2730752580645194,
+          "samples": [
+            {
+              "batchMs": 0.2562358870967904,
+              "wallMs": 15.886625000001004,
+              "cpuMs": 21.237
+            },
+            {
+              "batchMs": 0.25074327419356596,
+              "wallMs": 15.54608300000109,
+              "cpuMs": 16.9
+            },
+            {
+              "batchMs": 0.2566276935483749,
+              "wallMs": 15.910916999999245,
+              "cpuMs": 18.454
+            },
+            {
+              "batchMs": 0.2542647903225858,
+              "wallMs": 15.764417000000321,
+              "cpuMs": 18.314
+            },
+            {
+              "batchMs": 0.2730752580645194,
+              "wallMs": 16.9306660000002,
+              "cpuMs": 25.557
+            },
+            {
+              "batchMs": 0.2573763387096821,
+              "wallMs": 15.95733300000029,
+              "cpuMs": 19.829
+            },
+            {
+              "batchMs": 0.24525806451613114,
+              "wallMs": 15.206000000000131,
+              "cpuMs": 15.981
+            }
+          ]
+        },
+        {
+          "name": "RiX Integer-pair Horner",
+          "repeats": 8,
+          "medianMs": 1.9606509999998707,
+          "minMs": 1.8936666249999234,
+          "maxMs": 1.9944323750000876,
+          "samples": [
+            {
+              "batchMs": 1.980234375000009,
+              "wallMs": 15.841875000000073,
+              "cpuMs": 17.727
+            },
+            {
+              "batchMs": 1.8936666249999234,
+              "wallMs": 15.149332999999388,
+              "cpuMs": 15.886
+            },
+            {
+              "batchMs": 1.9295416249999562,
+              "wallMs": 15.43633299999965,
+              "cpuMs": 16.662
+            },
+            {
+              "batchMs": 1.9463124999999764,
+              "wallMs": 15.57049999999981,
+              "cpuMs": 17.238
+            },
+            {
+              "batchMs": 1.9944323750000876,
+              "wallMs": 15.955459000000701,
+              "cpuMs": 17.331
+            },
+            {
+              "batchMs": 1.9606509999998707,
+              "wallMs": 15.685207999998966,
+              "cpuMs": 16.947
+            },
+            {
+              "batchMs": 1.9886093749998963,
+              "wallMs": 15.90887499999917,
+              "cpuMs": 17.355
+            }
+          ]
+        },
+        {
+          "name": "JS cached plan, prune leading zeros",
+          "repeats": 4096,
+          "medianMs": 0.00017723583984396996,
+          "minMs": 0.00017550659179654815,
+          "maxMs": 0.00028137207031253553,
+          "samples": [
+            {
+              "batchMs": 0.00018419409179681878,
+              "wallMs": 0.7544589999997697,
+              "cpuMs": 0.756
+            },
+            {
+              "batchMs": 0.00017723583984396996,
+              "wallMs": 0.7259580000009009,
+              "cpuMs": 0.726
+            },
+            {
+              "batchMs": 0.0001756389160156857,
+              "wallMs": 0.7194170000002487,
+              "cpuMs": 0.721
+            },
+            {
+              "batchMs": 0.00017550659179654815,
+              "wallMs": 0.7188749999986612,
+              "cpuMs": 0.72
+            },
+            {
+              "batchMs": 0.00017618823242182557,
+              "wallMs": 0.7216669999997976,
+              "cpuMs": 0.722
+            },
+            {
+              "batchMs": 0.00018679809570310013,
+              "wallMs": 0.7651249999998981,
+              "cpuMs": 0.979
+            },
+            {
+              "batchMs": 0.00028137207031253553,
+              "wallMs": 1.1525000000001455,
+              "cpuMs": 1.57
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cancellation-degree32",
+      "metadata": {
+        "degree": 32,
+        "points": 4,
+        "coefficientTypes": [
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer",
+          "Integer"
+        ],
+        "pointTypes": [
+          "Rational",
+          "Rational",
+          "Rational",
+          "Rational"
+        ]
+      },
+      "variants": [
+        {
+          "name": "JS power sum, core methods",
+          "repeats": 114,
+          "medianMs": 0.1182777807017581,
+          "minMs": 0.11658297368420902,
+          "maxMs": 0.1387028508771963,
+          "samples": [
+            {
+              "batchMs": 0.1387028508771963,
+              "wallMs": 15.812125000000378,
+              "cpuMs": 24.003
+            },
+            {
+              "batchMs": 0.12027850877193327,
+              "wallMs": 13.711750000000393,
+              "cpuMs": 14.763
+            },
+            {
+              "batchMs": 0.11727705263157923,
+              "wallMs": 13.369584000000032,
+              "cpuMs": 14.934
+            },
+            {
+              "batchMs": 0.11658297368420902,
+              "wallMs": 13.290458999999828,
+              "cpuMs": 15.165
+            },
+            {
+              "batchMs": 0.1180120614035172,
+              "wallMs": 13.45337500000096,
+              "cpuMs": 14.882
+            },
+            {
+              "batchMs": 0.1182777807017581,
+              "wallMs": 13.483667000000423,
+              "cpuMs": 14.363
+            },
+            {
+              "batchMs": 0.11870139473684137,
+              "wallMs": 13.531958999999915,
+              "cpuMs": 14.862
+            }
+          ]
+        },
+        {
+          "name": "RiX power sum",
+          "repeats": 4,
+          "medianMs": 3.965687500000058,
+          "minMs": 3.813364499999807,
+          "maxMs": 4.282041500000105,
+          "samples": [
+            {
+              "batchMs": 4.282041500000105,
+              "wallMs": 17.12816600000042,
+              "cpuMs": 18.382
+            },
+            {
+              "batchMs": 3.813364499999807,
+              "wallMs": 15.253457999999227,
+              "cpuMs": 16.704
+            },
+            {
+              "batchMs": 3.895729249999931,
+              "wallMs": 15.582916999999725,
+              "cpuMs": 16.333
+            },
+            {
+              "batchMs": 3.965687500000058,
+              "wallMs": 15.862750000000233,
+              "cpuMs": 17.37
+            },
+            {
+              "batchMs": 3.9642604999999094,
+              "wallMs": 15.857041999999637,
+              "cpuMs": 17.28
+            },
+            {
+              "batchMs": 4.076385500000015,
+              "wallMs": 16.30554200000006,
+              "cpuMs": 17.811
+            },
+            {
+              "batchMs": 4.021478999999999,
+              "wallMs": 16.085915999999997,
+              "cpuMs": 17.633
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, core methods",
+          "repeats": 676,
+          "medianMs": 0.020398668639051706,
+          "minMs": 0.019865139053254852,
+          "maxMs": 0.021933862426034918,
+          "samples": [
+            {
+              "batchMs": 0.021933862426034918,
+              "wallMs": 14.827290999999605,
+              "cpuMs": 15.718
+            },
+            {
+              "batchMs": 0.020398668639051706,
+              "wallMs": 13.789499999998952,
+              "cpuMs": 15.369
+            },
+            {
+              "batchMs": 0.020882211538460958,
+              "wallMs": 14.116374999999607,
+              "cpuMs": 15.475
+            },
+            {
+              "batchMs": 0.019865139053254852,
+              "wallMs": 13.428834000000279,
+              "cpuMs": 14.461
+            },
+            {
+              "batchMs": 0.020576985207099885,
+              "wallMs": 13.910041999999521,
+              "cpuMs": 17.319
+            },
+            {
+              "batchMs": 0.019926343195264526,
+              "wallMs": 13.47020799999882,
+              "cpuMs": 14.283
+            },
+            {
+              "batchMs": 0.020302144970413168,
+              "wallMs": 13.724249999999302,
+              "cpuMs": 14.85
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner",
+          "repeats": 37,
+          "medianMs": 0.39001351351352415,
+          "minMs": 0.37584572972972075,
+          "maxMs": 0.41489302702703335,
+          "samples": [
+            {
+              "batchMs": 0.41489302702703335,
+              "wallMs": 15.351042000000234,
+              "cpuMs": 16.246
+            },
+            {
+              "batchMs": 0.37584572972972075,
+              "wallMs": 13.906291999999667,
+              "cpuMs": 14.799
+            },
+            {
+              "batchMs": 0.3920394324324317,
+              "wallMs": 14.505458999999973,
+              "cpuMs": 15.731
+            },
+            {
+              "batchMs": 0.3829110540540864,
+              "wallMs": 14.167709000001196,
+              "cpuMs": 15.207
+            },
+            {
+              "batchMs": 0.39001351351352415,
+              "wallMs": 14.430500000000393,
+              "cpuMs": 15.598
+            },
+            {
+              "batchMs": 0.38904729729728316,
+              "wallMs": 14.394749999999476,
+              "cpuMs": 15.512
+            },
+            {
+              "batchMs": 0.39168918918919704,
+              "wallMs": 14.492500000000291,
+              "cpuMs": 15.592
+            }
+          ]
+        },
+        {
+          "name": "JS Horner, public fast paths",
+          "repeats": 426,
+          "medianMs": 0.032606906103284476,
+          "minMs": 0.03149432629108022,
+          "maxMs": 0.03552151877934215,
+          "samples": [
+            {
+              "batchMs": 0.03552151877934215,
+              "wallMs": 15.132166999999754,
+              "cpuMs": 16.397
+            },
+            {
+              "batchMs": 0.03149432629108022,
+              "wallMs": 13.416583000000173,
+              "cpuMs": 14.904
+            },
+            {
+              "batchMs": 0.03344346478873252,
+              "wallMs": 14.246916000000056,
+              "cpuMs": 15.915
+            },
+            {
+              "batchMs": 0.03258529107981149,
+              "wallMs": 13.881333999999697,
+              "cpuMs": 15.341
+            },
+            {
+              "batchMs": 0.03229166666666752,
+              "wallMs": 13.756250000000364,
+              "cpuMs": 15.173
+            },
+            {
+              "batchMs": 0.03292146009389911,
+              "wallMs": 14.02454200000102,
+              "cpuMs": 15.796
+            },
+            {
+              "batchMs": 0.032606906103284476,
+              "wallMs": 13.890541999999186,
+              "cpuMs": 15.348
+            }
+          ]
+        },
+        {
+          "name": "RiX Horner, public fast paths",
+          "repeats": 38,
+          "medianMs": 0.37865897368422,
+          "minMs": 0.3596261052631522,
+          "maxMs": 0.4229539473684494,
+          "samples": [
+            {
+              "batchMs": 0.4229539473684494,
+              "wallMs": 16.072250000001077,
+              "cpuMs": 17.391
+            },
+            {
+              "batchMs": 0.38466886842103887,
+              "wallMs": 14.617416999999477,
+              "cpuMs": 17.703
+            },
+            {
+              "batchMs": 0.37865897368422,
+              "wallMs": 14.389041000000361,
+              "cpuMs": 15.437
+            },
+            {
+              "batchMs": 0.3596261052631522,
+              "wallMs": 13.665791999999783,
+              "cpuMs": 14.753
+            },
+            {
+              "batchMs": 0.36932015789477046,
+              "wallMs": 14.034166000001278,
+              "cpuMs": 15.294
+            },
+            {
+              "batchMs": 0.36235634210530215,
+              "wallMs": 13.769541000001482,
+              "cpuMs": 14.882
+            },
+            {
+              "batchMs": 0.3847565789473696,
+              "wallMs": 14.620750000000044,
+              "cpuMs": 16.004
+            }
+          ]
+        },
+        {
+          "name": "snapshot control Horner",
+          "repeats": 729,
+          "medianMs": 0.019293152263374323,
+          "minMs": 0.01817575445816003,
+          "maxMs": 0.020823101508915802,
+          "samples": [
+            {
+              "batchMs": 0.020823101508915802,
+              "wallMs": 15.180040999999619,
+              "cpuMs": 16.059
+            },
+            {
+              "batchMs": 0.019692329218105816,
+              "wallMs": 14.35570799999914,
+              "cpuMs": 16.224
+            },
+            {
+              "batchMs": 0.01974502743484323,
+              "wallMs": 14.394125000000713,
+              "cpuMs": 15.779
+            },
+            {
+              "batchMs": 0.01892849794238739,
+              "wallMs": 13.798875000000407,
+              "cpuMs": 14.677
+            },
+            {
+              "batchMs": 0.01923451028806746,
+              "wallMs": 14.021958000001177,
+              "cpuMs": 15.506
+            },
+            {
+              "batchMs": 0.019293152263374323,
+              "wallMs": 14.064707999999882,
+              "cpuMs": 15.524
+            },
+            {
+              "batchMs": 0.01817575445816003,
+              "wallMs": 13.250124999998661,
+              "cpuMs": 13.907
+            }
+          ]
+        },
+        {
+          "name": "snapshot candidate Horner",
+          "repeats": 788,
+          "medianMs": 0.018126744923859125,
+          "minMs": 0.017971763959389975,
+          "maxMs": 0.019512955583756368,
+          "samples": [
+            {
+              "batchMs": 0.019512955583756368,
+              "wallMs": 15.376209000000017,
+              "cpuMs": 16.385
+            },
+            {
+              "batchMs": 0.018006079949236895,
+              "wallMs": 14.188790999998673,
+              "cpuMs": 15.039
+            },
+            {
+              "batchMs": 0.018018928934009356,
+              "wallMs": 14.198915999999372,
+              "cpuMs": 14.949
+            },
+            {
+              "batchMs": 0.018151544416242605,
+              "wallMs": 14.303416999999172,
+              "cpuMs": 14.93
+            },
+            {
+              "batchMs": 0.01841476269035568,
+              "wallMs": 14.510833000000275,
+              "cpuMs": 15.254
+            },
+            {
+              "batchMs": 0.017971763959389975,
+              "wallMs": 14.161749999999302,
+              "cpuMs": 14.602
+            },
+            {
+              "batchMs": 0.018126744923859125,
+              "wallMs": 14.28387500000099,
+              "cpuMs": 15.108
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, prepare included",
+          "repeats": 2219,
+          "medianMs": 0.006954333934204112,
+          "minMs": 0.006692560162235581,
+          "maxMs": 0.007746075259126341,
+          "samples": [
+            {
+              "batchMs": 0.0071318724650741286,
+              "wallMs": 15.82562499999949,
+              "cpuMs": 16.213
+            },
+            {
+              "batchMs": 0.006922543938711702,
+              "wallMs": 15.361125000001266,
+              "cpuMs": 16.066
+            },
+            {
+              "batchMs": 0.00685907706173951,
+              "wallMs": 15.220291999999972,
+              "cpuMs": 16.054
+            },
+            {
+              "batchMs": 0.006954333934204112,
+              "wallMs": 15.431666999998924,
+              "cpuMs": 16.647
+            },
+            {
+              "batchMs": 0.00695611762054983,
+              "wallMs": 15.435625000000073,
+              "cpuMs": 16.204
+            },
+            {
+              "batchMs": 0.006692560162235581,
+              "wallMs": 14.850791000000754,
+              "cpuMs": 15.203
+            },
+            {
+              "batchMs": 0.007746075259126341,
+              "wallMs": 17.18854100000135,
+              "cpuMs": 18.046
+            }
+          ]
+        },
+        {
+          "name": "JS fused batch, cached plan",
+          "repeats": 4096,
+          "medianMs": 0.0021318461914061615,
+          "minMs": 0.002090687988281381,
+          "maxMs": 0.002252807617187269,
+          "samples": [
+            {
+              "batchMs": 0.002252807617187269,
+              "wallMs": 9.227499999999054,
+              "cpuMs": 9.67
+            },
+            {
+              "batchMs": 0.0021252646484377635,
+              "wallMs": 8.70508400000108,
+              "cpuMs": 10.87
+            },
+            {
+              "batchMs": 0.0021318461914061615,
+              "wallMs": 8.732041999999637,
+              "cpuMs": 9.206
+            },
+            {
+              "batchMs": 0.0021000773925781147,
+              "wallMs": 8.601916999999958,
+              "cpuMs": 8.986
+            },
+            {
+              "batchMs": 0.002090687988281381,
+              "wallMs": 8.563458000000537,
+              "cpuMs": 8.89
+            },
+            {
+              "batchMs": 0.0021990256347654835,
+              "wallMs": 9.00720899999942,
+              "cpuMs": 9.653
+            },
+            {
+              "batchMs": 0.002133412841796911,
+              "wallMs": 8.738459000000148,
+              "cpuMs": 9.521
+            }
+          ]
+        },
+        {
+          "name": "RiX offload each point",
+          "repeats": 615,
+          "medianMs": 0.024088211382112923,
+          "minMs": 0.02379274959349437,
+          "maxMs": 0.025800474796749295,
+          "samples": [
+            {
+              "batchMs": 0.025800474796749295,
+              "wallMs": 15.867292000000816,
+              "cpuMs": 17.072
+            },
+            {
+              "batchMs": 0.02436754634146064,
+              "wallMs": 14.986040999998295,
+              "cpuMs": 16.314
+            },
+            {
+              "batchMs": 0.024088211382112923,
+              "wallMs": 14.814249999999447,
+              "cpuMs": 15.722
+            },
+            {
+              "batchMs": 0.02379274959349437,
+              "wallMs": 14.632540999999037,
+              "cpuMs": 15.593
+            },
+            {
+              "batchMs": 0.023980351219512617,
+              "wallMs": 14.74791600000026,
+              "cpuMs": 15.848
+            },
+            {
+              "batchMs": 0.023950744715448384,
+              "wallMs": 14.729708000000755,
+              "cpuMs": 15.318
+            },
+            {
+              "batchMs": 0.024365312195120014,
+              "wallMs": 14.984666999998808,
+              "cpuMs": 16.262
+            }
+          ]
+        },
+        {
+          "name": "RiX one batch capability",
+          "repeats": 1968,
+          "medianMs": 0.007301215447154117,
+          "minMs": 0.006852409552845707,
+          "maxMs": 0.007678057418699121,
+          "samples": [
+            {
+              "batchMs": 0.007678057418699121,
+              "wallMs": 15.11041699999987,
+              "cpuMs": 16.109
+            },
+            {
+              "batchMs": 0.006852409552845707,
+              "wallMs": 13.48554200000035,
+              "cpuMs": 13.905
+            },
+            {
+              "batchMs": 0.007269711382113519,
+              "wallMs": 14.306791999999405,
+              "cpuMs": 15.283
+            },
+            {
+              "batchMs": 0.007140794207317428,
+              "wallMs": 14.053083000000697,
+              "cpuMs": 15.161
+            },
+            {
+              "batchMs": 0.007409658536586193,
+              "wallMs": 14.582208000001629,
+              "cpuMs": 15.574
+            },
+            {
+              "batchMs": 0.007301215447154117,
+              "wallMs": 14.368791999999303,
+              "cpuMs": 15.313
+            },
+            {
+              "batchMs": 0.007358888211382418,
+              "wallMs": 14.482292000000598,
+              "cpuMs": 15.785
+            }
+          ]
+        },
+        {
+          "name": "RiX prepare plan + evaluate",
+          "repeats": 1844,
+          "medianMs": 0.007909345444685899,
+          "minMs": 0.0076940753796093395,
+          "maxMs": 0.00839178850325412,
+          "samples": [
+            {
+              "batchMs": 0.00839178850325412,
+              "wallMs": 15.474458000000595,
+              "cpuMs": 16.341
+            },
+            {
+              "batchMs": 0.007847252169198004,
+              "wallMs": 14.47033300000112,
+              "cpuMs": 16.025
+            },
+            {
+              "batchMs": 0.0076940753796093395,
+              "wallMs": 14.187874999999622,
+              "cpuMs": 14.684
+            },
+            {
+              "batchMs": 0.007909345444685899,
+              "wallMs": 14.584833000000799,
+              "cpuMs": 15.567
+            },
+            {
+              "batchMs": 0.008130965292841916,
+              "wallMs": 14.993500000000495,
+              "cpuMs": 16.132
+            },
+            {
+              "batchMs": 0.00806832971800467,
+              "wallMs": 14.878000000000611,
+              "cpuMs": 15.944
+            },
+            {
+              "batchMs": 0.00787127169197386,
+              "wallMs": 14.514624999999796,
+              "cpuMs": 15.342
+            }
+          ]
+        },
+        {
+          "name": "RiX cached plan evaluate",
+          "repeats": 4096,
+          "medianMs": 0.002671620605468661,
+          "minMs": 0.002591501953125075,
+          "maxMs": 0.0027127788085938853,
+          "samples": [
+            {
+              "batchMs": 0.0027127788085938853,
+              "wallMs": 11.111542000000554,
+              "cpuMs": 11.415
+            },
+            {
+              "batchMs": 0.002676320312500202,
+              "wallMs": 10.962208000000828,
+              "cpuMs": 12.02
+            },
+            {
+              "batchMs": 0.002632303710937922,
+              "wallMs": 10.78191600000173,
+              "cpuMs": 11.884
+            },
+            {
+              "batchMs": 0.002591501953125075,
+              "wallMs": 10.614792000000307,
+              "cpuMs": 11.006
+            },
+            {
+              "batchMs": 0.00270290136718776,
+              "wallMs": 11.071084000001065,
+              "cpuMs": 11.801
+            },
+            {
+              "batchMs": 0.0026628518066407203,
+              "wallMs": 10.90704100000039,
+              "cpuMs": 12.099
+            },
+            {
+              "batchMs": 0.002671620605468661,
+              "wallMs": 10.942957999999635,
+              "cpuMs": 11.306
+            }
+          ]
+        },
+        {
+          "name": "RiX operation descriptor",
+          "repeats": 1382,
+          "medianMs": 0.010390044862518122,
+          "minMs": 0.009954142547033274,
+          "maxMs": 0.010947328509406867,
+          "samples": [
+            {
+              "batchMs": 0.010947328509406867,
+              "wallMs": 15.12920800000029,
+              "cpuMs": 15.889
+            },
+            {
+              "batchMs": 0.010390044862518122,
+              "wallMs": 14.359042000000045,
+              "cpuMs": 19.262
+            },
+            {
+              "batchMs": 0.01026673299565896,
+              "wallMs": 14.188625000000684,
+              "cpuMs": 17.327
+            },
+            {
+              "batchMs": 0.009954142547033274,
+              "wallMs": 13.756624999999985,
+              "cpuMs": 14.456
+            },
+            {
+              "batchMs": 0.010636818379160435,
+              "wallMs": 14.700082999999722,
+              "cpuMs": 16.082
+            },
+            {
+              "batchMs": 0.010293777134587965,
+              "wallMs": 14.226000000000568,
+              "cpuMs": 15.453
+            },
+            {
+              "batchMs": 0.010536179450072137,
+              "wallMs": 14.560999999999694,
+              "cpuMs": 15.837
+            }
+          ]
+        },
+        {
+          "name": "RiX marked Integer-pair Horner",
+          "repeats": 106,
+          "medianMs": 0.13900903773584053,
+          "minMs": 0.13114466037735975,
+          "maxMs": 0.14420754716981188,
+          "samples": [
+            {
+              "batchMs": 0.1402916698113054,
+              "wallMs": 14.870916999998371,
+              "cpuMs": 16.661
+            },
+            {
+              "batchMs": 0.13114466037735975,
+              "wallMs": 13.901334000000134,
+              "cpuMs": 14.613
+            },
+            {
+              "batchMs": 0.13647877358490182,
+              "wallMs": 14.466749999999593,
+              "cpuMs": 15.904
+            },
+            {
+              "batchMs": 0.13900903773584053,
+              "wallMs": 14.734957999999097,
+              "cpuMs": 20.716
+            },
+            {
+              "batchMs": 0.1411894622641619,
+              "wallMs": 14.966083000001163,
+              "cpuMs": 16.094
+            },
+            {
+              "batchMs": 0.13250039622641263,
+              "wallMs": 14.04504199999974,
+              "cpuMs": 14.611
+            },
+            {
+              "batchMs": 0.14420754716981188,
+              "wallMs": 15.286000000000058,
+              "cpuMs": 16.877
+            }
+          ]
+        },
+        {
+          "name": "RiX Integer-pair Horner",
+          "repeats": 35,
+          "medianMs": 0.47489405714285177,
+          "minMs": 0.4576488000000349,
+          "maxMs": 0.5363619142857455,
+          "samples": [
+            {
+              "batchMs": 0.5363619142857455,
+              "wallMs": 18.772667000001093,
+              "cpuMs": 25.803
+            },
+            {
+              "batchMs": 0.47324642857139615,
+              "wallMs": 16.563624999998865,
+              "cpuMs": 18.928
+            },
+            {
+              "batchMs": 0.457951200000025,
+              "wallMs": 16.028292000000874,
+              "cpuMs": 17.408
+            },
+            {
+              "batchMs": 0.4576488000000349,
+              "wallMs": 16.01770800000122,
+              "cpuMs": 17.52
+            },
+            {
+              "batchMs": 0.4749773714285506,
+              "wallMs": 16.62420799999927,
+              "cpuMs": 18.064
+            },
+            {
+              "batchMs": 0.4847059428571291,
+              "wallMs": 16.96470799999952,
+              "cpuMs": 19.179
+            },
+            {
+              "batchMs": 0.47489405714285177,
+              "wallMs": 16.621291999999812,
+              "cpuMs": 17.961
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+--- a/rix/src/eval/functions/arithmetic.js
++++ b/rix/src/eval/functions/arithmetic.js
+@@ -546,6 +546,7 @@
+         impl(args) {
+             const a = ensureNumeric(args[0]);
+             const b = ensureNumeric(args[1]);
++            if (plainInteger(a) && plainInteger(b)) return a.floorDivide(b);
+             const quotient = a.divide(b);
+             const { numerator, denominator } = toQuotientParts(quotient);
+             return new Integer(floorDiv(numerator, denominator));
+@@ -582,6 +583,7 @@
+         impl(args) {
+             const a = ensureNumeric(args[0]);
+             const b = ensureNumeric(args[1]);
++            if (plainInteger(a) && plainInteger(b)) return a.floorModulo(b);
+             return rationalModulo(a, b);
+         },
+         pure: true,
+@@ -592,6 +594,7 @@
+         impl(args) {
+             const a = ensureNumeric(args[0]);
+             const b = ensureNumeric(args[1]);
++            if (plainInteger(a) && plainInteger(b)) return { type: 'tuple', values: a.divmod(b) };
+             requirePositiveDivisor(b, "Division with remainder");
+             const quotient = a.divide(b);
+             const parts = toQuotientParts(quotient);
+@@ -663,3 +666,6 @@
+         doc: "Absolute value",
+     },
+ };
++
++// Experiment-only adapter to explicit core floor APIs.
++function plainInteger(value) { return value instanceof Integer && Object.getPrototypeOf(value) === Integer.prototype && !Object.hasOwn(value, 'value'); }

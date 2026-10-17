@@ -1,0 +1,2 @@
+## Explicitly send the point batch to core, including traversal.
+.polynomialBatch(coefficients,points);

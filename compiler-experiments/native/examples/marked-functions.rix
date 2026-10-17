@@ -1,0 +1,10 @@
+## These remain ordinary RiX functions when opened with the regular interpreter.
+
+## @native exact-rational
+Product(a,b) -> a*b;
+
+## @native exact-rational
+Transform(t) -> (t*t+2*t+1)/(t*t+1);
+
+## This function is deliberately unmarked; the native loader does not export it.
+Ordinary(t) -> t+1;

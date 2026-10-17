@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-10-16T15:38:56.084Z",
+  "runtime": "node",
+  "cases": 173,
+  "pathComparisons": 1211,
+  "paths": 7,
+  "seed": "0x4a39b70d",
+  "independentPowerSumCases": 40,
+  "checks": "Unchanged original-core RiX results/types, independent power-sum oracle, mutation, intervals, subclasses, shadowed fields, bad input rejection, local classes, formatting, JSON revival and RiX sequence methods",
+  "passed": true
+}

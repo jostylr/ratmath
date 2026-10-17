@@ -1,0 +1,288 @@
+{
+  "timestamp": "2026-10-13T15:12:54.516Z",
+  "runtime": "bun",
+  "versions": {
+    "node": "26.3.0",
+    "bun": "1.4.0",
+    "boringssl": "2288897e2e716330490893d226b4f079f9da9e0c",
+    "openssl": "1.1.0",
+    "llhttp": "9.3.0",
+    "libarchive": "ded82291ab41d5e355831b96b0e1ff49e24d8939",
+    "mimalloc": "6a14aee24315e503fa295a1fa90fe8b24ad91774",
+    "picohttpparser": "066d2b1e9ab820703db0837a7255d92d30f0c9f5",
+    "uwebsockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "webkit": "0f966e81b78c84bb23213e391bc679c4ef83e56b",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "c8c56a20f8f621e6a966b716b31f1dedab6a41e3",
+    "usockets": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+    "lshpack": "8905c024b6d052f083a3d11d0a169b3c2735c8a1",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "modules": "147"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "arch": "arm64",
+    "platform": "darwin",
+    "release": "27.0.0"
+  },
+  "algorithm": "window",
+  "workload": {
+    "count": 24,
+    "bits": 2048,
+    "exponentBits": 1024,
+    "seed": 591751049
+  },
+  "methodology": {
+    "rounds": 5,
+    "warmups": 2,
+    "order": "rotated",
+    "timed": "fresh context, RiX function binding, guards, dependency fingerprint/cache lookup, unboxing, entire kernel and boxed exact outputs for marked RiX; kernel and equivalent boundaries for direct paths",
+    "excluded": "parsing/lowering, fixtures, runtime initialization, first compilation, module import and native preparation; schedules/tables/Montgomery setup remain timed",
+    "native": "GMP mpz_powm uses a different library algorithm; full N-API batch boundary included",
+    "aot": "earlier tuned-aot compiler snapshot; marked compiler additionally preserves default constructor captures and checks live dependencies"
+  },
+  "inputDigest": "bd9ff95d4d8dc67a58794465a2136381ffd956bfd02d8373b05f1ad6842a120b",
+  "outputDigest": "f27642494a051fcb53f35e5ef44fabec5889b4c86a9c28f31c6fa2d9724f320d",
+  "beforeCompile": {
+    "calls": 0,
+    "compileAttempts": 0,
+    "builds": 0,
+    "compileFailures": 0,
+    "cacheHits": 0,
+    "compiledCalls": 0,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 0,
+    "reasons": {}
+  },
+  "firstUse": {
+    "wallMs": 30.46129200000007,
+    "calls": 1,
+    "compileAttempts": 1,
+    "builds": 1,
+    "compileFailures": 0,
+    "cacheHits": 0,
+    "compiledCalls": 1,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 1.1849170000000413,
+    "reasons": {}
+  },
+  "finalStats": {
+    "calls": 8,
+    "compileAttempts": 1,
+    "builds": 1,
+    "compileFailures": 0,
+    "cacheHits": 7,
+    "compiledCalls": 8,
+    "fallbacks": 0,
+    "guardFallbacks": 0,
+    "evictions": 0,
+    "compileMs": 1.1849170000000413,
+    "reasons": {}
+  },
+  "aotCompileMs": 2.309582999999975,
+  "nativeBuild": {
+    "key": "315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841",
+    "cached": true,
+    "prepareMs": 82.66925000000003,
+    "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/whole-scripts/tmp/315827909f51b53965da42deb799a7312db3a0dfa987ac51d8416552e9628841/whole-scripts.node",
+    "binaryHash": "e08098461cba8667341266a2e0a13deaec42f7efc0e60bbe6da565fcf0e07291",
+    "sourceHash": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b",
+    "environment": {
+      "compiler": "clang",
+      "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+      "gmpVersion": "6.3.0",
+      "nodeHeaders": {
+        "node_api.h": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a",
+        "js_native_api.h": "82d3708ce120f8000ec34d72e1aa70b0d7d8a43027986293681374a71b2cb840",
+        "node_api_types.h": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00",
+        "js_native_api_types.h": "c12406a8c0036aefdb66b98065fc88e2e7a053c1f274deef33af6c26c099b933"
+      },
+      "flags": [
+        "-O3",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-shared",
+        "-fPIC",
+        "-I/opt/homebrew/Cellar/node/26.10.0_2/include/node",
+        "-undefined",
+        "dynamic_lookup",
+        "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+      ],
+      "linkFlags": [
+        "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+        "-lgmp"
+      ],
+      "platform": "darwin",
+      "arch": "arm64"
+    }
+  },
+  "provenance": {
+    "runner.js": "e4c74038e48a502e58c3e52b5ee44144c1b677aebf0b4e3f83f9eb44b9a2292f",
+    "compiler.js": "88dd47e0fe84dbc44bc8d4aeb9212d75b9cfbc1a2cdc2b1c6b30b814ad785ae7",
+    "verify.js": "88030b0aadb7134651b1022d7bc0fef23c94558e1e730d1a07c7b0835841cf98",
+    "bench.js": "d1243baa0833cb87c057d60421e72183764661ae43a64f60a74a787635e9646f",
+    "scripts/window.rix": "a41a51910ce9766bea603755e82aca5c575670f09c26155bb7d3fd7fdaaf44f9",
+    "../tuned-aot/compiler.js": "ecf722e456b642a7cd651849d61f106638ddb9b800ff1270fd2d584835304dd6",
+    "../whole-scripts/workloads.js": "65de8f7b299bc52e1816fffb720146b858feb3fa6849616a50e4404e0036c8cb",
+    "../whole-scripts/optimized.js": "236561c93cf6e7be6dafd179a5dca7ab99d0ff3d52e1a2992e6e71893942acef",
+    "../whole-scripts/addon.c": "41750cca2f9767c47239369b490eaffc41f68703ba1c467ace5f64d267d58a3b"
+  },
+  "results": [
+    {
+      "name": "interpreted marked RiX (ordinary interpreter)",
+      "medianMs": 1433.5891249999995,
+      "minMs": 1377.8829999999998,
+      "maxMs": 1497.970666000001,
+      "samples": [
+        {
+          "wallMs": 1398.4115829999996,
+          "cpuMs": 1552.644
+        },
+        {
+          "wallMs": 1377.8829999999998,
+          "cpuMs": 1522.833
+        },
+        {
+          "wallMs": 1433.5891249999995,
+          "cpuMs": 1569.972
+        },
+        {
+          "wallMs": 1479.5492909999994,
+          "cpuMs": 1638.285
+        },
+        {
+          "wallMs": 1497.970666000001,
+          "cpuMs": 1644.525
+        }
+      ]
+    },
+    {
+      "name": "marked RiX, cached compilation",
+      "medianMs": 27.031999999999243,
+      "minMs": 26.875499999999192,
+      "maxMs": 28.17316700000083,
+      "samples": [
+        {
+          "wallMs": 26.875499999999192,
+          "cpuMs": 28.56
+        },
+        {
+          "wallMs": 27.031999999999243,
+          "cpuMs": 29.406
+        },
+        {
+          "wallMs": 28.17316700000083,
+          "cpuMs": 31.363
+        },
+        {
+          "wallMs": 26.933750000000146,
+          "cpuMs": 28.083
+        },
+        {
+          "wallMs": 28.086583000000246,
+          "cpuMs": 29.243
+        }
+      ]
+    },
+    {
+      "name": "earlier direct BigInt AOT",
+      "medianMs": 25.797166999999718,
+      "minMs": 25.478041999999732,
+      "maxMs": 26.48979099999997,
+      "samples": [
+        {
+          "wallMs": 25.478041999999732,
+          "cpuMs": 26.462
+        },
+        {
+          "wallMs": 25.797166999999718,
+          "cpuMs": 26.847
+        },
+        {
+          "wallMs": 26.066499999999905,
+          "cpuMs": 28.574
+        },
+        {
+          "wallMs": 25.518667000000278,
+          "cpuMs": 26.948
+        },
+        {
+          "wallMs": 26.48979099999997,
+          "cpuMs": 27.779
+        }
+      ]
+    },
+    {
+      "name": "handwritten BigInt JS",
+      "medianMs": 24.64624999999978,
+      "minMs": 23.714333999999326,
+      "maxMs": 32.26299999999901,
+      "samples": [
+        {
+          "wallMs": 23.74449999999979,
+          "cpuMs": 24.355
+        },
+        {
+          "wallMs": 23.714333999999326,
+          "cpuMs": 27.414
+        },
+        {
+          "wallMs": 24.64624999999978,
+          "cpuMs": 26.31
+        },
+        {
+          "wallMs": 32.26299999999901,
+          "cpuMs": 27.022
+        },
+        {
+          "wallMs": 25.049125000001368,
+          "cpuMs": 26.268
+        }
+      ]
+    },
+    {
+      "name": "native C/GMP powm",
+      "medianMs": 22.256709000000228,
+      "minMs": 21.893417000001136,
+      "maxMs": 23.882125000000087,
+      "samples": [
+        {
+          "wallMs": 22.06183299999975,
+          "cpuMs": 22.063
+        },
+        {
+          "wallMs": 22.256709000000228,
+          "cpuMs": 22.252
+        },
+        {
+          "wallMs": 22.720374999999876,
+          "cpuMs": 22.52
+        },
+        {
+          "wallMs": 23.882125000000087,
+          "cpuMs": 23.04
+        },
+        {
+          "wallMs": 21.893417000001136,
+          "cpuMs": 22.067
+        }
+      ]
+    }
+  ]
+}

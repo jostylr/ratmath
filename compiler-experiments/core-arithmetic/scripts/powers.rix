@@ -1,0 +1,8 @@
+## Deliberately recompute each power to compare algorithms inside RiX.
+Power(x,n) -> {@ r=1,i=0;i<n;r:=r*x,i+=1;;r};
+Polynomial(coefficients,x) -> {@ r=0-0,i=1;
+  i<=coefficients.Len();
+  r:=r+coefficients.Get(i)*Power(x,coefficients.Len()-i),i+=1;
+  ;r};
+Run(coefficients,points) -> points.Map((x)->Polynomial(@coefficients,x));
+Run(coefficients,points);

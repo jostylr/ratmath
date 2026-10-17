@@ -1,0 +1,16 @@
+// Cache syntax only. Resolved callables/prototypes/extensions are never cached.
+// Non-string names retain the original coercion path. Bound memory usage.
+const experimentalMethodKeys = new Map();
+function experimentalMethodCandidates(name, upper) {
+    if (typeof name !== 'string') {
+        return [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
+    }
+    let candidates = experimentalMethodKeys.get(name);
+    if (!candidates) {
+        candidates = [...new Set([name, upper, `__${name}`, `_${name}`, `__${upper}`, `_${upper}`])];
+        if (experimentalMethodKeys.size >= 256) experimentalMethodKeys.clear();
+        experimentalMethodKeys.set(name, candidates);
+    }
+    return candidates;
+}
+

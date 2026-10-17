@@ -1,0 +1,17 @@
+        // Preserve all probe calls and read priorities only after all probes.
+        // Avoid a throwaway array/callback when no finite priorities match.
+        let prioritized;
+        for (const candidate of candidates) {
+            if (Number.isFinite(candidate.variant.priority)) {
+                (prioritized ??= []).push(candidate);
+            }
+        }
+        let selected = candidates[0] || null;
+        if (prioritized) {
+            const priority = Math.max(...prioritized.map(({ variant }) => variant.priority));
+            const winners = prioritized.filter(({ variant }) => variant.priority === priority);
+            if (winners.length > 1) {
+                throw new Error(`Ambiguous ${name} variants at priority ${priority}: ${winners.map(({ variant }) => variant.name).join(", ")}`);
+            }
+            selected = winners[0];
+        }

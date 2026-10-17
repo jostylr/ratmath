@@ -1,0 +1,108 @@
+{
+  "completedAt": "2026-10-12T12:56:33.301Z",
+  "environment": {
+    "versions": {
+      "node": "26.10.0",
+      "acorn": "8.18.0",
+      "ada": "4.0.0",
+      "amaro": "1.1.11",
+      "ares": "1.34.8",
+      "brotli": "1.2.0",
+      "cldr": "48.0",
+      "icu": "78.3",
+      "libffi": "3.8.0",
+      "llhttp": "9.4.3",
+      "merve": "1.2.2",
+      "modules": "147",
+      "napi": "10",
+      "nbytes": "0.1.4",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.70.0",
+      "nghttp3": "",
+      "ngtcp2": "",
+      "openssl": "3.6.5",
+      "simdjson": "5.0.0",
+      "simdutf": "9.2.1",
+      "sqlite": "3.53.4",
+      "tz": "2026a",
+      "undici": "8.10.2",
+      "unicode": "17.0",
+      "uv": "1.53.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.6.202.34-node.35",
+      "zlib": "1.2.12",
+      "zstd": "1.5.7"
+    },
+    "cpu": "Apple M4 Pro",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "spec": {
+    "name": "exact-matrix",
+    "execution": "native",
+    "numeric": "exact-rational",
+    "pattern": "matrix-reduce",
+    "expression": "x*y"
+  },
+  "size": 320,
+  "bits": 512,
+  "terms": 32768000,
+  "outputs": 102400,
+  "build": {
+    "key": "cec8797708de0d62c0fda4b92306e28eccde808a19f43796954116f160e289a6",
+    "cached": true,
+    "prepareMs": 10.735250000000008,
+    "sourceHash": "200c88e09f66475c4e6b845ce15388bc647eed069fdfbc88bffa4e7c6ea547fb",
+    "environment": {
+      "compiler": "clang",
+      "compilerVersion": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin",
+      "gmpVersion": "6.3.0",
+      "flags": [
+        "-O3",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I/opt/homebrew/Cellar/gmp/6.3.0/include"
+      ],
+      "linkFlags": [
+        "-L/opt/homebrew/Cellar/gmp/6.3.0/lib",
+        "-lgmp"
+      ],
+      "platform": "darwin",
+      "arch": "arm64"
+    },
+    "binary": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/native/tmp/cec8797708de0d62c0fda4b92306e28eccde808a19f43796954116f160e289a6/kernel"
+  },
+  "inputGenerationAndPrepareMs": 83.811125,
+  "metrics": {
+    "wallMs": 6725.7548750000005,
+    "validateMs": 5.891042000000027,
+    "serializeMs": 78.14079100000004,
+    "transferMs": 6459.6905,
+    "deserializeMs": 181.95879199999945,
+    "nativeParseMs": 66.03,
+    "nativeComputeMs": 6294.601,
+    "nativeFormatMs": 77.081,
+    "inputBytes": 32658354,
+    "outputBytes": 35706822
+  },
+  "hostHeartbeats": 6,
+  "verification": {
+    "method": "two deterministic modular matrix projections (diagnostic checks, not full exact comparison)",
+    "projections": [
+      {
+        "modulus": "1000000007",
+        "rowsChecked": 320
+      },
+      {
+        "modulus": "1000000009",
+        "rowsChecked": 320
+      }
+    ],
+    "projectionMs": 80.75062500000058
+  },
+  "outputSha256": "53844c2db3b065b9e8865438d5f1e1d711524daf1e504d7dee92ad1b7de7b914",
+  "firstOutput": "-38627388720678261516197822293564425265865749749987097903802289281358210609007637810905583616955727746819177688414323073533061025676897655060928326580573980388948900934550037336815574545149893743359043644603133929550858852739888733749287874391090949875619670991153426643058604603473863741076808501184545237599723692528349072/1861115222830526549",
+  "lastOutput": "29820271750508428437082257964273044423359305766496621420198182357932150465802658137808482309213173269615498041803079409420661020705008280016829111529150348997967013266933673832297381422320280180411612691239629746917698827526559974388785171056345125404651052723434852647324617492215648310963387901012181024819132654378789702197/187972637505883181449"
+}

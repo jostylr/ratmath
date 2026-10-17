@@ -1,0 +1,162 @@
+{
+  "timestamp": "2026-10-17T16:10:26.561Z",
+  "build": {
+    "timestamp": "2026-10-17T16:10:18.741Z",
+    "root": "/Users/jostylr/ai-repos/ratmath",
+    "coreHead": "b2554fbb03cef7c69922e2d50910488861e28cb4",
+    "variants": [
+      {
+        "name": "production-worktree",
+        "before": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/production-worktree/before",
+        "after": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/production-worktree/after",
+        "sourceHash": "63c02f2fdb0d7a1a7b649d76b6f4d3b5357f0fbac6cdd7f44beabb9170d21ff1",
+        "fixedHash": "21ac45a109dfb2c71a5c69ff83abc717f6b2ef63fccd79c2b59e1c248926e5f8",
+        "alreadyFixed": false
+      },
+      {
+        "name": "experimental-fast",
+        "before": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/experimental-fast/before",
+        "after": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/experimental-fast/after",
+        "sourceHash": "963f4ac020d239aed3e879a730613d5daed0bdaaa33ed6fff2337cbb95a4b4f0",
+        "fixedHash": "d3a867b700627e1a932ffdfcdb9cb74892ec92d6fb136d45eeb8d53c74ee683b",
+        "alreadyFixed": false
+      },
+      {
+        "name": "committed-core",
+        "before": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/committed-core/before",
+        "after": "/Users/jostylr/Documents/Codex/2026-10-11/referenced-chatgpt-conversation-this-is-an/work/compiler-experiments/rational-decimal-fix/tmp/committed-core/after",
+        "sourceHash": "6c487dff3f499f63dd3c38485f8c018abde07bfb571d8cb2b0335660533390a8",
+        "fixedHash": "6943df4722b0087b9178b7b111d6e7f5ac30e6690a498772ada4da14fc51ee68",
+        "alreadyFixed": false
+      }
+    ]
+  },
+  "results": [
+    {
+      "variant": "production-worktree",
+      "phase": "before",
+      "exitCode": 1,
+      "passed": 554,
+      "failed": 1,
+      "wallMs": 1420.151666,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"bugReproduced\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"bugReproduced\":true}\n"
+        }
+      ]
+    },
+    {
+      "variant": "production-worktree",
+      "phase": "after",
+      "exitCode": 0,
+      "passed": 559,
+      "failed": 0,
+      "wallMs": 1414.3827079999999,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        }
+      ]
+    },
+    {
+      "variant": "experimental-fast",
+      "phase": "before",
+      "exitCode": 1,
+      "passed": 554,
+      "failed": 1,
+      "wallMs": 1445.9908329999998,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"bugReproduced\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"bugReproduced\":true}\n"
+        }
+      ]
+    },
+    {
+      "variant": "experimental-fast",
+      "phase": "after",
+      "exitCode": 0,
+      "passed": 559,
+      "failed": 0,
+      "wallMs": 1442.3546669999996,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        }
+      ]
+    },
+    {
+      "variant": "committed-core",
+      "phase": "before",
+      "exitCode": 1,
+      "passed": 552,
+      "failed": 1,
+      "wallMs": 1005.1254159999999,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"bugReproduced\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"bugReproduced\":true}\n"
+        }
+      ]
+    },
+    {
+      "variant": "committed-core",
+      "phase": "after",
+      "exitCode": 0,
+      "passed": 557,
+      "failed": 0,
+      "wallMs": 993.1645829999998,
+      "expected": true,
+      "contracts": [
+        {
+          "runtime": "bun",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Bun 1.4.3\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        },
+        {
+          "runtime": "node",
+          "exitCode": 0,
+          "output": "{\"runtime\":\"Node 26.12.0\",\"cases\":224,\"malformed\":8,\"passed\":true}\n"
+        }
+      ]
+    }
+  ]
+}

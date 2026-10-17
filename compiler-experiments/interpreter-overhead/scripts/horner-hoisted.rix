@@ -1,0 +1,7 @@
+## Ordinary RiX, current core operators, no compilation marker or host helper.
+Horner(coefficients,x) -> {@ r=0-0,i=1,n=coefficients.Len();
+  i<=n;
+  r:=r*x+coefficients.Get(i),i+=1;
+  ;r};
+Run(coefficients,points) -> points.Map((x)->Horner(@coefficients,x));
+Run(coefficients,points);

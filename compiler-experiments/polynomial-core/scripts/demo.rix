@@ -1,0 +1,6 @@
+## Descending coefficients: 2*x^2 - 3*x + 1.
+coefficients := [2,-3,1];
+points := [0,1/3,2/3,1];
+ri := points.Map((x)->{@ r=0-0,i=1; i<=@coefficients.Len(); r:=r*x+@coefficients.Get(i),i+=1; ;r});
+core := .polynomialBatchFused(coefficients,points);
+[ri,core,core.Len()];

@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-10-16T15:02:25.760Z",
+  "results": [
+    {
+      "name": "core-baseline",
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ],
+      "exitCode": 0,
+      "passed": 555,
+      "failed": 0,
+      "wallMs": 1373.6350419999999,
+      "log": "core-baseline.txt"
+    },
+    {
+      "name": "core-candidate",
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ],
+      "exitCode": 0,
+      "passed": 555,
+      "failed": 0,
+      "wallMs": 1381.3022919999999,
+      "log": "core-candidate.txt"
+    },
+    {
+      "name": "rix-baseline",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/certified-approximations.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/real-arithmetic-interoperability.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 90,
+      "failed": 0,
+      "wallMs": 63416.996291999996,
+      "log": "rix-baseline.txt"
+    },
+    {
+      "name": "rix-candidate",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/certified-approximations.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/real-arithmetic-interoperability.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 90,
+      "failed": 0,
+      "wallMs": 60653.369000000006,
+      "log": "rix-candidate.txt"
+    },
+    {
+      "name": "rix-candidate-wired",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/certified-approximations.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/performance-numeric-adapters.test.js",
+        "./tests/eval/real-arithmetic-interoperability.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 90,
+      "failed": 0,
+      "wallMs": 60673.332708000016,
+      "log": "rix-candidate-wired.txt"
+    }
+  ]
+}

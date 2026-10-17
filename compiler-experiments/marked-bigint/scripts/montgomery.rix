@@ -1,0 +1,49 @@
+## Pure RiX Montgomery reduction plus sliding windows.
+## Width 5 is the earlier Node winner. The modulus must be positive and odd.
+Bits(exponent) -> {@ e=exponent, bits=[0];
+  e>0; bits:=bits.Push(e%2), e//=2; ; bits.Slice(2).Reverse() };
+
+WindowEnd(bits,start,width) -> {@ j=0+(start+width-1 < bits.Len() ?: start+width-1 ?_ bits.Len());
+  bits.Get(j)==0; j-=1; ; j };
+
+WindowWord(bits,start,end) -> {@ j=0+start, word=0;
+  j<=end; word:=word*2+bits.Get(j), j+=1; ; word };
+
+Schedule(exponent,width) -> {@ bits=Bits(exponent), steps=[[0-0,0-0]], i=1-0, end=0-0, word=0;
+  i<=bits.Len();
+  end:=bits.Get(i)==0 ?: i ?_ WindowEnd(bits,i,width),
+  word:=bits.Get(i)==0 ?: 0 ?_ WindowWord(bits,i,end),
+  steps:=steps.Push([end-i+1,word]), i:=end+1;
+  ; steps.Slice(2) };
+
+Inverse(modulus,bits) -> {@ inverse=1%(2^bits), size=1;
+  size<bits;
+  size:=size*2<bits ?: size*2 ?_ bits,
+  inverse:=inverse*(2-modulus*inverse)%(2^size);
+  ; inverse };
+
+MontMul(a,b,modulus,radix,factor) -> {; product:=a*b; correction:=(product%radix)*factor%radix;
+  reduced:=(product+correction*modulus)//radix;
+  reduced>=modulus ?: reduced-modulus ?_ reduced };
+
+OddPowers(base,modulus,radix,factor,width) -> {@ b=base%modulus*radix%modulus, squared=MontMul(b,b,modulus,radix,factor),
+  odd=[b], count=2^width//2, i=1;
+  i<count; odd:=odd.Push(MontMul(odd.Last(),squared,modulus,radix,factor)), i+=1;
+  ; odd };
+
+Squares(value,count,modulus,radix,factor) -> {@ r=0+value, i=0;
+  i<count; r:=MontMul(r,r,modulus,radix,factor), i+=1; ; r };
+
+WindowStep(value,odd,step,modulus,radix,factor) -> {; r:=Squares(value,step.Get(1),modulus,radix,factor); word:=step.Get(2);
+  word>0 ?: MontMul(r,odd.Get((word-1)//2+1),modulus,radix,factor) ?_ r };
+
+MontPower(base,modulus,radix,factor,steps,width) -> {; odd:=OddPowers(base,modulus,radix,factor,width);
+  value:=steps.Reduce((r,step)->WindowStep(r,@odd,step,@modulus,@radix,@factor),radix%modulus);
+  MontMul(value,1,modulus,radix,factor) };
+
+## @bigint
+Run(bases,exponent,modulus) -> {; width:=5; bits:=modulus.BitLength(); radix:=2^bits;
+  factor:=(0-Inverse(modulus,bits))%radix;
+  steps:=Schedule(exponent,width);
+  bases.Map((base)->MontPower(base,@modulus,@radix,@factor,@steps,@width)) };
+Run(bases,exponent,modulus);

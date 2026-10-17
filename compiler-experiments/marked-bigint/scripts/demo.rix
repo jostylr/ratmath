@@ -1,0 +1,11 @@
+## The standard interpreter treats this annotation as a comment.
+## @bigint
+Square(x) -> x*x;
+
+## The second Integer call reuses the first specialization.
+first := Square(1234567890123456789);
+cached := Square(9876543210987654321);
+
+## Rational arithmetic falls back, preserving the exact answer.
+fallback := Square(3/2);
+[first,cached,fallback];
