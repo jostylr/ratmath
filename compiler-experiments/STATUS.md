@@ -1,5 +1,26 @@
 # Experiment status and production candidates — October 17, 2026
 
+## New follow-up: tested priorities
+
+The [metadata cache](metadata-cache/README.md) is now the clearest next production
+RiX candidate: the same 358-test suite passes in **52.73 → 4.15 seconds (12.7×)**.
+Warm fresh-session construction drops from roughly 272 → 2.15 ms in Bun and
+194 → 1.95 ms in Node. Cold first construction remains about the same. It shares
+only immutable parser results; catalogs, namespaces and loaded state stay fresh.
+
+The [direct-loop experiment](direct-loops/README.md) supplies an explicit exact-core
+numeric boundary using existing RiX syntax. It compiles a restricted arithmetic
+callback once and runs it in a checked JavaScript fold, or uses bounded whole
+polynomial/statistics operations. Selected measured speedups are **15–26×** for
+Horner, **39–45×** for a public polynomial batch and **38–98×** for exact statistics.
+These helpers use unchanged production arithmetic and include eligibility checks
+and snapshots. They are prototypes, not production language/compiler changes.
+
+The linalg follow-up measures the already-existing JavaScript Matrix loop:
+roughly 2× versus RiX row loops when keeping its Matrix result, but about 1.1×
+when input/output conversion is included. Avoiding repeated representation changes
+and scalar operator dispatch is a better next target than merely relocating loops.
+
 ## Promoted now
 
 `Rational("-.5")` parsing is fixed in experimental and production core. Core
@@ -81,32 +102,33 @@ are opportunity bounds, not demonstrated replacement implementations.
 
 ## Are the tests faster?
 
-**No demonstrated meaningful suite speedup yet.** The previous 337-test focused
-RiX suites took about 52.8–57.6 seconds across variants; several candidate runs
-were concurrent, so those totals do not establish regressions either. The core
-suite remains roughly 1–1.4 seconds locally. The parser fix repairs a failure;
-it is not a test-performance optimization.
+**Yes in the new metadata-cache experiment:** the same 358 focused RiX tests pass
+in 52.73 seconds uncached and 4.15 seconds cached, in separate sequential processes.
+The paired suites include plugin-catalog/custom-operator tests as well as the
+previous interpreter-focused cases. Another 50 plugin tests pass with the cache;
+all 559 core tests pass in 1.25 seconds. This is not a measured speedup for every
+whole-repository test profile.
 
-New diagnostics show fresh system construction takes about **303 ms Bun /
-218 ms Node**, versus under 1 ms for evaluating a trivial expression with a
-reused session. A separate Node profile and source inspection identify repeated
-tokenization while extracting bundled plugin operator declarations. Caching
-immutable source-derived metadata, while preserving fresh runtime state, is
-now a high-priority experiment for faster tests/startup. Existing numerical
-benchmark timings exclude this setup cost, so numerical speedups do not imply
-faster test-suite wall time. No production startup change was made.
+The earlier arithmetic/dispatch variants did not demonstrate meaningful suite
+speedups (337 tests took roughly 53–58 seconds). The new cache addresses the
+separate repeated plugin-tokenization bottleneck. Warm fresh contexts now cost
+about 2 ms, while first construction still costs about 220–300 ms per process.
+No production startup or test code has been changed.
 
 ## Included plugins
 
-There was an October 3 compiler-era plugin audit, recoverable in RiX Git history.
-This follow-up checks current sources and adds fresh public `poly` and `stats`
-benchmarks. The earlier plain Horner experiments did not establish plugin API
-speedups. `poly`, `stats` and exact `linalg` are the strongest next candidates
-for bounded JavaScript/core services. Polynomial helpers could also benefit
-`ratfun`, `algebra`, `algebraicReal` and some plot sampling. Adaptive/async
-`ode`, `plot` and certified `numerics` need profiling and careful callback,
-budget and evidence contracts; many render/Float/data plugins already use JS.
-[Measurements, current source assessment and next experiments](plugin-followup/README.md).
+The compiler-era audit and [first public plugin measurements](plugin-followup/README.md)
+are now followed by [actual checked helpers and a linalg probe](direct-loops/README.md).
+`poly` gains from batching canonical coefficient evaluation; `stats` gains from
+exact reductions/shared moments. Explicit snapshotting matters: a live `P(x)` can
+return Integers where canonical `P.Evaluate(x)` returns Rationals. The batch
+preserves the tested canonical result classes, not every callable representation.
+
+Linalg already has a host Matrix multiplication loop, but conversion and scalar
+dispatch remain costly; typed dot/matrix or Bareiss update kernels are worth the
+next investigation. Preserve its stage/evidence and coordinate protocols.
+Adaptive/async `ode`, `plot` and certified `numerics` remain to be profiled for
+suitable boundaries. Many render/Float/data plugins already use JavaScript.
 
 ## Evidence map
 
@@ -116,6 +138,8 @@ budget and evidence contracts; many render/Float/data plugins already use JS.
 - [Integer lookup/dispatch ablations](integer-dispatch/README.md)
 - [Updated Bun/Node runtime measurements](integer-dispatch/results/refresh/README.md)
 - [Current plugin and setup follow-up](plugin-followup/README.md)
+- [Immutable operator metadata cache](metadata-cache/README.md)
+- [Direct loops, plugin helpers and linalg probe](direct-loops/README.md)
 
 Historical files retain the runtime versions, source fingerprints, and failures
 observed when measured. New snapshots must be rebuilt from their prerequisites

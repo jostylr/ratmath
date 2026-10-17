@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-10-17T17:42:08.477Z",
+  "files": [
+    "methods",
+    "operator-dispatch",
+    "custom-operators",
+    "semantic-operators",
+    "type-system",
+    "identity-comparison",
+    "cells",
+    "constructor-capture",
+    "numeric-regressions",
+    "range-arithmetic",
+    "async-method-callbacks",
+    "function-return",
+    "number-notation",
+    "diagnostics",
+    "plugin-catalog"
+  ],
+  "results": [
+    {
+      "name": "rix-baseline",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js",
+        "./tests/eval/plugin-catalog.test.js",
+        "./tests/parser/custom-operators.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 358,
+      "failed": 0,
+      "wallMs": 52732.294042
+    },
+    {
+      "name": "rix-cached",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/type-system.test.js",
+        "./tests/eval/identity-comparison.test.js",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/range-arithmetic.test.js",
+        "./tests/eval/async-method-callbacks.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/number-notation.test.js",
+        "./tests/eval/diagnostics.test.js",
+        "./tests/eval/plugin-catalog.test.js",
+        "./tests/parser/custom-operators.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 358,
+      "failed": 0,
+      "wallMs": 4154.570291000004
+    },
+    {
+      "name": "plugins-cached",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/poly-plugin.test.js",
+        "./tests/eval/stats-complex-gif-plugin.test.js",
+        "./tests/eval/linalg-optimize-solve-plugin.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 50,
+      "failed": 0,
+      "wallMs": 10026.172791999998
+    },
+    {
+      "name": "core-unchanged",
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ],
+      "exitCode": 0,
+      "passed": 559,
+      "failed": 0,
+      "wallMs": 1252.2921670000069
+    }
+  ]
+}

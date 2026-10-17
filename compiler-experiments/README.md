@@ -2,6 +2,19 @@
 
 Reproducible, isolated experiments using the local RiX interpreter and RatMath arithmetic. Performance changes remain isolated here. The signed-leading-decimal constructor fix was subsequently promoted to production core; see the October 17 status below. **The previous RiX-to-JavaScript compiler was deleted**, as confirmed by the user. Its actual output is unavailable; the clearly labeled recreated baseline translates current IR into current runtime-helper calls.
 
+## Metadata caching and explicit numeric loops — October 17, 2026
+
+[The metadata cache](metadata-cache/README.md) cuts the same 358 focused RiX tests
+from 52.73 seconds to 4.15 seconds by caching only immutable source-derived operator
+declarations while constructing fresh sessions. First-use parsing remains.
+[Direct-loop conventions](direct-loops/README.md) compile restricted RiX arithmetic
+callbacks for explicit `.exactLoop.Fold` and provide checked polynomial/statistics
+batch helpers. A conservative `TryFold` retains interpretation for custom/dynamic
+cases. Actual measured gains are about 15–26× for scalar Horner, 39–45× for the
+polynomial batch, and 38–98× for selected statistics calls. A linalg probe shows
+that conversion and scalar dispatch can leave an existing JavaScript Matrix loop
+only modestly faster end to end. All new work stays in this folder.
+
 ## Current status — October 17, 2026
 
 [Status and promotion recommendations](STATUS.md) distinguish the strongest

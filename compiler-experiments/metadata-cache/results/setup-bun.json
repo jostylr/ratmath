@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-10-17T17:46:55.497Z",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "methodology": "One cold construction per isolated module; nine fresh-session warm samples; nine trivial evaluations with fresh defaults. Import/setup and numeric correctness recorded separately; no session sharing.",
+  "results": [
+    {
+      "variant": "baseline",
+      "importMs": 41.16175,
+      "coldMs": 304.50762499999996,
+      "warmMedianMs": 271.82975000000033,
+      "samplesMs": [
+        274.95183399999996,
+        272.771083,
+        274.23420899999996,
+        275.883916,
+        268.25737500000014,
+        266.6352079999999,
+        267.33375,
+        271.41779199999974,
+        271.82975000000033
+      ],
+      "freshParseMedianMs": 272.17162499999995,
+      "freshParseSamplesMs": [
+        269.0908750000003,
+        271.160625,
+        271.45199999999977,
+        267.150083,
+        273.4278340000001,
+        276.16820800000005,
+        272.26745800000026,
+        272.77291700000023,
+        272.17162499999995
+      ]
+    },
+    {
+      "variant": "cached",
+      "importMs": 33.718707999999424,
+      "coldMs": 301.83116599999994,
+      "warmMedianMs": 2.1500420000002123,
+      "samplesMs": [
+        2.662833000000319,
+        2.4158330000000205,
+        2.1752499999993233,
+        2.2357920000004015,
+        2.076915999999983,
+        2.1500420000002123,
+        2.133042000000387,
+        1.9907499999999345,
+        2.079291999999441
+      ],
+      "freshParseMedianMs": 2.8279590000001917,
+      "freshParseSamplesMs": [
+        3.297541999999339,
+        2.79070800000045,
+        2.8279590000001917,
+        3.7166669999996884,
+        2.969416999999339,
+        2.8247910000000047,
+        3.6298329999999623,
+        2.816667000000052,
+        2.792417000000569
+      ],
+      "cache": {
+        "hits": 666,
+        "misses": 37,
+        "parses": 37,
+        "errors": 0,
+        "evictions": 0,
+        "bypasses": 0,
+        "entries": 37,
+        "estimatedBytes": 3920556,
+        "maxEntries": 128,
+        "maxBytes": 16777216
+      }
+    }
+  ]
+}

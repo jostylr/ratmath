@@ -1,0 +1,283 @@
+{
+  "timestamp": "2026-10-17T17:50:02.876Z",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "setupMs": 153.87545799999998,
+  "methodology": "3 warmups, 9 rotating-order rounds; same production arithmetic in every path; every exact value and class checked outside timers; full snapshot and guards included for compiled/batch paths; loading and parsing excluded; direct JS is an unguarded reference.",
+  "stats": {
+    "compileMs": 0.19608399999998483,
+    "compiles": 1,
+    "cacheHits": 241,
+    "evictions": 0,
+    "compiledFolds": 242,
+    "interpretedFolds": 0,
+    "polynomialBatches": 26,
+    "momentCalls": 184,
+    "reasons": {}
+  },
+  "results": [
+    {
+      "name": "Horner scalar, 20 Rational coefficients",
+      "source": {
+        "RiX loop": "Horner(cs,point);",
+        "compiled RiX fold": "HornerKernel(cs,point);"
+      },
+      "dimensions": {
+        "coefficients": 20,
+        "points": 32,
+        "values": 128
+      },
+      "firstCallAfterValidationMs": {
+        "RiX loop": 2.07570800000002,
+        "compiled RiX fold": 0.13716599999997925,
+        "handwritten JS, core methods": 0.015583000000049196
+      },
+      "samplesMs": {
+        "RiX loop": [
+          0.9993166500000029,
+          0.9033666500000038,
+          0.8621916499999998,
+          0.9017104000000018,
+          0.8715291499999978,
+          0.8386167,
+          0.842629199999999,
+          0.8531625000000019,
+          0.8319458499999997
+        ],
+        "compiled RiX fold": [
+          0.03724374999999895,
+          0.031900000000001684,
+          0.03322085000000356,
+          0.03486664999999789,
+          0.029137500000001638,
+          0.03778334999999515,
+          0.02987709999999879,
+          0.0702791999999988,
+          0.03073749999999791
+        ],
+        "handwritten JS, core methods": [
+          0.008120830000000296,
+          0.007509170000000722,
+          0.007428330000000188,
+          0.007407079999999269,
+          0.007051249999999527,
+          0.007332499999999981,
+          0.007352499999999509,
+          0.007625420000000532,
+          0.007567080000000032
+        ]
+      },
+      "medianMs": {
+        "RiX loop": 0.8621916499999998,
+        "compiled RiX fold": 0.03322085000000356,
+        "handwritten JS, core methods": 0.007428330000000188
+      },
+      "expectedDigest": "6144b6166ad7917ab54992705f2ea0c3f1b7e770f875b5c7774ba7c4038c2f19",
+      "speedup": 25.953329008737203
+    },
+    {
+      "name": "Polynomial public Evaluate, 32 points",
+      "source": {
+        "RiX plugin": "points.Map((x)->P.Evaluate(x));",
+        "explicit batch": "PolynomialSamples(P,points);"
+      },
+      "dimensions": {
+        "coefficients": 20,
+        "points": 32,
+        "values": 128
+      },
+      "firstCallAfterValidationMs": {
+        "RiX plugin": 55.84845799999994,
+        "explicit batch": 1.100041000000033,
+        "handwritten JS, core methods": 0.26137499999992997
+      },
+      "samplesMs": {
+        "RiX plugin": [
+          53.48564600000009,
+          53.29043749999994,
+          52.860416999999984,
+          51.858291500000064,
+          52.88354149999998,
+          53.972749999999905,
+          52.090812499999856,
+          53.412000000000035,
+          54.53381250000007
+        ],
+        "explicit batch": [
+          1.1213750000000573,
+          1.2339374999999109,
+          1.1041455000000724,
+          1.4540625000000773,
+          1.5600415000000112,
+          0.9943335000000388,
+          1.4738545000000158,
+          1.1763124999999945,
+          1.1297915000000103
+        ],
+        "handwritten JS, core methods": [
+          0.23742416999999932,
+          0.244437089999999,
+          0.24365291999999955,
+          0.23667833000000202,
+          0.2353212499999995,
+          0.2481004199999984,
+          0.24955124999999953,
+          0.2502216599999974,
+          0.2510750000000007
+        ]
+      },
+      "medianMs": {
+        "RiX plugin": 53.29043749999994,
+        "explicit batch": 1.1763124999999945,
+        "handwritten JS, core methods": 0.244437089999999
+      },
+      "expectedDigest": "3ad4259c6147dd87025deff746c52c1fbadd2d2572118f9c8463539e2ca2327a",
+      "speedup": 45.30295946017762
+    },
+    {
+      "name": "Statistics Mean, 128 Rationals",
+      "source": {
+        "RiX plugin": ".stats.Mean(values);",
+        "explicit mean": "MeanKernel(values);"
+      },
+      "dimensions": {
+        "coefficients": 20,
+        "points": 32,
+        "values": 128
+      },
+      "firstCallAfterValidationMs": {
+        "RiX plugin": 6.213832999999795,
+        "explicit mean": 0.0955829999998059,
+        "handwritten JS, core methods": 0.019624999999905413
+      },
+      "samplesMs": {
+        "RiX plugin": [
+          5.251795799999991,
+          5.217516699999988,
+          5.267820900000015,
+          5.313070800000014,
+          5.257420899999988,
+          5.3680292000000005,
+          4.777708399999983,
+          4.826175000000012,
+          4.84387499999998
+        ],
+        "explicit mean": [
+          0.05498750000001564,
+          0.051099999999996724,
+          0.05844999999999345,
+          0.06161670000001322,
+          0.05482919999999467,
+          0.05900839999999334,
+          0.05363330000000133,
+          0.050624999999990906,
+          0.054404199999999035
+        ],
+        "handwritten JS, core methods": [
+          0.015847499999999855,
+          0.014172499999999673,
+          0.015417499999998655,
+          0.015769580000001043,
+          0.0140887500000008,
+          0.015718329999999697,
+          0.01161957999999686,
+          0.011305420000003324,
+          0.011409579999999551
+        ]
+      },
+      "medianMs": {
+        "RiX plugin": 5.251795799999991,
+        "explicit mean": 0.05482919999999467,
+        "handwritten JS, core methods": 0.014172499999999673
+      },
+      "expectedDigest": "c317b977e4f268d70013db51de18d2487f0e745b7c26d9a782a3913e0d889e2b",
+      "speedup": 95.78465124423667
+    },
+    {
+      "name": "Statistics mean and population variance, 128 Rationals",
+      "source": {
+        "RiX plugin": "{= count=values.Len(),mean=.stats.Mean(values),variance=.stats.Variance(values)};",
+        "explicit moments": "MomentsKernel(values);"
+      },
+      "dimensions": {
+        "coefficients": 20,
+        "points": 32,
+        "values": 128
+      },
+      "firstCallAfterValidationMs": {
+        "RiX plugin": 15.428457999999864,
+        "explicit moments": 0.1975840000000062,
+        "handwritten JS, core methods": 0.0945000000001528
+      },
+      "samplesMs": {
+        "RiX plugin": [
+          15.760983399999986,
+          16.39168319999999,
+          16.278516599999968,
+          16.562100000000008,
+          16.082424999999965,
+          16.325166799999987,
+          16.241933400000015,
+          16.326524999999947,
+          16.334716800000024
+        ],
+        "explicit moments": [
+          0.16870839999992313,
+          0.16227499999995415,
+          0.26374159999995755,
+          0.18045820000006643,
+          0.15022500000004585,
+          0.16215839999995296,
+          0.1544499999999971,
+          0.16589180000000853,
+          0.18885000000009314
+        ],
+        "handwritten JS, core methods": [
+          0.07169416000000182,
+          0.06880458000000089,
+          0.06803667000000133,
+          0.0669287499999973,
+          0.07096000000000004,
+          0.07476375000000189,
+          0.06707625000000007,
+          0.07458834000000024,
+          0.07465124999999716
+        ]
+      },
+      "medianMs": {
+        "RiX plugin": 16.325166799999987,
+        "explicit moments": 0.16589180000000853,
+        "handwritten JS, core methods": 0.07096000000000004
+      },
+      "expectedDigest": "41fb66558c3d6a270b0cf5521b042ffdf26c88b4795b063a7e4630bcaf701b97",
+      "speedup": 98.40852169907825
+    }
+  ]
+}

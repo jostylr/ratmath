@@ -1,0 +1,262 @@
+{
+  "timestamp": "2026-10-17T17:53:28.980Z",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "size": 6,
+  "sources": {
+    "RiX linalg row loops": "LinalgMultiplyRows(arows,brows);",
+    "existing JS Matrix compute only": "A*B;",
+    "existing JS Matrix loop, prebuilt inputs": "LinalgMatrixRows(A*B);",
+    "existing JS Matrix loop, conversions included": "LinalgMatrixRows(LinalgMatrixValue(arows)*LinalgMatrixValue(brows));"
+  },
+  "medianMs": {
+    "RiX linalg row loops": 7.756937499999992,
+    "existing JS Matrix compute only": 3.7679170000000113,
+    "existing JS Matrix loop, prebuilt inputs": 5.637021000000004,
+    "existing JS Matrix loop, conversions included": 6.886937499999988,
+    "handwritten exact core JS": 0.04492417000000046
+  },
+  "samplesMs": {
+    "RiX linalg row loops": [
+      7.709812499999998,
+      7.756937499999992,
+      7.775791500000025,
+      8.100812500000018,
+      7.325437499999964,
+      8.226437500000031,
+      7.195270500000049,
+      7.632145499999979,
+      7.847353999999996
+    ],
+    "existing JS Matrix compute only": [
+      3.723416499999985,
+      3.7679170000000113,
+      3.721770499999991,
+      3.668354000000022,
+      3.9832289999999944,
+      3.8702915000000075,
+      3.799062499999991,
+      3.7258960000000343,
+      3.918083000000024
+    ],
+    "existing JS Matrix loop, prebuilt inputs": [
+      5.601312500000006,
+      5.577271000000053,
+      5.601875000000007,
+      5.637021000000004,
+      6.065604500000006,
+      5.65949999999998,
+      5.7778749999999945,
+      5.695187500000031,
+      5.433729500000027
+    ],
+    "existing JS Matrix loop, conversions included": [
+      7.373499999999979,
+      6.542895499999986,
+      7.128771000000029,
+      7.116687500000012,
+      6.886937499999988,
+      7.048458500000038,
+      6.711187500000051,
+      6.760667000000012,
+      6.796812499999987
+    ],
+    "handwritten exact core JS": [
+      0.0567999999999995,
+      0.04492417000000046,
+      0.03705124999999953,
+      0.0377358300000003,
+      0.043998339999999414,
+      0.03819749999999999,
+      0.045158330000000434,
+      0.04718874999999798,
+      0.0469291700000008
+    ]
+  },
+  "expected": [
+    [
+      {
+        "type": "Rational",
+        "value": "35/12"
+      },
+      {
+        "type": "Rational",
+        "value": "-323/18"
+      },
+      {
+        "type": "Rational",
+        "value": "39/8"
+      },
+      {
+        "type": "Rational",
+        "value": "139/12"
+      },
+      {
+        "type": "Rational",
+        "value": "1/2"
+      },
+      {
+        "type": "Rational",
+        "value": "31/24"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-25/24"
+      },
+      {
+        "type": "Rational",
+        "value": "73/9"
+      },
+      {
+        "type": "Rational",
+        "value": "-49/4"
+      },
+      {
+        "type": "Rational",
+        "value": "223/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-29/12"
+      },
+      {
+        "type": "Rational",
+        "value": "97/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-557/24"
+      },
+      {
+        "type": "Rational",
+        "value": "127/9"
+      },
+      {
+        "type": "Rational",
+        "value": "55/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-41/24"
+      },
+      {
+        "type": "Rational",
+        "value": "397/36"
+      },
+      {
+        "type": "Rational",
+        "value": "-647/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "355/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-79/3"
+      },
+      {
+        "type": "Rational",
+        "value": "22/3"
+      },
+      {
+        "type": "Rational",
+        "value": "-89/8"
+      },
+      {
+        "type": "Rational",
+        "value": "-31/36"
+      },
+      {
+        "type": "Rational",
+        "value": "119/16"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-25/24"
+      },
+      {
+        "type": "Rational",
+        "value": "83/9"
+      },
+      {
+        "type": "Rational",
+        "value": "-73/6"
+      },
+      {
+        "type": "Rational",
+        "value": "191/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-79/36"
+      },
+      {
+        "type": "Rational",
+        "value": "-7/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-79/12"
+      },
+      {
+        "type": "Rational",
+        "value": "80/9"
+      },
+      {
+        "type": "Rational",
+        "value": "57/8"
+      },
+      {
+        "type": "Rational",
+        "value": "-59/3"
+      },
+      {
+        "type": "Rational",
+        "value": "77/6"
+      },
+      {
+        "type": "Rational",
+        "value": "-119/24"
+      }
+    ]
+  ],
+  "methodology": "Current linalg helper and existing host Matrix multiplication; fixed plain Rational inputs, identical values/classes. Three warmups and nine rotated rounds. Scalar registry dispatch remains in Matrix multiplication; no production rewrite. The existing Matrix loop omits the RiX helper zero-seed addition and is not equivalent under arbitrary custom operators."
+}

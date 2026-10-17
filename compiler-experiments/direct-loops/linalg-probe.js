@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {createExactSession} from './engine.js';
+const e=await createExactSession(),{Rational}=e.core;
+const size=6;
+const matrix=k=>Array.from({length:size},(_,r)=>Array.from({length:size},(_,c)=>`${((r*7+c*11+k)%19)-9}/${c%3+2}`));
+const literal=rows=>'['+rows.map(row=>'['+row.join(',')+']').join(',')+']';
+const left=matrix(1),right=matrix(7);
+e.run(`.Plugin.Load("linalg"); arows := ${literal(left)}; brows := ${literal(right)}; A := LinalgMatrixValue(arows); B := LinalgMatrixValue(brows);`);
+const a=e.context.get('arows').values.map(r=>r.values),b=e.context.get('brows').values.map(r=>r.values);
+const direct=()=>e.array(a.map(row=>e.array(Array.from({length:size},(_,c)=>{let sum=new Rational(0);for(let k=0;k<size;k++)sum=sum.add(row[k].multiply(b[k][c]));return sum;}))));
+const sources={'RiX linalg row loops':'LinalgMultiplyRows(arows,brows);','existing JS Matrix compute only':'A*B;','existing JS Matrix loop, prebuilt inputs':'LinalgMatrixRows(A*B);','existing JS Matrix loop, conversions included':'LinalgMatrixRows(LinalgMatrixValue(arows)*LinalgMatrixValue(brows));'};
+const paths=Object.entries(sources).map(([name,source])=>{const ir=e.parse(source);return{name,source,run:()=>e.evaluate(ir)};});paths.push({name:'handwritten exact core JS',run:direct});
+const canonical=v=>v?.type==='shaped'?Array.from({length:v.shape[0]},(_,r)=>v.data.slice(r*v.shape[1],(r+1)*v.shape[1]).map(canonical)):v?.type==='sequence'?v.values.map(canonical):{type:v.constructor.name,value:v.toString()};
+const expected=canonical(direct());for(const p of paths)assert.deepEqual(canonical(p.run()),expected);
+const measure=(p,n)=>{const values=[];const start=performance.now();for(let i=0;i<n;i++)values.push(p.run());const ms=(performance.now()-start)/n;for(const value of values)assert.deepEqual(canonical(value),expected);return ms;};
+for(let w=0;w<3;w++)for(const p of paths)measure(p,2);
+const samples=Object.fromEntries(paths.map(p=>[p.name,[]]));
+for(let r=0;r<9;r++)for(let j=0;j<paths.length;j++){const p=paths[(r+j)%paths.length];samples[p.name].push(measure(p,p===paths.at(-1)?100:2));}
+const median=a=>[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)];const medianMs=Object.fromEntries(Object.entries(samples).map(([k,a])=>[k,median(a)]));
+const result={timestamp:new Date().toISOString(),runtime:process.versions,size,sources,medianMs,samplesMs:samples,expected,methodology:'Current linalg helper and existing host Matrix multiplication; fixed plain Rational inputs, identical values/classes. Three warmups and nine rotated rounds. Scalar registry dispatch remains in Matrix multiplication; no production rewrite. The existing Matrix loop omits the RiX helper zero-seed addition and is not equivalent under arbitrary custom operators.'};
+await writeFile(new URL(`./results/linalg-${process.versions.bun?'bun':'node'}.json`,import.meta.url),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(medianMs));

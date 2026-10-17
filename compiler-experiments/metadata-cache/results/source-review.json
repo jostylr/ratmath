@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-17T17:57:50.881Z",
+  "productionUnchanged": true,
+  "identicalCore": true,
+  "changedCopiedRiXFiles": [
+    "runtime/experimental-plugin-metadata.js",
+    "runtime/plugin-catalog.js"
+  ],
+  "programs": {
+    "cache-template.js": "c1ce837693092b9eae286bf873eed6b4255954f7b727d29e5dcb6a7f6ae5ea49",
+    "../direct-loops/compiler.js": "a01c01ca0b0de45f856de70e8abbda1222ecc34d3b01eb22795d2c635bbe78d0",
+    "../direct-loops/engine.js": "a3b92b1b550714ad0275608cbd9f523617898cf3e8125f5c32950b3511bfe34e",
+    "../direct-loops/bench.js": "f6fd1c82a3262ddb51135d69c303c4ba7f649b6bcee5ea92119a715cc3892003",
+    "../direct-loops/linalg-probe.js": "19247c00e349a58eca8bfceeffcd60dad7e3700b3324a396bf7652822c456fe4",
+    "../direct-loops/scripts/kernels.rix": "7c06819678c5db46ebbed014c879cfc8403939d93da3d66d2a979d9b2daa9ea6"
+  }
+}

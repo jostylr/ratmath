@@ -49,6 +49,14 @@
     "test:integer-dispatch": "node integer-dispatch/tests.js",
     "bench:integer-dispatch": "bun integer-dispatch/bench.js",
     "refresh:runtimes": "node integer-dispatch/refresh.js",
-    "run:integer-dispatch": "bun integer-dispatch/run.js"
+    "run:integer-dispatch": "bun integer-dispatch/run.js",
+    "build:metadata-cache": "node metadata-cache/build.js",
+    "verify:metadata-cache": "bun metadata-cache/verify.js",
+    "test:metadata-cache": "node metadata-cache/tests.js",
+    "bench:metadata-cache": "bun metadata-cache/bench.js",
+    "verify:direct-loops": "bun direct-loops/verify.js",
+    "bench:direct-loops": "bun direct-loops/bench.js",
+    "demo:direct-loops": "bun direct-loops/run.js",
+    "probe:linalg-loops": "bun direct-loops/linalg-probe.js"
   }
 }

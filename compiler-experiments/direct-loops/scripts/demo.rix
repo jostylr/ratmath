@@ -1,0 +1,12 @@
+## Existing RiX syntax; only the experimental loader supplies .exactLoop.
+.Plugin.Load("poly");
+.Plugin.Load("stats");
+coefficients := [1/3, 2/5, 7/11];
+point := 7/5;
+first := HornerKernel(coefficients, point);
+second := HornerKernel(coefficients, point); ## same callback reuses generated JS
+P := .poly(coefficients);
+points := [0, 1, 2, 3];
+samples := PolynomialSamples(P, points);
+summary := MomentsKernel([1/3, 2/3, 5/3, 7/3]);
+{: first, second, samples, summary };

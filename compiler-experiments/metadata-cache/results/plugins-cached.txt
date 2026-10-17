@@ -1,0 +1,62 @@
+bun test v1.4.3 (c6da4a4d3)
+
+tests/eval/poly-plugin.test.js:
+(pass) semantic Polynomial plugin > is opt-in and exposes one callable capability through three aliases [358.73ms]
+(pass) semantic Polynomial plugin > supports outside labels, named parser headers, structural postfix conversion, and records [32.04ms]
+(pass) semantic Polynomial plugin > symbolic specs retain surrounding coefficient cells [21.16ms]
+(pass) semantic Polynomial plugin > keeps Polynomial identity while remaining an ordinary callable [19.05ms]
+(pass) semantic Polynomial plugin > closes polynomial arithmetic under composition and exact scalar operations [36.73ms]
+(pass) semantic Polynomial plugin > algebra auto-loads poly and adds methods plus quotient/remainder operators [88.50ms]
+(pass) semantic Polynomial plugin > reactive Polynomial operations propagate through a reactive dependency chain [38.15ms]
+(pass) semantic Polynomial plugin > rejects non-polynomial and ambiguous multivariate forms [70.98ms]
+
+tests/eval/stats-complex-gif-plugin.test.js:
+(pass) statistics plugin > keeps descriptive statistics and linear quantiles exact [130.51ms]
+(pass) statistics plugin > builds plot-ready summaries and portable histogram/box graphics [134.46ms]
+(pass) statistics plugin > reports empty and sample-size edge cases [545.80ms]
+(pass) statistics plugin > builds certified confidence records with explicit methods [427.64ms]
+(pass) statistics plugin > fits exact simple regressions and emits portable diagnostics [100.97ms]
+(pass) statistics plugin > consumes probability simulation records without losing provenance [114.60ms]
+(pass) statistics plugin > consumes probability distribution records without inventing moments [135.99ms]
+(pass) Phase 1 and 2 complex visualization plugin > uses documented exact phase and magnitude color fixtures [143.97ms]
+(pass) Phase 1 and 2 complex visualization plugin > marks exact zeros and poles and renders through SVG and Canvas [187.09ms]
+(pass) Phase 1 and 2 complex visualization plugin > consumes certified complex enclosures and publishes Cayley color metadata [148.50ms]
+(pass) Phase 1 and 2 complex visualization plugin > creates Scene3D magnitude surfaces and exact Riemann-sphere points [192.38ms]
+(pass) shared Phase 3 color scales > Plot color-scale values drive Plot, Stats, and ComplexViz without private renderer state [185.65ms]
+(pass) shared Phase 3 color scales > shared color scales reject incomplete bounds and foreign records [235.96ms]
+(pass) Phase 1 GIF renderer > expands a deterministic timeline through PNG with exact delays [6.78ms]
+(pass) Phase 1 GIF renderer > keeps host encoding unavailable as an explicit diagnostic [3.25ms]
+(pass) Phase 1 GIF renderer > Phase 2 preserves transitions, palette policy, and projected Scene3D rotation snapshots [3.76ms]
+
+tests/eval/linalg-optimize-solve-plugin.test.js:
+(pass) linalg Phase 1 plugin > solves exact dense systems and reports rank states [77.20ms]
+(pass) linalg Phase 1 plugin > changes vector and tensor Frames while retaining representation lineage [321.81ms]
+(pass) linalg Phase 1 plugin > typed headers require Frames and vector arithmetic converts the right representation to the left [1063.71ms]
+(pass) linalg Phase 1 plugin > independent tensor slots may use differently sized spaces and independent target Frames [226.73ms]
+(pass) linalg Phase 1 plugin > lineage retains the origin plus the configured recent representation limit [671.38ms]
+(pass) linalg Phase 2 exact decompositions > runs replayable fraction-free Bareiss elimination and certifies determinants [99.25ms]
+(pass) linalg Phase 2 exact decompositions > returns reusable row-pivoted LU and exact LDU factorization objects [205.85ms]
+(pass) linalg Phase 2 exact decompositions > constructs exact row, column, and null-space basis records [69.70ms]
+(pass) linalg Phase 2 exact decompositions > returns reduced exact QR when every orthogonalized norm is rational [72.34ms]
+(pass) linalg Phase 2 exact decompositions > reports exact QR coefficient, rank, and shape boundaries structurally [65.83ms]
+(pass) linalg Phase 2 exact decompositions > models linear maps between spaces with composition, duals, pushforwards, and pullbacks [123.33ms]
+(pass) linalg Phase 2 exact decompositions > forms tensor products and exact primal-dual contractions [81.72ms]
+(pass) linalg Phase 2 exact decompositions > realizes bounded polynomials as linked vectors and serializes stable lineage records [98.77ms]
+(pass) optimize Phase 1 plugin > solves exact standard-form linear programs [174.83ms]
+(pass) optimize Phase 1 plugin > keeps evaluation, minimization, and bounded-work results in pure RiX [180.03ms]
+(pass) optimize Phase 1 plugin > reports infeasible models through the two-phase solver [161.35ms]
+(pass) optimize Phase 2 general exact LP > handles equality and greater-than constraints with exact primal/dual certificates [235.04ms]
+(pass) optimize Phase 2 general exact LP > canonicalizes free and bounded variables without losing original coordinates [200.87ms]
+(pass) optimize Phase 2 general exact LP > returns independently replayable infeasible and unbounded certificates [183.64ms]
+(pass) optimize Phase 2 general exact LP > publishes basis reuse, exact RHS sensitivity, and stable model interchange [223.84ms]
+(pass) solve Phase 1 plugin > solves affine symbolic equality systems with named exact values [191.41ms]
+(pass) solve Phase 1 plugin > rejects implicit nonlinear dispatch without an explicit polynomial provider [188.18ms]
+(pass) solve Phase 2 domain dispatch and Solution values > returns finite, parametric, and empty exact Solution objects [195.74ms]
+(pass) solve Phase 2 domain dispatch and Solution values > normalizes mixed definitions and inequalities before Optimize dispatch [352.53ms]
+(pass) solve Phase 2 domain dispatch and Solution values > dispatches polynomial roots exactly and scalar callables through Numerics [900.89ms]
+(pass) linalg adapters preserve Matrix results and explain explicit method conversion [212.45ms]
+
+ 50 pass
+ 0 fail
+ 211 expect() calls
+Ran 50 tests across 3 files. [10.00s]

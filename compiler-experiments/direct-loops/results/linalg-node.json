@@ -1,0 +1,265 @@
+{
+  "timestamp": "2026-10-17T17:53:29.926Z",
+  "runtime": {
+    "node": "26.12.0",
+    "acorn": "8.19.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.8",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.3",
+    "libffi": "3.8.0",
+    "llhttp": "9.4.3",
+    "merve": "1.2.2",
+    "modules": "147",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "4.0.3",
+    "simdjson": "5.0.5",
+    "simdutf": "9.3.0",
+    "sqlite": "3.54.0",
+    "tz": "2026a",
+    "undici": "8.11.2",
+    "unicode": "17.0",
+    "uv": "1.53.0",
+    "uvwasi": "0.0.23",
+    "v8": "14.6.202.34-node.39",
+    "zlib": "1.2.12",
+    "zstd": "1.5.7"
+  },
+  "size": 6,
+  "sources": {
+    "RiX linalg row loops": "LinalgMultiplyRows(arows,brows);",
+    "existing JS Matrix compute only": "A*B;",
+    "existing JS Matrix loop, prebuilt inputs": "LinalgMatrixRows(A*B);",
+    "existing JS Matrix loop, conversions included": "LinalgMatrixRows(LinalgMatrixValue(arows)*LinalgMatrixValue(brows));"
+  },
+  "medianMs": {
+    "RiX linalg row loops": 5.214707999999973,
+    "existing JS Matrix compute only": 2.464958500000023,
+    "existing JS Matrix loop, prebuilt inputs": 3.7739795000000527,
+    "existing JS Matrix loop, conversions included": 4.745728999999983,
+    "handwritten exact core JS": 0.027442080000000715
+  },
+  "samplesMs": {
+    "RiX linalg row loops": [
+      5.368875000000003,
+      5.370166500000039,
+      5.344729000000029,
+      5.365083500000026,
+      5.214707999999973,
+      5.11533350000002,
+      5.188291499999991,
+      5.202771000000041,
+      5.047437500000001
+    ],
+    "existing JS Matrix compute only": [
+      2.464958500000023,
+      2.4980414999999994,
+      2.4356460000000197,
+      2.5551664999999844,
+      2.497895500000027,
+      2.461749999999995,
+      2.685062500000015,
+      2.4580624999999827,
+      2.4207084999999893
+    ],
+    "existing JS Matrix loop, prebuilt inputs": [
+      3.7754374999999527,
+      3.7739795000000527,
+      3.7254789999999502,
+      3.716041500000017,
+      3.83347950000001,
+      3.8415624999999523,
+      3.8250829999999496,
+      3.631958499999996,
+      3.631166500000006
+    ],
+    "existing JS Matrix loop, conversions included": [
+      4.980417000000045,
+      4.76237500000002,
+      4.745728999999983,
+      4.732853999999975,
+      4.770729000000017,
+      5.002354000000025,
+      4.744353999999987,
+      4.634333500000025,
+      4.733457999999985
+    ],
+    "handwritten exact core JS": [
+      0.03195458000000031,
+      0.025682090000000244,
+      0.025356669999999894,
+      0.027731659999999464,
+      0.02828125,
+      0.026570000000000392,
+      0.025911670000000414,
+      0.027442080000000715,
+      0.02774083000000019
+    ]
+  },
+  "expected": [
+    [
+      {
+        "type": "Rational",
+        "value": "35/12"
+      },
+      {
+        "type": "Rational",
+        "value": "-323/18"
+      },
+      {
+        "type": "Rational",
+        "value": "39/8"
+      },
+      {
+        "type": "Rational",
+        "value": "139/12"
+      },
+      {
+        "type": "Rational",
+        "value": "1/2"
+      },
+      {
+        "type": "Rational",
+        "value": "31/24"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-25/24"
+      },
+      {
+        "type": "Rational",
+        "value": "73/9"
+      },
+      {
+        "type": "Rational",
+        "value": "-49/4"
+      },
+      {
+        "type": "Rational",
+        "value": "223/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-29/12"
+      },
+      {
+        "type": "Rational",
+        "value": "97/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-557/24"
+      },
+      {
+        "type": "Rational",
+        "value": "127/9"
+      },
+      {
+        "type": "Rational",
+        "value": "55/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-41/24"
+      },
+      {
+        "type": "Rational",
+        "value": "397/36"
+      },
+      {
+        "type": "Rational",
+        "value": "-647/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "355/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-79/3"
+      },
+      {
+        "type": "Rational",
+        "value": "22/3"
+      },
+      {
+        "type": "Rational",
+        "value": "-89/8"
+      },
+      {
+        "type": "Rational",
+        "value": "-31/36"
+      },
+      {
+        "type": "Rational",
+        "value": "119/16"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-25/24"
+      },
+      {
+        "type": "Rational",
+        "value": "83/9"
+      },
+      {
+        "type": "Rational",
+        "value": "-73/6"
+      },
+      {
+        "type": "Rational",
+        "value": "191/24"
+      },
+      {
+        "type": "Rational",
+        "value": "-79/36"
+      },
+      {
+        "type": "Rational",
+        "value": "-7/48"
+      }
+    ],
+    [
+      {
+        "type": "Rational",
+        "value": "-79/12"
+      },
+      {
+        "type": "Rational",
+        "value": "80/9"
+      },
+      {
+        "type": "Rational",
+        "value": "57/8"
+      },
+      {
+        "type": "Rational",
+        "value": "-59/3"
+      },
+      {
+        "type": "Rational",
+        "value": "77/6"
+      },
+      {
+        "type": "Rational",
+        "value": "-119/24"
+      }
+    ]
+  ],
+  "methodology": "Current linalg helper and existing host Matrix multiplication; fixed plain Rational inputs, identical values/classes. Three warmups and nine rotated rounds. Scalar registry dispatch remains in Matrix multiplication; no production rewrite. The existing Matrix loop omits the RiX helper zero-seed addition and is not equivalent under arbitrary custom operators."
+}

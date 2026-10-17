@@ -1,0 +1,10 @@
+## Explicit exact-core semantics; captures become ordinary parameters.
+HornerKernel(coefficients, point) ->
+    .exactLoop.Fold(coefficients, 0, (acc, coefficient, x) -> acc*x+coefficient, [point]);
+
+## Uses canonical coefficients, matching polynomial.Evaluate, not every callable representation.
+PolynomialSamples(polynomial, points) ->
+    .exactLoop.PolynomialBatch(.exactLoop.Snapshot(polynomial.Coefficients()), points);
+
+MeanKernel(values) -> .exactLoop.Mean(values);
+MomentsKernel(values) -> .exactLoop.Moments(values);

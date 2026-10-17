@@ -1,0 +1,58 @@
+[
+  {
+    "command": [
+      "node",
+      "compiler-experiments/metadata-cache/build.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "bun",
+      "compiler-experiments/metadata-cache/verify.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "node",
+      "compiler-experiments/metadata-cache/verify.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "bun",
+      "compiler-experiments/direct-loops/verify.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "node",
+      "compiler-experiments/direct-loops/verify.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "bun",
+      "compiler-experiments/direct-loops/run.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "node",
+      "compiler-experiments/direct-loops/run.js"
+    ],
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "node",
+      "compiler-experiments/metadata-cache/review.js"
+    ],
+    "exitCode": 0
+  }
+]

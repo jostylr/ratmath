@@ -1,0 +1,11 @@
+[
+  {
+    "source": "return (p0,p1,p2) => op.add(op.multiply(p0,p2),p1);",
+    "sourceHash": "c121e796728cff80b54f37340d08e9bbd2d91ac0ee0ca914a922496221281700",
+    "operations": [
+      "ADD",
+      "MUL"
+    ],
+    "work": 2
+  }
+]
