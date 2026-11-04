@@ -43,3 +43,6 @@
 [submodule "rix-nb"]
 	path = rix-nb
 	url = git@github.com:jostylr/rix-nb.git
+[submodule "julia-port"]
+	path = julia-port
+	url = git@github.com:jostylr/ratmath-julia.git

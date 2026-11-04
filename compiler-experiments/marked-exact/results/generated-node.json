@@ -1,0 +1,35 @@
+{
+  "marked": [
+    {
+      "source": "\"use strict\";\nreturn (v0, v1) => (() => {\nlet v2 = op.subtract(constants[0], constants[1]);\nlet v3 = constants[2];\nlet v4 = 0;\nwhile (op.lessThanOrEqual(v3, op.len(v0))) {\nop.iteration(v4++);\nv2 = op.add(op.multiply(v2, v1), op.get(v0, v3));\nv3 = op.add(v3, constants[3]);\n\n}\nreturn v2;\n})();",
+      "loops": 1,
+      "nodes": 27,
+      "sourceHash": "f326b358ac3f8524d5b6ffe33f69fa1e4b49cbdea8b6cce9d1d0a4a1feeb7c1d"
+    },
+    {
+      "source": "\"use strict\";\nreturn (v0) => (() => {\nlet v1 = op.subtract(constants[0], constants[1]);\nlet v2 = constants[2];\nlet v3 = 0;\nwhile (op.lessThanOrEqual(v2, op.len(v0))) {\nop.iteration(v3++);\nv1 = op.add(v1, op.get(v0, v2));\nv2 = op.add(v2, constants[3]);\n\n}\nreturn v1;\n})();",
+      "loops": 1,
+      "nodes": 25,
+      "sourceHash": "3b9b55862df025deaa57ee98d8f8aa2a91a75784318878791aeec9ce94218173"
+    }
+  ],
+  "fold": [
+    {
+      "source": "return (p0,p1,p2) => op.add(op.multiply(p0,p2),p1);",
+      "sourceHash": "e4b0470133c71aeadbe3c4c976e00155e1f565058d79f7711d102b674e941314",
+      "operations": [
+        "ADD",
+        "MUL"
+      ],
+      "work": 2
+    },
+    {
+      "source": "return (p0,p1) => op.add(p0,p1);",
+      "sourceHash": "bd8db937f0b9c9d3549280e0f2a2dee1b4acb9b7114e0036bd9e71f029967a25",
+      "operations": [
+        "ADD"
+      ],
+      "work": 1
+    }
+  ]
+}

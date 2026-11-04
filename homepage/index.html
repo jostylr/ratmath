@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RatMath</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="RatMath LLC builds exact, rational mathematics: the RiX language, a browser calculator, tutorials, notebooks, 3D math worlds, and the theory of real numbers as oracles.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23173a4a'/%3E%3Ctext x='16' y='14' font-family='Georgia,serif' font-size='12' fill='%23f1b24a' text-anchor='middle'%3Ep%3C/text%3E%3Crect x='8' y='16.5' width='16' height='1.6' fill='%23f1b24a'/%3E%3Ctext x='16' y='28' font-family='Georgia,serif' font-size='12' fill='%23f1b24a' text-anchor='middle'%3Eq%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single column of bands. The hero pairs the pitch with a live
+   mediant search closing in on √2; below it, a directory grouped by the
+   ways people engage (play, learn, write, build, read the theory). */
+:root {
+  --paper: #f2f5f6;      /* page ground, a cool slate-tinted white */
+  --sheet: #ffffff;      /* raised surfaces */
+  --ink: #15262e;        /* primary text */
+  --ink-soft: #4a5e66;   /* secondary text */
+  --rule: #d5dee1;       /* hairlines and borders */
+  --deep: #173a4a;       /* brand band, the "chalkboard" */
+  --deep-ink: #e9f1f3;   /* text on the deep band */
+  --deep-soft: #a9c0c7;
+  --ochre: #b8730f;      /* accent: intervals, links */
+  --ochre-bright: #f1b24a;
+  --teal: #1f7a78;       /* lower bound marks */
+  --rose: #b4472f;       /* upper bound marks */
+  --focus: #b8730f;
+
+  --f-display: "Young Serif", "Iowan Old Style", Georgia, serif;
+  --f-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.1rem);
+  --radius: 10px;
+  --measure: 64ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1a1f; --sheet: #15232a; --ink: #e4ecee; --ink-soft: #9fb1b7;
+    --rule: #26383f; --deep: #0b2430; --deep-ink: #e9f1f3; --deep-soft: #93aeb7;
+    --ochre: #f1b24a; --ochre-bright: #f6c46d; --teal: #4fc0b8; --rose: #ef8a72;
+    --focus: #f1b24a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1a1f; --sheet: #15232a; --ink: #e4ecee; --ink-soft: #9fb1b7;
+  --rule: #26383f; --deep: #0b2430; --deep-ink: #e9f1f3; --deep-soft: #93aeb7;
+  --ochre: #f1b24a; --ochre-bright: #f6c46d; --teal: #4fc0b8; --rose: #ef8a72;
+  --focus: #f1b24a; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--step-0)/1.6 var(--f-body);
+}
+img { max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--f-mono); }
+
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- top bar + hero (deep band) ---------- */
+.band-deep { background: var(--deep); color: var(--deep-ink); }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-block: 1.1rem; }
+.mark { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; }
+.mark-frac { display: inline-grid; justify-items: center; font-family: var(--f-display); font-size: .95rem; line-height: 1; color: var(--ochre-bright); }
+.mark-frac span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 .2rem .12rem; }
+.mark-frac span:last-child { padding-top: .12rem; }
+.mark-name { font-family: var(--f-display); font-size: 1.35rem; letter-spacing: .01em; }
+.mark-llc { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--deep-soft); align-self: flex-end; padding-bottom: .25rem; }
+.topnav { display: flex; gap: .3rem 1.2rem; flex-wrap: wrap; font-size: var(--step--1); }
+.topnav a { text-decoration: none; color: var(--deep-soft); }
+.topnav a:hover { color: var(--deep-ink); }
+
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; padding-block: clamp(2rem, 5vw, 4rem) clamp(2.5rem, 6vw, 4.5rem); }
+.eyebrow { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ochre-bright); margin-bottom: 1rem; }
+.hero h1 { font-size: var(--step-3); }
+.hero h1 em { font-style: normal; color: var(--ochre-bright); }
+.hero-lede { margin-top: 1.2rem; max-width: 34rem; color: var(--deep-soft); font-size: 1.08rem; }
+.cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.8rem; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.15rem; border-radius: 999px; font-weight: 600; font-size: .95rem; text-decoration: none; border: 1.5px solid transparent; transition: transform .15s ease, background-color .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--ochre-bright); color: #1b1408; }
+.btn-ghost { border-color: rgba(233, 241, 243, .35); color: var(--deep-ink); }
+.btn-ghost:hover { border-color: var(--deep-ink); }
+
+/* the oracle demo */
+.oracle { background: rgba(255, 255, 255, .04); border: 1px solid rgba(233, 241, 243, .14); border-radius: 14px; padding: 1.1rem 1.1rem 1rem; min-width: 0; }
+.oracle-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.oracle-head h2 { font-size: 1.05rem; color: var(--deep-ink); font-family: var(--f-body); font-weight: 600; }
+.oracle-head .mono { font-size: .78rem; color: var(--deep-soft); }
+.targets { display: flex; gap: .35rem; margin-top: .7rem; flex-wrap: wrap; }
+.targets button { font: 600 .8rem var(--f-mono); background: transparent; color: var(--deep-soft); border: 1px solid rgba(233, 241, 243, .2); border-radius: 999px; padding: .25rem .7rem; cursor: pointer; }
+.targets button[aria-pressed="true"] { background: var(--ochre-bright); color: #1b1408; border-color: var(--ochre-bright); }
+#oracle-canvas { display: block; width: 100%; height: 150px; margin-top: .6rem; }
+.oracle-steps { list-style: none; margin: .4rem 0 0; padding: 0; font: .82rem/1.5 var(--f-mono); color: var(--deep-soft); height: 7.4em; overflow: hidden; font-variant-numeric: tabular-nums; }
+.oracle-steps li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; gap: .5rem; }
+.oracle-steps li:last-child { color: var(--deep-ink); }
+.oracle-steps .ans-yes { color: var(--ochre-bright); }
+.oracle-note { margin-top: .6rem; font-size: .82rem; color: var(--deep-soft); }
+.oracle-controls { display: flex; gap: .5rem; margin-top: .7rem; }
+.oracle-controls button { font: 600 .8rem var(--f-body); background: transparent; color: var(--deep-ink); border: 1px solid rgba(233, 241, 243, .3); border-radius: 6px; padding: .35rem .75rem; cursor: pointer; }
+.oracle-controls button:hover { border-color: var(--deep-ink); }
+
+/* ---------- idea strip ---------- */
+.idea { padding-block: clamp(2.5rem, 6vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.idea h2 { font-size: var(--step-2); }
+.idea-body { display: grid; gap: 1rem; color: var(--ink-soft); max-width: var(--measure); }
+.idea-body strong { color: var(--ink); font-weight: 600; }
+.code { background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); overflow-x: auto; }
+.code pre { margin: 0; padding: 1rem 1.1rem; font: .86rem/1.65 var(--f-mono); color: var(--ink); }
+.code .c { color: var(--ink-soft); }
+.code .n { color: var(--ochre); }
+.code-cap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: .55rem 1.1rem; border-bottom: 1px solid var(--rule); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.code-cap a { color: var(--ochre); text-decoration: none; letter-spacing: normal; text-transform: none; font-size: .82rem; font-weight: 600; }
+
+/* ---------- directory ---------- */
+.directory { padding-block: 0 clamp(2.5rem, 6vw, 4.5rem); }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--rule); padding-top: 2rem; margin-bottom: 1.6rem; }
+.section-head h2 { font-size: var(--step-2); }
+.section-head p { color: var(--ink-soft); max-width: 40ch; }
+.groups { display: grid; gap: 2.2rem; }
+.group { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1.5rem; }
+.group-label h3 { font-size: var(--step-1); }
+.group-label p { margin-top: .35rem; color: var(--ink-soft); font-size: var(--step--1); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); gap: .9rem; }
+.card { display: flex; flex-direction: column; gap: .45rem; padding: 1rem 1.1rem 1.05rem; background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); text-decoration: none; min-width: 0; transition: border-color .15s ease, transform .15s ease; }
+.card:hover { border-color: var(--ochre); transform: translateY(-2px); }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.card h4 { margin: 0; font: 600 1.02rem/1.3 var(--f-body); color: var(--ink); }
+.card .go { color: var(--ochre); font-weight: 700; flex: none; }
+.card p { color: var(--ink-soft); font-size: .92rem; line-height: 1.5; }
+.card .where { margin-top: auto; padding-top: .3rem; font: .76rem var(--f-mono); color: var(--ochre); overflow-wrap: anywhere; }
+
+/* ---------- engage + footer ---------- */
+.engage { background: var(--sheet); border-block: 1px solid var(--rule); }
+.engage-inner { padding-block: clamp(2.5rem, 6vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(1.5rem, 4vw, 3rem); }
+.engage h2 { font-size: var(--step-2); }
+.engage-lede { margin-top: .8rem; color: var(--ink-soft); max-width: 38ch; }
+.engage-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+.engage-list li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--rule); }
+.engage-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.engage-list .who { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ochre); padding-top: .2rem; font-weight: 600; }
+.engage-list p { color: var(--ink-soft); }
+.engage-list a { color: var(--ink); font-weight: 600; text-decoration-color: var(--ochre); text-underline-offset: 3px; }
+
+footer { padding-block: 2rem 2.5rem; color: var(--ink-soft); font-size: var(--step--1); }
+.foot { display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; }
+.foot nav { display: flex; gap: .4rem 1.2rem; flex-wrap: wrap; }
+.foot a { color: var(--ink-soft); text-decoration: none; }
+.foot a:hover { color: var(--ink); }
+
+@media (max-width: 820px) {
+  .hero, .idea, .engage-inner { grid-template-columns: minmax(0, 1fr); }
+  .group { grid-template-columns: minmax(0, 1fr); gap: .8rem; }
+}
+@media (max-width: 480px) {
+  .engage-list li { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .topnav { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .card { transition: none; }
+  .btn:hover, .card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="band-deep">
+  <div class="wrap">
+    <header class="topbar">
+      <a class="mark" href="#top" aria-label="RatMath home">
+        <span class="mark-frac" aria-hidden="true"><span>p</span><span>q</span></span>
+        <span class="mark-name">RatMath</span>
+        <span class="mark-llc">LLC</span>
+      </a>
+      <nav class="topnav" aria-label="Sections">
+        <a href="#idea">The idea</a>
+        <a href="#directory">Apps &amp; tools</a>
+        <a href="#engage">Get involved</a>
+        <a href="https://github.com/jostylr/rix">GitHub</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">Exact mathematics, from fractions up</p>
+        <h1>Every real number, pinned down by <em>intervals you can write as fractions</em>.</h1>
+        <p class="hero-lede">RatMath builds mathematics on exact rational numbers. A real number is an oracle: ask it whether it lies in an interval between two fractions, and it answers. On that idea we have built a programming language, a calculator, notebooks, spreadsheets and explorable worlds, all of which tell you exactly how much they know.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://rix.ratmath.com/">Try RiX in your browser →</a>
+          <a class="btn btn-ghost" href="https://rix.ratmath.com/tutorial/">Start the tutorials</a>
+        </div>
+      </div>
+
+      <figure class="oracle" aria-labelledby="oracle-title" style="margin:0">
+        <div class="oracle-head">
+          <h2 id="oracle-title">Ask the oracle</h2>
+          <span class="mono" id="oracle-width">width 1</span>
+        </div>
+        <div class="targets" role="group" aria-label="Number to find">
+          <button type="button" id="t-sqrt2" data-target="sqrt2" aria-pressed="true">√2</button>
+          <button type="button" id="t-phi" data-target="phi" aria-pressed="false">φ</button>
+          <button type="button" id="t-sqrt3" data-target="sqrt3" aria-pressed="false">√3</button>
+        </div>
+        <canvas id="oracle-canvas" aria-hidden="true"></canvas>
+        <ol class="oracle-steps" id="oracle-steps" aria-live="polite"></ol>
+        <div class="oracle-controls">
+          <button type="button" id="oracle-step">Next mediant</button>
+          <button type="button" id="oracle-reset">Start over</button>
+        </div>
+        <figcaption class="oracle-note">Each step takes the mediant (a+c)/(b+d) of the two bounds and asks one exact yes-or-no question. No decimals are used anywhere.</figcaption>
+      </figure>
+    </section>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <section class="idea" id="idea">
+      <div>
+        <p class="eyebrow" style="color:var(--ochre)">The idea</p>
+        <h2>Arithmetic that never rounds behind your back.</h2>
+      </div>
+      <div class="idea-body">
+        <p>Floating point quietly turns 1/3 into 0.333…3 and moves on. RatMath keeps <strong>1/3 as 1/3</strong>. When a value can't be written exactly, like √2 or π, it is carried as a rational interval that is guaranteed to contain it, and you can ask for a tighter one whenever you need it.</p>
+        <p>Comparisons are honest too. If two enclosures overlap, the answer is <strong>undecided</strong> rather than a guess, and the program can choose to refine or to branch.</p>
+        <div class="code">
+          <div class="code-cap"><span>A taste of RiX</span><a href="https://docs.rix.ratmath.com/language-at-a-glance.html">Language at a glance →</a></div>
+<pre><span class="n">1/3</span> + <span class="n">1/6</span>;          <span class="c">## 1/2, exactly</span>
+<span class="n">0.#3</span>;               <span class="c">## repeating decimal: 1/3</span>
+<span class="n">3.~7~15~1</span>;          <span class="c">## continued fraction: 355/113</span>
+<span class="n">2:5</span>;                <span class="c">## the rational interval from 2 to 5</span>
+decision := <span class="n">23.456?</span> &lt; <span class="n">23.4565</span>;
+decision ?: "yes" ?_ "no" ?? "needs refinement";</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="directory" id="directory">
+      <div class="section-head">
+        <h2>Apps &amp; tools</h2>
+        <p>Everything runs on the same exact engine. Pick the door that suits how you like to work.</p>
+      </div>
+
+      <div class="groups">
+        <div class="group">
+          <div class="group-label">
+            <h3>Play</h3>
+            <p>Open a page and start poking at numbers.</p>
+          </div>
+          <div class="cards">
+            <a class="card" href="https://rix.ratmath.com/">
+              <div class="card-top"><h4>RatCalc · RiX Web</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>A full RiX calculator in the browser, with exact number views, plots, geometry boards and a live dashboard.</p>
+              <span class="where">rix.ratmath.com</span>
+            </a>
+            <!-- URL TO CONFIRM: RatMath Worlds public address -->
+            <a class="card" href="https://jostylr.github.io/ratmath-worlds-web/">
+              <div class="card-top"><h4>RatMath Worlds</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Walk into mathematics: the Mandelbulb, a Menger sponge, hyperbolic rooms, 4D slices and the Library of Babel, on screens and in headsets.</p>
+              <span class="where">ratmath-worlds-web</span>
+            </a>
+            <a class="card" href="https://rix.ratmath.com/stern-brocot.html">
+              <div class="card-top"><h4>RatTree</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Explore the Stern–Brocot tree, where every positive fraction appears exactly once, reached by mediants.</p>
+              <span class="where">rix.ratmath.com/stern-brocot</span>
+            </a>
+            <a class="card" href="https://rix.ratmath.com/showcases.html">
+              <div class="card-top"><h4>Showcases</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Small interactive pieces built with RiX, including an exact numeral playground.</p>
+              <span class="where">rix.ratmath.com/showcases</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-label">
+            <h3>Learn</h3>
+            <p>Guided paths, from first fraction to capstone projects.</p>
+          </div>
+          <div class="cards">
+            <a class="card" href="https://rix.ratmath.com/tutorial/">
+              <div class="card-top"><h4>Interactive tutorials</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>More than 150 runnable lessons covering arithmetic, intervals, collections, plugins and capstones. Edit any cell and run it.</p>
+              <span class="where">rix.ratmath.com/tutorial</span>
+            </a>
+            <a class="card" href="https://docs.rix.ratmath.com/">
+              <div class="card-top"><h4>RiX documentation</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>The language guide, system reference, plugin catalog and design notes behind every feature.</p>
+              <span class="where">docs.rix.ratmath.com</span>
+            </a>
+            <a class="card" href="https://docs.rix.ratmath.com/getting-started.html">
+              <div class="card-top"><h4>Getting started</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Install the command line, run your first .rix file, and find your way around.</p>
+              <span class="where">docs.rix.ratmath.com/getting-started</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-label">
+            <h3>Write</h3>
+            <p>Documents and sheets where the math stays live.</p>
+          </div>
+          <div class="cards">
+            <!-- URL TO CONFIRM: hosted notebook, if any -->
+            <a class="card" href="https://github.com/jostylr/rix-nb">
+              <div class="card-top"><h4>RiX Notebook</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Markdown-first notebooks with executable RiX, sliders and inline results. A native macOS app and a browser version, with publishing to static sites.</p>
+              <span class="where">github.com/jostylr/rix-nb</span>
+            </a>
+            <!-- URL TO CONFIRM: hosted RiXCel, if any -->
+            <a class="card" href="https://github.com/jostylr/ratcel">
+              <div class="card-top"><h4>RiXCel</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>A spreadsheet with exact values, reactive formulas and tensor-aware views, saved as portable .rixcel files.</p>
+              <span class="where">github.com/jostylr/ratcel</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-label">
+            <h3>Build</h3>
+            <p>Use the engine in your own programs.</p>
+          </div>
+          <div class="cards">
+            <a class="card" href="https://github.com/jostylr/rix">
+              <div class="card-top"><h4>RiX language &amp; CLI</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Run <code>npm install -g @ratmath/rix</code> for a terminal calculator and script runner, or embed the parser and evaluator in JavaScript.</p>
+              <span class="where">@ratmath/rix</span>
+            </a>
+            <a class="card" href="https://core.ratmath.com/">
+              <div class="card-top"><h4>RatMath Core</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Exact integers, fractions, rational intervals and certified approximations for JavaScript. BigInt-based, with no dependencies.</p>
+              <span class="where">core.ratmath.com</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-label">
+            <h3>Read</h3>
+            <p>The mathematics underneath.</p>
+          </div>
+          <div class="cards">
+            <a class="card" href="https://github.com/jostylr/Reals-as-Oracles">
+              <div class="card-top"><h4>Reals as Oracles</h4><span class="go" aria-hidden="true">→</span></div>
+              <p>Papers defining real numbers as oracles and rational betweenness relations, with extensions to metric spaces, functions and education.</p>
+              <span class="where">github.com/jostylr/Reals-as-Oracles</span>
+            </a>
+            <a class="card" href="https://arxiv.org/abs/2305.04935">
+              <div class="card-top"><h4>On the arXiv</h4><span class="go" aria-hidden="true">→</span></div>
+              <p><em>Defining Real Numbers as Oracles</em>, the overview and main paper, plus the short teaser <em>Rationally Querying the Reals</em>.</p>
+              <span class="where">arxiv.org/abs/2305.04935</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="engage" id="engage">
+    <div class="wrap engage-inner">
+      <div>
+        <p class="eyebrow" style="color:var(--ochre)">Get involved</p>
+        <h2>Ways to work with RatMath</h2>
+        <p class="engage-lede">RatMath LLC develops these tools in the open. However you use mathematics, there is a way in.</p>
+      </div>
+      <ul class="engage-list">
+        <li>
+          <span class="who">Students</span>
+          <p>Work through the <a href="https://rix.ratmath.com/tutorial/">tutorials</a> in any browser, then keep going in <a href="https://rix.ratmath.com/">RatCalc</a>. Nothing to install.</p>
+        </li>
+        <li>
+          <span class="who">Teachers</span>
+          <p>Build lessons in <a href="https://github.com/jostylr/rix-nb">RiX Notebook</a> with live sliders and exact answers, and publish them as plain web pages for your class.</p>
+        </li>
+        <li>
+          <span class="who">Developers</span>
+          <p>Add exact arithmetic to an app with <a href="https://core.ratmath.com/">RatMath Core</a>, or embed the full <a href="https://github.com/jostylr/rix">RiX</a> evaluator and its plugins.</p>
+        </li>
+        <li>
+          <span class="who">Researchers</span>
+          <p>Read and critique the <a href="https://github.com/jostylr/Reals-as-Oracles">oracle papers</a>, and test the ideas computationally in RiX.</p>
+        </li>
+        <li>
+          <span class="who">Everyone</span>
+          <p>Found a bug or have an idea? <a href="https://github.com/jostylr/rix/issues/new">Open an issue</a> on GitHub. Feedback shapes what gets built next.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p>© 2026 RatMath LLC</p>
+    <nav aria-label="Footer">
+      <a href="https://rix.ratmath.com/">RatCalc</a>
+      <a href="https://rix.ratmath.com/tutorial/">Tutorials</a>
+      <a href="https://docs.rix.ratmath.com/">Docs</a>
+      <a href="https://github.com/jostylr">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Exact oracles: each answers "is the target below p/q?" with integer math only.
+  var TARGETS = {
+    sqrt2: { label: "√2", below: function (p, q) { return p * p > 2 * q * q; }, lo: [1, 1], hi: [2, 1], value: Math.SQRT2 },
+    phi:   { label: "φ",  below: function (p, q) { return p * p - p * q - q * q > 0; }, lo: [1, 1], hi: [2, 1], value: (1 + Math.sqrt(5)) / 2 },
+    sqrt3: { label: "√3", below: function (p, q) { return p * p > 3 * q * q; }, lo: [1, 1], hi: [2, 1], value: Math.sqrt(3) }
+  };
+  var MAX_STEPS = 14;
+  var canvas = document.getElementById("oracle-canvas");
+  var ctx = canvas.getContext("2d");
+  var list = document.getElementById("oracle-steps");
+  var widthEl = document.getElementById("oracle-width");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var state, timer = null, userTouched = false;
+
+  function fr(a) { return a[0] + "/" + a[1]; }
+  function gcd(a, b) { while (b) { var t = b; b = a % b; a = t; } return a; }
+  function widthOf(lo, hi) {
+    var n = hi[0] * lo[1] - lo[0] * hi[1], d = hi[1] * lo[1], g = gcd(n, d);
+    return (n / g) + "/" + (d / g);
+  }
+
+  function reset(key) {
+    var t = TARGETS[key];
+    state = { key: key, t: t, lo: t.lo.slice(), hi: t.hi.slice(), steps: 0, history: [] };
+    list.innerHTML = "";
+    addLine("", fr(state.lo) + " : " + fr(state.hi), "start");
+    draw();
+  }
+
+  function addLine(n, text, ans) {
+    var li = document.createElement("li");
+    var a = document.createElement("span"); a.textContent = n;
+    var b = document.createElement("span"); b.textContent = text;
+    var c = document.createElement("span"); c.textContent = ans;
+    if (ans.indexOf("yes") === 0) c.className = "ans-yes";
+    li.appendChild(a); li.appendChild(b); li.appendChild(c);
+    list.appendChild(li);
+    while (list.children.length > 5) list.removeChild(list.firstChild);
+  }
+
+  function step() {
+    if (state.steps >= MAX_STEPS) { reset(state.key); return; }
+    var m = [state.lo[0] + state.hi[0], state.lo[1] + state.hi[1]];
+    var below = state.t.below(m[0], m[1]);
+    state.history.push({ lo: state.lo.slice(), hi: state.hi.slice() });
+    if (below) state.hi = m; else state.lo = m;
+    state.steps++;
+    addLine(state.steps + ".", state.t.label + " < " + fr(m) + " ?", below ? "yes" : "no");
+    draw();
+  }
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function draw() {
+    var dpr = window.devicePixelRatio || 1;
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    var lo = state.lo[0] / state.lo[1], hi = state.hi[0] / state.hi[1];
+    // Zoom so the current interval always fills the middle half of the line.
+    var span = Math.max(hi - lo, 1e-9), pad = span * 0.6;
+    var a = lo - pad, b = hi + pad, left = 14, right = w - 14;
+    function X(v) { return left + (v - a) / (b - a) * (right - left); }
+
+    var ink = css("--deep-ink") || "#e9f1f3", soft = css("--deep-soft") || "#a9c0c7", gold = css("--ochre-bright") || "#f1b24a";
+    var lineY = h * 0.56;
+
+    // earlier, wider intervals as faint bars above
+    ctx.globalAlpha = 0.18; ctx.fillStyle = soft;
+    var hist = state.history.slice(-3);
+    for (var i = 0; i < hist.length; i++) {
+      var hl = hist[i].lo[0] / hist[i].lo[1], hh = hist[i].hi[0] / hist[i].hi[1];
+      var x0 = Math.max(left, X(hl)), x1 = Math.min(right, X(hh));
+      ctx.fillRect(x0, lineY - 34 + i * 7, Math.max(1, x1 - x0), 4);
+    }
+    ctx.globalAlpha = 1;
+
+    // number line
+    ctx.strokeStyle = soft; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(left, lineY); ctx.lineTo(right, lineY); ctx.stroke();
+
+    // current interval
+    ctx.fillStyle = gold; ctx.globalAlpha = 0.28;
+    ctx.fillRect(X(lo), lineY - 9, X(hi) - X(lo), 18);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = gold; ctx.lineWidth = 2;
+    [lo, hi].forEach(function (v) { ctx.beginPath(); ctx.moveTo(X(v), lineY - 14); ctx.lineTo(X(v), lineY + 14); ctx.stroke(); });
+
+    // the hidden target, drawn as a thin tick
+    ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+    var tx = X(state.t.value);
+    ctx.beginPath(); ctx.moveTo(tx, lineY - 20); ctx.lineTo(tx, lineY + 20); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // labels
+    ctx.font = "600 13px " + (css("--f-mono") || "monospace");
+    ctx.fillStyle = gold; ctx.textBaseline = "top";
+    var loLab = fr(state.lo), hiLab = fr(state.hi);
+    var lx = X(lo), hx = X(hi), lw = ctx.measureText(loLab).width, hw = ctx.measureText(hiLab).width;
+    ctx.textAlign = "right"; ctx.fillText(loLab, Math.max(lw, lx - 4), lineY + 22);
+    ctx.textAlign = "left"; ctx.fillText(hiLab, Math.min(w - hw, hx + 4), lineY + 22);
+    ctx.fillStyle = ink; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.fillText(state.t.label, Math.min(w - 12, Math.max(12, tx)), lineY - 22);
+
+    widthEl.textContent = "width " + widthOf(state.lo, state.hi);
+  }
+
+  function play() {
+    stop();
+    if (reduce) return;
+    timer = setInterval(function () { if (!userTouched) step(); }, 1500);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  document.querySelectorAll(".targets button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".targets button").forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+      reset(btn.dataset.target);
+    });
+  });
+  document.getElementById("oracle-step").addEventListener("click", function () { userTouched = true; stop(); step(); });
+  document.getElementById("oracle-reset").addEventListener("click", function () { reset(state.key); });
+  window.addEventListener("resize", draw);
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", draw);
+  }
+
+  reset("sqrt2");
+  // Show a few steps at rest so the first frame already tells the story.
+  for (var k = 0; k < 4; k++) step();
+  play();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+})();
+</script>
+</body>
+</html>

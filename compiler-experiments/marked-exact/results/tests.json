@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-11-04T13:47:00.263Z",
+  "note": "Existing tests run against the isolated current-source copy. Marker-specific differential tests are in verify.js. Production sources unchanged.",
+  "results": [
+    {
+      "name": "rix-related",
+      "command": [
+        "bun",
+        "test",
+        "./tests/eval/cells.test.js",
+        "./tests/eval/constructor-capture.test.js",
+        "./tests/eval/shared-scope.test.js",
+        "./tests/eval/function-return.test.js",
+        "./tests/eval/methods.test.js",
+        "./tests/eval/operator-dispatch.test.js",
+        "./tests/eval/custom-operators.test.js",
+        "./tests/eval/semantic-operators.test.js",
+        "./tests/eval/numeric-regressions.test.js",
+        "./tests/eval/scoped-spec.test.js"
+      ],
+      "exitCode": 0,
+      "passed": 213,
+      "failed": 0,
+      "wallMs": 1343.4969999999998
+    },
+    {
+      "name": "core-unchanged",
+      "command": [
+        "bun",
+        "test",
+        "./tests"
+      ],
+      "exitCode": 0,
+      "passed": 559,
+      "failed": 0,
+      "wallMs": 1193.3830420000002
+    }
+  ]
+}

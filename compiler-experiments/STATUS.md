@@ -1,5 +1,16 @@
 # Experiment status and production candidates — October 17, 2026
 
+## Mark ordinary functions for exact-core execution — October 17, 2026
+
+[Marked exact-core functions](marked-exact/README.md) compile ordinary RiX loops
+on first call using `## @exact-core`, without rewriting them as Fold calls.
+Checks and snapshots remain included. Heavy Rational Horner runs close to Fold;
+cheap Integer loops retain about 2× Fold overhead. Plugin-loaded sessions show
+roughly 10–21× Horner and 40–71× sum speedups versus interpretation, while minimal
+sessions show smaller gains. All work stays experimental; 184 checks pass in each
+runtime, plus 213 related RiX tests and 559 core tests. The dispatch probe identifies
+Polynomial/Oracle applicability checks as another promising interpreter target.
+
 ## New follow-up: tested priorities
 
 The [metadata cache](metadata-cache/README.md) was subsequently promoted to RiX

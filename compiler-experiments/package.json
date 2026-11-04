@@ -57,6 +57,11 @@
     "verify:direct-loops": "bun direct-loops/verify.js",
     "bench:direct-loops": "bun direct-loops/bench.js",
     "demo:direct-loops": "bun direct-loops/run.js",
-    "probe:linalg-loops": "bun direct-loops/linalg-probe.js"
+    "probe:linalg-loops": "bun direct-loops/linalg-probe.js",
+    "run:marked-exact": "bun marked-exact/run.js",
+    "verify:marked-exact": "bun marked-exact/verify.js",
+    "test:marked-exact": "node marked-exact/tests.js",
+    "bench:marked-exact": "bun marked-exact/bench.js",
+    "probe:marked-exact": "bun marked-exact/dispatch-probe.js"
   }
 }

@@ -1,0 +1,10 @@
+## @exact-core
+Horner(coefficients,x) -> {@ r=0-0,i=1;
+  i<=coefficients.Len();
+  r:=r*x+coefficients.Get(i),i+=1;
+  ;r
+};
+
+coefficients := [2,3,4];
+point := 5;
+Horner(coefficients,point);

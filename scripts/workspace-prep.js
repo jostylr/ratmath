@@ -106,9 +106,9 @@ function runInherited(args, cwd = workspaceRoot) {
 }
 
 async function prepareDependencies(question) {
-    const answer = await question("\nInstall locked dependencies for the umbrella, RiX-NB, and RiX-Ed? [y/N] ");
+    const answer = await question("\nInstall locked dependencies for the umbrella and RiX-NB? [y/N] ");
     if (!/^y(?:es)?$/i.test(answer.trim())) return 0;
-    for (const directory of [workspaceRoot, path.join(workspaceRoot, "rix-nb"), path.join(workspaceRoot, "rix-ed")]) {
+    for (const directory of [workspaceRoot, path.join(workspaceRoot, "rix-nb")]) {
         if (!existsSync(path.join(directory, "bun.lock"))) continue;
         console.log(`\nPreparing dependencies in ${path.relative(workspaceRoot, directory) || "."}...`);
         const exitCode = runInherited([process.execPath, "ci"], directory);

@@ -2,6 +2,17 @@
 
 Reproducible, isolated experiments using the local RiX interpreter and RatMath arithmetic. Production promotions now include the signed-leading-decimal constructor fix and RiX immutable operator-metadata cache. Direct-loop and other performance work remain experimental; see the October 17 status below. **The previous RiX-to-JavaScript compiler was deleted**, as confirmed by the user. Its actual output is unavailable; the clearly labeled recreated baseline translates current IR into current runtime-helper calls.
 
+## Mark ordinary functions for exact-core execution — October 17, 2026
+
+[Marked exact-core functions](marked-exact/README.md) compile ordinary RiX loops
+on first call using `## @exact-core`, without rewriting them as Fold calls.
+Checks and snapshots remain included. Heavy Rational Horner runs close to Fold;
+cheap Integer loops retain about 2× Fold overhead. Plugin-loaded sessions show
+roughly 10–21× Horner and 40–71× sum speedups versus interpretation, while minimal
+sessions show smaller gains. All work stays experimental; 184 checks pass in each
+runtime, plus 213 related RiX tests and 559 core tests. The dispatch probe identifies
+Polynomial/Oracle applicability checks as another promising interpreter target.
+
 ## Metadata cache promoted to RiX — October 17, 2026
 
 RiX commit `e7381fe` promotes the bounded immutable operator-metadata cache.

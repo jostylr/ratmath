@@ -1,0 +1,569 @@
+{
+  "timestamp": "2026-10-17T19:38:24.783Z",
+  "runtime": {
+    "node": "26.3.0",
+    "bun": "1.4.3",
+    "boringssl": "41bf9b59c2ebf277a7aa427e1ecad5cc80dd4d4f",
+    "openssl": "1.1.0",
+    "llhttp": "9.4.2",
+    "libarchive": "27cbc7827172698143e440801fc0ba39ccb4f1f5",
+    "mimalloc": "92ef6587c57b262f6e6abf513f7776a2f8d12aeb",
+    "picohttpparser": "f4d94b48b31e0abae029ebeafcfd9ca0680ede58",
+    "uwebsockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "webkit": "0c06faadf65bf8e8c8ad3a5a8aca83e1e9ed653f",
+    "zig": "04e7f6ac1e009525bc00934f20199c68f04e0a24",
+    "zlib": "12731092979c6d07f42da27da673a9f6c7b13586",
+    "tinycc": "05f0fafaa3be31e31d7b4b5c17dc60f62c991171",
+    "lolhtml": "725ce499aa9b71e38b7a2d0a9fbb6d7294a4079e",
+    "ares": "c7a3138dcfe3bb0eaaf10c0c24c36dc66dc790ab",
+    "libdeflate": "92e6a0db9fa848d742f9eb286c92afc60f2c3dda",
+    "usockets": "c6da4a4d3010e5553438c60f6bd76d981976867c",
+    "lshpack": "cf0f70dd10b352194c97448eb5d00b4aa484f531",
+    "zstd": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "v8": "14.6.202.34-node.20",
+    "uv": "1.48.0",
+    "napi": "10",
+    "icu": "78.1",
+    "unicode": "17.0",
+    "sqlite": "3.54.0",
+    "typescript": "7.0.2",
+    "modules": "147"
+  },
+  "machine": {
+    "cpu": "Apple M4 Pro",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "sessionMs": 364.107708,
+  "methodology": "3 warmup batches; 9 rotating-order rounds; median ms per public call; preparation/parsing/loading excluded; first-use compilation reported separately; exact value AND class verified for every result outside timing; same copied production core and RiX in all paths; guards and snapshots included for marked and Fold; handwritten JS is unguarded.",
+  "stats": {
+    "calls": 629,
+    "compiles": 2,
+    "cacheHits": 627,
+    "evictions": 0,
+    "compiledCalls": 629,
+    "rejections": 0,
+    "compileMs": 0.5120839999999589
+  },
+  "foldStats": {
+    "compileMs": 0.11745800000005602,
+    "compiles": 2,
+    "cacheHits": 627,
+    "evictions": 0,
+    "compiledFolds": 629,
+    "interpretedFolds": 0,
+    "polynomialBatches": 0,
+    "momentCalls": 0,
+    "reasons": {}
+  },
+  "results": [
+    {
+      "registryVariantCounts": {
+        "ADD": 10,
+        "SUB": 10,
+        "MUL": 10,
+        "DIV": 10,
+        "LTE": 2,
+        "CALL_METHOD": 0
+      },
+      "name": "Horner, 20 Rational coefficients",
+      "dimensions": {
+        "coefficients": 20,
+        "point": "7/5"
+      },
+      "repetitions": 20,
+      "sources": [
+        "HornerPlain(cs,point);",
+        "HornerFast(cs,point);",
+        "HornerFold(cs,point);"
+      ],
+      "firstUse": {
+        "interpreted": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 1.82325000000003,
+          "compilerMs": 0
+        },
+        "marked exact-core": {
+          "newMarkedBuilds": 1,
+          "markedCacheHits": 0,
+          "totalMs": 1.0134580000000142,
+          "compilerMs": 0.3990419999999517
+        },
+        "Fold": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.5722499999999968,
+          "compilerMs": 0.09033300000004374
+        },
+        "handwritten core JS": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.01650000000000773,
+          "compilerMs": 0
+        }
+      },
+      "samplesMs": {
+        "interpreted": [
+          0.11990000000000123,
+          0.13669165000000022,
+          0.1050167000000016,
+          0.10579170000000034,
+          0.09463545000000124,
+          0.11080414999999846,
+          0.077800000000002,
+          0.11100210000000174,
+          0.07342079999999954
+        ],
+        "marked exact-core": [
+          0.04954579999999851,
+          0.045308350000001954,
+          0.048799999999999955,
+          0.05273124999999936,
+          0.07672709999999938,
+          0.04163750000000164,
+          0.043308350000000925,
+          0.04825000000000159,
+          0.04494374999999877
+        ],
+        "Fold": [
+          0.03476670000000013,
+          0.031629200000000426,
+          0.038170800000000324,
+          0.0365958500000005,
+          0.034127050000000735,
+          0.031716650000001324,
+          0.029529199999998923,
+          0.03545420000000092,
+          0.056622899999999275
+        ],
+        "handwritten core JS": [
+          0.007365420000000427,
+          0.007704580000000192,
+          0.008879590000000236,
+          0.011987920000000258,
+          0.007151670000000081,
+          0.007995000000000231,
+          0.0072524999999995995,
+          0.0074429200000003,
+          0.007198329999999942
+        ]
+      },
+      "medianMs": {
+        "interpreted": 0.10579170000000034,
+        "marked exact-core": 0.04825000000000159,
+        "Fold": 0.03476670000000013,
+        "handwritten core JS": 0.0074429200000003
+      },
+      "speedup": 2.1925740932641835,
+      "markedOverFold": 1.3878222552040145,
+      "expectedDigest": "6144b6166ad7917ab54992705f2ea0c3f1b7e770f875b5c7774ba7c4038c2f19"
+    },
+    {
+      "registryVariantCounts": {
+        "ADD": 10,
+        "SUB": 10,
+        "MUL": 10,
+        "DIV": 10,
+        "LTE": 2,
+        "CALL_METHOD": 0
+      },
+      "name": "Sum, 512 Integers",
+      "dimensions": {
+        "elements": 512
+      },
+      "repetitions": 4,
+      "sources": [
+        "SumPlain(values);",
+        "SumFast(values);",
+        "SumFold(values);"
+      ],
+      "firstUse": {
+        "interpreted": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 1.4974170000000413,
+          "compilerMs": 0
+        },
+        "marked exact-core": {
+          "newMarkedBuilds": 1,
+          "markedCacheHits": 0,
+          "totalMs": 0.4392080000000078,
+          "compilerMs": 0.11304200000000719
+        },
+        "Fold": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.22195799999997234,
+          "compilerMs": 0.027125000000012278
+        },
+        "handwritten core JS": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.009749999999996817,
+          "compilerMs": 0
+        }
+      },
+      "samplesMs": {
+        "interpreted": [
+          1.4588957499999964,
+          1.3056562499999984,
+          1.3750624999999985,
+          1.2237917499999895,
+          1.2780522500000018,
+          1.1137085000000013,
+          1.145583500000015,
+          1.1234375000000227,
+          1.1205730000000074
+        ],
+        "marked exact-core": [
+          0.3162082499999883,
+          0.23173950000000332,
+          0.20132300000000214,
+          0.17837500000000261,
+          0.17754175000000316,
+          0.29340624999998965,
+          0.1661352499999964,
+          0.26277099999998654,
+          0.1799895000000049
+        ],
+        "Fold": [
+          0.10962499999999409,
+          0.0840519999999998,
+          0.09338550000001078,
+          0.09447900000000686,
+          0.09079174999999395,
+          0.08737500000000864,
+          0.0897917500000176,
+          0.08873950000000264,
+          0.07779175000001715
+        ],
+        "handwritten core JS": [
+          0.0037566600000002383,
+          0.0035108299999996005,
+          0.003526249999999891,
+          0.0035612500000002,
+          0.004074579999999628,
+          0.0032816700000000763,
+          0.004130000000000109,
+          0.003547079999999596,
+          0.003512920000000577
+        ]
+      },
+      "medianMs": {
+        "interpreted": 1.2237917499999895,
+        "marked exact-core": 0.20132300000000214,
+        "Fold": 0.0897917500000176,
+        "handwritten core JS": 0.003547079999999596
+      },
+      "speedup": 6.078747833084032,
+      "markedOverFold": 2.242110216138595,
+      "expectedDigest": "52a4aa0d4db5e38742035aca07da86d16cc0524cc1c784d88ef6293dab3bb78e"
+    },
+    {
+      "registryVariantCounts": {
+        "ADD": 10,
+        "SUB": 10,
+        "MUL": 10,
+        "DIV": 10,
+        "LTE": 2,
+        "CALL_METHOD": 0
+      },
+      "name": "Horner, 96 Rational coefficients",
+      "dimensions": {
+        "coefficients": 96,
+        "point": "1009/1013"
+      },
+      "repetitions": 4,
+      "sources": [
+        "HornerPlain(longcs,longpoint);",
+        "HornerFast(longcs,longpoint);",
+        "HornerFold(longcs,longpoint);"
+      ],
+      "firstUse": {
+        "interpreted": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 2.1705420000000686,
+          "compilerMs": 0
+        },
+        "marked exact-core": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 1,
+          "totalMs": 1.175292000000013,
+          "compilerMs": 0
+        },
+        "Fold": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 1.1874159999999847,
+          "compilerMs": 0
+        },
+        "handwritten core JS": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.9866250000000036,
+          "compilerMs": 0
+        }
+      },
+      "samplesMs": {
+        "interpreted": [
+          2.067271000000005,
+          1.9972397500000056,
+          2.0403332500000033,
+          2.0707289999999716,
+          1.9641354999999976,
+          1.9755207500000438,
+          1.924427000000037,
+          1.8714894999999956,
+          1.8664269999999874
+        ],
+        "marked exact-core": [
+          1.3058749999999861,
+          1.3000729999999976,
+          1.2322082499999851,
+          1.2082915000000298,
+          1.2539687500000127,
+          1.261427249999997,
+          1.1876249999999686,
+          1.2389269999999897,
+          1.1701874999999973
+        ],
+        "Fold": [
+          1.2179477500000075,
+          1.264197749999994,
+          1.3210210000000302,
+          1.3168855000000121,
+          1.2734167499999671,
+          1.2207707500000424,
+          1.2674165000000244,
+          1.2018959999999765,
+          1.29068749999999
+        ],
+        "handwritten core JS": [
+          1.0489562500000011,
+          1.0388412500000004,
+          1.0365295800000012,
+          1.0472837499999992,
+          1.0478979200000003,
+          1.0268458399999987,
+          1.0131674999999996,
+          1.0173250000000007,
+          1.0335675000000015
+        ]
+      },
+      "medianMs": {
+        "interpreted": 1.9755207500000438,
+        "marked exact-core": 1.2389269999999897,
+        "Fold": 1.2674165000000244,
+        "handwritten core JS": 1.0365295800000012
+      },
+      "speedup": 1.594541688089823,
+      "markedOverFold": 0.9775215960972308,
+      "expectedDigest": "d3b34e613200342ff9afb94286fe292e092e9f27494c89e578e4c5833a2adfe4"
+    },
+    {
+      "registryVariantCounts": {
+        "ADD": 12,
+        "SUB": 12,
+        "MUL": 12,
+        "DIV": 13,
+        "LTE": 2,
+        "CALL_METHOD": 0
+      },
+      "name": "Horner, 20 Rationals, poly + stats loaded",
+      "dimensions": {
+        "coefficients": 20,
+        "point": "7/5"
+      },
+      "repetitions": 20,
+      "sources": [
+        "HornerPlain(cs,point);",
+        "HornerFast(cs,point);",
+        "HornerFold(cs,point);"
+      ],
+      "firstUse": {
+        "interpreted": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 1.545875000000251,
+          "compilerMs": 0
+        },
+        "marked exact-core": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 1,
+          "totalMs": 0.1424170000000231,
+          "compilerMs": 0
+        },
+        "Fold": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.11920800000007148,
+          "compilerMs": 0
+        },
+        "handwritten core JS": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.012958000000253378,
+          "compilerMs": 0
+        }
+      },
+      "samplesMs": {
+        "interpreted": [
+          0.946356250000008,
+          0.937979150000001,
+          0.8836999999999989,
+          0.9064833500000077,
+          0.9395749999999907,
+          0.9113749999999982,
+          0.9254395500000101,
+          0.8853249999999889,
+          0.9304375000000163
+        ],
+        "marked exact-core": [
+          0.05108750000001692,
+          0.04355209999998806,
+          0.048927099999991695,
+          0.04441249999999854,
+          0.04505625000001601,
+          0.04755830000001424,
+          0.04261250000001837,
+          0.043585399999983565,
+          0.045768750000002
+        ],
+        "Fold": [
+          0.03141874999998891,
+          0.02910415000001194,
+          0.033245800000008784,
+          0.029602100000010977,
+          0.0344333000000006,
+          0.030685399999993025,
+          0.030237499999998363,
+          0.03221459999999752,
+          0.030114600000001702
+        ],
+        "handwritten core JS": [
+          0.007911669999998594,
+          0.014067500000001018,
+          0.0075341699999989945,
+          0.014084579999998823,
+          0.014138330000000678,
+          0.008377909999999246,
+          0.008196670000002087,
+          0.007095410000001721,
+          0.007280419999997321
+        ]
+      },
+      "medianMs": {
+        "interpreted": 0.9254395500000101,
+        "marked exact-core": 0.04505625000001601,
+        "Fold": 0.030685399999993025,
+        "handwritten core JS": 0.008196670000002087
+      },
+      "speedup": 20.5396487723608,
+      "markedOverFold": 1.4683285862340478,
+      "expectedDigest": "6144b6166ad7917ab54992705f2ea0c3f1b7e770f875b5c7774ba7c4038c2f19"
+    },
+    {
+      "registryVariantCounts": {
+        "ADD": 12,
+        "SUB": 12,
+        "MUL": 12,
+        "DIV": 13,
+        "LTE": 2,
+        "CALL_METHOD": 0
+      },
+      "name": "Sum, 512 Integers, poly + stats loaded",
+      "dimensions": {
+        "elements": 512
+      },
+      "repetitions": 4,
+      "sources": [
+        "SumPlain(values);",
+        "SumFast(values);",
+        "SumFold(values);"
+      ],
+      "firstUse": {
+        "interpreted": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 13.741791999999805,
+          "compilerMs": 0
+        },
+        "marked exact-core": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 1,
+          "totalMs": 0.2554169999998521,
+          "compilerMs": 0
+        },
+        "Fold": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.12016699999958291,
+          "compilerMs": 0
+        },
+        "handwritten core JS": {
+          "newMarkedBuilds": 0,
+          "markedCacheHits": 0,
+          "totalMs": 0.024167000000034022,
+          "compilerMs": 0
+        }
+      },
+      "samplesMs": {
+        "interpreted": [
+          13.467624999999998,
+          13.694843750000018,
+          13.322750000000042,
+          13.425375000000031,
+          13.839177250000034,
+          13.586166750000075,
+          13.585906249999994,
+          13.487062499999979,
+          13.425270749999981
+        ],
+        "marked exact-core": [
+          0.19059374999994816,
+          0.1804375000000391,
+          0.39416674999995394,
+          0.18593749999990905,
+          0.2070209999999406,
+          0.1685104999999112,
+          0.18819799999994302,
+          0.39291674999992665,
+          0.19106249999992997
+        ],
+        "Fold": [
+          0.1012292499999603,
+          0.08085399999993115,
+          0.09557299999994484,
+          0.09185424999998304,
+          0.09038549999991119,
+          0.08634374999996908,
+          0.10339575000000423,
+          0.09602074999997967,
+          0.08892700000001241
+        ],
+        "handwritten core JS": [
+          0.006352080000001478,
+          0.005462499999998727,
+          0.004572909999997137,
+          0.0038183299999991504,
+          0.0039175000000022915,
+          0.004018329999998968,
+          0.004536250000001019,
+          0.004498750000002474,
+          0.004703749999998763
+        ]
+      },
+      "medianMs": {
+        "interpreted": 13.487062499999979,
+        "marked exact-core": 0.19059374999994816,
+        "Fold": 0.09185424999998304,
+        "handwritten core JS": 0.004536250000001019
+      },
+      "speedup": 70.76340383671368,
+      "markedOverFold": 2.074958425984463,
+      "expectedDigest": "52a4aa0d4db5e38742035aca07da86d16cc0524cc1c784d88ef6293dab3bb78e"
+    }
+  ]
+}

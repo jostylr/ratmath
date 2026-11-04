@@ -1,0 +1,115 @@
+{
+  "timestamp": "2026-10-17T19:37:17.660Z",
+  "note": "Diagnostic counts only, separate from benchmark timings. Counts include nested preparation work; four-element sum.",
+  "added": {
+    "ADD": [
+      {
+        "name": "PolynomialAdd",
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Polynomial"
+      },
+      {
+        "name": "CertifiedRealOracleAdd",
+        "priority": 100,
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Oracle"
+      }
+    ],
+    "SUB": [
+      {
+        "name": "PolynomialSub",
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Polynomial"
+      },
+      {
+        "name": "CertifiedRealOracleSub",
+        "priority": 100,
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Oracle"
+      }
+    ],
+    "MUL": [
+      {
+        "name": "PolynomialMul",
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Polynomial"
+      },
+      {
+        "name": "CertifiedRealOracleMul",
+        "priority": 100,
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Oracle"
+      }
+    ],
+    "DIV": [
+      {
+        "name": "PolynomialScalarDiv",
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Polynomial"
+      },
+      {
+        "name": "PolynomialDivNeedsRatfun",
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Polynomial"
+      },
+      {
+        "name": "CertifiedRealOracleDiv",
+        "priority": 100,
+        "prep": "function",
+        "prepare": "undefined",
+        "installedByType": "Oracle"
+      }
+    ]
+  },
+  "clean": {
+    "value": "10",
+    "candidateProbes": {
+      "LTE:Units_LTE": 5,
+      "LTE:NativeFallback": 5,
+      "ADD:RatRat": 8,
+      "ADD:RangeSetCartesianAdd": 8,
+      "ADD:ShapedElementwise": 8,
+      "ADD:MatrixAddition": 8,
+      "ADD:Cayley_ADD": 8,
+      "ADD:Exact_ADD": 8,
+      "ADD:Units_ADD": 8,
+      "ADD:Symbolic_ADD": 8,
+      "ADD:CoreExpression_ADD": 8,
+      "ADD:NativeFallback": 8
+    },
+    "totalProbes": 90
+  },
+  "loaded": {
+    "value": "10",
+    "candidateProbes": {
+      "LTE:Units_LTE": 5,
+      "LTE:NativeFallback": 5,
+      "ADD:RatRat": 8,
+      "ADD:RangeSetCartesianAdd": 8,
+      "ADD:ShapedElementwise": 8,
+      "ADD:MatrixAddition": 8,
+      "ADD:Cayley_ADD": 8,
+      "ADD:Exact_ADD": 8,
+      "ADD:Units_ADD": 8,
+      "ADD:Symbolic_ADD": 8,
+      "ADD:CoreExpression_ADD": 8,
+      "ADD:PolynomialAdd": 8,
+      "ADD:CertifiedRealOracleAdd": 8,
+      "ADD:NativeFallback": 8
+    },
+    "totalProbes": 106
+  },
+  "marked": {
+    "value": "10",
+    "candidateProbes": {},
+    "totalProbes": 0
+  }
+}

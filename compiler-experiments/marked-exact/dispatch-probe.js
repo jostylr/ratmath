@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {createMarkedExactSession} from './engine.js';
+const e=await createMarkedExactSession();
+const body='(xs)->{@ r:=0,i:=1;i<=xs.Len();r:=r+xs.Get(i),i+=1;;r};';
+e.run(`Plain${body}\n## @exact-core\nFast${body}\nxs:=[1,2,3,4];`);
+const before=new Map(['ADD','SUB','MUL','DIV'].map(n=>[n,new Set(e.registry.get(n).variants)]));
+let counts={};const prepare=e.registry._prepareVariant;
+e.registry._prepareVariant=function(variant,args,ctx,evaluate) {
+  const key=`${variant.targetFunction}:${variant.name}`;counts[key]=(counts[key]||0)+1;
+  return prepare.call(this,variant,args,ctx,evaluate);
+};
+const measure=source=>{counts={};const result=e.run(source);return {value:result.toString(),candidateProbes:{...counts},totalProbes:Object.values(counts).reduce((a,b)=>a+b,0)};};
+const clean=measure('Plain(xs);');
+e.run('.Plugin.Load("poly");.Plugin.Load("stats");');
+const added=Object.fromEntries([...before].map(([name,old])=>[name,e.registry.get(name).variants.filter(v=>!old.has(v)).map(v=>({name:v.name,priority:v.priority,prep:typeof v.prep,prepare:typeof v.prepare,installedByType:v.installedByType}))]));
+const loaded=measure('Plain(xs);'),marked=measure('Fast(xs);');
+assert.equal(clean.value,loaded.value);assert.equal(marked.value,loaded.value);assert.ok(loaded.totalProbes>clean.totalProbes);assert.equal(marked.totalProbes,0);
+e.registry._prepareVariant=prepare;
+const report={timestamp:new Date().toISOString(),note:'Diagnostic counts only, separate from benchmark timings. Counts include nested preparation work; four-element sum.',added,clean,loaded,marked};
+await writeFile(new URL(`./results/dispatch-${process.versions.bun?'bun':'node'}.json`,import.meta.url),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({clean:clean.totalProbes,loaded:loaded.totalProbes,marked:marked.totalProbes,added}));
