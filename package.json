@@ -9,6 +9,7 @@
         "test": "bun run test:suite",
         "test:short": "bun ./scripts/run-workspace-tests.js short",
         "test:ten": "bun ./scripts/run-workspace-tests.js ten",
+        "test:tutorials": "bun ./scripts/run-workspace-tests.js tutorials",
         "test:suite": "bun ./scripts/run-workspace-tests.js suite",
         "test:plugin": "bun ./scripts/run-workspace-tests.js plugin",
         "prep": "bun ./scripts/workspace-prep.js",

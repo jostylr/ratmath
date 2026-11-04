@@ -1,9 +1,9 @@
 # RatMath / RiX Language Guide
 
-This guide specifies the language used in `ratmath`'s calculator environment (`calc` / `webcalc`) and the proposed `RiX` language. It groups features by category, prioritizing agreed-upon syntax, followed by divergent syntax and conflicts.
+This guide compares the language used in `ratmath`'s legacy calculator environment (`calc` / `webcalc`) with the `RiX` language. RiX is implemented (parser, evaluator, Web, Notebook); its own references are `rix/documentation/introduction.md`, `rix/documentation/eval/syntax-guide.md` and `rix/documentation/language-at-a-glance.qmd`, which take precedence over this summary. Last checked against RiX on 2026-11-04. It groups features by category, prioritizing agreed-upon syntax, followed by divergent syntax and conflicts.
 
 > [!NOTE]
-> **RiX** refers to the new parser/language specification found in `rix/`.
+> **RiX** refers to the language implemented in `rix/`.
 > **Calc** refers to the current implementation in `apps/calc` and `apps/webcalc`.
 
 ---
@@ -65,14 +65,14 @@ block comment with a tag.
     - `Func = args -> body` (e.g., `F = (x) -> x^2`).
     - `Func(args) -> body` (definition syntax, e.g., `F(x) -> x^2`).
 - **RiX**:
-    - `:=` for assignment (e.g., `x := 3`).
-    - `f(x) := x^2` or `f := (x) -> x^2`.
-    - `:<` / `:>` for assertions.
-    - `?=` for boolean checks (equality test).
+    - `x := 3` makes a fresh cell holding a shallow copy; `x = y` aliases/rebinds (both names share one cell); `x ~= y` replaces the value in the existing cell; `x ::= y` / `x ~~= y` are the deep-copy forms.
+    - Functions are uppercase: `F(x) -> x^2` or `F := (x) -> x^2`. A lowercase `f(x)` is implicit multiplication `f * x`.
+    - `==` is value equality (structural for arrays, tuples, sets, maps), `===` is cell identity; comparisons chain (`a < b <= c`).
+    - `?=` is only a parameter default (`(x, n ?= 2) -> ...`); `expr ##@ == value` is a checked assertion.
 
 > [!IMPORTANT]
-> **Conflict**: `calc` uses `=` for assignment. `RiX` proposes `:=` to distinguish from equality checks (`=` or `==`).
-> **RiX Proposal**: `x := 3` or `x = 3` (Assignment), `x == 3` (Equality Check). `RiX` also supports combo operators `+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`.
+> **Conflict**: `calc` uses `=` for assignment. In RiX `=` is aliasing, so use `:=` for ordinary assignment.
+> RiX also supports combo operators `+=`, `-=`, `*=`, `/=`, `//=`, `%=`, `^=`.
 > To explicitly assign to or retrieve from a variable *outside the innermost scope*, use the `@` prefix: `@x += 1` or `y = @x`. This prevents local scope shadowing within lambdas.
 > **Current Calc**: `x = 3` (Assignment), `EQ(x, 3)` (Equality).
 
@@ -84,7 +84,7 @@ block comment with a tag.
 - **Integers**: `123`, `-5`.
 - **Decimals**: `3.14`, `0.5`.
 - **Rationals**: `1/2`, `3/4`.
-- **Scientific Notation**: `1.2e-5`.
+- **Scientific Notation**: Calc accepts `1.2e-5`. RiX has no `e` notation (`1e3` is `1 * e3`); write `1.2_^-5` or `1.2 * 10^-5`.
 
 ### Divergences
 - **Mixed Numbers**:
@@ -100,7 +100,7 @@ block comment with a tag.
     - **Calc**:
         - Input: `0b101` (bin), `0xFA` (hex), `0o7` (oct).
         - Custom: `101[2]`.
-    - **RiX**: `101[2]` supported. `0x...` likely supported by tokenizer.
+    - **RiX**: Prefixes `0b101`, `0xFA` and other configured base prefixes; see the number-notation tutorial for generalized bases.
 
 ---
 
@@ -111,7 +111,7 @@ block comment with a tag.
 
 ### Divergences
 - **Matrices**:
-    - **RiX**: `[[1, 2; 3, 4]]`.
+    - **RiX**: Shaped literals `{:2x2: 1, 2; 3, 4 }`, converted to Matrix semantics with `~!: :Matrix`.
     - **Calc**: Not natively verified in `stdlib`, usually lists of lists.
 - **Maps**:
     - **RiX**: `{= a=3, b=6 }`.
@@ -160,10 +160,8 @@ RiX supports spread syntax (`...`) for gathering and expanding values.
 Inside a function body, bare `$` refers to the currently executing callable.
 
 ```rix
-CountDown := n -> n > 0 ?? $(n - 1) ?: 0
-Fact := (n, acc ?| 1) -> n > 1 ?? $(n - 1, acc * n) ?: acc
-Named := x -> $.label
-Named.label = 42
+CountDown(n) -> n > 0 ?: $(n - 1) ?_ 0;
+Fact(n, acc ?= 1) -> n > 1 ?: $(n - 1, acc * n) ?_ acc;
 ```
 
 - `$(args...)` self-calls the current callable object.
@@ -175,18 +173,18 @@ Named.label = 42
 RiX only optimizes direct tail self calls of the form `$(...)`.
 
 ```rix
-Good := n -> n > 0 ?? $(n - 1) ?: 0
-GoodFact := (n, acc ?| 1) -> n > 1 ?? $(n - 1, acc * n) ?: acc
-BadFact := n -> n > 1 ?? n * $(n - 1) ?: 1
+Good(n) -> n > 0 ?: $(n - 1) ?_ 0;
+GoodFact(n, acc ?= 1) -> n > 1 ?: $(n - 1, acc * n) ?_ acc;
+BadFact(n) -> n > 1 ?: n * $(n - 1) ?_ 1;
 ```
 
 - `Good` and `GoodFact` are optimized because the self call result is returned directly.
 - `BadFact` is not optimized because work remains after the self call returns.
-- RiX does not do general tail-call optimization or mutual tail recursion.
+- RiX does not do general tail-call optimization or mutual tail recursion. Deep non-tail recursion stops with a "Recursion too deep in NAME" error that suggests the `$(...)` form.
 
 ### Divergences
 - **Pattern Matching**:
-    - **RiX**: `abs :=> [(x ? x >= 0) -> x, (x ? x < 0) -> -x]`.
+    - **RiX**: Multifunctions with prep gates: `Abs(x) ?- [x >= 0] -> x; Abs(x) -> -x;`.
     - **Calc**: Uses `IF` inside body: `Abs(x) -> IF(x >= 0, x, -x)`.
 - **Pipe Operator**:
     - **RiX**: `|>` supported.
@@ -206,9 +204,10 @@ BadFact := n -> n > 1 ?? n * $(n - 1) ?: 1
     - `SUM`, `PROD` (Iterative).
     - `MAP`, `FILTER`, `REDUCE` (Functional iteration).
 - **RiX**:
-    - `cond ?? true ?: false`.
-    - `(cond ? val)` (Pattern matching guard).
-    - Loops: `Do(x)` mentioned in scratchpad.
+    - Ternary: `cond ?: whenTrue ?_ whenFalse` (`??` handles an undecided `?`).
+    - Cases: `{? cond1 ? value1; cond2 ? value2; fallback }`.
+    - Loops: `{@ init; condition; body; update }` (`{@::@ ...; result }` shares scope and returns a result).
+    - Early returns in functions: `check ?_> diagnostic`, `check ??> diagnostic`.
 
 ---
 
@@ -282,8 +281,9 @@ The `calc` environment provides these via `stdlib` and `algebra` packages.
 - **Regex Literals**: First-class support with `{/pattern/flags?mode}` syntax. Supported modes include `ONE`, `TEST` (`?`), `ALL` (`*`), and `ITER` (`:`)
 - **REPL Dot-Commands**: Advanced tooling with `.vars`, `.fns`, `.load[pkg]`, `.Print(args)`, and robust Ctrl-C handling.
 
-## 9. Future Features
+## 9. Implemented Since This Guide Was First Written
 
-- **Units**: First-class support (`~[m]`).
-- **Complex Numbers**: `~{i}` syntax.
-- **Pattern Matching**: Function dispatch based on conditions.
+- **Units**: `120~[m]`, `.ConvertUnit(...)`.
+- **Exact generators and complex numbers**: `1 + 2~{i}`, `.Complex.Cayley(...)`.
+- **Multifunction dispatch**: ordered variants with `?-` / `?!-` prep gates.
+- **Number theory**: `.Gcd`, `.Lcm`, `.Isqrt`, `.IsPrime`.

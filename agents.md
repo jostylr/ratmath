@@ -32,9 +32,11 @@ use current working directory/tmp to store any temporary files. Do not use syste
 |-------|-----------|--------|
 | 1 | Parser & Tokenizer | ✅ Complete |
 | 2 | AST → IR Lowering | ✅ Complete |
-| 3 | IR Evaluator | 🔧 In progress |
+| 3 | IR Evaluator | ✅ Implemented; ongoing refinement |
+| 4 | Web, Notebook, plugins, documentation | ✅ Implemented; ongoing |
 
-**Phase 3 work targets:** `rix/src/eval/evaluator.js` and `rix/src/eval/registry.js`
+Evaluator/runtime work lives mainly in `rix/src/eval/evaluator.js`,
+`rix/src/eval/functions/`, and `rix/src/runtime/`.
 
 ### RiX Key Conventions
 
@@ -157,6 +159,9 @@ bun run test:ten
 bun test
 # or: bun run test:suite
 
+# Tutorials check themselves, plus executed RiX documentation examples
+bun run test:tutorials
+
 # Focus one RiX plugin and its implemented tutorial
 bun run test:plugin plot
 
@@ -173,19 +178,31 @@ All changes to `rix/` must keep existing tests green. Add tests for new function
 See `lang.md` for full Calc vs RiX syntax comparison. Key RiX syntax:
 
 ```rix
-x = 3                        # assignment
-f = x -> x^2 + 1              # function definition
-y := 1..3/4                   # mixed number
-z := 2:5                      # interval
-x > 0 ?? x ?: -x              # ternary
-[1 |+ 2 |^ 10]                # array generator
-{= a=3}                        # map
+x := 3;                       ## assignment (fresh cell); `x = y` aliases a cell
+F(x) -> x^2 + 1;              ## function definition (callables are Uppercase)
+F := (x) -> x^2 + 1;          ## the same, as a lambda value
+y := 1..3/4;                  ## mixed number 7/4
+z := 2:5;                     ## interval
+x > 0 ?: x ?_ -x;             ## ternary (?? handles undecided ?)
+[1 |+ 2 |^ 10];               ## array generator
+{= a=3 };                     ## map
+x ##@ == 3;                   ## checked assertion; `##` starts a comment
 ```
+
+Lowercase `f(2)` is implicit multiplication, not a call. RiX has no `e`
+notation: write `1.2_^-5`. `==` is structural value equality and comparisons
+chain (`0 < x <= 1`).
 
 Brace sigil is a common design for enclosing stuff. Code blocks use {; } and { }, loops are {@ }, {? } are conditionals, {= } are maps, {| } are sets, {: } are tuples. Spaces after the sigils are required unless a bracketed name which requires a space after. Currently arrays are just [].
 
-See `rix/parser/design/` for complete language specification.
+See `rix/documentation/eval/syntax-guide.md` for the syntax reference and
+`rix/documentation/design/` for design specifications.
 
-See `rix/introduction.md` for a user-facing language introduction (moved from the top-level `introduction.md`).
+See `rix/documentation/introduction.md` for a user-facing language introduction
+and `rix/documentation/language-at-a-glance.qmd` for a short executed tour.
 
-See `rix/rix-rationales.md` for design rationale log explaining past language decisions (moved from the top-level `rix-rationales.md`).
+See `rix/documentation/rix-rationales.md` for the design rationale log.
+
+Tutorials in `rix-web/tutorials/` check themselves: `bun run test:tutorials`
+runs every section and challenge starter; stated results are guarded with
+`##@ == value` or an invisible `<!-- rix-expect: text -->` line after a cell.

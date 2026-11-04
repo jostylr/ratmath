@@ -17,7 +17,13 @@ const profiles = {
         ["Legacy RatMath packages and apps", ".", ["test", "--dots", "./apps", "./packages"]],
         ["RiX medium tests", "rix", ["run", "test:ten"]],
         ["RiX-Web focused tests", "rix-web", ["run", "test:short"]],
+        ["RiX-Web tutorials check themselves", "rix-web", ["run", "test:tutorials"]],
+        ["RiX documentation examples", "rix", ["run", "docs:examples"]],
         ["RiX-NB focused tests", "rix-nb", ["run", "test:short"]],
+    ],
+    tutorials: [
+        ["RiX-Web tutorials check themselves", "rix-web", ["run", "test:tutorials"]],
+        ["RiX documentation examples", "rix", ["run", "docs:examples"]],
     ],
     suite: [
         ["Legacy RatMath packages and apps", ".", ["test", "--dots", "./apps", "./packages"]],
@@ -56,7 +62,7 @@ if (profile === "plugin") {
 
 const tasks = profiles[profile];
 if (!tasks) {
-    console.error("Usage: bun scripts/run-workspace-tests.js <short|ten|suite|plugin>");
+    console.error("Usage: bun scripts/run-workspace-tests.js <short|ten|tutorials|suite|plugin>");
     process.exit(2);
 }
 
