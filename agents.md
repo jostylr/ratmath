@@ -68,7 +68,8 @@ These support the **old calc/webcalc system** (VariableManager-based). Do **not*
 
 ### Writing Packages for the Old Calc System
 
-If you must add functionality to the old `calc`/`webcalc` apps, packages use `ratmath-module.js` with this shape:
+The calculators no longer use this system (RatCalc 2 is JavaScript plus Core's
+`R` tag). The `ratmath-module.js` shape below remains for the legacy packages:
 
 ```javascript
 // packages/mypkg/src/ratmath-module.js
@@ -93,8 +94,8 @@ Register in `packages/algebra/src/package-registry.js` and help in `packages/alg
 
 | App | Description | Backend |
 |-----|-------------|---------|
-| `apps/calc/` | CLI calculator | Old VariableManager |
-| `apps/webcalc/` | Web calculator | Old VariableManager |
+| `apps/calc/` | RatCalc CLI: a JavaScript REPL with Core and the `R` tag in scope (`src/session.js` is shared) | Core |
+| `apps/webcalc/` | RatCalc web page over the same session, plus Stern-Brocot and showcase pages | Core (+ legacy parser for showcase pages) |
 | `apps/forge/` | Document/worksheet environment | Mixed |
 | `apps/cel/` | Spreadsheet-like env | — |
 

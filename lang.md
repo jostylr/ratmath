@@ -4,7 +4,7 @@ This guide compares the language used in `ratmath`'s legacy calculator environme
 
 > [!NOTE]
 > **RiX** refers to the language implemented in `rix/`.
-> **Calc** refers to the current implementation in `apps/calc` and `apps/webcalc`.
+> **Calc** refers to the legacy calculator language (`@ratmath/algebra` / `@ratmath/parser`). Since RatCalc 2, `apps/calc` and `apps/webcalc` evaluate JavaScript with Core's `R` tag instead; this comparison is kept for the legacy packages.
 
 ---
 
